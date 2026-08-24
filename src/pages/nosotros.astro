@@ -1,11 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import fs from 'fs';
+import path from 'path';
 
 const rawJunta = await getCollection('juntaDirectiva');
 const team = rawJunta
   .map((item) => item.data)
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+
+let galleryImages: string[] = [];
+try {
+  const dirPath = path.join(process.cwd(), 'public', 'images', 'galeria');
+  if (fs.existsSync(dirPath)) {
+    const files = fs.readdirSync(dirPath);
+    galleryImages = files
+      .filter(file => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(file))
+      .map(file => `/comsoc-web/images/galeria/${file}`);
+  }
+} catch (e) {
+  console.error("Error reading gallery", e);
+}
+
+if (galleryImages.length === 0) {
+  galleryImages = [
+    '/comsoc-web/images/hero-banner.jpg',
+    '/comsoc-web/images/event-iot.svg',
+    '/comsoc-web/images/event-optical.svg',
+    '/comsoc-web/images/event-hackathon.svg'
+  ];
+}
 
 const benefits = [
   {
@@ -57,6 +81,49 @@ const benefits = [
       <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg font-light leading-relaxed">
         El Capítulo Estudiantil IEEE ComSoc es el espacio universitario donde convergen la ciencia, la investigación y la pasión por las redes y telecomunicaciones.
       </p>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+    <div class="relative rounded-3xl overflow-hidden glass-card border border-white/10 group aspect-[21/9]">
+      <div class="w-full h-full relative" id="gallery-container">
+        {galleryImages.map((img, idx) => (
+          <div 
+            class={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} gallery-slide`}
+          >
+            <img src={img} alt={`Imagen de galería ${idx + 1}`} class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-black/40"></div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button 
+        id="gallery-prev" 
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-white flex items-center justify-center hover:bg-white/10 hover:border-cyan-500/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
+        aria-label="Anterior"
+      >
+        ←
+      </button>
+      <button 
+        id="gallery-next" 
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-white flex items-center justify-center hover:bg-white/10 hover:border-cyan-500/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
+        aria-label="Siguiente"
+      >
+        →
+      </button>
+
+      <!-- Dots Indicators -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {galleryImages.map((_, idx) => (
+          <button 
+            class={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-cyan-400 scale-125' : 'bg-white/40'}`} 
+            data-index={idx}
+            aria-label={`Ver diapositiva ${idx + 1}`}
+          />
+        ))}
+      </div>
     </div>
   </section>
 

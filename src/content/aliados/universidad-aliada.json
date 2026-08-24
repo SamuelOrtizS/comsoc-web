@@ -1,0 +1,9 @@
+{
+  "order": 2,
+  "nombre": "Universidad Aliada S.A.",
+  "tipo": "Institución Académica",
+  "descripcion": "Universidad con la que el capítulo mantiene convenio de colaboración académica e investigación conjunta en telecomunicaciones.",
+  "acerca": "Institución académica de referencia que alberga el capítulo estudiantil y brinda espacios de laboratorio, apoyo logístico y coordinación para el desarrollo de proyectos de investigación aplicada en redes y comunicaciones.",
+  "website": "https://universidad.edu.pe",
+  "email": "convenios@universidad.edu.pe"
+}

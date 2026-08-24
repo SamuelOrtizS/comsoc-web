@@ -27,6 +27,9 @@ const featuredProjects = projectPool.slice(0, 2).map((p) => ({
   tags: p.data.tags ?? [],
 }));
 
+const allAliados = await getCollection('aliados');
+const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
 const pillars = [
   {
     title: '5G / 6G & Redes Móviles',
@@ -217,6 +220,170 @@ const pillars = [
       ))}
     </div>
   </section>
+
+  <!-- Nuestros Aliados -->
+  {aliados.length > 0 && (
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="text-xs uppercase font-mono tracking-widest text-[#22d3ee] mb-2 font-semibold">
+          Red de Colaboración
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Nuestros Aliados
+        </h2>
+        <p class="text-gray-400 text-sm font-light">
+          Instituciones, empresas y organizaciones que nos acompañan en la misión de impulsar la ingeniería y las telecomunicaciones.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {aliados.map((aliado) => (
+          <button
+            type="button"
+            class="aliado-card glass-card rounded-2xl p-6 border border-white/10 text-left group cursor-pointer hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 w-full flex flex-col gap-4"
+            data-aliado={JSON.stringify(aliado.data)}
+            aria-label={`Conocer más sobre ${aliado.data.nombre}`}
+          >
+            <div class="flex items-center gap-4">
+              {aliado.data.logo
+                ? <img src={aliado.data.logo} alt={aliado.data.nombre} class="h-10 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition" />
+                : <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl">🤝</div>
+              }
+              <div>
+                <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider">{aliado.data.tipo}</span>
+                <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition">{aliado.data.nombre}</h3>
+              </div>
+            </div>
+            <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3 flex-grow">{aliado.data.descripcion}</p>
+            <div class="text-[10px] font-mono text-gray-500 border border-white/10 px-3 py-1 rounded-full self-start group-hover:border-cyan-500/40 group-hover:text-cyan-400 transition">
+              Conocer más →
+            </div>
+          </button>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Aliados Modal -->
+  <div
+    id="aliado-modal-overlay"
+    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-aliado-name"
+  >
+    <div id="aliado-modal" class="relative bg-[#0a0f2d] border border-white/15 rounded-3xl shadow-2xl shadow-blue-900/40 w-full max-w-md p-8 flex flex-col gap-5 translate-y-4 transition-all duration-300">
+      <button
+        id="aliado-modal-close"
+        type="button"
+        class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition"
+        aria-label="Cerrar"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="flex items-center gap-4">
+        <div id="aliado-modal-logo" class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl overflow-hidden flex-shrink-0"></div>
+        <div>
+          <div id="aliado-modal-tipo" class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider mb-0.5"></div>
+          <h2 id="modal-aliado-name" class="text-lg font-extrabold text-white"></h2>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10"></div>
+
+      <div id="aliado-modal-desc" class="text-sm text-gray-300 font-light leading-relaxed"></div>
+      <div id="aliado-modal-acerca" class="text-xs text-gray-400 font-light leading-relaxed hidden"></div>
+
+      <div id="aliado-modal-contact" class="flex flex-col gap-2"></div>
+      <div id="aliado-modal-links" class="flex flex-wrap gap-2 hidden"></div>
+    </div>
+  </div>
+
+  <script>
+    type AliadoData = {
+      nombre: string;
+      tipo: string;
+      logo?: string;
+      descripcion: string;
+      acerca?: string;
+      website?: string;
+      email?: string;
+      phone?: string;
+      linkedin?: string;
+      instagram?: string;
+    };
+
+    const aliadoOverlay = document.getElementById('aliado-modal-overlay') as HTMLElement;
+    const aliadoModal   = document.getElementById('aliado-modal') as HTMLElement;
+    const aliadoClose   = document.getElementById('aliado-modal-close') as HTMLButtonElement;
+
+    function openAliadoModal(a: AliadoData) {
+      const logoWrap = document.getElementById('aliado-modal-logo') as HTMLElement;
+      logoWrap.innerHTML = a.logo
+        ? `<img src="${a.logo}" alt="${a.nombre}" class="w-full h-full object-contain brightness-0 invert" />`
+        : '🤝';
+
+      (document.getElementById('aliado-modal-tipo') as HTMLElement).textContent = a.tipo;
+      (document.getElementById('modal-aliado-name') as HTMLElement).textContent = a.nombre;
+      (document.getElementById('aliado-modal-desc') as HTMLElement).textContent = a.descripcion;
+
+      const acercaEl = document.getElementById('aliado-modal-acerca') as HTMLElement;
+      if (a.acerca) {
+        acercaEl.textContent = a.acerca;
+        acercaEl.classList.remove('hidden');
+      } else {
+        acercaEl.classList.add('hidden');
+      }
+
+      const contactEl = document.getElementById('aliado-modal-contact') as HTMLElement;
+      contactEl.innerHTML = '';
+      if (a.email) {
+        contactEl.insertAdjacentHTML('beforeend', `<a href="mailto:${a.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-300 hover:border-cyan-500/40 transition text-xs font-mono"><svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>${a.email}</a>`);
+      }
+      if (a.phone) {
+        contactEl.insertAdjacentHTML('beforeend', `<a href="tel:${a.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-300 hover:border-cyan-500/40 transition text-xs font-mono"><svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>${a.phone}</a>`);
+      }
+
+      const linksEl = document.getElementById('aliado-modal-links') as HTMLElement;
+      linksEl.innerHTML = '';
+      const socials: { key: keyof AliadoData; label: string; color: string }[] = [
+        { key: 'website',   label: 'Sitio Web',  color: 'bg-emerald-600/20 text-emerald-300 border-emerald-500/30 hover:bg-emerald-600/40' },
+        { key: 'linkedin',  label: 'LinkedIn',   color: 'bg-blue-600/20 text-blue-300 border-blue-500/30 hover:bg-blue-600/40' },
+        { key: 'instagram', label: 'Instagram',  color: 'bg-pink-600/20 text-pink-300 border-pink-500/30 hover:bg-pink-600/40' },
+      ];
+      socials.forEach(({ key, label, color }) => {
+        const url = a[key] as string | undefined;
+        if (url) linksEl.insertAdjacentHTML('beforeend', `<a href="${url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition ${color}">${label} ↗</a>`);
+      });
+      if (linksEl.innerHTML) linksEl.classList.remove('hidden');
+      else linksEl.classList.add('hidden');
+
+      aliadoOverlay.classList.remove('opacity-0', 'pointer-events-none');
+      aliadoOverlay.classList.add('opacity-100', 'pointer-events-auto');
+      aliadoModal.classList.remove('translate-y-4');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAliadoModal() {
+      aliadoOverlay.classList.add('opacity-0', 'pointer-events-none');
+      aliadoOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+      aliadoModal.classList.add('translate-y-4');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll<HTMLButtonElement>('.aliado-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const raw = card.getAttribute('data-aliado');
+        if (raw) openAliadoModal(JSON.parse(raw) as AliadoData);
+      });
+    });
+    aliadoClose.addEventListener('click', closeAliadoModal);
+    aliadoOverlay.addEventListener('click', (e) => { if (e.target === aliadoOverlay) closeAliadoModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAliadoModal(); });
+  </script>
 
   <!-- Join CTA Banner -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
