@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import paymentMethods from '../content/donaciones.json';
 
 const destinies = [
   {
@@ -25,36 +26,6 @@ const destinies = [
     desc: 'Sostenimiento de infraestructura digital, licencias de software, hosting y materiales de difusión para el correcto funcionamiento administrativo.',
     icon: '⚙️',
     color: 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10'
-  }
-];
-
-const paymentMethods = [
-  {
-    type: 'Transferencia Bancaria',
-    name: 'Banco de la Nación / BCP',
-    details: [
-      { label: 'Cuenta Corriente Soles', value: '191-XXXXXXXX-X-XX' },
-      { label: 'CCI (Código Interbancario)', value: '002-191-XXXXXXXXXXXX-XX' },
-      { label: 'Beneficiario', value: 'IEEE ComSoc Student Chapter' }
-    ]
-  },
-  {
-    type: 'Billetera Digital',
-    name: 'Yape / Plin',
-    details: [
-      { label: 'Número Celular', value: '+51 999 888 777' },
-      { label: 'Contacto', value: 'Tesorero IEEE ComSoc' },
-      { label: 'Nota requerida', value: 'Indicar nombre y/o proyecto' }
-    ]
-  },
-  {
-    type: 'Donación Internacional',
-    name: 'PayPal / Stripe',
-    details: [
-      { label: 'Enlace PayPal', value: 'paypal.me/comsocchapter' },
-      { label: 'Monedas soportadas', value: 'USD, EUR, PEN' },
-      { label: 'Correo', value: 'comsoc@universidad.edu.pe' }
-    ]
   }
 ];
 ---
@@ -138,32 +109,91 @@ const paymentMethods = [
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {paymentMethods.map((method) => (
-          <div class="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between group hover:border-emerald-500/30 transition-all duration-300">
-            <div>
-              <div class="text-xs font-mono text-emerald-400 mb-2 uppercase tracking-wider">{method.type}</div>
-              <h3 class="text-lg font-bold text-white mb-4">{method.name}</h3>
-              <div class="space-y-3">
-                {method.details.map((detail) => (
-                  <div class="flex flex-col border-b border-white/5 pb-2">
-                    <span class="text-[10px] uppercase font-mono text-gray-500">{detail.label}</span>
-                    <span class="text-sm font-semibold text-gray-200 mt-0.5 select-all">{detail.value}</span>
-                  </div>
-                ))}
+        {paymentMethods.map((method, idx) => {
+          const isPayPal = method.name.toLowerCase().includes('paypal');
+          const paypalLink = method.details.find(d => d.value.startsWith('http'))?.value;
+          const copyText = method.details.map(d => `${d.label}: ${d.value}`).join('\n');
+
+          return (
+            <div class="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between group hover:border-[#22d3ee]/40 transition-all duration-300">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-mono text-[#22d3ee] uppercase tracking-wider">{method.type}</span>
+                  {method.badge && (
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-gray-400">
+                      {method.badge}
+                    </span>
+                  )}
+                </div>
+                <h3 class="text-xl font-bold text-white mb-4 font-heading">{method.name}</h3>
+                <div class="space-y-3">
+                  {method.details.map((detail) => (
+                    <div class="flex flex-col border-b border-white/5 pb-2">
+                      <span class="text-[10px] uppercase font-mono text-gray-400">{detail.label}</span>
+                      {detail.value.startsWith('http') ? (
+                        <a
+                          href={detail.value}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-sm font-semibold text-[#22d3ee] hover:underline mt-0.5 break-all inline-flex items-center gap-1"
+                        >
+                          {detail.value} ↗
+                        </a>
+                      ) : (
+                        <span class="text-sm font-semibold text-gray-200 mt-0.5 select-all">{detail.value}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div class="pt-6">
+                {isPayPal && paypalLink ? (
+                  <a
+                    href={paypalLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white hover:opacity-95 shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-1.5"
+                  >
+                    <span>Donar vía PayPal</span>
+                    <span>↗</span>
+                  </a>
+                ) : (
+                  <button 
+                    type="button"
+                    data-copy-text={copyText}
+                    class="copy-btn w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition active:scale-95 flex items-center justify-center gap-1.5"
+                  >
+                    <span>📋 Copiar Datos de Pago</span>
+                  </button>
+                )}
               </div>
             </div>
-            
-            <div class="pt-6">
-              <button 
-                onclick="alert('Esta es una demostración de la interfaz de donaciones. Las cuentas reales de donación serán integradas por el administrador.')"
-                class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition"
-              >
-                Copiar Datos de Pago
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const textToCopy = btn.getAttribute('data-copy-text');
+      if (textToCopy) {
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '<span>✅ ¡Datos Copiados!</span>';
+          btn.classList.add('border-emerald-400', 'text-emerald-400');
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.classList.remove('border-emerald-400', 'text-emerald-400');
+          }, 2000);
+        } catch (err) {
+          console.error('Error al copiar al portapapeles', err);
+        }
+      }
+    });
+  });
+</script>

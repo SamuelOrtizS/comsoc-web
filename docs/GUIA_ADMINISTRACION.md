@@ -200,6 +200,50 @@ Edita el archivo `src/content/estadisticas.json` directamente. Contiene una list
 
 ---
 
+## 8. Métodos de Donación (`src/content/donaciones.json`)
+
+Los métodos de pago (transferencia bancaria a Nu, billetera digital a Nequi / Bre-B e internacional con PayPal) se configuran en el archivo `src/content/donaciones.json`:
+
+```json
+[
+  {
+    "type": "Transferencia Bancaria",
+    "name": "Nu",
+    "badge": "Transferencias & Llaves",
+    "details": [
+      { "label": "Banco / Entidad", "value": "Nu" },
+      { "label": "Tipo de Cuenta", "value": "Cuenta de Ahorros" },
+      { "label": "Número de Cuenta", "value": "XXXXXXXXXXXX" },
+      { "label": "Titular", "value": "IEEE ComSoc Student Chapter" }
+    ]
+  },
+  {
+    "type": "Billetera Digital",
+    "name": "Nequi / Bre-B",
+    "badge": "Pagos Inmediatos",
+    "details": [
+      { "label": "Plataforma", "value": "Nequi / Bre-B" },
+      { "label": "Número Celular / Llave", "value": "+57 300 000 0000" },
+      { "label": "Titular", "value": "Tesorero IEEE ComSoc" },
+      { "label": "Nota requerida", "value": "Indicar nombre y/o proyecto" }
+    ]
+  },
+  {
+    "type": "Donación Internacional",
+    "name": "PayPal",
+    "badge": "Internacional",
+    "details": [
+      { "label": "Plataforma", "value": "PayPal" },
+      { "label": "Enlace PayPal", "value": "https://paypal.me/comsocchapter" },
+      { "label": "Correo PayPal", "value": "donaciones.comsoc@ieee.org" },
+      { "label": "Monedas aceptadas", "value": "USD, EUR y divisas globales" }
+    ]
+  }
+]
+```
+
+---
+
 ## 💡 Recomendaciones para Imágenes
 - Puedes usar imágenes alojadas en internet (Unsplash, Cloudinary, Imgur) mediante URLs directas `https://...`.
 - O puedes colocar archivos de imagen locales en la carpeta `public/images/` y referenciarlas como `/images/mi-foto.png`.
