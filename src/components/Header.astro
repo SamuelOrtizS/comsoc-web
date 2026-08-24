@@ -2,12 +2,12 @@
 import MobileMenu from './MobileMenu.astro';
 
 const navLinks = [
-  { name: 'Inicio', href: '/' },
-  { name: 'Nosotros', href: '/nosotros' },
-  { name: 'Eventos', href: '/eventos' },
-  { name: 'Proyectos', href: '/proyectos' },
-  { name: 'Convocatorias', href: '/convocatorias' },
-  { name: 'Tienda', href: '/tienda' },
+  { name: 'Inicio', href: '/comsoc-web/' },
+  { name: 'Nosotros', href: '/comsoc-web/nosotros' },
+  { name: 'Eventos', href: '/comsoc-web/eventos' },
+  { name: 'Proyectos', href: '/comsoc-web/proyectos' },
+  { name: 'Convocatorias', href: '/comsoc-web/convocatorias' },
+  { name: 'Tienda', href: '/comsoc-web/tienda' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname;
       <!-- CTA Button & Mobile Trigger -->
       <div class="flex items-center gap-4">
         <a
-          href="/convocatorias"
+          href="/comsoc-web/convocatorias"
           class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white hover:opacity-95 shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]"
         >
           Unirse
