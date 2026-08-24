@@ -1,8 +1,11 @@
 {
   "order": 2,
-  "name": "Valeria Mendoza",
-  "role": "Presidenta del Capítulo",
-  "department": "Ingeniería de Telecomunicaciones",
-  "avatar": "👩‍💻",
+  "name": "Samuel Ortiz Sarasti",
+  "role": "Presidente del Capítulo",
+  "department": "Ingeniería Eléctrica",
+  "avatar": "👨‍💻",
+  "bio": "Estudiante apasionado por las telecomunicaciones y las redes de nueva generación. Lidera el capítulo IEEE ComSoc buscando impulsar la formación técnica y la investigación aplicada entre los miembros.",
+  "email": "samuel.ortiz@universidad.edu.pe",
+  "phone": "+51 999 000 111",
   "linkedin": "https://linkedin.com"
 }

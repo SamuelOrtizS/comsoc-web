@@ -55,9 +55,14 @@ const juntaDirectiva = defineCollection({
         department: z.string(),
         avatar: z.string().default('👤'),
         image: z.string().optional(),
-        linkedin: z.string().optional(),
-        github: z.string().optional(),
+        bio: z.string().optional(),
         email: z.string().optional(),
+        phone: z.string().optional(),
+        linkedin: z.string().optional(),
+        instagram: z.string().optional(),
+        facebook: z.string().optional(),
+        github: z.string().optional(),
+        website: z.string().optional(),
     }),
 });
 
