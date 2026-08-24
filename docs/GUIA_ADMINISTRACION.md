@@ -1,0 +1,205 @@
+# 📘 Guía de Administración de Contenidos - IEEE ComSoc Web
+
+Esta guía explica cómo modificar, agregar y gestionar la información del sitio web de **IEEE ComSoc Student Chapter**. Todos los contenidos dinámicos se gestionan a través de archivos **JSON** ubicados en el directorio `src/content/`.
+
+---
+
+## 📁 Estructura del Directorio de Contenidos
+
+```text
+src/content/
+├── aliados/          # Empresas, ramas y patrocinadores
+├── convocatorias/    # Oportunidades de voluntariado y roles
+├── eventos/          # Talleres, simposios y actividades
+├── juntaDirectiva/   # Miembros de la mesa directiva
+├── proyectos/        # Proyectos técnicos y de investigación
+├── tienda/           # Artículos y merchandising
+└── estadisticas.json # Cifras y métricas mostradas en la página de inicio
+```
+
+> **Nota sobre archivos de ejemplo:**  
+> Cada carpeta cuenta con un archivo `ejemplo.json` (o subcarpeta `ejemplo/` en eventos) que sirve como plantilla. El compilador de la página **ignora automáticamente** cualquier archivo nombrado `ejemplo.json` o que comience con `_`.
+
+---
+
+## 1. Convocatorias (`src/content/convocatorias/`)
+
+Para crear una convocatoria, añade un archivo `.json` (ejemplo: `marketing-lead.json`):
+
+```json
+{
+  "titulo": "Coordinador de Comunicaciones",
+  "area": "Marketing y Prensa",
+  "fechaLimite": "2026-10-31",
+  "descripcion": "Lidera la creación de contenido audiovisual y difusión en redes.",
+  "requisitos": [
+    "Manejo de herramientas de diseño (Canva, Figma o Photoshop).",
+    "Buena redacción y comunicación interpersonal."
+  ],
+  "responsabilidades": [
+    "Diseñar afiches para eventos.",
+    "Gestionar publicaciones semanales."
+  ],
+  "estado": "Publicada",
+  "formUrl": "https://forms.gle/ejemploDeFormulario"
+}
+```
+
+- **Campos obligatorios:** `titulo`, `area`, `fechaLimite` (formato `YYYY-MM-DD`), `descripcion`, `requisitos` (lista), `responsabilidades` (lista), `estado` (`"Publicada"` o `"Cerrada"`).
+- **Campos opcionales:** `formUrl` (enlace al formulario de Google/Microsoft).
+
+---
+
+## 2. Eventos (`src/content/eventos/`)
+
+Cada evento se ubica en su propia subcarpeta con el nombre del slug y un archivo `evento.json` (ejemplo: `src/content/eventos/taller-5g/evento.json`):
+
+```json
+{
+  "titulo": "Workshop de Redes Celulares 5G & OpenRAN",
+  "tipo": "Workshop",
+  "organizador": "IEEE ComSoc & Capítulo Técnico",
+  "fechaInicio": "2026-09-20",
+  "fechaFin": "2026-09-21",
+  "horaInicio": "16:00",
+  "horaFin": "19:00",
+  "lugarNombre": "Auditorio Central de Ingeniería",
+  "lugarDireccion": "Av. Universitaria 1801, Pabellón V",
+  "descripcion": "Aprende los fundamentos de la arquitectura de redes 5G de forma práctica.",
+  "imagenPrincipal": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
+  "galeria": [
+    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+  ],
+  "estado": "Publicado"
+}
+```
+
+- **Campos obligatorios:** `titulo`, `tipo`, `organizador`, `fechaInicio`, `horaInicio`, `horaFin`, `lugarNombre`, `descripcion`, `imagenPrincipal`, `estado` (`"Publicado"` o `"Pasado"`).
+- **Campos opcionales:** `fechaFin`, `lugarDireccion`, `galeria` (lista de URLs de imágenes).
+
+---
+
+## 3. Tienda / Merchandising (`src/content/tienda/`)
+
+Crea un archivo `.json` por producto (ejemplo: `taza-comsoc.json`):
+
+```json
+{
+  "name": "Taza Térmica ComSoc",
+  "category": "Accesorios",
+  "price": "S/. 25.00",
+  "description": "Taza de acero inoxidable con logo grabado láser.",
+  "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
+  "available": true
+}
+```
+
+- **Campos:** `name`, `category`, `price`, `description`, `image` (URL de imagen), `available` (`true` o `false`).
+
+---
+
+## 4. Junta Directiva (`src/content/juntaDirectiva/`)
+
+Crea un archivo `.json` por miembro (ejemplo: `presidente.json`):
+
+```json
+{
+  "order": 1,
+  "name": "Juan Pérez",
+  "role": "Presidente del Capítulo",
+  "department": "Junta Directiva",
+  "avatar": "👨‍💼",
+  "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+  "bio": "Estudiante de 9no ciclo con especialización en telecomunicaciones.",
+  "email": "juan.perez@ieee.org",
+  "phone": "+51 987 654 321",
+  "linkedin": "https://linkedin.com/in/juanperez",
+  "instagram": "https://instagram.com/juanperez",
+  "github": "https://github.com/juanperez",
+  "website": "https://juanperez.dev"
+}
+```
+
+- **Campos principales:** `order` (número para ordenar apariciones: 1, 2, 3...), `name`, `role`, `department`.
+- **Redes y multimedia opcionales:** `avatar` (emoji), `image` (URL de foto), `bio`, `email`, `phone`, `linkedin`, `instagram`, `github`, `facebook`, `website`.
+
+---
+
+## 5. Proyectos (`src/content/proyectos/`)
+
+Crea un archivo `.json` por proyecto (ejemplo: `satelite-cubesat.json`):
+
+```json
+{
+  "titulo": "Estación Terrena para Recepción Satelital",
+  "categoria": "Satelital & RF",
+  "descripcion": "Diseño de antena Yagi automatizada y decodificación SDR para satélites meteorológicos NOAA.",
+  "imagen": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+  "estado": "Activo",
+  "tags": ["RF", "SDR", "Satélites", "Python"],
+  "enlace": "https://github.com/comsoc/estacion-terrena",
+  "destacado": true,
+  "montoActual": 600,
+  "montoMeta": 1500
+}
+```
+
+- **Campos obligatorios:** `titulo`, `categoria`, `descripcion`, `imagen`, `estado` (`"Activo"`, `"Completado"` o `"En Pausa"`).
+- **Campos opcionales:** `tags` (array de strings), `enlace` (URL de GitHub/Demo), `destacado` (`true`/`false`), `montoActual` (número para donaciones), `montoMeta` (número meta de fondos).
+
+---
+
+## 6. Aliados y Patrocinadores (`src/content/aliados/`)
+
+Crea un archivo `.json` por entidad aliada (ejemplo: `huawei.json`):
+
+```json
+{
+  "order": 1,
+  "nombre": "Huawei ICT Academy",
+  "tipo": "Partner Académico",
+  "logo": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=300&q=80",
+  "descripcion": "Convenio para certificaciones gratuitas en 5G y Cloud.",
+  "acerca": "Capacitaciones y acceso a plataformas de laboratorio.",
+  "website": "https://www.huawei.com",
+  "email": "contacto@huawei.com",
+  "linkedin": "https://linkedin.com/company/huawei"
+}
+```
+
+---
+
+## 7. Estadísticas del Inicio (`src/content/estadisticas.json`)
+
+Edita el archivo `src/content/estadisticas.json` directamente. Contiene una lista de 4 indicadores:
+
+```json
+[
+  {
+    "valor": "+30",
+    "etiqueta": "Miembros Activos",
+    "color": "text-white"
+  },
+  {
+    "valor": "35+",
+    "etiqueta": "Workshops & Charlas",
+    "color": "text-[#22d3ee]"
+  },
+  {
+    "valor": "12+",
+    "etiqueta": "Proyectos de Redes",
+    "color": "text-[#a855f7]"
+  },
+  {
+    "valor": "100%",
+    "etiqueta": "Pasión Tecnológica",
+    "color": "text-emerald-400"
+  }
+]
+```
+
+---
+
+## 💡 Recomendaciones para Imágenes
+- Puedes usar imágenes alojadas en internet (Unsplash, Cloudinary, Imgur) mediante URLs directas `https://...`.
+- O puedes colocar archivos de imagen locales en la carpeta `public/images/` y referenciarlas como `/images/mi-foto.png`.

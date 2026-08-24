@@ -1,0 +1,14 @@
+{
+  "order": 99,
+  "name": "Nombre de Ejemplo",
+  "role": "Director de Comunicaciones",
+  "department": "Comunicaciones & RRPP",
+  "avatar": "🧑‍💻",
+  "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+  "bio": "Estudiante apasionado por el procesamiento digital de señales y difusión tecnológica.",
+  "email": "ejemplo@ieee.org",
+  "phone": "+51 999 999 999",
+  "linkedin": "https://linkedin.com/in/ejemplo",
+  "instagram": "https://instagram.com/ejemplo",
+  "github": "https://github.com/ejemplo"
+}

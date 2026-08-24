@@ -1,0 +1,12 @@
+{
+  "order": 99,
+  "nombre": "Empresa Tecnológica Aliada (Ejemplo)",
+  "tipo": "Patrocinador Gold",
+  "logo": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=300&q=80",
+  "descripcion": "Empresa líder en infraestructura de redes y servicios en la nube.",
+  "acerca": "Organización dedicada a impulsar el talento universitario a través de pasantías y financiamiento.",
+  "website": "https://ejemplo.com",
+  "email": "contacto@ejemplo.com",
+  "linkedin": "https://linkedin.com/company/ejemplo",
+  "instagram": "https://instagram.com/ejemplo"
+}

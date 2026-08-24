@@ -1,0 +1,67 @@
+---
+// TouchRipple.astro - Efecto de propagación de onda en dispositivos táctiles
+---
+<div id="touch-ripple-container" class="pointer-events-none fixed inset-0 z-[9998] overflow-hidden"></div>
+
+<style is:global>
+  .touch-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple-animation 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.45) 0%, rgba(21, 93, 252, 0.25) 40%, rgba(34, 211, 238, 0) 70%);
+    border: 1.5px solid rgba(34, 211, 238, 0.6);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+  }
+
+  @keyframes ripple-animation {
+    0% {
+      width: 0px;
+      height: 0px;
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scale(0);
+    }
+    50% {
+      opacity: 0.6;
+    }
+    100% {
+      width: 140px;
+      height: 140px;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.8);
+    }
+  }
+</style>
+
+<script>
+  // Detect touch events and trigger ripple waves
+  if (typeof window !== 'undefined') {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (isTouchDevice) {
+      const container = document.getElementById('touch-ripple-container');
+
+      const createRipple = (x: number, y: number) => {
+        if (!container) return;
+        const ripple = document.createElement('span');
+        ripple.classList.add('touch-ripple');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        container.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 700);
+      };
+
+      window.addEventListener('touchstart', (e: TouchEvent) => {
+        for (let i = 0; i < e.touches.length; i++) {
+          const touch = e.touches[i];
+          createRipple(touch.clientX, touch.clientY);
+        }
+      }, { passive: true });
+    }
+  }
+</script>

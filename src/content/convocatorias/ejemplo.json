@@ -1,0 +1,18 @@
+{
+  "titulo": "Coordinador de Proyectos de Telecomunicaciones (Ejemplo)",
+  "area": "Proyectos & Desarrollo",
+  "fechaLimite": "2026-12-31",
+  "descripcion": "Buscamos un estudiante motivado para liderar iniciativas de redes y conectividad.",
+  "requisitos": [
+    "Estudiante activo de ingeniería electrónica, telecomunicaciones o afines.",
+    "Interés en tecnologías 5G, IoT y redes de datos.",
+    "Capacidad de trabajo en equipo y liderazgo."
+  ],
+  "responsabilidades": [
+    "Coordinar las reuniones del equipo técnico.",
+    "Gestionar cronogramas y entregables de proyectos.",
+    "Presentar avances mensuales a la junta directiva."
+  ],
+  "estado": "Publicada",
+  "formUrl": "https://forms.google.com/ejemplo"
+}

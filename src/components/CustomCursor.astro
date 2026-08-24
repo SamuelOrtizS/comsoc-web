@@ -1,4 +1,8 @@
-<div id="custom-cursor" class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform hidden md:block">
+<div
+  id="custom-cursor"
+  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-200"
+  style="transform: translate3d(-100px, -100px, 0);"
+>
   <img
     id="custom-cursor-img"
     src="/images/Cursor/Cursor/Step1.svg"
@@ -31,19 +35,27 @@
     let cursorVisible = false;
 
     // Track mouse position
-    window.addEventListener('mousemove', (e) => {
+    const updatePosition = (e: MouseEvent) => {
+      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       if (!cursorVisible) {
-        cursor.classList.remove('hidden');
+        cursor.classList.remove('opacity-0');
+        cursor.classList.add('opacity-100');
         cursorVisible = true;
       }
-      // Use translate3d for GPU acceleration
-      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-    });
+    };
+
+    window.addEventListener('mousemove', updatePosition);
 
     // Hide cursor when leaving window
     document.addEventListener('mouseleave', () => {
-      cursor.classList.add('hidden');
+      cursor.classList.remove('opacity-100');
+      cursor.classList.add('opacity-0');
       cursorVisible = false;
+    });
+
+    // Re-show when entering window
+    document.addEventListener('mouseenter', (e) => {
+      updatePosition(e);
     });
 
     // Animation frames
@@ -55,10 +67,7 @@
     let animationTimeout: number;
 
     window.addEventListener('mousedown', () => {
-      // Clear any ongoing animation
       clearTimeout(animationTimeout);
-
-      // Play click frames
       cursorImg.src = step2;
 
       animationTimeout = window.setTimeout(() => {

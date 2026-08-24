@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const convocatorias = defineCollection({
-    loader: glob({ pattern: '**/*.json', base: './src/content/convocatorias' }),
+    loader: glob({ pattern: ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/convocatorias' }),
     schema: z.object({
         titulo: z.string(),
         area: z.string(),
@@ -16,7 +16,7 @@ const convocatorias = defineCollection({
 });
 
 const eventos = defineCollection({
-    loader: glob({ pattern: '**/evento.json', base: './src/content/eventos' }),
+    loader: glob({ pattern: ['**/evento.json', '!**/ejemplo/**/evento.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/eventos' }),
     schema: z.object({
         titulo: z.string(),
         tipo: z.string(),
@@ -35,7 +35,7 @@ const eventos = defineCollection({
 });
 
 const tienda = defineCollection({
-    loader: glob({ pattern: '**/*.json', base: './src/content/tienda' }),
+    loader: glob({ pattern: ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/tienda' }),
     schema: z.object({
         name: z.string(),
         category: z.string(),
@@ -47,7 +47,7 @@ const tienda = defineCollection({
 });
 
 const juntaDirectiva = defineCollection({
-    loader: glob({ pattern: '**/*.json', base: './src/content/juntaDirectiva' }),
+    loader: glob({ pattern: ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/juntaDirectiva' }),
     schema: z.object({
         order: z.number().default(99),
         name: z.string(),
@@ -67,7 +67,7 @@ const juntaDirectiva = defineCollection({
 });
 
 const proyectos = defineCollection({
-    loader: glob({ pattern: '**/*.json', base: './src/content/proyectos' }),
+    loader: glob({ pattern: ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/proyectos' }),
     schema: z.object({
         titulo: z.string(),
         categoria: z.string(),
@@ -83,7 +83,7 @@ const proyectos = defineCollection({
 });
 
 const aliados = defineCollection({
-    loader: glob({ pattern: '**/*.json', base: './src/content/aliados' }),
+    loader: glob({ pattern: ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/aliados' }),
     schema: z.object({
         order: z.number().default(99),
         nombre: z.string(),

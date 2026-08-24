@@ -5,26 +5,37 @@ dist/
 # Dependencies
 node_modules/
 
-# Logs
+# Logs & Diagnostics
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
 
 # Environment variables
 .env
 .env.production
+.env.local
+.env.*.local
 
-# OS files
+# OS & Editor files
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+*~
+~*
+~/
 
-# Playwright
+# Playwright & Testing
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
 
-# Notas para la ia
+# Local Notes & AI Scratchpads
 notas/
+.gemini/
+scratch/
+
