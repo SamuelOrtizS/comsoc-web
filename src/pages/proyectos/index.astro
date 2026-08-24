@@ -1,0 +1,244 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allProyectos = await getCollection('proyectos');
+
+// Sort: active first, then completed, then paused
+const statusOrder: Record<string, number> = { Activo: 0, Completado: 1, 'En Pausa': 2 };
+const sorted = [...allProyectos].sort(
+  (a, b) => (statusOrder[a.data.estado] ?? 9) - (statusOrder[b.data.estado] ?? 9)
+);
+
+const activos    = sorted.filter((p) => p.data.estado === 'Activo');
+const completados = sorted.filter((p) => p.data.estado === 'Completado');
+const enPausa    = sorted.filter((p) => p.data.estado === 'En Pausa');
+
+const estadoStyle = {
+  Activo:      { dot: 'bg-emerald-400 animate-ping', badge: 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10', icon: '🟢' },
+  Completado:  { dot: 'bg-blue-400',                  badge: 'text-blue-300 border-blue-500/30 bg-blue-500/10',         icon: '✅' },
+  'En Pausa':  { dot: 'bg-yellow-400',                badge: 'text-yellow-300 border-yellow-500/30 bg-yellow-500/10',   icon: '⏸' },
+};
+---
+
+<BaseLayout
+  title="IEEE ComSoc | Proyectos de Investigación & Desarrollo"
+  description="Explora los proyectos técnicos, de investigación e innovación del Capítulo Estudiantil IEEE ComSoc."
+>
+  <!-- Page Header -->
+  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono mb-4">
+        Investigación &amp; Desarrollo
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+        Proyectos del Capítulo IEEE ComSoc
+      </h1>
+      <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg font-light leading-relaxed">
+        Iniciativas técnicas y de investigación desarrolladas por nuestros miembros en telecomunicaciones, IoT, IA aplicada y comunicaciones ópticas.
+      </p>
+
+      <!-- Stats Row -->
+      <div class="flex flex-wrap items-center justify-center gap-6 mt-8">
+        <div class="flex items-center gap-2 text-sm font-mono">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+          <span class="text-emerald-300 font-semibold">{activos.length}</span>
+          <span class="text-gray-400">Activos</span>
+        </div>
+        <div class="flex items-center gap-2 text-sm font-mono">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-400 inline-block"></span>
+          <span class="text-blue-300 font-semibold">{completados.length}</span>
+          <span class="text-gray-400">Completados</span>
+        </div>
+        <div class="flex items-center gap-2 text-sm font-mono">
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block"></span>
+          <span class="text-yellow-300 font-semibold">{enPausa.length}</span>
+          <span class="text-gray-400">En Pausa</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+
+    <!-- Active Projects -->
+    {activos.length > 0 && (
+      <section>
+        <div class="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+          </span>
+          <h2 class="text-2xl font-bold text-white">Proyectos Activos</h2>
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            {activos.length}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {activos.map((proyecto) => (
+            <a
+              href={`/proyectos/${proyecto.id}`}
+              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-emerald-500/40 transition-all duration-300"
+            >
+              <div class="aspect-video relative overflow-hidden bg-slate-900">
+                <img
+                  src={proyecto.data.imagen}
+                  alt={proyecto.data.titulo}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute top-3 left-3 flex gap-2">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-purple-300 border border-purple-500/30">
+                    {proyecto.data.categoria}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-emerald-300 border border-emerald-500/30">
+                    🟢 Activo
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-base font-bold text-white group-hover:text-emerald-300 transition-colors mb-2 line-clamp-2">
+                  {proyecto.data.titulo}
+                </h3>
+                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3 flex-grow mb-4">
+                  {proyecto.data.descripcion}
+                </p>
+                {proyecto.data.tags && proyecto.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1.5">
+                    {proyecto.data.tags.map((tag) => (
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-gray-400 border border-white/10">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Completed Projects -->
+    {completados.length > 0 && (
+      <section>
+        <div class="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
+          <span class="text-blue-400 font-mono text-xl">✅</span>
+          <h2 class="text-2xl font-bold text-white">Proyectos Completados</h2>
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+            {completados.length}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {completados.map((proyecto) => (
+            <a
+              href={`/proyectos/${proyecto.id}`}
+              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-blue-500/40 transition-all duration-300"
+            >
+              <div class="aspect-video relative overflow-hidden bg-slate-900">
+                <img
+                  src={proyecto.data.imagen}
+                  alt={proyecto.data.titulo}
+                  class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute top-3 left-3 flex gap-2">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-purple-300 border border-purple-500/30">
+                    {proyecto.data.categoria}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-blue-300 border border-blue-500/30">
+                    ✅ Completado
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-base font-bold text-white group-hover:text-blue-300 transition-colors mb-2 line-clamp-2">
+                  {proyecto.data.titulo}
+                </h3>
+                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3 flex-grow mb-4">
+                  {proyecto.data.descripcion}
+                </p>
+                {proyecto.data.tags && proyecto.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1.5">
+                    {proyecto.data.tags.map((tag) => (
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-gray-400 border border-white/10">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Paused Projects -->
+    {enPausa.length > 0 && (
+      <section>
+        <div class="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
+          <span class="text-yellow-400 font-mono text-xl">⏸</span>
+          <h2 class="text-2xl font-bold text-gray-300">Proyectos en Pausa</h2>
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
+            {enPausa.length}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {enPausa.map((proyecto) => (
+            <a
+              href={`/proyectos/${proyecto.id}`}
+              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-yellow-500/30 transition-all duration-300 opacity-75 hover:opacity-100"
+            >
+              <div class="aspect-video relative overflow-hidden bg-slate-900">
+                <img
+                  src={proyecto.data.imagen}
+                  alt={proyecto.data.titulo}
+                  class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+                <div class="absolute top-3 left-3 flex gap-2">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-purple-300 border border-purple-500/30">
+                    {proyecto.data.categoria}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-yellow-300 border border-yellow-500/30">
+                    ⏸ En Pausa
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-base font-bold text-gray-300 group-hover:text-white transition-colors mb-2 line-clamp-2">
+                  {proyecto.data.titulo}
+                </h3>
+                <p class="text-xs text-gray-500 font-light leading-relaxed line-clamp-3 flex-grow mb-4">
+                  {proyecto.data.descripcion}
+                </p>
+                {proyecto.data.tags && proyecto.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1.5">
+                    {proyecto.data.tags.map((tag) => (
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-gray-500 border border-white/10">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {allProyectos.length === 0 && (
+      <div class="glass-card rounded-2xl p-16 text-center border border-white/10 max-w-xl mx-auto">
+        <div class="text-5xl mb-4">🔬</div>
+        <h3 class="text-lg font-bold text-white mb-2">No hay proyectos registrados aún</h3>
+        <p class="text-sm text-gray-400 font-light">Pronto publicaremos las iniciativas en curso del capítulo.</p>
+      </div>
+    )}
+
+  </div>
+</BaseLayout>
