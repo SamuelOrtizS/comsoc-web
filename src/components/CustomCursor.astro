@@ -1,3 +1,4 @@
+<!-- Desktop cursor: SVG icon following exact mouse position -->
 <div
   id="custom-cursor"
   class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-300"
@@ -7,7 +8,22 @@
     id="custom-cursor-img"
     src="/images/Cursor/Cursor/Step1.svg"
     alt="Cursor"
-    class="w-5 h-5 sm:w-8 sm:h-8 transition-transform duration-200 ease-out origin-top-left -rotate-[25deg]"
+    class="w-8 h-8 origin-top-left -rotate-[25deg] transition-transform duration-150 ease-out"
+    style="transform: scale(1);"
+  />
+</div>
+
+<!-- Mobile touch wave: shows only the ripple animation at tap position -->
+<div
+  id="touch-wave"
+  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-200"
+  style="transform: translate3d(-100px, -100px, 0);"
+>
+  <img
+    id="touch-wave-img"
+    src="/images/Cursor/Cursor/Step1.svg"
+    alt=""
+    class="w-10 h-10 origin-top-left -rotate-[25deg]"
   />
 </div>
 
@@ -18,185 +34,145 @@
       cursor: none !important;
     }
   }
+
+  /* Never show desktop cursor on touch-only devices */
+  @media (pointer: coarse) {
+    #custom-cursor {
+      display: none !important;
+    }
+  }
 </style>
 
 <script>
-  const cursor = document.getElementById('custom-cursor');
-  const cursorImg = document.getElementById('custom-cursor-img') as HTMLImageElement;
+  // ── Desktop Cursor ──────────────────────────────────────────────
+  const cursor    = document.getElementById('custom-cursor');
+  const cursorImg = document.getElementById('custom-cursor-img') as HTMLImageElement | null;
 
-  if (cursor && cursorImg) {
-    let cursorVisible = false;
+  if (cursor && cursorImg && window.matchMedia('(any-pointer: fine)').matches) {
+    let visible = false;
+    let mouseX = -100;
+    let mouseY = -100;
+    let isDown = false;
 
-    // Target coordinates from mouse or touch event
-    let targetX = -100;
-    let targetY = -100;
-
-    // Current interpolated coordinates for fluid inertia
-    let currentX = -100;
-    let currentY = -100;
-
-    let isHoveringInteractive = false;
-    let isClicking = false;
-    let isTouchMode = false;
-    let touchFadeTimeout: number | undefined;
-
-    // Fluid interpolation factor (desktop: 0.22, touch: slightly faster for immediate tracking)
-    let lerpFactor = 0.22;
-
-    const renderLoop = () => {
-      // Smooth interpolation towards target position
-      currentX += (targetX - currentX) * lerpFactor;
-      currentY += (targetY - currentY) * lerpFactor;
-
-      // Calculate scale (smaller on mobile/touch, micro-scale on hover/press)
-      const baseScale = isTouchMode ? 0.85 : 1;
-      const stateScale = isClicking ? 0.9 : isHoveringInteractive ? 1.25 : 1;
-      const totalScale = (baseScale * stateScale).toFixed(3);
-
-      cursor.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) scale(${totalScale})`;
-
-      requestAnimationFrame(renderLoop);
-    };
-
-    requestAnimationFrame(renderLoop);
-
-    const showCursor = (x: number, y: number, immediate = false) => {
-      targetX = x;
-      targetY = y;
-
-      if (!cursorVisible || immediate) {
-        currentX = targetX;
-        currentY = targetY;
-        cursor.classList.remove('opacity-0');
-        cursor.classList.add('opacity-100');
-        cursorVisible = true;
-      }
-    };
-
-    const hideCursor = () => {
-      cursor.classList.remove('opacity-100');
-      cursor.classList.add('opacity-0');
-      cursorVisible = false;
-    };
-
-    // --- Desktop Mouse Tracking ---
-    window.addEventListener(
-      'mousemove',
-      (e: MouseEvent) => {
-        isTouchMode = false;
-        lerpFactor = 0.22;
-        showCursor(e.clientX, e.clientY);
-      },
-      { passive: true }
-    );
-
-    // Interactive element hover detection for fluid scaling
-    window.addEventListener(
-      'mouseover',
-      (e: MouseEvent) => {
-        const target = e.target as HTMLElement | null;
-        if (
-          target &&
-          (target.closest('a, button, [role="button"], input, textarea, select, .cursor-pointer, .member-card, .aliado-card, summary') ||
-            window.getComputedStyle(target).cursor === 'pointer')
-        ) {
-          isHoveringInteractive = true;
-        } else {
-          isHoveringInteractive = false;
-        }
-      },
-      { passive: true }
-    );
-
-    document.addEventListener('mouseleave', hideCursor);
-    document.addEventListener('mouseenter', (e: MouseEvent) => {
-      showCursor(e.clientX, e.clientY);
-    });
-
-    // --- Mobile Touch & Scroll Following ---
-    const handleTouchUpdate = (e: TouchEvent) => {
-      if (e.touches && e.touches.length > 0) {
-        isTouchMode = true;
-        lerpFactor = 0.35; // Responsive tracking during touch drag
-        const touch = e.touches[0];
-        showCursor(touch.clientX, touch.clientY);
-
-        // Clear any pending fade-out when actively touching
-        if (touchFadeTimeout) {
-          window.clearTimeout(touchFadeTimeout);
-          touchFadeTimeout = undefined;
-        }
-      }
-    };
-
-    window.addEventListener('touchstart', handleTouchUpdate, { passive: true });
-    window.addEventListener('touchmove', handleTouchUpdate, { passive: true });
-
-    // Smoothly fade out when finger is lifted or scroll finishes
-    const scheduleTouchFade = (delay = 400) => {
-      if (touchFadeTimeout) window.clearTimeout(touchFadeTimeout);
-      touchFadeTimeout = window.setTimeout(() => {
-        if (isTouchMode) {
-          hideCursor();
-        }
-      }, delay);
-    };
-
-    window.addEventListener('touchend', () => scheduleTouchFade(300), { passive: true });
-    window.addEventListener('touchcancel', () => scheduleTouchFade(100), { passive: true });
-
-    // Scroll event: keep following touch or fade out gracefully if scrolling without touching
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (isTouchMode) {
-          scheduleTouchFade(500);
-        }
-      },
-      { passive: true }
-    );
-
-    // --- Telecom Signal Wave Pulse on Click / Tap ---
     const step1 = '/images/Cursor/Cursor/Step1.svg';
     const step2 = '/images/Cursor/Cursor/Step2.svg';
     const step3 = '/images/Cursor/Cursor/Step3.svg';
     const step4 = '/images/Cursor/Cursor/Step4.svg';
 
-    let animationTimeout1: number;
-    let animationTimeout2: number;
-    let animationTimeout3: number;
+    // Move cursor exactly with mouse — no lag, no physics
+    window.addEventListener('mousemove', (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      if (!visible) {
+        cursor.classList.remove('opacity-0');
+        cursor.classList.add('opacity-100');
+        visible = true;
+      }
+    }, { passive: true });
 
-    const triggerPulse = () => {
-      isClicking = true;
-      window.clearTimeout(animationTimeout1);
-      window.clearTimeout(animationTimeout2);
-      window.clearTimeout(animationTimeout3);
+    document.addEventListener('mouseleave', () => {
+      cursor.classList.remove('opacity-100');
+      cursor.classList.add('opacity-0');
+      visible = false;
+    });
 
-      cursorImg.src = step2;
+    document.addEventListener('mouseenter', (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      cursor.classList.remove('opacity-0');
+      cursor.classList.add('opacity-100');
+      visible = true;
+    });
 
-      const FRAME_DELAY = isTouchMode ? 100 : 140;
-
-      animationTimeout1 = window.setTimeout(() => {
-        cursorImg.src = step3;
-
-        animationTimeout2 = window.setTimeout(() => {
-          cursorImg.src = step4;
-
-          animationTimeout3 = window.setTimeout(() => {
-            cursorImg.src = step1;
-          }, FRAME_DELAY);
-        }, FRAME_DELAY);
-      }, FRAME_DELAY);
-    };
-
-    window.addEventListener('mousedown', triggerPulse);
-    window.addEventListener('touchstart', triggerPulse, { passive: true });
+    // Shrink on press, restore on release
+    window.addEventListener('mousedown', () => {
+      isDown = true;
+      cursorImg.style.transform = 'scale(0.92)';
+    });
 
     window.addEventListener('mouseup', () => {
-      isClicking = false;
+      isDown = false;
+      cursorImg.style.transform = 'scale(1)';
     });
-    window.addEventListener('touchend', () => {
-      isClicking = false;
+
+    // Click wave pulse on desktop
+    let t1: number, t2: number, t3: number;
+    const DELAY = 140;
+
+    window.addEventListener('mousedown', () => {
+      window.clearTimeout(t1); window.clearTimeout(t2); window.clearTimeout(t3);
+      cursorImg.src = step2;
+      t1 = window.setTimeout(() => {
+        cursorImg.src = step3;
+        t2 = window.setTimeout(() => {
+          cursorImg.src = step4;
+          t3 = window.setTimeout(() => { cursorImg.src = step1; }, DELAY);
+        }, DELAY);
+      }, DELAY);
     });
   }
+
+  // ── Mobile Touch Wave ───────────────────────────────────────────
+  const touchWave    = document.getElementById('touch-wave');
+  const touchWaveImg = document.getElementById('touch-wave-img') as HTMLImageElement | null;
+
+  if (touchWave && touchWaveImg && window.matchMedia('(pointer: coarse)').matches) {
+    const step1 = '/images/Cursor/Cursor/Step1.svg';
+    const step2 = '/images/Cursor/Cursor/Step2.svg';
+    const step3 = '/images/Cursor/Cursor/Step3.svg';
+    const step4 = '/images/Cursor/Cursor/Step4.svg';
+
+    let wt1: number, wt2: number, wt3: number, fadeTimeout: number;
+    const DELAY = 100;
+
+    const moveTo = (x: number, y: number) => {
+      touchWave.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    };
+
+    const show = () => {
+      touchWave.classList.remove('opacity-0');
+      touchWave.classList.add('opacity-100');
+    };
+
+    const hide = (delay = 300) => {
+      window.clearTimeout(fadeTimeout);
+      fadeTimeout = window.setTimeout(() => {
+        touchWave.classList.remove('opacity-100');
+        touchWave.classList.add('opacity-0');
+      }, delay);
+    };
+
+    const triggerPulse = () => {
+      window.clearTimeout(wt1); window.clearTimeout(wt2); window.clearTimeout(wt3);
+      touchWaveImg.src = step2;
+      wt1 = window.setTimeout(() => {
+        touchWaveImg.src = step3;
+        wt2 = window.setTimeout(() => {
+          touchWaveImg.src = step4;
+          wt3 = window.setTimeout(() => { touchWaveImg.src = step1; }, DELAY);
+        }, DELAY);
+      }, DELAY);
+    };
+
+    window.addEventListener('touchstart', (e: TouchEvent) => {
+      if (!e.touches.length) return;
+      const t = e.touches[0];
+      window.clearTimeout(fadeTimeout);
+      moveTo(t.clientX, t.clientY);
+      show();
+      triggerPulse();
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e: TouchEvent) => {
+      if (!e.touches.length) return;
+      const t = e.touches[0];
+      moveTo(t.clientX, t.clientY);
+    }, { passive: true });
+
+    window.addEventListener('touchend',   () => hide(350), { passive: true });
+    window.addEventListener('touchcancel', () => hide(100), { passive: true });
+  }
 </script>
+
