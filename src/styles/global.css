@@ -31,6 +31,7 @@
 
   /* Typography */
   --font-heading: 'Formata', 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'Nunito Sans', system-ui, sans-serif;
   --font-body: 'Nunito Sans', system-ui, sans-serif;
   --font-mono: 'Share Tech Mono', monospace;
 }
@@ -41,6 +42,10 @@ html {
   background-color: var(--color-bg-primary, #050816);
   color: var(--color-text-primary, #ffffff);
   font-family: var(--font-body, 'Nunito Sans', sans-serif);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
 
 ::selection {

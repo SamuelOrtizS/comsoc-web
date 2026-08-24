@@ -105,6 +105,49 @@ const estadoBadge = {
           </p>
         </div>
 
+        <!-- Funding Progress (Optional) -->
+        {data.montoActual !== undefined && data.montoMeta !== undefined && (
+          <div class="glass-card rounded-2xl p-8 border border-emerald-500/30 bg-gradient-to-br from-[#050816] to-[#0a1f1a]">
+            <h2 class="text-xl font-bold text-white mb-2 font-mono flex items-center gap-2">
+              <span>💰</span> Estado de Financiamiento
+            </h2>
+            <p class="text-xs text-gray-400 font-light mb-6">
+              Este proyecto requiere fondos externos para la adquisición de componentes y licencias. Puedes apoyar directamente su desarrollo.
+            </p>
+            
+            <div class="space-y-3">
+              <div class="flex justify-between items-end">
+                <span class="text-xs text-gray-400 font-mono">Progreso de Donaciones</span>
+                <span class="text-sm font-bold text-[#22d3ee] font-mono">
+                  ${data.montoActual} / ${data.montoMeta} USD
+                </span>
+              </div>
+              <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
+                <div 
+                  class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full transition-all duration-500" 
+                  style={`width: ${Math.min(100, (data.montoActual / data.montoMeta) * 100)}%`}
+                ></div>
+              </div>
+              <div class="flex justify-between items-center text-xs font-mono text-gray-500 pt-1">
+                <span>{Math.round((data.montoActual / data.montoMeta) * 100)}% Financiado</span>
+                <span>Faltan: ${Math.max(0, data.montoMeta - data.montoActual)} USD</span>
+              </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <span class="text-xs text-gray-400 font-light">
+                * Recuerda especificar <strong>"{data.titulo}"</strong> en el concepto de tu donación.
+              </span>
+              <a
+                href="/comsoc-web/donaciones"
+                class="px-5 py-2.5 rounded-xl text-center text-xs font-semibold bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white hover:opacity-95 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02]"
+              >
+                Donar a este proyecto ↗
+              </a>
+            </div>
+          </div>
+        )}
+
         <!-- Tags -->
         {data.tags && data.tags.length > 0 && (
           <div class="glass-card rounded-2xl p-8 border border-white/10">
@@ -159,6 +202,28 @@ const estadoBadge = {
             </a>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Bottom Donations CTA Banner -->
+    <div class="mt-16 border-t border-white/10 pt-12">
+      <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden bg-gradient-to-b from-[#050816] to-[#0d0720]">
+        <div class="relative z-10 space-y-4">
+          <div class="text-3xl">🤝</div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">Apoya los proyectos de IEEE ComSoc</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto text-xs sm:text-sm font-light leading-relaxed">
+            Como organización sin fines de lucro, tu generosidad impulsa la educación técnica y el desarrollo tecnológico local. Todo el capital se reinvierte íntegramente en las operaciones académicas y de investigación del capítulo.
+          </p>
+          <div class="pt-4">
+            <a
+              href="/comsoc-web/donaciones"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02]"
+            >
+              Ir a la Página de Donaciones
+            </a>
+          </div>
+        </div>
+        <div class="absolute -z-10 w-64 h-64 bg-purple-500/10 rounded-full blur-[120px] -bottom-32 -right-32"></div>
       </div>
     </div>
 

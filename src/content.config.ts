@@ -72,6 +72,8 @@ const proyectos = defineCollection({
         tags: z.array(z.string()).optional(),
         enlace: z.string().optional(),
         destacado: z.boolean().default(false),
+        montoActual: z.number().optional(),
+        montoMeta: z.number().optional(),
     }),
 });
 

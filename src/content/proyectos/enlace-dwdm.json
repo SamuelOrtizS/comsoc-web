@@ -12,5 +12,7 @@
     "Laboratorio"
   ],
   "enlace": "/eventos",
-  "destacado": false
+  "destacado": false,
+  "montoActual": 120,
+  "montoMeta": 800
 }
