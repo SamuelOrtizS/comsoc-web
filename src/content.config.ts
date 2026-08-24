@@ -61,9 +61,24 @@ const juntaDirectiva = defineCollection({
   }),
 });
 
+const proyectos = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/proyectos' }),
+  schema: z.object({
+    titulo: z.string(),
+    categoria: z.string(),
+    descripcion: z.string(),
+    imagen: z.string(),
+    estado: z.enum(['Activo', 'Completado', 'En Pausa']).default('Activo'),
+    tags: z.array(z.string()).optional(),
+    enlace: z.string().optional(),
+    destacado: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   convocatorias,
   eventos,
   tienda,
   juntaDirectiva,
+  proyectos,
 };

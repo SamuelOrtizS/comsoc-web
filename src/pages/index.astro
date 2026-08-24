@@ -12,15 +12,19 @@ const eventPool = upcomingEvents.length > 0 ? upcomingEvents : allEvents;
 const featuredEvent = eventPool[Math.floor(Math.random() * eventPool.length)];
 const featuredEventSlug = featuredEvent ? featuredEvent.id.replace(/\/evento$/, '') : '';
 
-// Pick 2 random events (different from featured) for the projects section
-const otherEvents = allEvents.filter((ev) => ev.id !== featuredEvent?.id);
-const shuffled = [...otherEvents].sort(() => Math.random() - 0.5);
-const featuredProjects = shuffled.slice(0, 2).map((ev) => ({
-  title: ev.data.titulo,
-  category: ev.data.tipo,
-  desc: ev.data.descripcion,
-  image: ev.data.imagenPrincipal,
-  link: `/eventos/${ev.id.replace(/\/evento$/, '')}`,
+// Load projects from content/proyectos — prefer destacado=true, then fill with others, shuffle, take 2
+const allProyectos = await getCollection('proyectos');
+const destacados = allProyectos.filter((p) => p.data.destacado);
+const noDestacados = allProyectos.filter((p) => !p.data.destacado);
+const projectPool = [...destacados.sort(() => Math.random() - 0.5), ...noDestacados.sort(() => Math.random() - 0.5)];
+const featuredProjects = projectPool.slice(0, 2).map((p) => ({
+  title: p.data.titulo,
+  category: p.data.categoria,
+  desc: p.data.descripcion,
+  image: p.data.imagen,
+  link: p.data.enlace ?? '/eventos',
+  estado: p.data.estado,
+  tags: p.data.tags ?? [],
 }));
 
 const pillars = [
@@ -168,15 +172,20 @@ const pillars = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {featuredProjects.map((proj) => (
-        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col">
+        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-purple-500/40 transition-all duration-300">
           <div class="aspect-video relative overflow-hidden bg-slate-900">
             <img
               src={proj.image}
               alt={proj.title}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
-              {proj.category}
+            <div class="absolute top-3 left-3 flex gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
+                {proj.category}
+              </span>
+              <span class={`px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md border ${proj.estado === 'Activo' ? 'text-emerald-300 border-emerald-500/30' : proj.estado === 'Completado' ? 'text-blue-300 border-blue-500/30' : 'text-yellow-300 border-yellow-500/30'}`}>
+                {proj.estado === 'Activo' ? '🟢' : proj.estado === 'Completado' ? '✅' : '⏸'} {proj.estado}
+              </span>
             </div>
           </div>
           <div class="p-6 flex flex-col justify-between flex-grow">
@@ -187,6 +196,15 @@ const pillars = [
               <p class="text-sm text-gray-400 font-light leading-relaxed mb-4">
                 {proj.desc}
               </p>
+              {proj.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5 mb-4">
+                  {proj.tags.map((tag) => (
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-gray-400 border border-white/10">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
             <a
               href={proj.link}
