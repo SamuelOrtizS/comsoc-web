@@ -6,8 +6,22 @@ import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('eventos');
 const upcomingEvents = allEvents.filter((ev) => ev.data.estado === 'Publicado');
-const featuredEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : allEvents[0];
+
+// Pick a random featured event from upcoming (or all if none upcoming)
+const eventPool = upcomingEvents.length > 0 ? upcomingEvents : allEvents;
+const featuredEvent = eventPool[Math.floor(Math.random() * eventPool.length)];
 const featuredEventSlug = featuredEvent ? featuredEvent.id.replace(/\/evento$/, '') : '';
+
+// Pick 2 random events (different from featured) for the projects section
+const otherEvents = allEvents.filter((ev) => ev.id !== featuredEvent?.id);
+const shuffled = [...otherEvents].sort(() => Math.random() - 0.5);
+const featuredProjects = shuffled.slice(0, 2).map((ev) => ({
+  title: ev.data.titulo,
+  category: ev.data.tipo,
+  desc: ev.data.descripcion,
+  image: ev.data.imagenPrincipal,
+  link: `/eventos/${ev.id.replace(/\/evento$/, '')}`,
+}));
 
 const pillars = [
   {
@@ -40,22 +54,7 @@ const pillars = [
   },
 ];
 
-const featuredProjects = [
-  {
-    title: 'Estación Base LoRaWAN & Monitoreo Ambiental',
-    category: 'IoT & Smart Cities',
-    desc: 'Red universitaria distribuida de sensores con telemetría en tiempo real para calidad del aire, temperatura y humedad con visualización en dashboard.',
-    image: '/images/event-iot.svg',
-    link: '/eventos',
-  },
-  {
-    title: 'Simulador de Modulación & Constelaciones Digitales',
-    category: 'Signal Processing',
-    desc: 'Herramienta interactiva para estudiantes que modela canales de desvanecimiento Rayleigh/Rician y constelaciones QPSK/16-QAM.',
-    image: '/images/event-hackathon.svg',
-    link: '/eventos',
-  },
-];
+
 ---
 
 <BaseLayout title="IEEE ComSoc | Student Chapter - Inicio">
