@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://SamuelOrtizS.github.io/comsoc-web/',
+  site: 'https://SamuelOrtizS.github.io/comsoc-web',
   base: '/',
   output: 'static',
   vite: {
