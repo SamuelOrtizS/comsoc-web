@@ -1,8 +1,8 @@
 <!-- Desktop cursor: SVG icon following exact mouse position -->
 <div
   id="custom-cursor"
-  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-300 origin-top-left"
-  style="transform: translate3d(-100px, -100px, 0) rotate(-25deg) scale(1);"
+  class="pointer-events-none fixed top-0 left-0 z-[9999] opacity-0 transition-opacity duration-300 origin-top-left"
+  style="transform: translate3d(-100px, -100px, 0) rotate(-25deg) scale(1); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: preserve-3d;"
 >
   <img
     id="custom-cursor-img"
@@ -63,18 +63,15 @@
     const HOTSPOT_X = -15;
     const HOTSPOT_Y = 0;
 
-    let rafId: number | null = null;
-
-    const applyTransform = () => {
-      cursor.style.transform =
-        `translate3d(${mouseX + HOTSPOT_X}px, ${mouseY + HOTSPOT_Y}px, 0) rotate(-25deg) scale(${cursorScale})`;
-    };
+    let pendingUpdate = false;
 
     const requestTransformUpdate = () => {
-      if (rafId !== null) return;
-      rafId = requestAnimationFrame(() => {
-        applyTransform();
-        rafId = null;
+      if (pendingUpdate) return;
+      pendingUpdate = true;
+      requestAnimationFrame(() => {
+        cursor.style.transform =
+          `translate3d(${mouseX + HOTSPOT_X}px, ${mouseY + HOTSPOT_Y}px, 0) rotate(-25deg) scale(${cursorScale})`;
+        pendingUpdate = false;
       });
     };
 
@@ -101,7 +98,7 @@
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
-      applyTransform();
+      requestTransformUpdate();
       cursor.classList.remove('opacity-0');
       cursor.classList.add('opacity-100');
       visible = true;
@@ -112,13 +109,13 @@
       if (touchDevice) return;
       isDown = true;
       cursorScale = 0.92;
-      applyTransform();
+      requestTransformUpdate();
     });
 
     window.addEventListener('mouseup', () => {
       isDown = false;
       cursorScale = 1;
-      applyTransform();
+      requestTransformUpdate();
     });
 
     // Click wave pulse on desktop
