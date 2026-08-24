@@ -3,9 +3,11 @@
   "name": "Samuel Ortiz Sarasti",
   "role": "Presidente del Capítulo",
   "department": "Ingeniería Eléctrica",
-  "avatar": "👨‍💻",
-  "bio": "Estudiante apasionado por las telecomunicaciones y las redes de nueva generación. Lidera el capítulo IEEE ComSoc buscando impulsar la formación técnica y la investigación aplicada entre los miembros.",
-  "email": "samuel.ortiz@universidad.edu.pe",
-  "phone": "+51 999 000 111",
-  "linkedin": "https://linkedin.com"
+  "image": "/comsoc-web/images/random-person.jpeg",
+  "bio": "Samuel Ortiz Sarasti es un ingeniero eléctrico apasionado por las tecnologías emergentes y su aplicación en soluciones innovadoras. Con experiencia en el desarrollo de proyectos de energías renovables y sistemas de automatización, actualmente lidera el Capítulo IEEE ComSoc con el objetivo de fortalecer el networking y la transferencia tecnológica entre estudiantes y profesionales del sector.",
+  "linkedin": "https://linkedin.com",
+  "instagram": "https://instagram.com",
+  "facebook": "https://facebook.com",
+  "github": "https://github.com",
+  "website": "https://website.com"
 }
