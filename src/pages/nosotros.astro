@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const rawJunta = await getCollection('juntaDirectiva');
+const team = rawJunta
+  .map((item) => item.data)
+  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+
+const benefits = [
+  {
+    title: 'Acceso a IEEE Xplore',
+    desc: 'Publicaciones científicas, papers técnicos de telecomunicaciones y estándares globales al alcance de los miembros.',
+    icon: '📚',
+  },
+  {
+    title: 'Networking Internacional',
+    desc: 'Conexión con ingenieros, investigadores y capítulos ComSoc de más de 160 países alrededor del mundo.',
+    icon: '🌐',
+  },
+  {
+    title: 'Descuentos & Becas',
+    desc: 'Precios especiales en conferencias internacionales de IEEE (Globecom, ICC, WCNC) y becas para estudiantes.',
+    icon: '🎓',
+  },
+  {
+    title: 'Workshops & Certificaciones',
+    desc: 'Talleres prácticos con laboratorios en tiempo real sobre redes 5G, LoRaWAN, microcontroladores y fibra óptica.',
+    icon: '⚡',
+  },
+  {
+    title: 'Liderazgo & Gestión',
+    desc: 'Experiencia real dirigiendo comités técnicos, organizando congresos y gestionando presupuestos y patrocinadores.',
+    icon: '🏆',
+  },
+  {
+    title: 'Mentoria con la Industria',
+    desc: 'Vínculo directo con empresas líderes del sector telecomunicaciones (operadores, vendors y cloud providers).',
+    icon: '🤝',
+  },
+];
+---
+
+<BaseLayout
+  title="IEEE ComSoc | Sobre Nosotros"
+  description="Conoce la misión, visión, directiva y beneficios de pertenecer al Capítulo Estudiantil IEEE ComSoc."
+>
+  <!-- Page Header Banner -->
+  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-4">
+        Sobre la Comunidad
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+        Conectando al Mundo a través de la Tecnología
+      </h1>
+      <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg font-light leading-relaxed">
+        El Capítulo Estudiantil IEEE ComSoc es el espacio universitario donde convergen la ciencia, la investigación y la pasión por las redes y telecomunicaciones.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission & Vision Cards -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Mission -->
+      <div class="glass-card rounded-3xl p-8 border border-blue-500/30 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-2xl mb-6 border border-blue-500/30">
+          🎯
+        </div>
+        <h2 class="text-2xl font-bold text-white mb-4">Nuestra Misión</h2>
+        <p class="text-gray-300 font-light leading-relaxed">
+          Fomentar la excelencia académica, técnica y humana de los estudiantes a través de conferencias de primer nivel, talleres prácticos, proyectos interdisciplinarios e investigación en comunicaciones inalámbricas, ópticas, satelitales y ciberseguridad.
+        </p>
+      </div>
+
+      <!-- Vision -->
+      <div class="glass-card rounded-3xl p-8 border border-cyan-500/30 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl mb-6 border border-cyan-500/30">
+          🚀
+        </div>
+        <h2 class="text-2xl font-bold text-white mb-4">Nuestra Visión</h2>
+        <p class="text-gray-300 font-light leading-relaxed">
+          Posicionarnos como el capítulo estudiantil referente en la región, reconocido por la calidad técnica de sus miembros, su capacidad de innovación tecnológica y su compromiso con el cierre de la brecha digital mediante la ingeniería.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Member Benefits Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-xs uppercase font-mono tracking-widest text-[#22d3ee] mb-2 font-semibold">
+        Valor para Estudiantes
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Beneficios de ser Miembro IEEE ComSoc
+      </h2>
+      <p class="text-gray-400 font-light">
+        Ser parte de la red de telecomunicaciones más grande del planeta te brinda ventajas únicas para acelerar tu desarrollo.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {benefits.map((b) => (
+        <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-cyan-500/40 transition">
+          <div class="text-3xl mb-4">{b.icon}</div>
+          <h3 class="text-lg font-bold text-white mb-2">{b.title}</h3>
+          <p class="text-xs text-gray-400 leading-relaxed font-light">{b.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Team Leadership Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-xs uppercase font-mono tracking-widest text-[#a855f7] mb-2 font-semibold">
+        Liderazgo 2026
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Mesa Directiva &amp; Asesoría
+      </h2>
+      <p class="text-gray-400 font-light">
+        Estudiantes y docentes comprometidos en liderar las iniciativas y proyectos del capítulo.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {team.map((member) => (
+        <div class="glass-card rounded-2xl p-6 border border-white/10 text-center flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600/30 to-cyan-400/30 border-2 border-cyan-400/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition duration-300">
+            {member.avatar || '👤'}
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1 group-hover:text-cyan-300 transition">
+            {member.name}
+          </h3>
+          <div class="text-xs font-mono text-cyan-400 font-medium mb-1">
+            {member.role}
+          </div>
+          <p class="text-xs text-gray-400 font-light mb-4">
+            {member.department}
+          </p>
+          {member.linkedin && (
+            <a
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs font-semibold px-4 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 transition"
+            >
+              LinkedIn Profile ↗
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

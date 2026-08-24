@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const tiendaItems = await getCollection('tienda');
+---
+
+<BaseLayout
+  title="IEEE ComSoc | Tienda Oficial & Merchandising"
+  description="Adquiere la indumentaria oficial y merchandising del Capítulo Estudiantil IEEE ComSoc."
+>
+  <!-- Header -->
+  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono mb-4">
+        Official Chapter Merch
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+        Tienda IEEE ComSoc
+      </h1>
+      <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg font-light leading-relaxed">
+        Lleva con orgullo los colores y la identidad de nuestra comunidad. Todos los fondos recaudados son reinvertidos en becas y proyectos del capítulo.
+      </p>
+    </div>
+  </section>
+
+  <!-- Notice Banner: Pickup info -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+    <div class="glass-card rounded-2xl p-4 sm:p-6 border border-cyan-500/30 flex flex-col sm:flex-row items-center gap-4 bg-cyan-950/20">
+      <div class="text-3xl">📍</div>
+      <div class="text-xs sm:text-sm text-gray-300 flex-grow font-light">
+        <strong class="text-white font-medium">Punto de Entrega:</strong> Entregas presenciales en el Campus Universitario (Laboratorio de Telecomunicaciones) y envíos a todo Lima previa coordinación vía WhatsApp.
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {tiendaItems.map((item) => {
+        const prod = item.data;
+        return (
+          <div class="glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col justify-between group hover:border-cyan-500/40 transition-all duration-300">
+            <div>
+              <div class="aspect-square relative overflow-hidden bg-slate-900">
+                <img
+                  src={prod.image}
+                  alt={prod.name}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-cyan-300 border border-cyan-500/30">
+                  {prod.category}
+                </span>
+              </div>
+
+              <div class="p-5">
+                <div class="text-lg font-bold text-cyan-400 font-mono mb-1">{prod.price}</div>
+                <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors mb-2 line-clamp-2">
+                  {prod.name}
+                </h3>
+                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3">
+                  {prod.description}
+                </p>
+              </div>
+            </div>
+
+            <div class="p-5 pt-0">
+              <a
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 transition flex items-center justify-center gap-2"
+              >
+                <span>Pedir por WhatsApp</span>
+                <span>💬</span>
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

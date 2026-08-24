@@ -1,0 +1,20 @@
+{
+  "titulo": "Coordinador Académico y Talleres",
+  "area": "Área Académica & Investigación",
+  "fechaLimite": "2026-09-30",
+  "descripcion": "Lidera la organización de workshops técnicos, grupos de estudio en telecomunicaciones y capacitaciones para la comunidad estudiantil de IEEE ComSoc.",
+  "requisitos": [
+    "Estudiante activo de Ingeniería de Telecomunicaciones, Electrónica, Software o afines",
+    "Conocimientos intermedios en redes, IoT, protocolos inalámbricos o desarrollo web",
+    "Habilidades de comunicación, proactividad y liderazgo de equipos",
+    "Disponibilidad de 4 a 6 horas semanales para reuniones y coordinación"
+  ],
+  "responsabilidades": [
+    "Diseñar y calendarizar el cronograma de talleres semestrales del capítulo",
+    "Coordinar con ponentes invitados, docentes e investigadores de la industria",
+    "Supervisar el material técnico y guías de laboratorio de las sesiones",
+    "Emitir certificados de participación en conjunto con la mesa directiva"
+  ],
+  "estado": "Publicada",
+  "formUrl": "https://forms.gle/sample-comsoc-academic"
+}

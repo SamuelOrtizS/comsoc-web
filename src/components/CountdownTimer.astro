@@ -1,0 +1,87 @@
+---
+interface Props {
+  targetDate: string;
+  eventName?: string;
+}
+
+const { targetDate, eventName = "Próximo Evento" } = Astro.props;
+---
+
+<div class="glass-card rounded-2xl p-6 relative overflow-hidden border border-cyan-500/20 shadow-xl shadow-cyan-950/30">
+  <div class="flex items-center justify-between gap-4 mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+      <span class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold">Cuenta Regresiva</span>
+    </div>
+    <span class="text-xs text-gray-400 font-mono truncate max-w-[200px]">{eventName}</span>
+  </div>
+
+  <div
+    class="grid grid-cols-4 gap-2 sm:gap-4 text-center countdown-container"
+    data-target={targetDate}
+  >
+    <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-white days-val">00</div>
+      <div class="text-[10px] sm:text-xs text-gray-400 uppercase mt-1 font-mono">Días</div>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-cyan-400 hours-val">00</div>
+      <div class="text-[10px] sm:text-xs text-gray-400 uppercase mt-1 font-mono">Horas</div>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-white mins-val">00</div>
+      <div class="text-[10px] sm:text-xs text-gray-400 uppercase mt-1 font-mono">Min</div>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-purple-400 secs-val">00</div>
+      <div class="text-[10px] sm:text-xs text-gray-400 uppercase mt-1 font-mono">Seg</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCountdowns() {
+    const containers = document.querySelectorAll('.countdown-container');
+
+    containers.forEach((container) => {
+      const targetStr = container.getAttribute('data-target');
+      if (!targetStr) return;
+
+      const target = new Date(targetStr).getTime();
+      const daysEl = container.querySelector('.days-val');
+      const hoursEl = container.querySelector('.hours-val');
+      const minsEl = container.querySelector('.mins-val');
+      const secsEl = container.querySelector('.secs-val');
+
+      function update() {
+        const now = new Date().getTime();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          if (daysEl) daysEl.textContent = '00';
+          if (hoursEl) hoursEl.textContent = '00';
+          if (minsEl) minsEl.textContent = '00';
+          if (secsEl) secsEl.textContent = '00';
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+        if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+        if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+      }
+
+      update();
+      setInterval(update, 1000);
+    });
+  }
+
+  // Initialize on page load and astro page transitions
+  initCountdowns();
+  document.addEventListener('astro:page-load', initCountdowns);
+</script>

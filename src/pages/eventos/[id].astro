@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CountdownTimer from '../../components/CountdownTimer.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const eventos = await getCollection('eventos');
+  return eventos.map((evento) => ({
+    params: { id: evento.id.replace(/\/evento$/, '') },
+    props: { evento },
+  }));
+}
+
+interface Props {
+  evento: CollectionEntry<'eventos'>;
+}
+
+const { evento } = Astro.props;
+const data = evento.data;
+const isPast = data.estado === 'Pasado';
+
+// Format Date
+const dateObj = new Date(data.fechaInicio);
+const formattedDate = dateObj.toLocaleDateString('es-ES', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${data.titulo} | Evento IEEE ComSoc`}
+  description={data.descripcion}
+  image={data.imagenPrincipal}
+>
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Back to events -->
+    <a
+      href="/eventos"
+      class="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 font-mono mb-8 group"
+    >
+      <span class="group-hover:-translate-x-1 transition-transform">←</span>
+      <span>Volver a eventos</span>
+    </a>
+
+    <!-- Main Hero Card -->
+    <div class="glass-card rounded-3xl overflow-hidden border border-cyan-500/30 mb-12">
+      <div class="aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
+        <img
+          src={data.imagenPrincipal}
+          alt={data.titulo}
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-black/40"></div>
+        
+        <!-- Badges on image -->
+        <div class="absolute top-4 left-4 flex gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-cyan-300 border border-cyan-500/40 font-mono">
+            {data.tipo}
+          </span>
+          {isPast && (
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-800/80 backdrop-blur-md text-gray-300 border border-gray-700">
+              Finalizado
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div class="p-6 sm:p-10 space-y-6">
+        <div class="text-xs font-mono text-cyan-400">
+          ORGANIZADO POR: {data.organizador}
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+          {data.titulo}
+        </h1>
+
+        <!-- Key Meta Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
+          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="text-xs uppercase text-gray-400 font-mono">Fecha</div>
+            <div class="text-sm font-semibold text-white mt-1 capitalize">📅 {formattedDate}</div>
+          </div>
+
+          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="text-xs uppercase text-gray-400 font-mono">Horario</div>
+            <div class="text-sm font-semibold text-white mt-1">🕒 {data.horaInicio} - {data.horaFin}</div>
+          </div>
+
+          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="text-xs uppercase text-gray-400 font-mono">Lugar</div>
+            <div class="text-sm font-semibold text-white mt-1 truncate" title={data.lugarNombre}>
+              📍 {data.lugarNombre}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Details and Countdown Island Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+      <div class="lg:col-span-8 space-y-8">
+        <div class="glass-card rounded-2xl p-8 border border-white/10">
+          <h2 class="text-xl font-bold text-white mb-4 font-mono">Descripción del Evento</h2>
+          <p class="text-gray-300 text-base leading-relaxed font-light whitespace-pre-line">
+            {data.descripcion}
+          </p>
+
+          {data.lugarDireccion && (
+            <div class="mt-6 pt-6 border-t border-white/10 text-xs text-gray-400 font-mono">
+              <span class="text-gray-500 uppercase block mb-1">Dirección del Campus / Ubicación</span>
+              {data.lugarDireccion}
+            </div>
+          )}
+        </div>
+
+        <!-- Gallery if available -->
+        {data.galeria && data.galeria.length > 0 && (
+          <div class="glass-card rounded-2xl p-8 border border-white/10">
+            <h2 class="text-xl font-bold text-white mb-6 font-mono">Galería &amp; Recursos</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {data.galeria.map((img, idx) => (
+                <div class="rounded-xl overflow-hidden aspect-video bg-slate-900 border border-white/10">
+                  <img src={img} alt={`Foto ${idx + 1}`} class="w-full h-full object-cover hover:scale-105 transition duration-300" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-4 space-y-6">
+        {!isPast && (
+          <CountdownTimer
+            targetDate={`${data.fechaInicio}T${data.horaInicio || '09:00'}:00`}
+            eventName={data.titulo}
+          />
+        )}
+
+        <!-- Share & Action Box -->
+        <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
+          <h3 class="text-base font-bold text-white">Comparte este evento</h3>
+          <p class="text-xs text-gray-400 font-light">
+            Invita a tus compañeros de carrera a participar en las actividades de IEEE ComSoc.
+          </p>
+          <div class="flex gap-2 justify-center pt-2">
+            <a
+              href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`¡Te invito a este evento de IEEE ComSoc!: ${data.titulo}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/50 transition flex items-center gap-1.5"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://comsoc.org')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-blue-600/30 text-blue-300 border border-blue-500/40 hover:bg-blue-600/50 transition flex items-center gap-1.5"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>

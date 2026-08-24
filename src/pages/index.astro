@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import CountdownTimer from '../components/CountdownTimer.astro';
+import { getCollection } from 'astro:content';
+
+const allEvents = await getCollection('eventos');
+const upcomingEvents = allEvents.filter((ev) => ev.data.estado === 'Publicado');
+const featuredEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : allEvents[0];
+const featuredEventSlug = featuredEvent ? featuredEvent.id.replace(/\/evento$/, '') : '';
+
+const pillars = [
+  {
+    title: '5G / 6G & Redes Móviles',
+    desc: 'Arquitecturas de telecomunicaciones de última generación, Open RAN, beamforming y virtualización de redes NFV/SDN.',
+    icon: '📡',
+    color: 'from-blue-500/20 to-cyan-500/20',
+    border: 'border-cyan-500/30',
+  },
+  {
+    title: 'IoT & Telemetría Satelital',
+    desc: 'Sensores de bajo consumo, protocolos LPWAN (LoRaWAN, NB-IoT), procesamiento en el borde (Edge Computing) y telemetría MQTT.',
+    icon: '🌐',
+    color: 'from-cyan-500/20 to-teal-500/20',
+    border: 'border-teal-500/30',
+  },
+  {
+    title: 'Comunicaciones Ópticas & Cuánticas',
+    desc: 'Sistemas DWDM de alta capacidad, fotónica integrada y protocolos de distribución cuántica de claves (QKD).',
+    icon: '💡',
+    color: 'from-purple-500/20 to-indigo-500/20',
+    border: 'border-purple-500/30',
+  },
+  {
+    title: 'IA Aplicada a Redes',
+    desc: 'Optimización predictiva de tráfico espectral, detección de anomalías y automatización inteligente de infraestructura de telecomunicaciones.',
+    icon: '🧠',
+    color: 'from-indigo-500/20 to-blue-500/20',
+    border: 'border-indigo-500/30',
+  },
+];
+
+const featuredProjects = [
+  {
+    title: 'Estación Base LoRaWAN & Monitoreo Ambiental',
+    category: 'IoT & Smart Cities',
+    desc: 'Red universitaria distribuida de sensores con telemetría en tiempo real para calidad del aire, temperatura y humedad con visualización en dashboard.',
+    image: '/images/event-iot.svg',
+    link: '/eventos',
+  },
+  {
+    title: 'Simulador de Modulación & Constelaciones Digitales',
+    category: 'Signal Processing',
+    desc: 'Herramienta interactiva para estudiantes que modela canales de desvanecimiento Rayleigh/Rician y constelaciones QPSK/16-QAM.',
+    image: '/images/event-hackathon.svg',
+    link: '/eventos',
+  },
+];
+---
+
+<BaseLayout title="IEEE ComSoc | Student Chapter - Inicio">
+  <!-- Hero Section -->
+  <HeroSection />
+
+  <!-- Featured Event & Live Countdown Spotlight -->
+  {featuredEvent && (
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="relative rounded-3xl overflow-hidden glass-card p-6 sm:p-10 border border-cyan-500/30">
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-7 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
+              ⭐ Evento Destacado
+            </div>
+            
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+              {featuredEvent.data.titulo}
+            </h2>
+            
+            <p class="text-gray-300 text-sm sm:text-base leading-relaxed font-light">
+              {featuredEvent.data.descripcion}
+            </p>
+
+            <div class="flex flex-wrap gap-4 text-xs font-mono text-gray-400 pt-2 font-light">
+              <div>📍 {featuredEvent.data.lugarNombre}</div>
+              <div>🕒 {featuredEvent.data.horaInicio} - {featuredEvent.data.horaFin}</div>
+            </div>
+
+            <div class="pt-4 flex flex-wrap gap-3">
+              <a
+                href={`/eventos/${featuredEventSlug}`}
+                class="px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#155dfc] to-[#22d3ee] shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition"
+              >
+                Inscribirse al Evento
+              </a>
+              <a
+                href="/eventos"
+                class="px-6 py-3 rounded-xl font-semibold text-gray-300 bg-white/5 hover:bg-white/10 border border-white/10 transition"
+              >
+                Ver todos los eventos
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <CountdownTimer
+              targetDate={`${featuredEvent.data.fechaInicio}T${featuredEvent.data.horaInicio || '09:00'}:00`}
+              eventName={featuredEvent.data.titulo}
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Ecosystem / Technical Pillars -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-xs uppercase font-mono tracking-widest text-[#22d3ee] mb-2 font-semibold">
+        Áreas de Especialización
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Ecosistema Tecnológico de IEEE ComSoc
+      </h2>
+      <p class="text-gray-400 text-sm sm:text-base font-light">
+        Desarrollamos proyectos, capacitaciones e investigaciones orientadas a las áreas de mayor impacto en la industria moderna de telecomunicaciones.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {pillars.map((pillar) => (
+        <div class={`glass-card rounded-2xl p-6 border ${pillar.border} relative group hover:-translate-y-2 transition-all duration-300`}>
+          <div class="text-3xl mb-4 p-3 w-fit rounded-xl bg-white/5 border border-white/10">
+            {pillar.icon}
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+            {pillar.title}
+          </h3>
+          <p class="text-xs text-gray-400 leading-relaxed font-light">
+            {pillar.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Highlighted Projects Preview -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
+      <div>
+        <div class="text-xs uppercase font-mono tracking-widest text-[#a855f7] mb-2 font-semibold">
+          Investigación &amp; Desarrollo
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white">
+          Proyectos Destacados del Capítulo
+        </h2>
+      </div>
+      <a
+        href="/eventos"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 group"
+      >
+        <span>Ver todos los proyectos y talleres</span>
+        <span class="group-hover:translate-x-1 transition-transform">→</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {featuredProjects.map((proj) => (
+        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col">
+          <div class="aspect-video relative overflow-hidden bg-slate-900">
+            <img
+              src={proj.image}
+              alt={proj.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
+              {proj.category}
+            </div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <div>
+              <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors mb-2">
+                {proj.title}
+              </h3>
+              <p class="text-sm text-gray-400 font-light leading-relaxed mb-4">
+                {proj.desc}
+              </p>
+            </div>
+            <a
+              href={proj.link}
+              class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 font-mono"
+            >
+              Explorar Proyecto ↗
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Join CTA Banner -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="glass-card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden border border-purple-500/30 bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-cyan-900/20">
+      <div class="max-w-2xl mx-auto space-y-6 relative z-10">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          ¿Listo para liderar el futuro de las telecomunicaciones?
+        </h2>
+        <p class="text-gray-300 text-sm sm:text-base font-light leading-relaxed">
+          Conéctate con mentores de la industria, accede a recursos globales de IEEE, organiza congresos internacionales y potencia tu carrera profesional.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 pt-2">
+          <a
+            href="/convocatorias"
+            class="px-8 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-[#155dfc] to-[#22d3ee] shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition"
+          >
+            Ver Convocatorias Abiertas
+          </a>
+          <a
+            href="/nosotros"
+            class="px-8 py-3.5 rounded-xl font-semibold text-gray-300 bg-white/5 hover:bg-white/10 border border-white/10 transition"
+          >
+            Conoce Más Sobre Nosotros
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

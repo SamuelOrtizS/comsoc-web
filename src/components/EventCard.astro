@@ -1,0 +1,106 @@
+---
+interface Props {
+  id: string;
+  titulo: string;
+  tipo: string;
+  organizador: string;
+  fechaInicio: string;
+  horaInicio?: string;
+  lugarNombre?: string;
+  descripcion: string;
+  imagenPrincipal: string;
+  estado?: 'Publicado' | 'Pasado';
+}
+
+const {
+  id,
+  titulo,
+  tipo,
+  organizador,
+  fechaInicio,
+  horaInicio,
+  lugarNombre,
+  descripcion,
+  imagenPrincipal,
+  estado = 'Publicado',
+} = Astro.props;
+
+const isPast = estado === 'Pasado';
+const cleanId = id.replace(/\/evento$/, '');
+
+// Format readable date
+const dateObj = new Date(fechaInicio);
+const formattedDate = dateObj.toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+---
+
+<div class={`glass-card rounded-2xl overflow-hidden flex flex-col group h-full border ${isPast ? 'opacity-85 border-white/5' : 'border-cyan-500/20'}`}>
+  <!-- Image banner thumbnail -->
+  <div class="relative aspect-video w-full overflow-hidden bg-slate-900">
+    <img
+      src={imagenPrincipal}
+      alt={titulo}
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+    />
+    
+    <!-- Type & Status Badges -->
+    <div class="absolute top-3 left-3 flex flex-wrap gap-2">
+      <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-black/60 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
+        {tipo}
+      </span>
+      {isPast && (
+        <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-gray-800/80 backdrop-blur-md text-gray-300 border border-gray-700">
+          Finalizado
+        </span>
+      )}
+    </div>
+
+    <!-- Date pill -->
+    <div class="absolute bottom-3 right-3 px-2.5 py-1 text-xs font-mono rounded-lg bg-black/70 backdrop-blur-md text-white border border-white/10">
+      📅 {formattedDate}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-6 flex flex-col flex-grow justify-between">
+    <div>
+      <div class="flex items-center gap-2 text-xs text-gray-400 font-mono mb-2">
+        <span class="truncate">{organizador}</span>
+        {horaInicio && <span>• {horaInicio}</span>}
+      </div>
+
+      <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-2 mb-3">
+        {titulo}
+      </h3>
+
+      <p class="text-sm text-gray-400 line-clamp-3 mb-4 leading-relaxed font-light">
+        {descripcion}
+      </p>
+
+      {lugarNombre && (
+        <div class="flex items-center gap-1.5 text-xs text-gray-400 font-mono mb-4">
+          <svg class="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span class="truncate">{lugarNombre}</span>
+        </div>
+      )}
+    </div>
+
+    <!-- Detail action button -->
+    <a
+      href={`/eventos/${cleanId}`}
+      class="mt-2 w-full py-2.5 px-4 rounded-xl text-center text-sm font-semibold bg-white/5 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 transition-all flex items-center justify-center gap-2"
+    >
+      <span>Ver Detalles</span>
+      <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
+  </div>
+</div>

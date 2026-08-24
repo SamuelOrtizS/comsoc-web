@@ -1,0 +1,22 @@
+[
+  {
+    "valor": "+30",
+    "etiqueta": "Miembros Activos",
+    "color": "text-white"
+  },
+  {
+    "valor": "35+",
+    "etiqueta": "Workshops & Charlas",
+    "color": "text-[#22d3ee]"
+  },
+  {
+    "valor": "12+",
+    "etiqueta": "Proyectos de Redes",
+    "color": "text-[#a855f7]"
+  },
+  {
+    "valor": "100%",
+    "etiqueta": "Pasión Tecnológica",
+    "color": "text-emerald-400"
+  }
+]

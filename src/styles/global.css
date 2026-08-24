@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* Custom Font - Formata */
+@font-face {
+  font-family: 'Formata';
+  src: url('/fonts/Formata-Regular.woff2') format('woff2'),
+       url('/fonts/Formata-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Formata';
+  src: url('/fonts/Formata-Medium.woff2') format('woff2'),
+       url('/fonts/Formata-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Color Palette — dark tech / cyberpunk */
+  --color-bg-primary: #050816;
+  --color-bg-secondary: #0a0f24;
+  --color-accent-blue: #155dfc;
+  --color-accent-cyan: #22d3ee;
+  --color-accent-purple: #a855f7;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #94a3b8;
+  --color-glass-bg: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Typography */
+  --font-heading: 'Formata', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Nunito Sans', system-ui, sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+/* Custom Base & Utilities */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg-primary, #050816);
+  color: var(--color-text-primary, #ffffff);
+  font-family: var(--font-body, 'Nunito Sans', sans-serif);
+}
+
+::selection {
+  background-color: #155dfc;
+  color: #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050816;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(10, 15, 36, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(34, 211, 238, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(21, 93, 252, 0.25);
+}
+
+.glow-text {
+  text-shadow: 0 0 25px rgba(34, 211, 238, 0.4);
+}
+
+.glow-btn {
+  box-shadow: 0 0 20px rgba(21, 93, 252, 0.35);
+  transition: all 0.3s ease;
+}
+
+.glow-btn:hover {
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.55);
+}
+
+/* Grid background pattern */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}

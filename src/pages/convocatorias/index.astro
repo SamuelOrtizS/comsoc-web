@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ConvocatoriaCard from '../../components/ConvocatoriaCard.astro';
+import { getCollection } from 'astro:content';
+
+const allConvocatorias = await getCollection('convocatorias');
+---
+
+<BaseLayout
+  title="IEEE ComSoc | Convocatorias Abiertas"
+  description="Únete al equipo directivo y comités de trabajo del Capítulo Estudiantil IEEE ComSoc."
+>
+  <!-- Header Banner -->
+  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono mb-4">
+        Oportunidades de Voluntariado
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+        Convocatorias &amp; Reclutamiento
+      </h1>
+      <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg font-light leading-relaxed">
+        Forma parte de nuestros equipos de proyectos, organización de eventos, marketing e investigación. Potencia tu perfil profesional.
+      </p>
+
+      <!-- Client-side Search Input -->
+      <div class="mt-8 max-w-md mx-auto">
+        <div class="relative">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Buscar por cargo, área o tecnología..."
+            class="w-full px-5 py-3 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-sm backdrop-blur-md transition"
+          />
+          <div class="absolute right-4 top-3.5 text-gray-500 pointer-events-none text-sm">
+            🔍
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Convocatorias Grid Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-xl font-bold text-white font-mono flex items-center gap-2">
+        <span>Puestos Disponibles</span>
+        <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+          {allConvocatorias.length}
+        </span>
+      </h2>
+    </div>
+
+    {allConvocatorias.length === 0 ? (
+      <div class="glass-card rounded-2xl p-12 text-center border border-white/10 max-w-xl mx-auto">
+        <div class="text-4xl mb-4">📭</div>
+        <h3 class="text-lg font-bold text-white mb-2">No hay convocatorias activas en este momento</h3>
+        <p class="text-sm text-gray-400 font-light">
+          Síguenos en nuestras redes sociales para estar atento al próximo periodo de postulaciones.
+        </p>
+      </div>
+    ) : (
+      <div id="convocatorias-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {allConvocatorias.map((item) => (
+          <div class="convocatoria-item" data-title={item.data.titulo.toLowerCase()} data-area={item.data.area.toLowerCase()}>
+            <ConvocatoriaCard
+              id={item.id}
+              titulo={item.data.titulo}
+              area={item.data.area}
+              fechaLimite={item.data.fechaLimite}
+              descripcion={item.data.descripcion}
+              requisitos={item.data.requisitos}
+              responsabilidades={item.data.responsabilidades}
+              estado={item.data.estado}
+              formUrl={item.data.formUrl}
+            />
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- Empty search result state -->
+    <div id="no-results-msg" class="hidden glass-card rounded-2xl p-12 text-center border border-white/10 max-w-md mx-auto mt-8">
+      <p class="text-gray-400 text-sm">No se encontraron convocatorias que coincidan con tu búsqueda.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function setupSearch() {
+    const input = document.getElementById('search-input') as HTMLInputElement | null;
+    const items = document.querySelectorAll('.convocatoria-item');
+    const noResults = document.getElementById('no-results-msg');
+
+    if (!input || !items.length) return;
+
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      items.forEach((el) => {
+        const item = el as HTMLElement;
+        const title = item.getAttribute('data-title') || '';
+        const area = item.getAttribute('data-area') || '';
+
+        if (title.includes(q) || area.includes(q)) {
+          item.style.display = '';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+    });
+  }
+
+  setupSearch();
+  document.addEventListener('astro:page-load', setupSearch);
+</script>
