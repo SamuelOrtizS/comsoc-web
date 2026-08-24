@@ -81,20 +81,20 @@ Cada evento se ubica en su propia subcarpeta con el nombre del slug y un archivo
 
 ## 3. Tienda / Merchandising (`src/content/tienda/`)
 
-Crea un archivo `.json` por producto (ejemplo: `taza-comsoc.json`):
+Crea un archivo `.json` por producto (ejemplo: `taza-comsoc.json`). Los precios se expresan en **Pesos Colombianos (COP)**:
 
 ```json
 {
   "name": "Taza Térmica ComSoc",
   "category": "Accesorios",
-  "price": "S/. 25.00",
+  "price": "$ 25.000 COP",
   "description": "Taza de acero inoxidable con logo grabado láser.",
   "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
   "available": true
 }
 ```
 
-- **Campos:** `name`, `category`, `price`, `description`, `image` (URL de imagen), `available` (`true` o `false`).
+- **Campos:** `name`, `category`, `price` (texto con formato `$ XX.XXX COP`), `description`, `image` (URL de imagen), `available` (`true` o `false`).
 
 ---
 
@@ -127,7 +127,7 @@ Crea un archivo `.json` por miembro (ejemplo: `presidente.json`):
 
 ## 5. Proyectos (`src/content/proyectos/`)
 
-Crea un archivo `.json` por proyecto (ejemplo: `satelite-cubesat.json`):
+Crea un archivo `.json` por proyecto (ejemplo: `satelite-cubesat.json`). Los proyectos manejan financiamiento tanto en **Dólares (USD)** como en **Pesos Colombianos (COP)**:
 
 ```json
 {
@@ -140,12 +140,14 @@ Crea un archivo `.json` por proyecto (ejemplo: `satelite-cubesat.json`):
   "enlace": "https://github.com/comsoc/estacion-terrena",
   "destacado": true,
   "montoActual": 600,
-  "montoMeta": 1500
+  "montoMeta": 1500,
+  "montoActualCOP": 2400000,
+  "montoMetaCOP": 6000000
 }
 ```
 
 - **Campos obligatorios:** `titulo`, `categoria`, `descripcion`, `imagen`, `estado` (`"Activo"`, `"Completado"` o `"En Pausa"`).
-- **Campos opcionales:** `tags` (array de strings), `enlace` (URL de GitHub/Demo), `destacado` (`true`/`false`), `montoActual` (número para donaciones), `montoMeta` (número meta de fondos).
+- **Campos opcionales:** `tags` (array de strings), `enlace` (URL de GitHub/Demo), `destacado` (`true`/`false`), `montoActual` (número en USD), `montoMeta` (número meta en USD), `montoActualCOP` (número en COP), `montoMetaCOP` (número meta en COP). Si no se indican montos en COP, el sistema los calcula automáticamente con la tasa de referencia.
 
 ---
 

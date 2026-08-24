@@ -14,5 +14,7 @@
   "enlace": "/eventos",
   "destacado": false,
   "montoActual": 120,
-  "montoMeta": 800
+  "montoMeta": 800,
+  "montoActualCOP": 500000,
+  "montoMetaCOP": 3300000
 }

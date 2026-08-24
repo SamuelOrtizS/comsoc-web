@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { formatUSD, formatCOP } from '../../utils/currency';
 
 const allProyectos = await getCollection('proyectos');
 
@@ -105,12 +106,16 @@ const estadoStyle = {
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
-                  <div class="mb-4 space-y-1.5">
-                    <div class="flex justify-between text-[11px] font-mono">
-                      <span class="text-gray-400">Financiación:</span>
-                      <span class="text-[#22d3ee] font-semibold">${proyecto.data.montoActual} / ${proyecto.data.montoMeta} USD</span>
+                  <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
+                    <div class="flex justify-between items-baseline text-[11px] font-mono">
+                      <span class="text-gray-400">Financiación (USD):</span>
+                      <span class="text-[#22d3ee] font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
-                    <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
+                    <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
+                      <span>En COP:</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                    </div>
+                    <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
                         class="h-full bg-gradient-to-r from-blue-500 to-[#22d3ee] rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
@@ -178,12 +183,16 @@ const estadoStyle = {
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
-                  <div class="mb-4 space-y-1.5">
-                    <div class="flex justify-between text-[11px] font-mono">
-                      <span class="text-gray-400">Financiación:</span>
-                      <span class="text-[#22d3ee] font-semibold">${proyecto.data.montoActual} / ${proyecto.data.montoMeta} USD</span>
+                  <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
+                    <div class="flex justify-between items-baseline text-[11px] font-mono">
+                      <span class="text-gray-400">Financiación (USD):</span>
+                      <span class="text-[#22d3ee] font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
-                    <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
+                    <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
+                      <span>En COP:</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                    </div>
+                    <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
                         class="h-full bg-gradient-to-r from-blue-500 to-[#22d3ee] rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
@@ -251,12 +260,16 @@ const estadoStyle = {
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
-                  <div class="mb-4 space-y-1.5">
-                    <div class="flex justify-between text-[11px] font-mono">
-                      <span class="text-gray-400">Financiación:</span>
-                      <span class="text-[#22d3ee] font-semibold">${proyecto.data.montoActual} / ${proyecto.data.montoMeta} USD</span>
+                  <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
+                    <div class="flex justify-between items-baseline text-[11px] font-mono">
+                      <span class="text-gray-400">Financiación (USD):</span>
+                      <span class="text-[#22d3ee] font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
-                    <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
+                    <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
+                      <span>En COP:</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                    </div>
+                    <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
                         class="h-full bg-gradient-to-r from-blue-500 to-[#22d3ee] rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
