@@ -1,15 +1,14 @@
 <!-- Desktop cursor: SVG icon following exact mouse position -->
 <div
   id="custom-cursor"
-  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-300"
-  style="transform: translate3d(-100px, -100px, 0);"
+  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-300 origin-top-left"
+  style="transform: translate3d(-100px, -100px, 0) rotate(-25deg) scale(1);"
 >
   <img
     id="custom-cursor-img"
     src="/images/Cursor/Cursor/Step1.svg"
     alt="Cursor"
-    class="w-8 h-8 origin-top-left -rotate-[25deg] transition-transform duration-150 ease-out"
-    style="transform: scale(1);"
+    class="w-8 h-8 block"
   />
 </div>
 
@@ -56,12 +55,25 @@
     const step3 = '/images/Cursor/Cursor/Step3.svg';
     const step4 = '/images/Cursor/Cursor/Step4.svg';
 
+    // Scale state tracked separately so we can bake it into the combined transform
+    let cursorScale = 1;
+
+    // Hotspot: nudge the cursor so its visual tip aligns with the real pointer.
+    // Negative X = shift cursor left, negative Y = shift cursor up.
+    const HOTSPOT_X = -15;
+    const HOTSPOT_Y = 0;
+
+    const applyTransform = () => {
+      cursor.style.transform =
+        `translate3d(${mouseX + HOTSPOT_X}px, ${mouseY + HOTSPOT_Y}px, 0) rotate(-25deg) scale(${cursorScale})`;
+    };
+
     // Move cursor exactly with mouse — no lag, no physics
     window.addEventListener('mousemove', (e: MouseEvent) => {
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      applyTransform();
       if (!visible) {
         cursor.classList.remove('opacity-0');
         cursor.classList.add('opacity-100');
@@ -79,7 +91,7 @@
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      applyTransform();
       cursor.classList.remove('opacity-0');
       cursor.classList.add('opacity-100');
       visible = true;
@@ -89,12 +101,14 @@
     window.addEventListener('mousedown', () => {
       if (touchDevice) return;
       isDown = true;
-      cursorImg.style.transform = 'scale(0.92)';
+      cursorScale = 0.92;
+      applyTransform();
     });
 
     window.addEventListener('mouseup', () => {
       isDown = false;
-      cursorImg.style.transform = 'scale(1)';
+      cursorScale = 1;
+      applyTransform();
     });
 
     // Click wave pulse on desktop
