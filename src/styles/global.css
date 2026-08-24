@@ -3,8 +3,7 @@
 /* Custom Font - Formata */
 @font-face {
   font-family: 'Formata';
-  src: url('/fonts/Formata-Regular.woff2') format('woff2'),
-       url('/fonts/Formata-Regular.woff') format('woff');
+  src: url('/comsoc-web/fonts/Formata-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,8 +11,7 @@
 
 @font-face {
   font-family: 'Formata';
-  src: url('/fonts/Formata-Medium.woff2') format('woff2'),
-       url('/fonts/Formata-Medium.woff') format('woff');
+  src: url('/comsoc-web/fonts/Formata-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -54,13 +52,16 @@ html {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #050816;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #334155;
 }
@@ -103,7 +104,7 @@ html {
 /* Grid background pattern */
 .bg-grid-pattern {
   background-size: 40px 40px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
