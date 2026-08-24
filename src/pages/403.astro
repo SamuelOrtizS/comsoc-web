@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ErrorPage from '../components/ErrorPage.astro';
+---
+
+<BaseLayout
+  title="IEEE ComSoc | 403 — Acceso Denegado"
+  description="No tienes permiso para acceder a este recurso."
+>
+  <ErrorPage
+    code="403"
+    tagline="ERROR::ACCESS_DENIED"
+    title="Acceso Denegado"
+    description="No tienes los permisos necesarios para acceder a este recurso. Si crees que esto es un error, contacta al equipo de administración del capítulo."
+    color="red"
+    icon="shield"
+    showRetry={false}
+  />
+</BaseLayout>

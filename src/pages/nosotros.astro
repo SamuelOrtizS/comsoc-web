@@ -275,6 +275,87 @@ const benefits = [
   </div>
 
   <script>
+    // Gallery Slider Logic
+    const slides = document.querySelectorAll('.gallery-slide');
+    const dots = document.querySelectorAll('button[data-index]');
+    const prevBtn = document.getElementById('gallery-prev');
+    const nextBtn = document.getElementById('gallery-next');
+    let currentSlide = 0;
+    let autoPlayInterval: number;
+
+    function showSlide(index: number) {
+      if (slides.length === 0) return;
+      currentSlide = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, idx) => {
+        if (idx === currentSlide) {
+          slide.classList.remove('opacity-0', 'z-0');
+          slide.classList.add('opacity-100', 'z-10');
+        } else {
+          slide.classList.remove('opacity-100', 'z-10');
+          slide.classList.add('opacity-0', 'z-0');
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlide) {
+          dot.classList.remove('bg-white/40');
+          dot.classList.add('bg-cyan-400', 'scale-125');
+        } else {
+          dot.classList.remove('bg-cyan-400', 'scale-125');
+          dot.classList.add('bg-white/40');
+        }
+      });
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayInterval = window.setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+      }
+    }
+
+    if (prevBtn && nextBtn && slides.length > 0) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay();
+      });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
+          showSlide(idx);
+          startAutoPlay();
+        });
+      });
+
+      // Pause on hover
+      const container = document.getElementById('gallery-container');
+      if (container) {
+        container.addEventListener('mouseenter', stopAutoPlay);
+        container.addEventListener('mouseleave', startAutoPlay);
+      }
+
+      startAutoPlay();
+    }
+
     type MemberData = {
       name: string;
       role: string;

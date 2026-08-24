@@ -1,0 +1,158 @@
+---
+interface Props {
+  code: string;
+  tagline: string;
+  title: string;
+  description: string;
+  color: 'red' | 'amber' | 'purple' | 'cyan';
+  icon: 'shield' | 'server' | 'gateway' | 'maintenance';
+  showRetry?: boolean;
+}
+
+const { code, tagline, title, description, color, icon, showRetry = true } = Astro.props;
+
+const colorMap = {
+  red:    { bg: 'from-red-500/20 to-rose-500/20', border: 'border-red-500/30', text: 'text-red-300', badge: 'bg-red-500/10 border-red-500/30 text-red-300', dot: 'bg-red-400', glow: 'rgba(239,68,68,0.15)', btn: 'from-red-500 to-rose-500', shadow: 'shadow-red-500/25', grad: 'from-[#ef4444] via-[#f43f5e] to-[#ec4899]' },
+  amber:  { bg: 'from-amber-500/20 to-orange-500/20', border: 'border-amber-500/30', text: 'text-amber-300', badge: 'bg-amber-500/10 border-amber-500/30 text-amber-300', dot: 'bg-amber-400', glow: 'rgba(245,158,11,0.15)', btn: 'from-amber-500 to-orange-500', shadow: 'shadow-amber-500/25', grad: 'from-[#f59e0b] via-[#f97316] to-[#ef4444]' },
+  purple: { bg: 'from-purple-500/20 to-indigo-500/20', border: 'border-purple-500/30', text: 'text-purple-300', badge: 'bg-purple-500/10 border-purple-500/30 text-purple-300', dot: 'bg-purple-400', glow: 'rgba(168,85,247,0.15)', btn: 'from-purple-500 to-indigo-500', shadow: 'shadow-purple-500/25', grad: 'from-[#a855f7] via-[#8b5cf6] to-[#6366f1]' },
+  cyan:   { bg: 'from-cyan-500/20 to-blue-500/20', border: 'border-cyan-500/30', text: 'text-cyan-300', badge: 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300', dot: 'bg-cyan-400', glow: 'rgba(34,211,238,0.15)', btn: 'from-cyan-500 to-blue-500', shadow: 'shadow-cyan-500/25', grad: 'from-[#22d3ee] via-[#3b82f6] to-[#6366f1]' },
+};
+
+const c = colorMap[color];
+
+const iconPaths: Record<string, string> = {
+  shield: 'M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z',
+  server: 'M21.75 17.25v-.228a4.5 4.5 0 00-.12-1.03l-2.268-9.64a3.375 3.375 0 00-3.285-2.602H7.923a3.375 3.375 0 00-3.285 2.602l-2.268 9.64a4.5 4.5 0 00-.12 1.03v.228m19.5 0a3 3 0 01-3 3H5.25a3 3 0 01-3-3m19.5 0a3 3 0 00-3-3H5.25a3 3 0 00-3 3m16.5 0h.008v.008h-.008v-.008zm-3 0h.008v.008h-.008v-.008z',
+  gateway: 'M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5',
+  maintenance: 'M11.42 15.17l-4.655 4.655a2.56 2.56 0 01-3.621 0l-.414-.414a2.56 2.56 0 010-3.621l4.655-4.655m8.084 0l4.655-4.655a2.56 2.56 0 000-3.621l-.414-.414a2.56 2.56 0 00-3.621 0L11.42 6.93m4.242 4.242L9.88 5.39m5.784 5.784l-5.784-5.784',
+};
+---
+
+<section class="min-h-[calc(100vh-10rem)] flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+
+  <!-- Scan-lines -->
+  <div class="absolute inset-0 pointer-events-none select-none scanlines" aria-hidden="true"></div>
+
+  <!-- Ambient glow -->
+  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full blur-[120px] pointer-events-none" style={`background: ${c.glow};`}></div>
+
+  <!-- Decorative rings -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
+    <div class={`ring-pulse w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] rounded-full border ${c.border} opacity-30`}></div>
+    <div class={`ring-pulse ring-delay-1 absolute w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] rounded-full border ${c.border} opacity-20`}></div>
+  </div>
+
+  <div class="relative z-10 text-center max-w-xl mx-auto flex flex-col items-center gap-8">
+
+    <!-- Error code + icon -->
+    <div class="relative">
+      <div class={`w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br ${c.bg} ${c.border} border flex items-center justify-center error-icon-pulse`}>
+        <svg class={`w-14 h-14 sm:w-16 sm:h-16 ${c.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[icon]} />
+        </svg>
+      </div>
+      <div class={`absolute -top-1 -right-1 w-5 h-5 rounded-full ${c.dot} opacity-80 border-2 border-[#050816] animate-pulse`}></div>
+    </div>
+
+    <!-- Error number -->
+    <h1 class="text-6xl sm:text-7xl font-extrabold leading-none tracking-tighter select-none">
+      <span class={`bg-gradient-to-br ${c.grad} bg-clip-text text-transparent`}>{code}</span>
+    </h1>
+
+    <!-- Message -->
+    <div class="space-y-3 -mt-2">
+      <div class={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono ${c.badge}`}>
+        <span class={`w-1.5 h-1.5 rounded-full ${c.dot} animate-pulse`}></span>
+        {tagline}
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-white">
+        {title}
+      </h2>
+      <p class="text-gray-400 text-sm sm:text-base font-light leading-relaxed max-w-md mx-auto">
+        {description}
+      </p>
+    </div>
+
+    <!-- Diagnostic panel -->
+    <div class={`glass-card rounded-2xl px-6 py-5 border ${c.border} w-full max-w-sm`} style="border-color: var(--diag-border, rgba(255,255,255,0.1));">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-green-500/80 opacity-30"></span>
+        <span class="text-[10px] font-mono text-gray-500 ml-auto">diagnostics.log</span>
+      </div>
+      <code class="text-xs font-mono text-gray-400 block text-left">
+        <span class={c.text}>[{code}]</span> {tagline}<br/>
+        <span class="text-gray-500">├─</span> path: <span class="text-cyan-400 error-page-path"></span><br/>
+        <span class="text-gray-500">├─</span> time: <span class="text-cyan-400 error-page-ts"></span><br/>
+        <span class="text-gray-500">└─</span> action: <span class="text-emerald-400">{showRetry ? 'retry or navigate home' : 'navigate home'}</span>
+      </code>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-wrap justify-center gap-4 pt-2">
+      {showRetry && (
+        <button
+          onclick="window.location.reload()"
+          class={`px-7 py-3 rounded-xl font-semibold text-white bg-gradient-to-r ${c.btn} shadow-lg ${c.shadow} hover:scale-[1.02] transition-all duration-200 cursor-pointer`}
+        >
+          Reintentar
+        </button>
+      )}
+      <a
+        href="/comsoc-web/"
+        class={`px-7 py-3 rounded-xl font-semibold text-gray-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 ${!showRetry ? 'bg-gradient-to-r ' + c.btn + ' text-white shadow-lg ' + c.shadow : ''}`}
+      >
+        Volver al Inicio
+      </a>
+    </div>
+
+    <!-- Quick links -->
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-mono text-gray-500 pt-2">
+      <a href="/comsoc-web/eventos" class="hover:text-cyan-400 transition">Eventos</a>
+      <a href="/comsoc-web/proyectos" class="hover:text-cyan-400 transition">Proyectos</a>
+      <a href="/comsoc-web/nosotros" class="hover:text-cyan-400 transition">Nosotros</a>
+      <a href="/comsoc-web/convocatorias" class="hover:text-cyan-400 transition">Convocatorias</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scanlines {
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+  }
+
+  .error-icon-pulse {
+    animation: icon-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes icon-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    50% { box-shadow: 0 0 40px 8px var(--glow-color, rgba(255, 255, 255, 0.1)); }
+  }
+
+  .ring-pulse {
+    animation: ring-expand 4s ease-in-out infinite;
+  }
+  .ring-delay-1 { animation-delay: 1.5s; }
+
+  @keyframes ring-expand {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.06); opacity: 0.7; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.error-page-path').forEach(el => {
+    el.textContent = window.location.pathname;
+  });
+  document.querySelectorAll('.error-page-ts').forEach(el => {
+    el.textContent = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  });
+</script>
