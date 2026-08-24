@@ -22,6 +22,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
 <!doctype html>
 <html lang="es" class="scroll-smooth bg-[#050816] text-white">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q9FC7KE7Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7Q9FC7KE7Y');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -70,14 +79,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
     <Footer />
     <CustomCursor />
     <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e239d35fe7434d2c91eea3c5cb11327e"}'></script><!-- End Cloudflare Web Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q9FC7KE7Y"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-7Q9FC7KE7Y');
-    </script>
   </body>
 </html>
