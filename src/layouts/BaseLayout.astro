@@ -22,15 +22,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
 <!doctype html>
 <html lang="es" class="scroll-smooth bg-[#050816] text-white">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q9FC7KE7Y"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-7Q9FC7KE7Y');
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -63,6 +54,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..800;1,6..12,300..800&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q9FC7KE7Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7Q9FC7KE7Y');
+    </script>
   </head>
   <body class="min-h-screen flex flex-col bg-[#050816] text-[#ffffff] selection:bg-[#155dfc] selection:text-white relative overflow-x-hidden font-sans">
     <!-- Background glow ambient effects -->
