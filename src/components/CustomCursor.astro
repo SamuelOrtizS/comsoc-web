@@ -1,13 +1,13 @@
 <div
   id="custom-cursor"
-  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-200"
+  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-300"
   style="transform: translate3d(-100px, -100px, 0);"
 >
   <img
     id="custom-cursor-img"
     src="/images/Cursor/Cursor/Step1.svg"
     alt="Cursor"
-    class="w-8 h-8 transition-transform duration-100 ease-out origin-top-left -rotate-[25deg]"
+    class="w-5 h-5 sm:w-8 sm:h-8 transition-transform duration-200 ease-out origin-top-left -rotate-[25deg]"
   />
 </div>
 
@@ -16,13 +16,6 @@
   @media (any-pointer: fine) {
     html, body, a, button, select, input, textarea, [role="button"] {
       cursor: none !important;
-    }
-  }
-
-  /* Ensure cursor is hidden on touch screens where it's not applicable */
-  @media (pointer: coarse) {
-    #custom-cursor {
-      display: none !important;
     }
   }
 </style>
@@ -34,53 +27,176 @@
   if (cursor && cursorImg) {
     let cursorVisible = false;
 
-    // Track mouse position
-    const updatePosition = (e: MouseEvent) => {
-      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      if (!cursorVisible) {
+    // Target coordinates from mouse or touch event
+    let targetX = -100;
+    let targetY = -100;
+
+    // Current interpolated coordinates for fluid inertia
+    let currentX = -100;
+    let currentY = -100;
+
+    let isHoveringInteractive = false;
+    let isClicking = false;
+    let isTouchMode = false;
+    let touchFadeTimeout: number | undefined;
+
+    // Fluid interpolation factor (desktop: 0.22, touch: slightly faster for immediate tracking)
+    let lerpFactor = 0.22;
+
+    const renderLoop = () => {
+      // Smooth interpolation towards target position
+      currentX += (targetX - currentX) * lerpFactor;
+      currentY += (targetY - currentY) * lerpFactor;
+
+      // Calculate scale (smaller on mobile/touch, micro-scale on hover/press)
+      const baseScale = isTouchMode ? 0.85 : 1;
+      const stateScale = isClicking ? 0.9 : isHoveringInteractive ? 1.25 : 1;
+      const totalScale = (baseScale * stateScale).toFixed(3);
+
+      cursor.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) scale(${totalScale})`;
+
+      requestAnimationFrame(renderLoop);
+    };
+
+    requestAnimationFrame(renderLoop);
+
+    const showCursor = (x: number, y: number, immediate = false) => {
+      targetX = x;
+      targetY = y;
+
+      if (!cursorVisible || immediate) {
+        currentX = targetX;
+        currentY = targetY;
         cursor.classList.remove('opacity-0');
         cursor.classList.add('opacity-100');
         cursorVisible = true;
       }
     };
 
-    window.addEventListener('mousemove', updatePosition);
-
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
+    const hideCursor = () => {
       cursor.classList.remove('opacity-100');
       cursor.classList.add('opacity-0');
       cursorVisible = false;
+    };
+
+    // --- Desktop Mouse Tracking ---
+    window.addEventListener(
+      'mousemove',
+      (e: MouseEvent) => {
+        isTouchMode = false;
+        lerpFactor = 0.22;
+        showCursor(e.clientX, e.clientY);
+      },
+      { passive: true }
+    );
+
+    // Interactive element hover detection for fluid scaling
+    window.addEventListener(
+      'mouseover',
+      (e: MouseEvent) => {
+        const target = e.target as HTMLElement | null;
+        if (
+          target &&
+          (target.closest('a, button, [role="button"], input, textarea, select, .cursor-pointer, .member-card, .aliado-card, summary') ||
+            window.getComputedStyle(target).cursor === 'pointer')
+        ) {
+          isHoveringInteractive = true;
+        } else {
+          isHoveringInteractive = false;
+        }
+      },
+      { passive: true }
+    );
+
+    document.addEventListener('mouseleave', hideCursor);
+    document.addEventListener('mouseenter', (e: MouseEvent) => {
+      showCursor(e.clientX, e.clientY);
     });
 
-    // Re-show when entering window
-    document.addEventListener('mouseenter', (e) => {
-      updatePosition(e);
-    });
+    // --- Mobile Touch & Scroll Following ---
+    const handleTouchUpdate = (e: TouchEvent) => {
+      if (e.touches && e.touches.length > 0) {
+        isTouchMode = true;
+        lerpFactor = 0.35; // Responsive tracking during touch drag
+        const touch = e.touches[0];
+        showCursor(touch.clientX, touch.clientY);
 
-    // Animation frames
+        // Clear any pending fade-out when actively touching
+        if (touchFadeTimeout) {
+          window.clearTimeout(touchFadeTimeout);
+          touchFadeTimeout = undefined;
+        }
+      }
+    };
+
+    window.addEventListener('touchstart', handleTouchUpdate, { passive: true });
+    window.addEventListener('touchmove', handleTouchUpdate, { passive: true });
+
+    // Smoothly fade out when finger is lifted or scroll finishes
+    const scheduleTouchFade = (delay = 400) => {
+      if (touchFadeTimeout) window.clearTimeout(touchFadeTimeout);
+      touchFadeTimeout = window.setTimeout(() => {
+        if (isTouchMode) {
+          hideCursor();
+        }
+      }, delay);
+    };
+
+    window.addEventListener('touchend', () => scheduleTouchFade(300), { passive: true });
+    window.addEventListener('touchcancel', () => scheduleTouchFade(100), { passive: true });
+
+    // Scroll event: keep following touch or fade out gracefully if scrolling without touching
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (isTouchMode) {
+          scheduleTouchFade(500);
+        }
+      },
+      { passive: true }
+    );
+
+    // --- Telecom Signal Wave Pulse on Click / Tap ---
     const step1 = '/images/Cursor/Cursor/Step1.svg';
     const step2 = '/images/Cursor/Cursor/Step2.svg';
     const step3 = '/images/Cursor/Cursor/Step3.svg';
     const step4 = '/images/Cursor/Cursor/Step4.svg';
 
-    let animationTimeout: number;
+    let animationTimeout1: number;
+    let animationTimeout2: number;
+    let animationTimeout3: number;
 
-    window.addEventListener('mousedown', () => {
-      clearTimeout(animationTimeout);
+    const triggerPulse = () => {
+      isClicking = true;
+      window.clearTimeout(animationTimeout1);
+      window.clearTimeout(animationTimeout2);
+      window.clearTimeout(animationTimeout3);
+
       cursorImg.src = step2;
 
-      animationTimeout = window.setTimeout(() => {
+      const FRAME_DELAY = isTouchMode ? 100 : 140;
+
+      animationTimeout1 = window.setTimeout(() => {
         cursorImg.src = step3;
 
-        animationTimeout = window.setTimeout(() => {
+        animationTimeout2 = window.setTimeout(() => {
           cursorImg.src = step4;
 
-          animationTimeout = window.setTimeout(() => {
+          animationTimeout3 = window.setTimeout(() => {
             cursorImg.src = step1;
-          }, 80);
-        }, 80);
-      }, 80);
+          }, FRAME_DELAY);
+        }, FRAME_DELAY);
+      }, FRAME_DELAY);
+    };
+
+    window.addEventListener('mousedown', triggerPulse);
+    window.addEventListener('touchstart', triggerPulse, { passive: true });
+
+    window.addEventListener('mouseup', () => {
+      isClicking = false;
+    });
+    window.addEventListener('touchend', () => {
+      isClicking = false;
     });
   }
 </script>
