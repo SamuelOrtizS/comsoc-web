@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ErrorPage from '../components/ErrorPage.astro';
+---
+
+<BaseLayout
+  title="IEEE ComSoc | 500 — Error Interno"
+  description="Ha ocurrido un error interno del servidor. Por favor intenta nuevamente."
+>
+  <ErrorPage
+    code="500"
+    tagline="SYSTEM::INTERNAL_FAILURE"
+    title="Error Interno del Servidor"
+    description="Se ha producido un fallo inesperado en nuestra infraestructura. El equipo técnico ha sido notificado. Por favor, intenta nuevamente en unos momentos."
+    color="amber"
+    icon="server"
+  />
+</BaseLayout>

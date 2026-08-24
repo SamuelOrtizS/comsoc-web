@@ -3,6 +3,11 @@
   "name": "Ing. Alejandro Ramos",
   "role": "Faculty Advisor",
   "department": "Docente Investigador en Telecomunicaciones",
-  "avatar": "👨‍🏫",
-  "linkedin": "https://linkedin.com"
+  "image": "https://thispersondoesnotexist.com/random-person.jpeg",
+  "bio": "Ing. Alejandro Ramos es un destacado docente investigador con amplia experiencia en el campo de las telecomunicaciones y la ingeniería eléctrica. Su trayectoria académica y profesional se ha centrado en el desarrollo de soluciones innovadoras en redes de comunicación, sistemas inteligentes y tecnologías emergentes. Como Faculty Advisor del Capítulo IEEE ComSoc, guía a los estudiantes en sus proyectos de investigación y desarrollo, fomentando la excelencia académica y la transferencia tecnológica.",
+  "linkedin": "https://linkedin.com",
+  "instagram": "https://instagram.com",
+  "facebook": "https://facebook.com",
+  "github": "https://github.com",
+  "website": "https://website.com"
 }

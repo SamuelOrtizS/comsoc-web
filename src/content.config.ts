@@ -55,9 +55,14 @@ const juntaDirectiva = defineCollection({
         department: z.string(),
         avatar: z.string().default('👤'),
         image: z.string().optional(),
-        linkedin: z.string().optional(),
-        github: z.string().optional(),
+        bio: z.string().optional(),
         email: z.string().optional(),
+        phone: z.string().optional(),
+        linkedin: z.string().optional(),
+        instagram: z.string().optional(),
+        facebook: z.string().optional(),
+        github: z.string().optional(),
+        website: z.string().optional(),
     }),
 });
 
@@ -77,10 +82,28 @@ const proyectos = defineCollection({
     }),
 });
 
+const aliados = defineCollection({
+    loader: glob({ pattern: '**/*.json', base: './src/content/aliados' }),
+    schema: z.object({
+        order: z.number().default(99),
+        nombre: z.string(),
+        tipo: z.string(),
+        logo: z.string().optional(),
+        descripcion: z.string(),
+        acerca: z.string().optional(),
+        website: z.string().optional(),
+        email: z.string().optional(),
+        phone: z.string().optional(),
+        linkedin: z.string().optional(),
+        instagram: z.string().optional(),
+    }),
+});
+
 export const collections = {
     convocatorias,
     eventos,
     tienda,
     juntaDirectiva,
     proyectos,
+    aliados,
 };

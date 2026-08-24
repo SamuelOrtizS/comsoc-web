@@ -1,0 +1,77 @@
+<div id="custom-cursor" class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform hidden md:block">
+  <img
+    id="custom-cursor-img"
+    src="/comsoc-web/images/Cursor/Cursor/Step1.svg"
+    alt="Cursor"
+    class="w-8 h-8 transition-transform duration-100 ease-out origin-top-left -rotate-[25deg]"
+  />
+</div>
+
+<style is:global>
+  /* Hide native cursor on desktop/pointer devices */
+  @media (any-pointer: fine) {
+    html, body, a, button, select, input, textarea, [role="button"] {
+      cursor: none !important;
+    }
+  }
+
+  /* Ensure cursor is hidden on touch screens where it's not applicable */
+  @media (pointer: coarse) {
+    #custom-cursor {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  const cursor = document.getElementById('custom-cursor');
+  const cursorImg = document.getElementById('custom-cursor-img') as HTMLImageElement;
+
+  if (cursor && cursorImg) {
+    let cursorVisible = false;
+
+    // Track mouse position
+    window.addEventListener('mousemove', (e) => {
+      if (!cursorVisible) {
+        cursor.classList.remove('hidden');
+        cursorVisible = true;
+      }
+      // Use translate3d for GPU acceleration
+      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+      cursor.classList.add('hidden');
+      cursorVisible = false;
+    });
+
+    // Animation frames
+    const step1 = '/comsoc-web/images/Cursor/Cursor/Step1.svg';
+    const step2 = '/comsoc-web/images/Cursor/Cursor/Step2.svg';
+    const step3 = '/comsoc-web/images/Cursor/Cursor/Step3.svg';
+    const step4 = '/comsoc-web/images/Cursor/Cursor/Step4.svg';
+
+    let animationTimeout: number;
+
+    window.addEventListener('mousedown', () => {
+      // Clear any ongoing animation
+      clearTimeout(animationTimeout);
+
+      // Play click frames
+      cursorImg.src = step2;
+
+      animationTimeout = window.setTimeout(() => {
+        cursorImg.src = step3;
+
+        animationTimeout = window.setTimeout(() => {
+          cursorImg.src = step4;
+
+          animationTimeout = window.setTimeout(() => {
+            cursorImg.src = step1;
+          }, 80);
+        }, 80);
+      }, 80);
+    });
+  }
+</script>

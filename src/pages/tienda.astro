@@ -41,37 +41,56 @@ const tiendaItems = await getCollection('tienda');
         const prod = item.data;
         return (
           <div class="glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col justify-between group hover:border-cyan-500/40 transition-all duration-300">
-            <div>
-              <div class="aspect-square relative overflow-hidden bg-slate-900">
-                <img
-                  src={prod.image}
-                  alt={prod.name}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-cyan-300 border border-cyan-500/30">
-                  {prod.category}
-                </span>
-              </div>
+            <button
+              type="button"
+              class="product-card-btn text-left w-full"
+              data-product={JSON.stringify(prod)}
+              aria-label={`Ver detalles de ${prod.name}`}
+            >
+              <div>
+                <div class="aspect-square relative overflow-hidden bg-slate-900">
+                  <img
+                    src={prod.image}
+                    alt={prod.name}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-cyan-300 border border-cyan-500/30">
+                    {prod.category}
+                  </span>
+                  {!prod.available && (
+                    <div class="absolute inset-0 bg-black/60 flex items-center justify-center">
+                      <span class="text-xs font-mono text-red-400 border border-red-500/40 bg-red-500/10 px-3 py-1 rounded-full">Agotado</span>
+                    </div>
+                  )}
+                </div>
 
-              <div class="p-5">
-                <div class="text-lg font-bold text-cyan-400 font-mono mb-1">{prod.price}</div>
-                <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors mb-2 line-clamp-2">
-                  {prod.name}
-                </h3>
-                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3">
-                  {prod.description}
-                </p>
+                <div class="p-5">
+                  <div class="text-lg font-bold text-cyan-400 font-mono mb-1">{prod.price}</div>
+                  <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors mb-2 line-clamp-2">
+                    {prod.name}
+                  </h3>
+                  <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3">
+                    {prod.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            </button>
 
-            <div class="p-5 pt-0">
+            <div class="p-5 pt-0 flex gap-2">
+              <button
+                type="button"
+                class="product-card-btn flex-1 py-2 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition"
+                data-product={JSON.stringify(prod)}
+              >
+                Ver detalles
+              </button>
               <a
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 transition flex items-center justify-center gap-2"
+                class="flex-1 py-2 rounded-xl text-center text-xs font-semibold bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 transition flex items-center justify-center gap-1"
               >
-                <span>Pedir por WhatsApp</span>
+                <span>WhatsApp</span>
                 <span>💬</span>
               </a>
             </div>
@@ -80,4 +99,117 @@ const tiendaItems = await getCollection('tienda');
       })}
     </div>
   </section>
+
+  <!-- Product Detail Modal -->
+  <div
+    id="product-modal-overlay"
+    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-product-name"
+  >
+    <div id="product-modal" class="relative bg-[#0a0f2d] border border-white/15 rounded-3xl shadow-2xl shadow-blue-900/40 w-full max-w-lg overflow-hidden translate-y-4 transition-all duration-300">
+      <!-- Close -->
+      <button
+        id="product-modal-close"
+        type="button"
+        class="absolute top-4 right-4 z-10 text-gray-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition"
+        aria-label="Cerrar"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Image -->
+      <div class="aspect-video relative overflow-hidden bg-slate-900">
+        <img id="modal-product-image" src="" alt="" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0f2d] via-transparent to-transparent"></div>
+        <span id="modal-product-category" class="absolute top-4 left-4 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-cyan-300 border border-cyan-500/30"></span>
+      </div>
+
+      <!-- Info -->
+      <div class="p-7 space-y-4">
+        <div>
+          <div id="modal-product-price" class="text-2xl font-bold text-cyan-400 font-mono mb-1"></div>
+          <h2 id="modal-product-name" class="text-xl font-extrabold text-white"></h2>
+        </div>
+        <div id="modal-availability" class="text-xs font-mono"></div>
+        <p id="modal-product-desc" class="text-sm text-gray-300 font-light leading-relaxed"></p>
+        <div class="pt-2">
+          <a
+            id="modal-whatsapp-btn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full py-3 rounded-xl text-center text-sm font-semibold bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 transition flex items-center justify-center gap-2"
+          >
+            Pedir por WhatsApp 💬
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
+
+<script>
+  type Product = {
+    name: string;
+    category: string;
+    price: string;
+    description: string;
+    image: string;
+    available: boolean;
+  };
+
+  const overlay = document.getElementById('product-modal-overlay') as HTMLElement;
+  const modal   = document.getElementById('product-modal') as HTMLElement;
+  const closeBtn = document.getElementById('product-modal-close') as HTMLButtonElement;
+
+  function openProductModal(prod: Product) {
+    (document.getElementById('modal-product-image') as HTMLImageElement).src = prod.image;
+    (document.getElementById('modal-product-image') as HTMLImageElement).alt = prod.name;
+    (document.getElementById('modal-product-category') as HTMLElement).textContent = prod.category;
+    (document.getElementById('modal-product-price') as HTMLElement).textContent = prod.price;
+    (document.getElementById('modal-product-name') as HTMLElement).textContent = prod.name;
+    (document.getElementById('modal-product-desc') as HTMLElement).textContent = prod.description;
+
+    const availability = document.getElementById('modal-availability') as HTMLElement;
+    if (prod.available) {
+      availability.innerHTML = '<span class="text-emerald-400">✓ En Stock</span>';
+    } else {
+      availability.innerHTML = '<span class="text-red-400">✗ Agotado</span>';
+    }
+
+    const waBtn = document.getElementById('modal-whatsapp-btn') as HTMLAnchorElement;
+    waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`;
+    if (!prod.available) {
+      waBtn.classList.add('opacity-50', 'pointer-events-none');
+    } else {
+      waBtn.classList.remove('opacity-50', 'pointer-events-none');
+    }
+
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
+    modal.classList.remove('translate-y-4');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductModal() {
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    modal.classList.add('translate-y-4');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.product-card-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const raw = btn.getAttribute('data-product');
+      if (raw) openProductModal(JSON.parse(raw) as Product);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeProductModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeProductModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
+</script>
