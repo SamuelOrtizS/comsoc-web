@@ -13,20 +13,6 @@
   />
 </div>
 
-<!-- Mobile touch wave: shows only the ripple animation at tap position -->
-<div
-  id="touch-wave"
-  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-200"
-  style="transform: translate3d(-100px, -100px, 0);"
->
-  <img
-    id="touch-wave-img"
-    src="/images/Cursor/Cursor/Step1.svg"
-    alt=""
-    class="w-10 h-10 origin-top-left -rotate-[25deg]"
-  />
-</div>
-
 <style is:global>
   /* Hide native cursor on desktop/pointer devices */
   @media (any-pointer: fine) {
@@ -72,6 +58,7 @@
 
     // Move cursor exactly with mouse — no lag, no physics
     window.addEventListener('mousemove', (e: MouseEvent) => {
+      if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
       cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
@@ -89,6 +76,7 @@
     });
 
     document.addEventListener('mouseenter', (e: MouseEvent) => {
+      if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
       cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
@@ -99,6 +87,7 @@
 
     // Shrink on press, restore on release
     window.addEventListener('mousedown', () => {
+      if (touchDevice) return;
       isDown = true;
       cursorImg.style.transform = 'scale(0.92)';
     });
@@ -113,6 +102,7 @@
     const DELAY = 140;
 
     window.addEventListener('mousedown', () => {
+      if (touchDevice) return;
       window.clearTimeout(t1); window.clearTimeout(t2); window.clearTimeout(t3);
       cursorImg.src = step2;
       t1 = window.setTimeout(() => {
@@ -123,67 +113,6 @@
         }, DELAY);
       }, DELAY);
     });
-  }
-
-  // ── Mobile Touch Wave ───────────────────────────────────────────
-  const touchWave    = document.getElementById('touch-wave');
-  const touchWaveImg = document.getElementById('touch-wave-img') as HTMLImageElement | null;
-
-  if (touchWave && touchWaveImg && window.matchMedia('(pointer: coarse)').matches) {
-    const step1 = '/images/Cursor/Cursor/Step1.svg';
-    const step2 = '/images/Cursor/Cursor/Step2.svg';
-    const step3 = '/images/Cursor/Cursor/Step3.svg';
-    const step4 = '/images/Cursor/Cursor/Step4.svg';
-
-    let wt1: number, wt2: number, wt3: number, fadeTimeout: number;
-    const DELAY = 100;
-
-    const moveTo = (x: number, y: number) => {
-      touchWave.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    };
-
-    const show = () => {
-      touchWave.classList.remove('opacity-0');
-      touchWave.classList.add('opacity-100');
-    };
-
-    const hide = (delay = 300) => {
-      window.clearTimeout(fadeTimeout);
-      fadeTimeout = window.setTimeout(() => {
-        touchWave.classList.remove('opacity-100');
-        touchWave.classList.add('opacity-0');
-      }, delay);
-    };
-
-    const triggerPulse = () => {
-      window.clearTimeout(wt1); window.clearTimeout(wt2); window.clearTimeout(wt3);
-      touchWaveImg.src = step2;
-      wt1 = window.setTimeout(() => {
-        touchWaveImg.src = step3;
-        wt2 = window.setTimeout(() => {
-          touchWaveImg.src = step4;
-          wt3 = window.setTimeout(() => { touchWaveImg.src = step1; }, DELAY);
-        }, DELAY);
-      }, DELAY);
-    };
-
-    window.addEventListener('touchstart', (e: TouchEvent) => {
-      if (!e.touches.length) return;
-      const t = e.touches[0];
-      window.clearTimeout(fadeTimeout);
-      moveTo(t.clientX, t.clientY);
-      show();
-      triggerPulse();
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e: TouchEvent) => {
-      if (!e.touches.length) return;
-      const t = e.touches[0];
-      moveTo(t.clientX, t.clientY);
-    }, { passive: true });
-
-    window.addEventListener('touchend',   () => hide(350), { passive: true });
-    window.addEventListener('touchcancel', () => hide(100), { passive: true });
   }
 </script>
 
