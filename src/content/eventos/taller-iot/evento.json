@@ -9,10 +9,10 @@
   "lugarNombre": "Laboratorio de Redes y Telecomunicaciones (Pabellón C, Aula 302) & Transmisión Online",
   "lugarDireccion": "Campus Universitario Monterrico, Lima - Perú",
   "descripcion": "Aprende los fundamentos del protocolo LoRaWAN, configuración de gateways, despliegue de sensores de bajo consumo y telemetría en la nube mediante MQTT y dashboards de visualización en tiempo real.",
-  "imagenPrincipal": "/images/event-iot.svg",
+  "imagenPrincipal": "/comsoc-web/images/event-iot.svg",
   "galeria": [
-    "/images/event-iot.svg",
-    "/images/event-hackathon.svg"
+    "/comsoc-web/images/event-iot.svg",
+    "/comsoc-web/images/event-hackathon.svg"
   ],
   "estado": "Publicado"
 }

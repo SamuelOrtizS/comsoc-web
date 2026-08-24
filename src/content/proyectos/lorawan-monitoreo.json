@@ -2,7 +2,7 @@
     "titulo": "Estación Base LoRaWAN & Monitoreo Ambiental Distribuido",
     "categoria": "IoT & Smart Cities",
     "descripcion": "Red universitaria distribuida de sensores con telemetría en tiempo real para calidad del aire, temperatura y humedad. Implementa gateways LoRaWAN, broker MQTT y dashboards de visualización Node-RED en el Campus Monterrico.",
-    "imagen": "/images/event-iot.svg",
+    "imagen": "/comsoc-web/images/event-iot.svg",
     "estado": "Activo",
     "tags": [
         "LoRaWAN",
