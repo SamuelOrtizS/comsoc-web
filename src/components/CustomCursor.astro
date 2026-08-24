@@ -35,10 +35,14 @@
     }
   }
 
-  /* Never show desktop cursor on touch-only devices */
-  @media (pointer: coarse) {
+  /* Never show desktop cursor on touch / mobile devices — multiple guards for cross-browser safety */
+  @media (pointer: coarse),
+         (hover: none),
+         (any-hover: none) {
     #custom-cursor {
       display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
     }
   }
 </style>
@@ -53,6 +57,13 @@
     let mouseX = -100;
     let mouseY = -100;
     let isDown = false;
+    let touchDevice = false;
+
+    // If any touch event fires, permanently suppress the desktop cursor
+    window.addEventListener('touchstart', () => {
+      touchDevice = true;
+      cursor.style.setProperty('display', 'none', 'important');
+    }, { passive: true, once: true });
 
     const step1 = '/images/Cursor/Cursor/Step1.svg';
     const step2 = '/images/Cursor/Cursor/Step2.svg';
