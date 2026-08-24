@@ -16,7 +16,7 @@ try {
     const files = fs.readdirSync(dirPath);
     galleryImages = files
       .filter(file => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(file))
-      .map(file => `/comsoc-web/images/galeria/${file}`);
+      .map(file => `/images/galeria/${file}`);
   }
 } catch (e) {
   console.error("Error reading gallery", e);
@@ -24,10 +24,10 @@ try {
 
 if (galleryImages.length === 0) {
   galleryImages = [
-    '/comsoc-web/images/hero-banner.jpg',
-    '/comsoc-web/images/event-iot.svg',
-    '/comsoc-web/images/event-optical.svg',
-    '/comsoc-web/images/event-hackathon.svg'
+    '/images/hero-banner.jpg',
+    '/images/event-iot.svg',
+    '/images/event-optical.svg',
+    '/images/event-hackathon.svg'
   ];
 }
 

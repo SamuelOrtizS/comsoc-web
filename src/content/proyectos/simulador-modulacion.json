@@ -2,7 +2,7 @@
   "titulo": "Simulador Interactivo de Modulaciones Digitales & Constelaciones",
   "categoria": "Procesamiento de Señales",
   "descripcion": "Herramienta web interactiva para estudiantes que modela canales de desvanecimiento Rayleigh y Rician, constelaciones QPSK/16-QAM/64-QAM y la tasa de error de bit (BER) en tiempo real con visualización gráfica.",
-  "imagen": "/comsoc-web/images/event-hackathon.svg",
+  "imagen": "/images/event-hackathon.svg",
   "estado": "Completado",
   "tags": [
     "DSP",

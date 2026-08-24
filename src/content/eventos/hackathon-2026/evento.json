@@ -9,10 +9,10 @@
   "lugarNombre": "Auditorio Principal & Plataforma Discord",
   "lugarDireccion": "Av. Primavera 2390, Monterrico, Lima",
   "descripcion": "El hackathon de telecomunicaciones más grande del año. Desarrolla soluciones innovadoras en redes 5G abiertas (Open RAN), IA aplicada a la optimización de tráfico espectral y ciudades inteligentes.",
-  "imagenPrincipal": "/comsoc-web/images/event-hackathon.svg",
+  "imagenPrincipal": "/images/event-hackathon.svg",
   "galeria": [
-    "/comsoc-web/images/event-hackathon.svg",
-    "/comsoc-web/images/event-iot.svg"
+    "/images/event-hackathon.svg",
+    "/images/event-iot.svg"
   ],
   "estado": "Publicado"
 }

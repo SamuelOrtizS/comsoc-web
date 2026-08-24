@@ -2,7 +2,7 @@
   "titulo": "Enlace de Comunicaciones Ópticas Experimentales DWDM",
   "categoria": "Comunicaciones Ópticas",
   "descripcion": "Implementación de un enlace DWDM de laboratorio con multiplexación de hasta 8 canales usando filtros ópticos pasivos. Se miden parámetros de calidad como OSNR, penalidad de potencia y dispersión cromática a 10 Gbps.",
-  "imagen": "/comsoc-web/images/event-optical.svg",
+  "imagen": "/images/event-optical.svg",
   "estado": "En Pausa",
   "tags": [
     "DWDM",

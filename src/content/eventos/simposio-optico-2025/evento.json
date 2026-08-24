@@ -9,10 +9,10 @@
   "lugarNombre": "Centro de Convenciones & Transmisión Global IEEE.tv",
   "lugarDireccion": "Lima, Perú",
   "descripcion": "Encuentro académico con ponentes internacionales de IEEE ComSoc Distinguished Lecturers debatiendo sobre multiplexación por división de longitud de onda (DWDM) y distribución de claves cuánticas (QKD).",
-  "imagenPrincipal": "/comsoc-web/images/event-optical.svg",
+  "imagenPrincipal": "/images/event-optical.svg",
   "galeria": [
-    "/comsoc-web/images/event-optical.svg",
-    "/comsoc-web/images/event-iot.svg"
+    "/images/event-optical.svg",
+    "/images/event-iot.svg"
   ],
   "estado": "Pasado"
 }

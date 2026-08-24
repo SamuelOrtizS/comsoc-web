@@ -2,13 +2,13 @@
 import MobileMenu from './MobileMenu.astro';
 
 const navLinks = [
-  { name: 'Inicio', href: '/comsoc-web/' },
-  { name: 'Nosotros', href: '/comsoc-web/nosotros' },
-  { name: 'Eventos', href: '/comsoc-web/eventos' },
-  { name: 'Proyectos', href: '/comsoc-web/proyectos' },
-  { name: 'Convocatorias', href: '/comsoc-web/convocatorias' },
-  { name: 'Tienda', href: '/comsoc-web/tienda' },
-  { name: 'Donaciones', href: '/comsoc-web/donaciones' },
+  { name: 'Inicio', href: '/' },
+  { name: 'Nosotros', href: '/nosotros' },
+  { name: 'Eventos', href: '/eventos' },
+  { name: 'Proyectos', href: '/proyectos' },
+  { name: 'Convocatorias', href: '/convocatorias' },
+  { name: 'Tienda', href: '/tienda' },
+  { name: 'Donaciones', href: '/donaciones' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -19,10 +19,10 @@ const currentPath = Astro.url.pathname;
     <div class="flex items-center justify-between h-20">
       
       <!-- Brand Logo -->
-      <a href="/comsoc-web/" class="flex items-center gap-3 group">
+      <a href="/" class="flex items-center gap-3 group">
         <div class="relative flex items-center">
           <img
-            src="/comsoc-web/images/logo-comsoc.svg"
+            src="/images/logo-comsoc.svg"
             alt="IEEE ComSoc Logo"
             class="h-10 sm:h-11 w-auto transition-transform duration-300 group-hover:scale-105"
           />
@@ -51,7 +51,7 @@ const currentPath = Astro.url.pathname;
       <!-- CTA Button & Mobile Trigger -->
       <div class="flex items-center gap-4">
         <a
-          href="/comsoc-web/convocatorias"
+          href="/convocatorias"
           class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white hover:opacity-95 shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]"
         >
           Unirse
