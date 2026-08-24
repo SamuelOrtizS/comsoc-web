@@ -63,17 +63,27 @@
     const HOTSPOT_X = -15;
     const HOTSPOT_Y = 0;
 
+    let rafId: number | null = null;
+
     const applyTransform = () => {
       cursor.style.transform =
         `translate3d(${mouseX + HOTSPOT_X}px, ${mouseY + HOTSPOT_Y}px, 0) rotate(-25deg) scale(${cursorScale})`;
     };
 
-    // Move cursor exactly with mouse — no lag, no physics
+    const requestTransformUpdate = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        applyTransform();
+        rafId = null;
+      });
+    };
+
+    // Move cursor exactly with mouse — batched in rAF for 60/120/144Hz smoothness without main thread blocking
     window.addEventListener('mousemove', (e: MouseEvent) => {
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
-      applyTransform();
+      requestTransformUpdate();
       if (!visible) {
         cursor.classList.remove('opacity-0');
         cursor.classList.add('opacity-100');

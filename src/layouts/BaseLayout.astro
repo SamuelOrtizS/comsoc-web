@@ -67,10 +67,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
     </script>
   </head>
   <body class="min-h-screen flex flex-col bg-[#050816] text-[#ffffff] selection:bg-[#155dfc] selection:text-white relative overflow-x-hidden font-sans">
-    <!-- Background glow ambient effects -->
-    <div class="fixed top-0 left-1/4 -z-10 w-[600px] h-[400px] bg-[#155dfc]/10 rounded-full blur-[140px] pointer-events-none"></div>
-    <div class="fixed bottom-1/4 right-10 -z-10 w-[500px] h-[400px] bg-[#22d3ee]/10 rounded-full blur-[160px] pointer-events-none"></div>
-    <div class="fixed top-1/2 left-10 -z-10 w-[400px] h-[300px] bg-[#a855f7]/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <!-- Background glow ambient effects (optimized GPU layers) -->
+    <div class="fixed top-0 left-1/4 -z-10 w-[500px] h-[350px] bg-[#155dfc]/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
+    <div class="fixed bottom-1/4 right-10 -z-10 w-[450px] h-[350px] bg-[#22d3ee]/10 rounded-full blur-[100px] pointer-events-none transform-gpu"></div>
+    <div class="fixed top-1/2 left-10 -z-10 w-[350px] h-[250px] bg-[#a855f7]/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
 
     <Header />
 

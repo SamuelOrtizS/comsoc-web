@@ -28,7 +28,7 @@ const estadoStyle = {
   description="Explora los proyectos técnicos, de investigación e innovación del Capítulo Estudiantil IEEE ComSoc."
 >
   <!-- Page Header -->
-  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono mb-4">
         Investigación &amp; Desarrollo
@@ -87,6 +87,8 @@ const estadoStyle = {
                 <img
                   src={proyecto.data.imagen}
                   alt={proyecto.data.titulo}
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute top-3 left-3 flex gap-2">

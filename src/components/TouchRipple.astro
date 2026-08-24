@@ -41,9 +41,16 @@
     
     if (isTouchDevice) {
       const container = document.getElementById('touch-ripple-container');
+      const MAX_RIPPLES = 5;
 
       const createRipple = (x: number, y: number) => {
         if (!container) return;
+
+        // Keep DOM node count bounded
+        if (container.children.length >= MAX_RIPPLES) {
+          container.firstElementChild?.remove();
+        }
+
         const ripple = document.createElement('span');
         ripple.classList.add('touch-ripple');
         ripple.style.left = `${x}px`;
@@ -53,11 +60,12 @@
 
         setTimeout(() => {
           ripple.remove();
-        }, 700);
+        }, 650);
       };
 
       window.addEventListener('touchstart', (e: TouchEvent) => {
-        for (let i = 0; i < e.touches.length; i++) {
+        const count = Math.min(e.touches.length, 3);
+        for (let i = 0; i < count; i++) {
           const touch = e.touches[i];
           createRipple(touch.clientX, touch.clientY);
         }

@@ -106,10 +106,57 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 30px rgba(34, 211, 238, 0.55);
 }
 
-/* Grid background pattern */
+/* ── ComSoc wave background ─────────────────────────────────────────────────
+   Layered EM-wave pattern: scrolling sinusoidal lines + subtle dot grid.
+   Evokes radio/signal propagation — central to IEEE ComSoc's identity.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* Content visibility optimization for offscreen sections */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 .bg-grid-pattern {
-  background-size: 40px 40px;
+  position: relative;
+  background-color: transparent;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    radial-gradient(circle, rgba(34, 211, 238, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Layer 1 (Fast wave) using a fixed, clean, pre-calculated SVG wave pattern */
+.bg-grid-pattern.bg-wave-pattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='120' viewBox='0 0 1200 120'%3E%3Cpath d='M0,60 C100,20 200,100 300,60 C400,20 500,100 600,60 C700,20 800,100 900,60 C1000,20 1100,100 1200,60' stroke='rgba(34,211,238,0.11)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M0,68 C150,18 250,118 400,68 C550,18 650,118 800,68 C950,18 1050,118 1200,68' stroke='rgba(99,102,241,0.07)' stroke-width='1.1' fill='none'/%3E%3Cpath d='M0,54 C80,34 160,74 240,54 C320,34 400,74 480,54 C560,34 640,74 720,54 C800,34 880,74 960,54 C1040,34 1120,74 1200,54' stroke='rgba(34,211,238,0.05)' stroke-width='0.75' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 1200px 120px;
+  animation: wave-scroll 14s linear infinite;
+  mix-blend-mode: screen;
+  opacity: 1;
+  will-change: background-position;
+}
+
+/* Layer 2 (Slow wave) using a fixed, clean, pre-calculated SVG wave pattern */
+.bg-grid-pattern.bg-wave-pattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='160' viewBox='0 0 1600 160'%3E%3Cpath d='M0,80 C200,20 400,140 600,80 C800,20 1000,140 1200,80 C1400,20 1600,140 1600,80' stroke='rgba(99,102,241,0.08)' stroke-width='1.2' fill='none'/%3E%3Cpath d='M0,80 C133,50 266,110 400,80 C533,50 666,110 800,80 C933,50 1066,110 1200,80 C1333,50 1466,110 1600,80' stroke='rgba(34,211,238,0.05)' stroke-width='0.75' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 1600px 160px;
+  background-position: 0 60%;
+  animation: wave-scroll 24s linear infinite reverse;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  will-change: background-position;
+}
+
+@keyframes wave-scroll {
+  from { background-position-x: 0; }
+  to   { background-position-x: 1600px; }
 }
