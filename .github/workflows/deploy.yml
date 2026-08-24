@@ -32,6 +32,8 @@ jobs:
         run: npm ci
 
       - name: Build static site
+        env:
+          EXCHANGERATE_API_KEY: ${{ secrets.EXCHANGERATE_API_KEY }}
         run: npm run build
 
       - name: Upload GitHub Pages artifact

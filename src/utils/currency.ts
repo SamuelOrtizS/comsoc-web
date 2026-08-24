@@ -15,17 +15,23 @@ export async function getUsdToCopRate(): Promise<number> {
     return cachedRate;
   }
 
+  const apiKey = import.meta.env.EXCHANGERATE_API_KEY || (typeof process !== 'undefined' ? process.env?.EXCHANGERATE_API_KEY : undefined);
+  const endpoint = apiKey
+    ? `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`
+    : 'https://open.er-api.com/v6/latest/USD';
+
   try {
-    const response = await fetch('https://open.er-api.com/v6/latest/USD');
+    const response = await fetch(endpoint);
     if (!response.ok) {
       throw new Error(`Failed to fetch exchange rate: ${response.statusText}`);
     }
     const data = await response.json();
-    if (data?.rates?.COP && typeof data.rates.COP === 'number') {
-      cachedRate = data.rates.COP;
-      USD_TO_COP_RATE = data.rates.COP;
+    const rate = data?.conversion_rates?.COP ?? data?.rates?.COP;
+    if (rate && typeof rate === 'number') {
+      cachedRate = rate;
+      USD_TO_COP_RATE = rate;
       lastFetchedAt = now;
-      return data.rates.COP;
+      return rate;
     }
   } catch (error) {
     console.warn('Could not fetch latest USD to COP rate, using fallback:', error);
@@ -38,8 +44,8 @@ export function formatUSD(amount: number): string {
   return `$${amount.toLocaleString('en-US')} USD`;
 }
 
-export function formatCOP(amountCOP?: number, amountUSD?: number, customRate: number = USD_TO_COP_RATE): string {
-  const value = amountCOP ?? (amountUSD ? Math.round(amountUSD * customRate) : 0);
+export function formatCOP(amountUSD?: number, customRate: number = USD_TO_COP_RATE): string {
+  const value = amountUSD ? Math.round(amountUSD * customRate) : 0;
   return `$${value.toLocaleString('es-CO')} COP`;
 }
 

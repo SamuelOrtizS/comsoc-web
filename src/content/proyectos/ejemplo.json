@@ -13,7 +13,5 @@
   "enlace": "https://github.com/ejemplo/lora-iot",
   "destacado": true,
   "montoActual": 450,
-  "montoMeta": 1200,
-  "montoActualCOP": 1850000,
-  "montoMetaCOP": 5000000
+  "montoMeta": 1200
 }

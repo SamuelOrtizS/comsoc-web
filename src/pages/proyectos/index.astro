@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { formatUSD, formatCOP } from '../../utils/currency';
+import { formatUSD, formatCOP, getUsdToCopRate } from '../../utils/currency';
 
 const allProyectos = await getCollection('proyectos');
+const currentRate = await getUsdToCopRate();
 
 // Sort: active first, then completed, then paused
 const statusOrder: Record<string, number> = { Activo: 0, Completado: 1, 'En Pausa': 2 };
@@ -113,7 +114,7 @@ const estadoStyle = {
                     </div>
                     <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
                       <span>En COP:</span>
-                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
@@ -190,7 +191,7 @@ const estadoStyle = {
                     </div>
                     <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
                       <span>En COP:</span>
-                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
@@ -267,7 +268,7 @@ const estadoStyle = {
                     </div>
                     <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
                       <span>En COP:</span>
-                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
