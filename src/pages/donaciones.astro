@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const destinies = [
+  {
+    title: 'Equipamiento de Laboratorio',
+    desc: 'Adquisición de microcontroladores, sensores IoT, kits de fibra óptica, SDRs y componentes electrónicos para el desarrollo de proyectos técnicos.',
+    icon: '🔬',
+    color: 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10'
+  },
+  {
+    title: 'Talleres y Conferencias',
+    desc: 'Financiamiento de plataformas, materiales pedagógicos y viáticos para ponentes en nuestros workshops y webinars técnicos gratuitos.',
+    icon: '⚡',
+    color: 'border-purple-500/30 text-purple-400 bg-purple-500/10'
+  },
+  {
+    title: 'Participación en Eventos',
+    desc: 'Apoyo económico para el traslado e inscripción de nuestros miembros destacados en competencias nacionales e internacionales de IEEE.',
+    icon: '🎓',
+    color: 'border-blue-500/30 text-blue-400 bg-blue-500/10'
+  },
+  {
+    title: 'Operación del Capítulo',
+    desc: 'Sostenimiento de infraestructura digital, licencias de software, hosting y materiales de difusión para el correcto funcionamiento administrativo.',
+    icon: '⚙️',
+    color: 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10'
+  }
+];
+
+const paymentMethods = [
+  {
+    type: 'Transferencia Bancaria',
+    name: 'Banco de la Nación / BCP',
+    details: [
+      { label: 'Cuenta Corriente Soles', value: '191-XXXXXXXX-X-XX' },
+      { label: 'CCI (Código Interbancario)', value: '002-191-XXXXXXXXXXXX-XX' },
+      { label: 'Beneficiario', value: 'IEEE ComSoc Student Chapter' }
+    ]
+  },
+  {
+    type: 'Billetera Digital',
+    name: 'Yape / Plin',
+    details: [
+      { label: 'Número Celular', value: '+51 999 888 777' },
+      { label: 'Contacto', value: 'Tesorero IEEE ComSoc' },
+      { label: 'Nota requerida', value: 'Indicar nombre y/o proyecto' }
+    ]
+  },
+  {
+    type: 'Donación Internacional',
+    name: 'PayPal / Stripe',
+    details: [
+      { label: 'Enlace PayPal', value: 'paypal.me/comsocchapter' },
+      { label: 'Monedas soportadas', value: 'USD, EUR, PEN' },
+      { label: 'Correo', value: 'comsoc@universidad.edu.pe' }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="IEEE ComSoc | Donaciones y Financiamiento"
+  description="Apoya al Capítulo Estudiantil IEEE ComSoc. Conoce el destino de los fondos, métodos de pago y cómo apoyar proyectos específicos."
+>
+  <!-- Hero Section -->
+  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono mb-4">
+        Apoya Nuestra Labor
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+        Impulsa la Innovación y la Ingeniería
+      </h1>
+      <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg font-light leading-relaxed">
+        Somos una organización sin fines de lucro. El 100% de las donaciones se destina directamente al funcionamiento operativo y académico del capítulo, empoderando a futuros ingenieros.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+    
+    <!-- Info & Transparency -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div class="lg:col-span-7 flex flex-col justify-between glass-card rounded-3xl p-8 border border-white/10">
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4">¿A qué se destinan los fondos?</h2>
+          <p class="text-gray-300 font-light leading-relaxed mb-6">
+            Como capítulo estudiantil de la Sociedad de Comunicaciones de IEEE, dependemos del apoyo de la comunidad, patrocinadores y egresados para continuar brindando educación extracurricular de alto nivel y desarrollar proyectos que impacten a la sociedad.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {destinies.map((dest) => (
+            <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col">
+              <div class="text-2xl mb-2">{dest.icon}</div>
+              <h3 class="text-sm font-semibold text-white mb-1">{dest.title}</h3>
+              <p class="text-xs text-gray-400 leading-relaxed font-light">{dest.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Specific Project Note Alert -->
+      <div class="lg:col-span-5 flex flex-col justify-between bg-gradient-to-br from-purple-950/40 to-indigo-950/40 rounded-3xl p-8 border border-purple-500/30 text-white relative overflow-hidden">
+        <div class="relative z-10 space-y-6">
+          <div class="text-4xl">💡</div>
+          <h3 class="text-xl font-bold">¿Quieres apoyar un proyecto en específico?</h3>
+          <p class="text-sm text-purple-200 leading-relaxed font-light">
+            Nuestros miembros desarrollan múltiples proyectos técnicos que requieren financiamiento dedicado. Si deseas que tu donación vaya destinada a una de las iniciativas mostradas en nuestra sección de proyectos (como la estación base LoRaWAN, el simulador de modulaciones, etc.):
+          </p>
+          <div class="p-4 rounded-xl bg-purple-500/10 border border-purple-400/30 text-xs font-mono text-purple-300">
+            <strong>Nota Importante:</strong> Por favor especifica el nombre del proyecto en la nota/asunto al momento de enviar el dinero, o comunícalo a través de nuestros canales oficiales de contacto.
+          </div>
+          <div class="pt-4 flex flex-col gap-2">
+            <span class="text-xs text-gray-400 font-mono">Medios de contacto directos:</span>
+            <div class="flex flex-wrap gap-2">
+              <a href="mailto:comsoc@universidad.edu.pe" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-gray-300 border border-white/10 transition font-mono">
+                comsoc@universidad.edu.pe
+              </a>
+              <a href="/comsoc-web/nosotros" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-gray-300 border border-white/10 transition font-mono">
+                Ver directiva
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Ambient background decor -->
+        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <section class="border-t border-white/10 pt-16">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-3xl font-bold text-white mb-4">Métodos de Donación</h2>
+        <p class="text-gray-400 font-light">
+          Elige la opción que más te acomode para realizar tu contribución de forma segura.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {paymentMethods.map((method) => (
+          <div class="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between group hover:border-emerald-500/30 transition-all duration-300">
+            <div>
+              <div class="text-xs font-mono text-emerald-400 mb-2 uppercase tracking-wider">{method.type}</div>
+              <h3 class="text-lg font-bold text-white mb-4">{method.name}</h3>
+              <div class="space-y-3">
+                {method.details.map((detail) => (
+                  <div class="flex flex-col border-b border-white/5 pb-2">
+                    <span class="text-[10px] uppercase font-mono text-gray-500">{detail.label}</span>
+                    <span class="text-sm font-semibold text-gray-200 mt-0.5 select-all">{detail.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div class="pt-6">
+              <button 
+                onclick="alert('Esta es una demostración de la interfaz de donaciones. Las cuentas reales de donación serán integradas por el administrador.')"
+                class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition"
+              >
+                Copiar Datos de Pago
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

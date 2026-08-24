@@ -12,5 +12,7 @@
         "Sensores"
     ],
     "enlace": "/eventos",
-    "destacado": true
+    "destacado": true,
+    "montoActual": 350,
+    "montoMeta": 500
 }
