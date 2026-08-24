@@ -25,3 +25,6 @@ Thumbs.db
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Notas para la ia
+notas/
