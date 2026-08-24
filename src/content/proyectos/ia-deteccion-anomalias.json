@@ -1,0 +1,16 @@
+{
+    "titulo": "Sistema de Detección de Anomalías en Redes con IA",
+    "categoria": "IA Aplicada a Redes",
+    "descripcion": "Pipeline de machine learning para detección de intrusiones y anomalías de tráfico en redes SDN. Utiliza modelos LSTM sobre capturas pcap para identificar ataques DDoS, port scanning y comportamiento anómalo en tiempo real.",
+    "imagen": "/images/event-optical.svg",
+    "estado": "Activo",
+    "tags": [
+        "Machine Learning",
+        "SDN",
+        "LSTM",
+        "Ciberseguridad",
+        "Python"
+    ],
+    "enlace": "/eventos",
+    "destacado": true
+}

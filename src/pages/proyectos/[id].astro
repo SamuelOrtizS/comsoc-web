@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const proyectos = await getCollection('proyectos');
+  return proyectos.map((proyecto) => ({
+    params: { id: proyecto.id },
+    props: { proyecto },
+  }));
+}
+
+interface Props {
+  proyecto: CollectionEntry<'proyectos'>;
+}
+
+const { proyecto } = Astro.props;
+const data = proyecto.data;
+
+const estadoBadge = {
+  Activo:     { text: '🟢 Activo',     cls: 'text-emerald-300 border-emerald-500/40 bg-emerald-500/10' },
+  Completado: { text: '✅ Completado', cls: 'text-blue-300 border-blue-500/40 bg-blue-500/10' },
+  'En Pausa': { text: '⏸ En Pausa',   cls: 'text-yellow-300 border-yellow-500/40 bg-yellow-500/10' },
+}[data.estado] ?? { text: data.estado, cls: 'text-gray-300 border-white/20 bg-white/5' };
+---
+
+<BaseLayout
+  title={`${data.titulo} | Proyecto IEEE ComSoc`}
+  description={data.descripcion}
+  image={data.imagen}
+>
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Back link -->
+    <a
+      href="/proyectos"
+      class="inline-flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 font-mono mb-8 group"
+    >
+      <span class="group-hover:-translate-x-1 transition-transform">←</span>
+      <span>Volver a proyectos</span>
+    </a>
+
+    <!-- Hero Card -->
+    <div class="glass-card rounded-3xl overflow-hidden border border-purple-500/30 mb-12">
+      <div class="aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
+        <img
+          src={data.imagen}
+          alt={data.titulo}
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-black/40"></div>
+
+        <!-- Badges -->
+        <div class="absolute top-4 left-4 flex gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-purple-300 border border-purple-500/40 font-mono">
+            {data.categoria}
+          </span>
+          <span class={`px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md border font-mono ${estadoBadge.cls}`}>
+            {estadoBadge.text}
+          </span>
+        </div>
+      </div>
+
+      <div class="p-6 sm:p-10 space-y-6">
+        <div class="text-xs font-mono text-purple-400 uppercase tracking-widest">
+          Proyecto de Investigación &amp; Desarrollo — IEEE ComSoc Chapter
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+          {data.titulo}
+        </h1>
+
+        <!-- Meta Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
+          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="text-xs uppercase text-gray-400 font-mono">Categoría</div>
+            <div class="text-sm font-semibold text-white mt-1">🔬 {data.categoria}</div>
+          </div>
+
+          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="text-xs uppercase text-gray-400 font-mono">Estado</div>
+            <div class={`text-sm font-semibold mt-1 ${estadoBadge.cls.split(' ')[0]}`}>
+              {estadoBadge.text}
+            </div>
+          </div>
+
+          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="text-xs uppercase text-gray-400 font-mono">Destacado</div>
+            <div class="text-sm font-semibold text-white mt-1">
+              {data.destacado ? '⭐ Proyecto Destacado' : '—'}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Details + Sidebar -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+      <div class="lg:col-span-8 space-y-8">
+        <!-- Description -->
+        <div class="glass-card rounded-2xl p-8 border border-white/10">
+          <h2 class="text-xl font-bold text-white mb-4 font-mono">Descripción del Proyecto</h2>
+          <p class="text-gray-300 text-base leading-relaxed font-light whitespace-pre-line">
+            {data.descripcion}
+          </p>
+        </div>
+
+        <!-- Tags -->
+        {data.tags && data.tags.length > 0 && (
+          <div class="glass-card rounded-2xl p-8 border border-white/10">
+            <h2 class="text-xl font-bold text-white mb-4 font-mono">Tecnologías &amp; Tags</h2>
+            <div class="flex flex-wrap gap-2">
+              {data.tags.map((tag) => (
+                <span class="px-3 py-1.5 rounded-lg text-sm font-mono bg-purple-500/10 text-purple-300 border border-purple-500/30 hover:bg-purple-500/20 transition">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-4 space-y-6">
+        <!-- CTA -->
+        <div class="glass-card rounded-2xl p-6 border border-purple-500/30 text-center space-y-4">
+          <div class="text-3xl">🚀</div>
+          <h3 class="text-base font-bold text-white">¿Te interesa este proyecto?</h3>
+          <p class="text-xs text-gray-400 font-light">
+            Únete al equipo o contáctanos para saber cómo participar en esta iniciativa.
+          </p>
+          <a
+            href="/convocatorias"
+            class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-gradient-to-r from-[#155dfc] to-[#a855f7] text-white hover:opacity-90 transition flex items-center justify-center gap-2"
+          >
+            Ver Convocatorias ↗
+          </a>
+        </div>
+
+        <!-- Share -->
+        <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
+          <h3 class="text-base font-bold text-white">Comparte este proyecto</h3>
+          <div class="flex gap-2 justify-center pt-2">
+            <a
+              href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`¡Mira este proyecto de IEEE ComSoc!: ${data.titulo}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/50 transition"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://SamuelOrtizS.github.io/comsoc-web/proyectos')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-blue-600/30 text-blue-300 border border-blue-500/40 hover:bg-blue-600/50 transition"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
