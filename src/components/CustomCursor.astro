@@ -1,13 +1,14 @@
+<!-- Desktop cursor: SVG icon following exact mouse position -->
 <div
   id="custom-cursor"
-  class="pointer-events-none fixed top-0 left-0 z-[9999] will-change-transform opacity-0 transition-opacity duration-200"
-  style="transform: translate3d(-100px, -100px, 0);"
+  class="pointer-events-none fixed top-0 left-0 z-[9999] opacity-0 transition-opacity duration-300 origin-top-left"
+  style="transform: translate3d(-100px, -100px, 0) rotate(-25deg) scale(1); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: preserve-3d;"
 >
   <img
     id="custom-cursor-img"
     src="/images/Cursor/Cursor/Step1.svg"
     alt="Cursor"
-    class="w-8 h-8 transition-transform duration-100 ease-out origin-top-left -rotate-[25deg]"
+    class="w-8 h-8 block"
   />
 </div>
 
@@ -19,68 +20,120 @@
     }
   }
 
-  /* Ensure cursor is hidden on touch screens where it's not applicable */
-  @media (pointer: coarse) {
+  /* Never show desktop cursor on touch / mobile devices — multiple guards for cross-browser safety */
+  @media (pointer: coarse),
+         (hover: none),
+         (any-hover: none) {
     #custom-cursor {
       display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
     }
   }
 </style>
 
 <script>
-  const cursor = document.getElementById('custom-cursor');
-  const cursorImg = document.getElementById('custom-cursor-img') as HTMLImageElement;
+  // ── Desktop Cursor ──────────────────────────────────────────────
+  const cursor    = document.getElementById('custom-cursor');
+  const cursorImg = document.getElementById('custom-cursor-img') as HTMLImageElement | null;
 
-  if (cursor && cursorImg) {
-    let cursorVisible = false;
+  if (cursor && cursorImg && window.matchMedia('(any-pointer: fine)').matches) {
+    let visible = false;
+    let mouseX = -100;
+    let mouseY = -100;
+    let isDown = false;
+    let touchDevice = false;
 
-    // Track mouse position
-    const updatePosition = (e: MouseEvent) => {
-      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      if (!cursorVisible) {
-        cursor.classList.remove('opacity-0');
-        cursor.classList.add('opacity-100');
-        cursorVisible = true;
-      }
-    };
+    // If any touch event fires, permanently suppress the desktop cursor
+    window.addEventListener('touchstart', () => {
+      touchDevice = true;
+      cursor.style.setProperty('display', 'none', 'important');
+    }, { passive: true, once: true });
 
-    window.addEventListener('mousemove', updatePosition);
-
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-      cursor.classList.remove('opacity-100');
-      cursor.classList.add('opacity-0');
-      cursorVisible = false;
-    });
-
-    // Re-show when entering window
-    document.addEventListener('mouseenter', (e) => {
-      updatePosition(e);
-    });
-
-    // Animation frames
     const step1 = '/images/Cursor/Cursor/Step1.svg';
     const step2 = '/images/Cursor/Cursor/Step2.svg';
     const step3 = '/images/Cursor/Cursor/Step3.svg';
     const step4 = '/images/Cursor/Cursor/Step4.svg';
 
-    let animationTimeout: number;
+    // Scale state tracked separately so we can bake it into the combined transform
+    let cursorScale = 1;
+
+    // Hotspot: nudge the cursor so its visual tip aligns with the real pointer.
+    // Negative X = shift cursor left, negative Y = shift cursor up.
+    const HOTSPOT_X = -15;
+    const HOTSPOT_Y = 0;
+
+    let pendingUpdate = false;
+
+    const requestTransformUpdate = () => {
+      if (pendingUpdate) return;
+      pendingUpdate = true;
+      requestAnimationFrame(() => {
+        cursor.style.transform =
+          `translate3d(${mouseX + HOTSPOT_X}px, ${mouseY + HOTSPOT_Y}px, 0) rotate(-25deg) scale(${cursorScale})`;
+        pendingUpdate = false;
+      });
+    };
+
+    // Move cursor exactly with mouse — batched in rAF for 60/120/144Hz smoothness without main thread blocking
+    window.addEventListener('mousemove', (e: MouseEvent) => {
+      if (touchDevice) return;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      requestTransformUpdate();
+      if (!visible) {
+        cursor.classList.remove('opacity-0');
+        cursor.classList.add('opacity-100');
+        visible = true;
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+      cursor.classList.remove('opacity-100');
+      cursor.classList.add('opacity-0');
+      visible = false;
+    });
+
+    document.addEventListener('mouseenter', (e: MouseEvent) => {
+      if (touchDevice) return;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      requestTransformUpdate();
+      cursor.classList.remove('opacity-0');
+      cursor.classList.add('opacity-100');
+      visible = true;
+    });
+
+    // Shrink on press, restore on release
+    window.addEventListener('mousedown', () => {
+      if (touchDevice) return;
+      isDown = true;
+      cursorScale = 0.92;
+      requestTransformUpdate();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+      cursorScale = 1;
+      requestTransformUpdate();
+    });
+
+    // Click wave pulse on desktop
+    let t1: number, t2: number, t3: number;
+    const DELAY = 140;
 
     window.addEventListener('mousedown', () => {
-      clearTimeout(animationTimeout);
+      if (touchDevice) return;
+      window.clearTimeout(t1); window.clearTimeout(t2); window.clearTimeout(t3);
       cursorImg.src = step2;
-
-      animationTimeout = window.setTimeout(() => {
+      t1 = window.setTimeout(() => {
         cursorImg.src = step3;
-
-        animationTimeout = window.setTimeout(() => {
+        t2 = window.setTimeout(() => {
           cursorImg.src = step4;
-
-          animationTimeout = window.setTimeout(() => {
-            cursorImg.src = step1;
-          }, 80);
-        }, 80);
-      }, 80);
+          t3 = window.setTimeout(() => { cursorImg.src = step1; }, DELAY);
+        }, DELAY);
+      }, DELAY);
     });
   }
 </script>
+

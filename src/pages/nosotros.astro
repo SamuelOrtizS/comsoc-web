@@ -70,7 +70,7 @@ const benefits = [
   description="Conoce la misión, visión, directiva y beneficios de pertenecer al Capítulo Estudiantil IEEE ComSoc."
 >
   <!-- Page Header Banner -->
-  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-4">
         Sobre la Comunidad
@@ -92,7 +92,13 @@ const benefits = [
           <div 
             class={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} gallery-slide`}
           >
-            <img src={img} alt={`Imagen de galería ${idx + 1}`} class="w-full h-full object-cover" />
+            <img 
+              src={img} 
+              alt={`Imagen de galería ${idx + 1}`} 
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              class="w-full h-full object-cover" 
+            />
             <div class="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-black/40"></div>
           </div>
         ))}
@@ -206,14 +212,14 @@ const benefits = [
           <!-- Avatar or Image -->
           <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600/30 to-cyan-400/30 border-2 border-cyan-400/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 group-hover:border-cyan-400/80 transition-all duration-300 overflow-hidden">
             {member.image
-              ? <img src={member.image} alt={member.name} class="w-full h-full object-cover rounded-full" />
+              ? <img src={member.image} alt={member.name} loading="lazy" decoding="async" class="w-full h-full object-cover rounded-full" />
               : <span>{member.avatar || '👤'}</span>
             }
           </div>
           <h3 class="text-lg font-bold text-white mb-1 group-hover:text-cyan-300 transition text-center">
             {member.name}
           </h3>
-          <div class="text-xs font-mono text-cyan-400 font-medium mb-1">
+          <div class="text-xs font-mono custom-rosa-comsoc font-medium mb-1">
             {member.role}
           </div>
           <p class="text-xs text-gray-400 font-light mb-4 text-center">

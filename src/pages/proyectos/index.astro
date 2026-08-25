@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { formatUSD, formatCOP } from '../../utils/currency';
+import { formatUSD, formatCOP, getUsdToCopRate } from '../../utils/currency';
 
 const allProyectos = await getCollection('proyectos');
+const currentRate = await getUsdToCopRate();
 
 // Sort: active first, then completed, then paused
 const statusOrder: Record<string, number> = { Activo: 0, Completado: 1, 'En Pausa': 2 };
@@ -27,7 +28,7 @@ const estadoStyle = {
   description="Explora los proyectos técnicos, de investigación e innovación del Capítulo Estudiantil IEEE ComSoc."
 >
   <!-- Page Header -->
-  <section class="relative py-16 bg-grid-pattern border-b border-white/10">
+  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono mb-4">
         Investigación &amp; Desarrollo
@@ -86,6 +87,8 @@ const estadoStyle = {
                 <img
                   src={proyecto.data.imagen}
                   alt={proyecto.data.titulo}
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute top-3 left-3 flex gap-2">
@@ -109,15 +112,15 @@ const estadoStyle = {
                   <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
                     <div class="flex justify-between items-baseline text-[11px] font-mono">
                       <span class="text-gray-400">Financiación (USD):</span>
-                      <span class="text-[#22d3ee] font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
+                      <span class="text-accent-cyan font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
                     <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
                       <span>En COP:</span>
-                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-gradient-to-r from-blue-500 to-[#22d3ee] rounded-full transition-all duration-500" 
+                        class="h-full bg-gradient-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
@@ -163,6 +166,8 @@ const estadoStyle = {
                 <img
                   src={proyecto.data.imagen}
                   alt={proyecto.data.titulo}
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute top-3 left-3 flex gap-2">
@@ -186,15 +191,15 @@ const estadoStyle = {
                   <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
                     <div class="flex justify-between items-baseline text-[11px] font-mono">
                       <span class="text-gray-400">Financiación (USD):</span>
-                      <span class="text-[#22d3ee] font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
+                      <span class="text-accent-cyan font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
                     <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
                       <span>En COP:</span>
-                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-gradient-to-r from-blue-500 to-[#22d3ee] rounded-full transition-all duration-500" 
+                        class="h-full bg-gradient-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
@@ -240,6 +245,8 @@ const estadoStyle = {
                 <img
                   src={proyecto.data.imagen}
                   alt={proyecto.data.titulo}
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <div class="absolute top-3 left-3 flex gap-2">
@@ -263,15 +270,15 @@ const estadoStyle = {
                   <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
                     <div class="flex justify-between items-baseline text-[11px] font-mono">
                       <span class="text-gray-400">Financiación (USD):</span>
-                      <span class="text-[#22d3ee] font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
+                      <span class="text-accent-cyan font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
                     <div class="flex justify-between items-baseline text-[10px] font-mono text-gray-400">
                       <span>En COP:</span>
-                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActualCOP, proyecto.data.montoActual)} / {formatCOP(proyecto.data.montoMetaCOP, proyecto.data.montoMeta)}</span>
+                      <span class="text-emerald-400 font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-gradient-to-r from-blue-500 to-[#22d3ee] rounded-full transition-all duration-500" 
+                        class="h-full bg-gradient-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
@@ -305,17 +312,17 @@ const estadoStyle = {
     )}
 
     <!-- Donations CTA -->
-    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden max-w-4xl mx-auto mt-12 bg-gradient-to-b from-[#050816] to-[#0a0f2d]">
+    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden max-w-4xl mx-auto mt-12 bg-gradient-to-b from-bg-primary to-bg-secondary">
       <div class="relative z-10 space-y-4">
         <div class="text-4xl">❤️</div>
         <h2 class="text-2xl sm:text-3xl font-bold text-white">¿Quieres apoyar nuestras iniciativas?</h2>
         <p class="text-gray-400 max-w-2xl mx-auto text-sm font-light leading-relaxed">
-          Tanto si deseas financiar un proyecto tecnológico específico como si prefieres contribuir al crecimiento y operación general del capítulo, tu donación hace la diferencia.
+          Tanto si deseas financiar un proyecto tecnológico específico como si prefieres contribuir al crecimiento y operation general del capítulo, tu donación hace la diferencia.
         </p>
         <div class="pt-4">
           <a
             href="/donaciones"
-            class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all animate-pulse"
+            class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all animate-pulse"
           >
             Donar al Capítulo ↗
           </a>

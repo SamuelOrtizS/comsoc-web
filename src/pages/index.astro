@@ -180,6 +180,8 @@ const pillars = [
             <img
               src={proj.image}
               alt={proj.title}
+              loading="lazy"
+              decoding="async"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <div class="absolute top-3 left-3 flex gap-2">
@@ -246,7 +248,7 @@ const pillars = [
           >
             <div class="flex items-center gap-4">
               {aliado.data.logo
-                ? <img src={aliado.data.logo} alt={aliado.data.nombre} class="h-10 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition" />
+                ? <img src={aliado.data.logo} alt={aliado.data.nombre} loading="lazy" decoding="async" class="h-10 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition" />
                 : <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl">🤝</div>
               }
               <div>
