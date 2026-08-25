@@ -27,13 +27,6 @@ Thumbs.db
 ~*
 ~/
 
-# Playwright & Testing
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
-
 # Local Notes & AI Scratchpads
 notas/
 .gemini/
