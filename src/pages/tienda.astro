@@ -110,7 +110,7 @@ const tiendaItems = await getCollection('tienda');
     aria-modal="true"
     aria-labelledby="modal-product-name"
   >
-    <div id="product-modal" class="relative bg-[#0a0f2d] border border-white/15 rounded-3xl shadow-2xl shadow-blue-900/40 w-full max-w-lg overflow-hidden translate-y-4 transition-all duration-300">
+    <div id="product-modal" class="relative bg-bg-secondary border border-white/15 rounded-3xl shadow-2xl shadow-blue-900/40 w-full max-w-lg overflow-hidden translate-y-4 transition-all duration-300">
       <!-- Close -->
       <button
         id="product-modal-close"
@@ -126,7 +126,7 @@ const tiendaItems = await getCollection('tienda');
       <!-- Image -->
       <div class="aspect-video relative overflow-hidden bg-slate-900">
         <img id="modal-product-image" src="" alt="" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0f2d] via-transparent to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent"></div>
         <span id="modal-product-category" class="absolute top-4 left-4 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-cyan-300 border border-cyan-500/30"></span>
       </div>
 

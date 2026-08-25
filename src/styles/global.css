@@ -18,14 +18,81 @@
 }
 
 @theme {
-  /* Color Palette — dark tech / cyberpunk */
-  --color-bg-primary: #050816;
-  --color-bg-secondary: #0a0f24;
+  /* ---------------------------------------------------------------------- */
+  /*                         GUÍA DE COLORES Y USOS                         */
+  /* ---------------------------------------------------------------------- */
+
+  /* 
+   * AZUL ACENTO / BRAND BLUE
+   * Valor Hexadecimal: #155dfc
+   * Usos Principales:
+   *   - Páginas: Nosotros, Unirse, Proyectos, Tienda
+   *   - Fondos: Botones principales (p. ej., "Unirse ahora", "Donar ahora"), decoraciones de fondo degradado.
+   *   - Bordes: Contornos de elementos activos y botones de acento.
+   *   - Texto: Resaltados secundarios y enlaces destacados.
+   */
   --color-accent-blue: #155dfc;
+
+  /* 
+   * CIAN ACENTO / BRAND CYAN
+   * Valor Hexadecimal: #22d3ee
+   * Usos Principales:
+   *   - Páginas: Nosotros, Unirse, Proyectos, Tienda, Convocatorias, Eventos
+   *   - Texto: Títulos de sección destacados, subtítulos tipo código, enlaces, textos activos en hover.
+   *   - Fondos: Barras de progreso, luces de fondo (glow), iconos destacados.
+   *   - Bordes: Efectos hover en tarjetas de cristal (glass-card).
+   */
   --color-accent-cyan: #22d3ee;
+
+  /* 
+   * PÚRPURA ACENTO / BRAND PURPLE
+   * Valor Hexadecimal: #a855f7
+   * Usos Principales:
+   *   - Páginas: Nosotros, Unirse, Proyectos
+   *   - Fondos: Degradados de fondo ("Hero" y secciones CTA de proyectos), etiquetas de categorías.
+   *   - Texto: Badges, llamadas a la acción, títulos secundarios.
+   */
   --color-accent-purple: #a855f7;
+
+  /* 
+   * FONDO PRINCIPAL / PRIMARY BACKGROUND
+   * Valor Hexadecimal: #050816
+   * Usos Principales:
+   *   - Todas las páginas: El color oscuro de fondo principal de toda la aplicación.
+   */
+  --color-bg-primary: #050816;
+
+  /* 
+   * FONDO SECUNDARIO / SECONDARY BACKGROUND
+   * Valor Hexadecimal: #0a0f24 o #0a0f2d
+   * Usos Principales:
+   *   - Páginas: Unirse (fondo de tarjeta grande), Tienda (modal de detalles de producto)
+   *   - Contenedores secundarios y tarjetas oscuras que contrastan con el fondo base.
+   */
+  --color-bg-secondary: #0a0f24;
+
+  /* 
+   * TEXTO PRINCIPAL / PRIMARY TEXT
+   * Valor Hexadecimal: #ffffff
+   * Usos Principales:
+   *   - Todos los títulos H1-H6 y párrafos de lectura principal.
+   */
   --color-text-primary: #ffffff;
+
+  /* 
+   * TEXTO SECUNDARIO / SECONDARY TEXT
+   * Valor Hexadecimal: #94a3b8
+   * Usos Principales:
+   *   - Descripciones de proyectos, subtítulos secundarios, pies de página (Footer) y textos de apoyo.
+   */
   --color-text-secondary: #94a3b8;
+
+  /* 
+   * FONDOS DE CRISTAL / GLASSMORPHISM
+   * Valores: rgba(255, 255, 255, 0.05) para fondo, rgba(255, 255, 255, 0.1) para borde
+   * Usos Principales:
+   *   - Tarjetas informativas generales de aspecto cibernético/futurista.
+   */
   --color-glass-bg: rgba(255, 255, 255, 0.05);
   --color-glass-border: rgba(255, 255, 255, 0.1);
 
@@ -44,7 +111,12 @@ html {
   font-family: var(--font-body, 'Nunito Sans', sans-serif);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
 }
 
