@@ -12,7 +12,7 @@ const links = [
 
 <div
   id="mobile-menu-overlay"
-  class="fixed inset-0 z-50 bg-[#050816] backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300 md:hidden flex flex-col justify-between p-6"
+  class="fixed inset-0 z-50 bg-[var(--color-bg-primary)] backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300 md:hidden flex flex-col justify-between p-6"
 >
   <div class="flex items-center justify-between border-b border-white/10 pb-4">
     <a href="/" class="flex items-center gap-3">
@@ -34,7 +34,7 @@ const links = [
     {links.map((link) => (
       <a
         href={link.href}
-        class="text-xl font-medium tracking-wide text-gray-300 hover:text-[#22d3ee] transition-colors py-2 px-3 rounded-lg hover:bg-white/5"
+        class="text-xl font-medium tracking-wide text-gray-300 hover:text-[var(--color-accent-cyan)] transition-colors py-2 px-3 rounded-lg hover:bg-white/5"
       >
         {link.name}
       </a>
@@ -44,7 +44,7 @@ const links = [
   <div class="pt-6 border-t border-white/10 flex flex-col gap-3">
     <a
       href="/unirse"
-      class="w-full py-3 text-center font-semibold rounded-xl bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white shadow-lg shadow-blue-500/25"
+      class="w-full py-3 text-center font-semibold rounded-xl bg-gradient-to-r from-[var(--color-accent-blue)] to-[var(--color-accent-cyan)] text-white shadow-lg shadow-blue-500/25"
     >
       ¡Únete al Capítulo!
     </a>
