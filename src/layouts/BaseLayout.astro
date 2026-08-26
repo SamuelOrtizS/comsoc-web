@@ -80,7 +80,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
 
     <Footer />
     <CustomCursor />
-    <TouchRipple />
     <!-- Construction Modal -->
     <div id="construction-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <div class="max-w-md p-8 bg-[#0f172a] border border-cyan-500/30 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.2)] text-center">
@@ -101,9 +100,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
         </p>
       </div>
     </div>
-    <script>
-      // Opcional: Cerrar automáticamente tras unos segundos o lógica adicional
-      // Por ahora, el botón permite al usuario cerrar manualmente.
-    </script>
     <TouchRipple />
 </html>
