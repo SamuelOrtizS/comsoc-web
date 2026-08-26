@@ -90,12 +90,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
         </div>
         <h2 class="text-3xl font-bold text-white mb-4 bg-linear-to-r from-cyan-400 to-purple-400 bg-clip-text">Sitio en Construcción</h2>
         <p class="text-gray-400 mb-8">Estamos trabajando arduamente para construir una mejor experiencia para nuestra comunidad. ¡Volveremos muy pronto!</p>
-        <button onclick="document.getElementById('construction-modal').style.display='none'" class="px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-cyan-600/20">
-          Entendido
-        </button>
+        <div class="flex justify-center gap-4 mb-8">
+          <button onclick="document.getElementById('construction-modal').style.display='none'" class="px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-cyan-600/20">
+            Entendido
+          </button>
+          <a href="https://www.instagram.com/ieee.comsoc.univalle/" target="_blank" rel="noopener noreferrer" class="px-8 py-3 bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-pink-600/20">
+            Síguenos
+          </a>
+        </div>
         <p class="text-gray-400 mb-8 text-xs">
-          <br>
-          <br>
           El contenido actual de la pagina no es final, no representa información definitiva y no debe ser utilizado como referencia.
         </p>
       </div>
