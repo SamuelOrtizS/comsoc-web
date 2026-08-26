@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {
-  title = "IEEE ComSoc | Student Chapter",
+  title = "IEEE ComSoc Univalle |",
   description = "Capítulo Estudiantil de la Sociedad de Comunicaciones de IEEE. Fomentando la innovación en telecomunicaciones, redes 5G/6G, IoT y tecnologías conectadas.",
   image = "/images/logo-comsoc.svg",
 } = Astro.props;
@@ -81,6 +81,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
     <Footer />
     <CustomCursor />
     <TouchRipple />
-    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e239d35fe7434d2c91eea3c5cb11327e"}'></script><!-- End Cloudflare Web Analytics -->
-  </body>
+    <!-- Construction Modal -->
+    <div id="construction-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+      <div class="max-w-md p-8 bg-[#0f172a] border border-cyan-500/30 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.2)] text-center">
+        <div class="mb-4 flex justify-center">
+          <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/50">
+            <span class="text-3xl">🏗️</span>
+          </div>
+        </div>
+        <h2 class="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Sitio en Construcción</h2>
+        <p class="text-gray-400 mb-8">Estamos trabajando arduamente para construir una mejor experiencia para nuestra comunidad. ¡Volveremos muy pronto!</p>
+        <button onclick="document.getElementById('construction-modal').style.display='none'" class="px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-cyan-600/20">
+          Entendido
+        </button>
+        <p class="text-gray-400 mb-8 text-xs">
+          <br>
+          <br>
+          El contenido actual de la pagina no es final, no representa información definitiva y no debe ser utilizado como referencia.
+        </p>
+      </div>
+    </div>
+    <script>
+      // Opcional: Cerrar automáticamente tras unos segundos o lógica adicional
+      // Por ahora, el botón permite al usuario cerrar manualmente.
+    </script>
+    <TouchRipple />
 </html>
