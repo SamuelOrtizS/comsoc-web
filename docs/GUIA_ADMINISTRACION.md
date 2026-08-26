@@ -247,5 +247,6 @@ Los métodos de pago (transferencia bancaria a Nu, billetera digital a Nequi / B
 ---
 
 ## 💡 Recomendaciones para Imágenes
+
 - Puedes usar imágenes alojadas en internet (Unsplash, Cloudinary, Imgur) mediante URLs directas `https://...`.
 - O puedes colocar archivos de imagen locales en la carpeta `public/images/` y referenciarlas como `/images/mi-foto.png`.
