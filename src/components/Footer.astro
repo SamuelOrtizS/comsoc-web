@@ -5,13 +5,14 @@ const navSections = [
   {
     title: 'Navegación',
     links: [
-      { name: 'Inicio', href: '/' },
-      { name: 'Nosotros', href: '/nosotros' },
-      { name: 'Eventos', href: '/eventos' },
-      { name: 'Proyectos', href: '/proyectos' },
-      { name: 'Convocatorias', href: '/convocatorias' },
-      { name: 'Tienda', href: '/tienda' },
-      { name: 'Donaciones', href: '/donaciones' },
+      { name: 'Inicio', href: '/', external: false },
+      { name: 'Nosotros', href: '/nosotros', external: false },
+      { name: 'Eventos', href: '/eventos', external: false },
+      { name: 'Proyectos', href: '/proyectos', external: false },
+      { name: 'Convocatorias', href: '/convocatorias', external: false },
+      { name: 'Tienda', href: '/tienda', external: false },
+      { name: 'Donaciones', href: '/donaciones', external: false },
+      { name: 'Unirse', href: '/unirse', external: false },
     ],
   },
   {
@@ -37,7 +38,7 @@ const navSections = [
       <!-- Brand & Info -->
       <div class="md:col-span-2 space-y-4">
         <a href="/" class="inline-block">
-          <img src="/images/logo-comsoc.svg" alt="IEEE ComSoc" loading="lazy" decoding="async" class="h-10 w-auto" style="filter: brightness(0) invert(1);" />
+          <img src="/images/logo-comsoc.svg" alt="IEEE ComSoc" loading="lazy" decoding="async" class="h-22 w-auto" style="filter: brightness(0) invert(1);" />
         </a>
         <p class="text-gray-400 text-sm max-w-md leading-relaxed font-light">
           ComSoc Student Chapter. Impulsamos el desarrollo profesional, técnico y académico en comunicaciones digitales, redes de nueva generación, IoT y ciberseguridad.
@@ -83,8 +84,7 @@ const navSections = [
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
-                  class="text-gray-400 hover:text-accent-cyan transition-colors font-light"
-                >
+                  class="text-gray-400 hover:text-accent-cyan transition-colors font-light">
                   {link.name}
                   {link.external && <span class="text-xs opacity-60 ml-1">↗</span>}
                 </a>
