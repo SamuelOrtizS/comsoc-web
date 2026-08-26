@@ -72,7 +72,7 @@ const destinies = [
       </div>
 
       <!-- Specific Project Note Alert -->
-      <div class="lg:col-span-5 flex flex-col justify-between bg-gradient-to-br from-purple-950/40 to-indigo-950/40 rounded-3xl p-8 border border-purple-500/30 text-white relative overflow-hidden">
+      <div class="lg:col-span-5 flex flex-col justify-between bg-linear-to-br from-purple-950/40 to-indigo-950/40 rounded-3xl p-8 border border-purple-500/30 text-white relative overflow-hidden">
         <div class="relative z-10 space-y-6">
           <div class="text-4xl">💡</div>
           <h3 class="text-xl font-bold">¿Quieres apoyar un proyecto en específico?</h3>
@@ -115,10 +115,10 @@ const destinies = [
           const copyText = method.details.map(d => `${d.label}: ${d.value}`).join('\n');
 
           return (
-            <div class="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between group hover:border-[#22d3ee]/40 transition-all duration-300">
+            <div class="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between group hover:border-accent-cyan/40 transition-all duration-300">
               <div>
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-mono text-[#22d3ee] uppercase tracking-wider">{method.type}</span>
+                  <span class="text-xs font-mono text-accent-cyan uppercase tracking-wider">{method.type}</span>
                   {method.badge && (
                     <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-gray-400">
                       {method.badge}
@@ -135,7 +135,7 @@ const destinies = [
                           href={detail.value}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="text-sm font-semibold text-[#22d3ee] hover:underline mt-0.5 break-all inline-flex items-center gap-1"
+                          class="text-sm font-semibold text-accent-cyan hover:underline mt-0.5 break-all inline-flex items-center gap-1"
                         >
                           {detail.value} ↗
                         </a>
@@ -153,7 +153,7 @@ const destinies = [
                     href={paypalLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-gradient-to-r from-[#155dfc] to-[#22d3ee] text-white hover:opacity-95 shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-1.5"
+                    class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-1.5"
                   >
                     <span>Donar vía PayPal</span>
                     <span>↗</span>

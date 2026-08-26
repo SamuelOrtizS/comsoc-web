@@ -86,7 +86,7 @@ const benefits = [
 
   <!-- Gallery Section -->
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
-    <div class="relative rounded-3xl overflow-hidden glass-card border border-white/10 group aspect-[21/9]">
+    <div class="relative rounded-3xl overflow-hidden glass-card border border-white/10 group aspect-21/9">
       <div class="w-full h-full relative" id="gallery-container">
         {galleryImages.map((img, idx) => (
           <div 
@@ -99,7 +99,7 @@ const benefits = [
               decoding="async"
               class="w-full h-full object-cover" 
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-black/40"></div>
+            <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-black/40"></div>
           </div>
         ))}
       </div>
@@ -165,7 +165,7 @@ const benefits = [
   <!-- Member Benefits Grid -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <div class="text-xs uppercase font-mono tracking-widest text-[#22d3ee] mb-2 font-semibold">
+      <div class="text-xs uppercase font-mono tracking-widest text-accent-cyan mb-2 font-semibold">
         Valor para Estudiantes
       </div>
       <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -190,7 +190,7 @@ const benefits = [
   <!-- Team Leadership Section -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <div class="text-xs uppercase font-mono tracking-widest text-[#a855f7] mb-2 font-semibold">
+      <div class="text-xs uppercase font-mono tracking-widest text-accent-purple mb-2 font-semibold">
         Liderazgo 2026
       </div>
       <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -205,12 +205,12 @@ const benefits = [
       {team.map((member) => (
         <button
           type="button"
-          class="member-card glass-card rounded-2xl p-6 border border-white/10 text-center flex flex-col items-center group cursor-pointer hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 w-full text-left"
+          class="member-card glass-card rounded-2xl p-6 border border-white/10 text-center flex flex-col items-center group cursor-pointer hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 w-full"
           data-member={JSON.stringify(member)}
           aria-label={`Ver perfil de ${member.name}`}
         >
           <!-- Avatar or Image -->
-          <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600/30 to-cyan-400/30 border-2 border-cyan-400/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 group-hover:border-cyan-400/80 transition-all duration-300 overflow-hidden">
+          <div class="w-20 h-20 rounded-full bg-linear-to-tr from-blue-600/30 to-cyan-400/30 border-2 border-cyan-400/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 group-hover:border-cyan-400/80 transition-all duration-300 overflow-hidden">
             {member.image
               ? <img src={member.image} alt={member.name} loading="lazy" decoding="async" class="w-full h-full object-cover rounded-full" />
               : <span>{member.avatar || '👤'}</span>
@@ -256,7 +256,7 @@ const benefits = [
 
       <!-- Avatar -->
       <div class="flex flex-col items-center gap-3">
-        <div id="modal-avatar-wrap" class="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-600/40 to-cyan-400/40 border-2 border-cyan-400/60 flex items-center justify-center text-5xl overflow-hidden"></div>
+        <div id="modal-avatar-wrap" class="w-24 h-24 rounded-full bg-linear-to-tr from-blue-600/40 to-cyan-400/40 border-2 border-cyan-400/60 flex items-center justify-center text-5xl overflow-hidden"></div>
         <div class="text-center">
           <h2 id="modal-member-name" class="text-xl font-extrabold text-white"></h2>
           <div id="modal-role" class="text-xs font-mono text-cyan-400 font-medium mt-0.5"></div>
@@ -276,7 +276,7 @@ const benefits = [
       <div id="modal-contact" class="flex flex-col gap-2.5"></div>
 
       <!-- Social links -->
-      <div id="modal-socials" class="flex flex-wrap gap-2 hidden"></div>
+      <div id="modal-socials" class="flex flex-wrap gap-2"></div>
     </div>
   </div>
 

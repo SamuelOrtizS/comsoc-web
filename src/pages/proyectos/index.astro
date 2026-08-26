@@ -101,11 +101,11 @@ const estadoStyle = {
                 </div>
               </div>
 
-              <div class="p-6 flex flex-col flex-grow">
+              <div class="p-6 flex flex-col grow">
                 <h3 class="text-base font-bold text-white group-hover:text-emerald-300 transition-colors mb-2 line-clamp-2">
                   {proyecto.data.titulo}
                 </h3>
-                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3 flex-grow mb-4">
+                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3 grow mb-4">
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
@@ -120,7 +120,7 @@ const estadoStyle = {
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-gradient-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
+                        class="h-full bg-linear-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
@@ -180,11 +180,11 @@ const estadoStyle = {
                 </div>
               </div>
 
-              <div class="p-6 flex flex-col flex-grow">
+              <div class="p-6 flex flex-col grow">
                 <h3 class="text-base font-bold text-white group-hover:text-blue-300 transition-colors mb-2 line-clamp-2">
                   {proyecto.data.titulo}
                 </h3>
-                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3 flex-grow mb-4">
+                <p class="text-xs text-gray-400 font-light leading-relaxed line-clamp-3 grow mb-4">
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
@@ -199,7 +199,7 @@ const estadoStyle = {
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-gradient-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
+                        class="h-full bg-linear-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
@@ -259,11 +259,11 @@ const estadoStyle = {
                 </div>
               </div>
 
-              <div class="p-6 flex flex-col flex-grow">
+              <div class="p-6 flex flex-col grow">
                 <h3 class="text-base font-bold text-gray-300 group-hover:text-white transition-colors mb-2 line-clamp-2">
                   {proyecto.data.titulo}
                 </h3>
-                <p class="text-xs text-gray-500 font-light leading-relaxed line-clamp-3 flex-grow mb-4">
+                <p class="text-xs text-gray-500 font-light leading-relaxed line-clamp-3 grow mb-4">
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
@@ -278,7 +278,7 @@ const estadoStyle = {
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-gradient-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
+                        class="h-full bg-linear-to-r from-blue-500 to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
@@ -312,7 +312,7 @@ const estadoStyle = {
     )}
 
     <!-- Donations CTA -->
-    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden max-w-4xl mx-auto mt-12 bg-gradient-to-b from-bg-primary to-bg-secondary">
+    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden max-w-4xl mx-auto mt-12 bg-linear-to-b from-bg-primary to-bg-secondary">
       <div class="relative z-10 space-y-4">
         <div class="text-4xl">❤️</div>
         <h2 class="text-2xl sm:text-3xl font-bold text-white">¿Quieres apoyar nuestras iniciativas?</h2>
@@ -322,7 +322,7 @@ const estadoStyle = {
         <div class="pt-4">
           <a
             href="/donaciones"
-            class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all animate-pulse"
+            class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02] transition-all animate-pulse"
           >
             Donar al Capítulo ↗
           </a>

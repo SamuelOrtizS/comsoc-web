@@ -11,9 +11,9 @@ import ErrorPage from '../components/ErrorPage.astro';
 
     <!-- Decorative animated rings -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
-      <div class="ring-pulse w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] rounded-full border border-cyan-500/10"></div>
-      <div class="ring-pulse ring-delay-1 absolute w-[220px] h-[220px] sm:w-[340px] sm:h-[340px] rounded-full border border-blue-500/15"></div>
-      <div class="ring-pulse ring-delay-2 absolute w-[120px] h-[120px] sm:w-[200px] sm:h-[200px] rounded-full border border-purple-500/20"></div>
+      <div class="ring-pulse w-[320px] h-80 sm:w-120 sm:h-120 rounded-full border border-cyan-500/10"></div>
+      <div class="ring-pulse ring-delay-1 absolute w-55 h-55 sm:w-85 sm:h-85 rounded-full border border-blue-500/15"></div>
+      <div class="ring-pulse ring-delay-2 absolute w-30 h-30 sm:w-50 sm:h-50 rounded-full border border-purple-500/20"></div>
     </div>
 
     <div class="relative z-10 text-center max-w-xl mx-auto flex flex-col items-center gap-8">
@@ -21,7 +21,7 @@ import ErrorPage from '../components/ErrorPage.astro';
       <!-- Glitch 404 number -->
       <div class="relative select-none">
         <h1 class="text-[8rem] sm:text-[10rem] font-extrabold leading-none tracking-tighter glitch-text" data-text="404">
-          <span class="bg-gradient-to-br from-[#155dfc] via-[#22d3ee] to-[#a855f7] bg-clip-text text-transparent">404</span>
+          <span class="bg-linear-to-br from-accent-blue via-accent-cyan to-accent-purple bg-clip-text text-transparent">404</span>
         </h1>
       </div>
 
@@ -56,7 +56,7 @@ import ErrorPage from '../components/ErrorPage.astro';
       <div class="flex flex-wrap justify-center gap-4 pt-2">
         <a
           href="/"
-          class="px-7 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#155dfc] to-[#22d3ee] shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all duration-200"
+          class="px-7 py-3 rounded-xl font-semibold text-white bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-blue-500/25 hover:scale-[1.02] transition-all duration-200"
         >
           Volver al Inicio
         </a>

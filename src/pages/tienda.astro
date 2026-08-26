@@ -28,7 +28,7 @@ const tiendaItems = await getCollection('tienda');
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
     <div class="glass-card rounded-2xl p-4 sm:p-6 border border-cyan-500/30 flex flex-col sm:flex-row items-center gap-4 bg-cyan-950/20">
       <div class="text-3xl">📍</div>
-      <div class="text-xs sm:text-sm text-gray-300 flex-grow font-light">
+      <div class="text-xs sm:text-sm text-gray-300 grow font-light">
         <strong class="text-white font-medium">Punto de Entrega:</strong> Entregas presenciales en el Campus Universitario (Laboratorio de Telecomunicaciones) y envíos a nivel nacional previa coordinación vía WhatsApp.
       </div>
     </div>
@@ -126,7 +126,7 @@ const tiendaItems = await getCollection('tienda');
       <!-- Image -->
       <div class="aspect-video relative overflow-hidden bg-slate-900">
         <img id="modal-product-image" src="" alt="" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent"></div>
+        <div class="absolute inset-0 bg-linear-to-t from-bg-secondary via-transparent to-transparent"></div>
         <span id="modal-product-category" class="absolute top-4 left-4 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-cyan-300 border border-cyan-500/30"></span>
       </div>
 

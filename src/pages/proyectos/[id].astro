@@ -45,14 +45,14 @@ const estadoBadge = {
 
     <!-- Hero Card -->
     <div class="glass-card rounded-3xl overflow-hidden border border-purple-500/30 mb-12">
-      <div class="aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
+      <div class="aspect-21/9 w-full relative overflow-hidden bg-slate-950">
         <img
           src={data.imagen}
           alt={data.titulo}
           decoding="async"
           class="w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-black/40"></div>
+        <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-black/40"></div>
 
         <!-- Badges -->
         <div class="absolute top-4 left-4 flex gap-2">
@@ -111,7 +111,7 @@ const estadoBadge = {
 
         <!-- Funding Progress (Optional) -->
         {data.montoActual !== undefined && data.montoMeta !== undefined && (
-          <div class="glass-card rounded-2xl p-8 border border-emerald-500/30 bg-gradient-to-br from-bg-primary to-[#0a1f1a]">
+          <div class="glass-card rounded-2xl p-8 border border-emerald-500/30 bg-linear-to-br from-bg-primary to-[#0a1f1a]">
             <h2 class="text-xl font-bold text-white mb-2 font-mono flex items-center gap-2">
               <span>💰</span> Estado de Financiamiento
             </h2>
@@ -138,7 +138,7 @@ const estadoBadge = {
               <div>
                 <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
                   <div 
-                    class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-accent-cyan rounded-full transition-all duration-500" 
+                    class="h-full bg-linear-to-r from-emerald-500 via-teal-400 to-accent-cyan rounded-full transition-all duration-500" 
                     style={`width: ${Math.min(100, (data.montoActual / data.montoMeta) * 100)}%`}
                   ></div>
                 </div>
@@ -155,7 +155,7 @@ const estadoBadge = {
               </span>
               <a
                 href="/donaciones"
-                class="px-5 py-2.5 rounded-xl text-center text-xs font-semibold bg-gradient-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02]"
+                class="px-5 py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02]"
               >
                 Donar a este proyecto ↗
               </a>
@@ -189,7 +189,7 @@ const estadoBadge = {
           </p>
           <a
             href="/convocatorias"
-            class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-gradient-to-r from-accent-blue to-accent-purple text-white hover:opacity-90 transition flex items-center justify-center gap-2"
+            class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-purple text-white hover:opacity-90 transition flex items-center justify-center gap-2"
           >
             Ver Convocatorias ↗
           </a>
@@ -222,7 +222,7 @@ const estadoBadge = {
 
     <!-- Bottom Donations CTA Banner -->
     <div class="mt-16 border-t border-white/10 pt-12">
-      <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden bg-gradient-to-b from-bg-primary to-[#0d0720]">
+      <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden bg-linear-to-b from-bg-primary to-[#0d0720]">
         <div class="relative z-10 space-y-4">
           <div class="text-3xl">🤝</div>
           <h2 class="text-xl sm:text-2xl font-bold text-white">Apoya los proyectos de IEEE ComSoc</h2>
@@ -232,7 +232,7 @@ const estadoBadge = {
           <div class="pt-4">
             <a
               href="/donaciones"
-              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02]"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02]"
             >
               Ir a la Página de Donaciones
             </a>

@@ -21,7 +21,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth bg-[#050816] text-white">
+<html lang="es" class="scroll-smooth bg-bg-primary text-white">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,29 +66,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
       gtag('config', 'G-7Q9FC7KE7Y');
     </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-[#050816] text-[#ffffff] selection:bg-[#155dfc] selection:text-white relative overflow-x-hidden font-sans">
+  <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-white relative overflow-x-hidden font-sans">
     <!-- Background glow ambient effects (optimized GPU layers) -->
-    <div class="fixed top-0 left-1/4 -z-10 w-[500px] h-[350px] bg-[#155dfc]/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
-    <div class="fixed bottom-1/4 right-10 -z-10 w-[450px] h-[350px] bg-[#22d3ee]/10 rounded-full blur-[100px] pointer-events-none transform-gpu"></div>
-    <div class="fixed top-1/2 left-10 -z-10 w-[350px] h-[250px] bg-[#a855f7]/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
+    <div class="fixed top-0 left-1/4 -z-10 w-125 h-87.5 bg-accent-blue/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
+    <div class="fixed bottom-1/4 right-10 -z-10 w-112.5 h-87.5 bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none transform-gpu"></div>
+    <div class="fixed top-1/2 left-10 -z-10 w-87.5 h-62.5 bg-accent-purple/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
 
     <Header />
 
-    <main class="flex-grow pt-20">
+    <main class="grow pt-20">
       <slot />
     </main>
 
     <Footer />
     <CustomCursor />
     <!-- Construction Modal -->
-    <div id="construction-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+    <div id="construction-modal" class="fixed inset-0 z-100 flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <div class="max-w-md p-8 bg-[#0f172a] border border-cyan-500/30 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.2)] text-center">
         <div class="mb-4 flex justify-center">
-          <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/50">
+          <div class="w-16 h-16 bg-linear-to-br from-cyan-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/50">
             <span class="text-3xl">🏗️</span>
           </div>
         </div>
-        <h2 class="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Sitio en Construcción</h2>
+        <h2 class="text-3xl font-bold text-white mb-4 bg-linear-to-r from-cyan-400 to-purple-400 bg-clip-text">Sitio en Construcción</h2>
         <p class="text-gray-400 mb-8">Estamos trabajando arduamente para construir una mejor experiencia para nuestra comunidad. ¡Volveremos muy pronto!</p>
         <button onclick="document.getElementById('construction-modal').style.display='none'" class="px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-cyan-600/20">
           Entendido

@@ -12,19 +12,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="absolute inset-0 pointer-events-none select-none scanlines" aria-hidden="true"></div>
 
     <!-- Ambient warning glow -->
-    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-amber-500/8 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-75 bg-amber-500/8 rounded-full blur-[120px] pointer-events-none"></div>
 
     <div class="relative z-10 text-center max-w-xl mx-auto flex flex-col items-center gap-8">
 
       <!-- Warning icon -->
       <div class="relative">
-        <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-amber-500/20 to-red-500/20 border border-amber-500/30 flex items-center justify-center error-icon-pulse">
+        <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-linear-to-br from-amber-500/20 to-red-500/20 border border-amber-500/30 flex items-center justify-center error-icon-pulse">
           <svg class="w-14 h-14 sm:w-16 sm:h-16 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
           </svg>
         </div>
         <!-- Status dot -->
-        <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-amber-500/80 border-2 border-[#050816] animate-pulse"></div>
+        <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-amber-500/80 border-2 border-bg-primary animate-pulse"></div>
       </div>
 
       <!-- Message -->
@@ -61,7 +61,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="flex flex-wrap justify-center gap-4 pt-2">
         <button
           onclick="window.location.reload()"
-          class="px-7 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-500 to-orange-500 shadow-lg shadow-amber-500/25 hover:scale-[1.02] transition-all duration-200 cursor-pointer"
+          class="px-7 py-3 rounded-xl font-semibold text-white bg-linear-to-r from-amber-500 to-orange-500 shadow-lg shadow-amber-500/25 hover:scale-[1.02] transition-all duration-200 cursor-pointer"
         >
           Reintentar
         </button>

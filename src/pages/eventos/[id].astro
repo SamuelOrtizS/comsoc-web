@@ -47,14 +47,14 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 
     <!-- Main Hero Card -->
     <div class="glass-card rounded-3xl overflow-hidden border border-cyan-500/30 mb-12">
-      <div class="aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
+      <div class="aspect-21/9 w-full relative overflow-hidden bg-slate-950">
         <img
           src={data.imagenPrincipal}
           alt={data.titulo}
           decoding="async"
           class="w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-black/40"></div>
+        <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-black/40"></div>
         
         <!-- Badges on image -->
         <div class="absolute top-4 left-4 flex gap-2">
