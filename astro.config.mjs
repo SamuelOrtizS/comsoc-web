@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/',
   output: 'static',
   prefetch: {
-    prefetchAll: false,
+    prefetchAll: true,
     defaultStrategy: 'hover',
   },
   vite: {
