@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ErrorPage from '../components/ErrorPage.astro';
+---
+
+<BaseLayout
+  title="IEEE ComSoc Univalle | Cicada 3301 Encountered"
+  description="Parece que has entrado en un nivel de complejidad criptográfica superior."
+>
+  <ErrorPage
+    code="ECHO::CICADA_3301"
+    tagline="ENIGMA DETECTADO"
+    title="Cicada 3301: La Prueba Final"
+    description="Has encontrado una anomalía en el sistema. Esto puede ser un desafío avanzado o un error de configuración muy sofisticado. ¿Estás listo para descifrarlo?"
+    color="green"
+    icon="cicada"
+    showRetry={true}
+  />
+
+</BaseLayout>
