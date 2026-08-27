@@ -12,7 +12,7 @@ const tiendaItems = await getCollection('tienda');
   <!-- Header -->
   <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 text-accent-emerald text-xs font-mono mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 text-accent-emerald text-sm font-mono mb-4">
         Official Chapter Merch
       </div>
       <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
@@ -28,7 +28,7 @@ const tiendaItems = await getCollection('tienda');
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
     <div class="glass-card rounded-2xl p-4 sm:p-6 border border-glass-border/30 flex flex-col sm:flex-row items-center gap-4 bg-bg-secondary/20">
       <div class="text-3xl">📍</div>
-      <div class="text-xs sm:text-sm text-text-secondary grow font-light">
+      <div class="text-sm sm:text-sm text-text-secondary grow font-light">
         <strong class="text-text-primary font-medium">Punto de Entrega:</strong> Entregas presenciales en el Campus Universitario (Laboratorio de Telecomunicaciones) y envíos a nivel nacional previa coordinación vía WhatsApp.
       </div>
     </div>
@@ -61,7 +61,7 @@ const tiendaItems = await getCollection('tienda');
                   </span>
                   {!prod.available && (
                     <div class="absolute inset-0 bg-black/60 flex items-center justify-center">
-                      <span class="text-xs font-mono text-accent-red border border-accent-red/40 bg-accent-red/10 px-3 py-1 rounded-full">Agotado</span>
+                      <span class="text-sm font-mono text-accent-red border border-accent-red/40 bg-accent-red/10 px-3 py-1 rounded-full">Agotado</span>
                     </div>
                   )}
                 </div>
@@ -71,7 +71,7 @@ const tiendaItems = await getCollection('tienda');
                   <h3 class="text-base font-bold text-text-primary group-hover:text-accent-cyan transition-colors mb-2 line-clamp-2">
                     {prod.name}
                   </h3>
-                  <p class="text-xs text-text-secondary font-light leading-relaxed line-clamp-3">
+                  <p class="text-sm text-text-secondary font-light leading-relaxed line-clamp-3">
                     {prod.description}
                   </p>
                 </div>
@@ -81,7 +81,7 @@ const tiendaItems = await getCollection('tienda');
             <div class="p-5 pt-0 flex gap-2">
               <button
                 type="button"
-                class="product-card-btn flex-1 py-2 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-text-secondary border border-white/10 transition"
+                class="product-card-btn flex-1 py-2 rounded-xl text-center text-sm font-semibold bg-white/5 hover:bg-white/10 text-text-secondary border border-white/10 transition"
                 data-product={JSON.stringify(prod)}
               >
                 Ver detalles
@@ -90,7 +90,7 @@ const tiendaItems = await getCollection('tienda');
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex-1 py-2 rounded-xl text-center text-xs font-semibold bg-accent-emerald/30 hover:bg-accent-emerald/50 text-accent-emerald border border-accent-emerald/40 transition flex items-center justify-center gap-1"
+                class="flex-1 py-2 rounded-xl text-center text-sm font-semibold bg-accent-emerald/30 hover:bg-accent-emerald/50 text-accent-emerald border border-accent-emerald/40 transition flex items-center justify-center gap-1"
               >
                 <span>WhatsApp</span>
                 <span>💬</span>
@@ -136,7 +136,7 @@ const tiendaItems = await getCollection('tienda');
           <div id="modal-product-price" class="text-2xl font-bold text-accent-cyan font-mono mb-1"></div>
           <h2 id="modal-product-name" class="text-xl font-extrabold text-text-primary"></h2>
         </div>
-        <div id="modal-availability" class="text-xs font-mono"></div>
+        <div id="modal-availability" class="text-sm font-mono"></div>
         <p id="modal-product-desc" class="text-sm text-text-secondary font-light leading-relaxed"></p>
         <div class="pt-2">
           <a
