@@ -21,10 +21,10 @@ const data = proyecto.data;
 const currentRate = await getUsdToCopRate();
 
 const estadoBadge = {
-  Activo:     { text: '🟢 Activo',     cls: 'text-emerald-300 border-emerald-500/40 bg-emerald-500/10' },
-  Completado: { text: '✅ Completado', cls: 'text-blue-300 border-blue-500/40 bg-blue-500/10' },
-  'En Pausa': { text: '⏸ En Pausa',   cls: 'text-yellow-300 border-yellow-500/40 bg-yellow-500/10' },
-}[data.estado] ?? { text: data.estado, cls: 'text-gray-300 border-white/20 bg-white/5' };
+  Activo:     { text: '🟢 Activo',     cls: 'text-[var(--color-accent-emerald)] border-[var(--color-accent-emerald)]/40 bg-[var(--color-accent-emerald)]/10' },
+  Completado: { text: '✅ Completado', cls: 'text-[var(--color-accent-blue)] border-[var(--color-accent-blue)]/40 bg-[var(--color-accent-blue)]/10' },
+  'En Pausa': { text: '⏸ En Pausa',   cls: 'text-[var(--color-accent-yellow)] border-[var(--color-accent-yellow)]/40 bg-[var(--color-accent-yellow)]/10' },
+}[data.estado] ?? { text: data.estado, cls: 'text-[var(--color-text-secondary)] border-[var(--color-glass-border)] bg-[var(--color-glass-bg)]' };
 ---
 
 <BaseLayout
@@ -37,15 +37,15 @@ const estadoBadge = {
     <!-- Back link -->
     <a
       href="/proyectos"
-      class="inline-flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 font-mono mb-8 group"
+      class="inline-flex items-center gap-2 text-sm text-[var(--color-accent-purple)] hover:text-[var(--color-accent-purple)] font-mono mb-8 group"
     >
       <span class="group-hover:-translate-x-1 transition-transform">←</span>
-      <span>Volver a proyectos</span>
+      <span class="text-[var(--color-accent-purple)]">Volver a proyectos</span>
     </a>
 
     <!-- Hero Card -->
-    <div class="glass-card rounded-3xl overflow-hidden border border-purple-500/30 mb-12">
-      <div class="aspect-21/9 w-full relative overflow-hidden bg-slate-950">
+    <div class="glass-card rounded-3xl overflow-hidden border border-[var(--color-accent-purple)]/30 mb-12">
+      <div class="aspect-21/9 w-full relative overflow-hidden bg-[var(--color-bg-deep-slate)]">
         <img
           src={data.imagen}
           alt={data.titulo}
@@ -56,7 +56,7 @@ const estadoBadge = {
 
         <!-- Badges -->
         <div class="absolute top-4 left-4 flex gap-2">
-          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-purple-300 border border-purple-500/40 font-mono">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-[var(--color-accent-purple)] border border-[var(--color-accent-purple)]/40 font-mono">
             {data.categoria}
           </span>
           <span class={`px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md border font-mono ${estadoBadge.cls}`}>
@@ -66,31 +66,31 @@ const estadoBadge = {
       </div>
 
       <div class="p-6 sm:p-10 space-y-6">
-        <div class="text-xs font-mono text-purple-400 uppercase tracking-widest">
+        <div class="text-xs font-mono text-[var(--color-accent-purple)] uppercase tracking-widest">
           Proyecto de Investigación &amp; Desarrollo — IEEE ComSoc Chapter
         </div>
 
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-[var(--color-text-primary)] leading-tight">
           {data.titulo}
         </h1>
 
         <!-- Meta Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
-          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-gray-400 font-mono">Categoría</div>
-            <div class="text-sm font-semibold text-white mt-1">🔬 {data.categoria}</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[var(--color-glass-border)]">
+          <div class="bg-white/5 p-4 rounded-xl border border-[var(--color-glass-border)]">
+            <div class="text-xs uppercase text-[var(--color-text-secondary)] font-mono">Categoría</div>
+            <div class="text-sm font-semibold text-[var(--color-text-primary)] mt-1">🔬 {data.categoria}</div>
           </div>
 
-          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-gray-400 font-mono">Estado</div>
+          <div class="bg-white/5 p-4 rounded-xl border border-[var(--color-glass-border)]">
+            <div class="text-xs uppercase text-[var(--color-text-secondary)] font-mono">Estado</div>
             <div class={`text-sm font-semibold mt-1 ${estadoBadge.cls.split(' ')[0]}`}>
               {estadoBadge.text}
             </div>
           </div>
 
-          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-gray-400 font-mono">Destacado</div>
-            <div class="text-sm font-semibold text-white mt-1">
+          <div class="bg-white/5 p-4 rounded-xl border border-[var(--color-glass-border)]">
+            <div class="text-xs uppercase text-[var(--color-text-secondary)] font-mono">Destacado</div>
+            <div class="text-sm font-semibold text-[var(--color-text-primary)] mt-1">
               {data.destacado ? '⭐ Proyecto Destacado' : '—'}
             </div>
           </div>
@@ -102,34 +102,34 @@ const estadoBadge = {
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
       <div class="lg:col-span-8 space-y-8">
         <!-- Description -->
-        <div class="glass-card rounded-2xl p-8 border border-white/10">
-          <h2 class="text-xl font-bold text-white mb-4 font-mono">Descripción del Proyecto</h2>
-          <p class="text-gray-300 text-base leading-relaxed font-light whitespace-pre-line">
+        <div class="glass-card rounded-2xl p-8 border border-[var(--color-glass-border)]">
+          <h2 class="text-xl font-bold text-[var(--color-text-primary)] mb-4 font-mono">Descripción del Proyecto</h2>
+          <p class="text-[var(--color-text-secondary)] text-base leading-relaxed font-light whitespace-pre-line">
             {data.descripcion}
           </p>
         </div>
 
         <!-- Funding Progress (Optional) -->
         {data.montoActual !== undefined && data.montoMeta !== undefined && (
-          <div class="glass-card rounded-2xl p-8 border border-emerald-500/30 bg-linear-to-br from-bg-primary to-[#0a1f1a]">
-            <h2 class="text-xl font-bold text-white mb-2 font-mono flex items-center gap-2">
+          <div class="glass-card rounded-2xl p-8 border border-[var(--color-accent-emerald)]/30 bg-linear-to-br from-bg-primary to-[var(--color-bg-emerald-dark)]">
+            <h2 class="text-xl font-bold text-[var(--color-text-primary)] mb-2 font-mono flex items-center gap-2">
               <span>💰</span> Estado de Financiamiento
             </h2>
-            <p class="text-xs text-gray-400 font-light mb-6">
+            <p class="text-xs text-[var(--color-text-secondary)] font-light mb-6">
               Este proyecto requiere fondos externos para la adquisición de componentes y licencias. Puedes apoyar directamente su desarrollo.
             </p>
             
             <div class="space-y-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                  <div class="text-[11px] font-mono text-gray-400">Meta en Dólares (USD)</div>
-                  <div class="text-base font-bold text-accent-cyan font-mono mt-0.5">
+                <div class="p-3.5 rounded-xl bg-white/5 border border-[var(--color-glass-border)]">
+                  <div class="text-[11px] font-mono text-[var(--color-text-secondary)]">Meta en Dólares (USD)</div>
+                  <div class="text-base font-bold text-[var(--color-accent-cyan)] font-mono mt-0.5">
                     {formatUSD(data.montoActual)} / {formatUSD(data.montoMeta)}
                   </div>
                 </div>
-                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                  <div class="text-[11px] font-mono text-gray-400">Meta en Pesos Colombianos (COP)</div>
-                  <div class="text-base font-bold text-emerald-400 font-mono mt-0.5">
+                <div class="p-3.5 rounded-xl bg-white/5 border border-[var(--color-glass-border)]">
+                  <div class="text-[11px] font-mono text-[var(--color-text-secondary)]">Meta en Pesos Colombianos (COP)</div>
+                  <div class="text-base font-bold text-[var(--color-accent-emerald)] font-mono mt-0.5">
                     {formatCOP(data.montoActual, currentRate)} / {formatCOP(data.montoMeta, currentRate)}
                   </div>
                 </div>
@@ -138,11 +138,11 @@ const estadoBadge = {
               <div>
                 <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
                   <div 
-                    class="h-full bg-linear-to-r from-emerald-500 via-teal-400 to-accent-cyan rounded-full transition-all duration-500" 
+                    class="h-full bg-linear-to-r from-[var(--color-accent-emerald)] via-[var(--color-accent-teal)] to-accent-cyan rounded-full transition-all duration-500" 
                     style={`width: ${Math.min(100, (data.montoActual / data.montoMeta) * 100)}%`}
                   ></div>
                 </div>
-                <div class="flex justify-between items-center text-xs font-mono text-gray-400 pt-2">
+                <div class="flex justify-between items-center text-xs font-mono text-[var(--color-text-secondary)] pt-2">
                   <span>{Math.round((data.montoActual / data.montoMeta) * 100)}% Financiado</span>
                   <span>Faltan: {formatUSD(Math.max(0, data.montoMeta - data.montoActual))} ({formatCOP(Math.max(0, data.montoMeta - data.montoActual), currentRate)})</span>
                 </div>
@@ -150,12 +150,12 @@ const estadoBadge = {
             </div>
             
             <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <span class="text-xs text-gray-400 font-light">
+              <span class="text-xs text-[var(--color-text-secondary)] font-light">
                 * Recuerda especificar <strong>"{data.titulo}"</strong> en el concepto de tu donación.
               </span>
               <a
                 href="/donaciones"
-                class="px-5 py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02]"
+                class="px-5 py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-[var(--color-text-primary)] hover:opacity-95 shadow-md shadow-[var(--color-accent-blue)]/25 transition-all hover:scale-[1.02]"
               >
                 Donar a este proyecto ↗
               </a>
@@ -166,10 +166,10 @@ const estadoBadge = {
         <!-- Tags -->
         {data.tags && data.tags.length > 0 && (
           <div class="glass-card rounded-2xl p-8 border border-white/10">
-            <h2 class="text-xl font-bold text-white mb-4 font-mono">Tecnologías &amp; Tags</h2>
+            <h2 class="text-xl font-bold text-[var(--color-text-primary)] mb-4 font-mono">Tecnologías &amp; Tags</h2>
             <div class="flex flex-wrap gap-2">
               {data.tags.map((tag) => (
-                <span class="px-3 py-1.5 rounded-lg text-sm font-mono bg-purple-500/10 text-purple-300 border border-purple-500/30 hover:bg-purple-500/20 transition">
+                <span class="px-3 py-1.5 rounded-lg text-sm font-mono bg-[var(--color-accent-purple)]/10 text-[var(--color-accent-purple)] border border-[var(--color-accent-purple)]/30 hover:bg-[var(--color-accent-purple)]/20 transition">
                   {tag}
                 </span>
               ))}
@@ -181,15 +181,15 @@ const estadoBadge = {
       <!-- Sidebar -->
       <div class="lg:col-span-4 space-y-6">
         <!-- CTA -->
-        <div class="glass-card rounded-2xl p-6 border border-purple-500/30 text-center space-y-4">
+        <div class="glass-card rounded-2xl p-6 border border-[var(--color-accent-purple)]/30 text-center space-y-4">
           <div class="text-3xl">🚀</div>
-          <h3 class="text-base font-bold text-white">¿Te interesa este proyecto?</h3>
-          <p class="text-xs text-gray-400 font-light">
+          <h3 class="text-base font-bold text-[var(--color-text-primary)]">¿Te interesa este proyecto?</h3>
+          <p class="text-xs text-[var(--color-text-secondary)] font-light">
             Únete al equipo o contáctanos para saber cómo participar en esta iniciativa.
           </p>
           <a
             href="/convocatorias"
-            class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-purple text-white hover:opacity-90 transition flex items-center justify-center gap-2"
+            class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-purple text-[var(--color-text-primary)] hover:opacity-90 transition flex items-center justify-center gap-2"
           >
             Ver Convocatorias ↗
           </a>
@@ -197,13 +197,13 @@ const estadoBadge = {
 
         <!-- Share -->
         <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
-          <h3 class="text-base font-bold text-white">Comparte este proyecto</h3>
+          <h3 class="text-base font-bold text-[var(--color-text-primary)]">Comparte este proyecto</h3>
           <div class="flex gap-2 justify-center pt-2">
             <a
               href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`¡Mira este proyecto de IEEE ComSoc!: ${data.titulo}`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-semibold rounded-xl bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/50 transition"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-[var(--color-accent-emerald)]/30 text-[var(--color-accent-emerald)] border border-[var(--color-accent-emerald)]/40 hover:bg-[var(--color-accent-emerald)]/50 transition"
             >
               WhatsApp
             </a>
@@ -211,7 +211,7 @@ const estadoBadge = {
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://SamuelOrtizS.github.io/proyectos')}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-semibold rounded-xl bg-blue-600/30 text-blue-300 border border-blue-500/40 hover:bg-blue-600/50 transition"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-[var(--color-accent-blue)]/30 text-[var(--color-accent-blue)] border border-[var(--color-accent-blue)]/40 hover:bg-[var(--color-accent-blue)]/50 transition"
             >
               LinkedIn
             </a>
@@ -222,23 +222,23 @@ const estadoBadge = {
 
     <!-- Bottom Donations CTA Banner -->
     <div class="mt-16 border-t border-white/10 pt-12">
-      <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center relative overflow-hidden bg-linear-to-b from-bg-primary to-[#0d0720]">
+      <div class="glass-card rounded-3xl p-8 sm:p-12 border border-[var(--color-accent-purple)]/30 text-center relative overflow-hidden bg-linear-to-b from-bg-primary to-[var(--color-bg-deep-purple)]">
         <div class="relative z-10 space-y-4">
           <div class="text-3xl">🤝</div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white">Apoya los proyectos de IEEE ComSoc</h2>
-          <p class="text-gray-400 max-w-2xl mx-auto text-xs sm:text-sm font-light leading-relaxed">
+          <h2 class="text-xl sm:text-2xl font-bold text-[var(--color-text-primary)]">Apoya los proyectos de IEEE ComSoc</h2>
+          <p class="text-[var(--color-text-secondary)] max-w-2xl mx-auto text-xs sm:text-sm font-light leading-relaxed">
             Como organización sin fines de lucro, tu generosidad impulsa la educación técnica y el desarrollo tecnológico local. Todo el capital se reinvierte íntegramente en las operaciones académicas y de investigación del capítulo.
           </p>
           <div class="pt-4">
             <a
               href="/donaciones"
-              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-white hover:opacity-95 shadow-md shadow-blue-500/25 hover:scale-[1.02]"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-[var(--color-text-primary)] hover:opacity-95 shadow-md shadow-[var(--color-accent-blue)]/25 hover:scale-[1.02]"
             >
               Ir a la Página de Donaciones
             </a>
           </div>
         </div>
-        <div class="absolute -z-10 w-64 h-64 bg-purple-500/10 rounded-full blur-[120px] -bottom-32 -right-32"></div>
+        <div class="absolute -z-10 w-64 h-64 bg-[var(--color-accent-purple)]/10 rounded-full blur-[120px] -bottom-32 -right-32"></div>
       </div>
     </div>
 

@@ -44,6 +44,15 @@
    */
   --color-accent-cyan: #22d3ee;
 
+    /* 
+   * VERDE ACENTO / BRAND EMERALD (NUEVO)
+   * Valor Hexadecimal: #34d399
+   * Usos Principales:
+   *   - Páginas: Elementos de éxito o confirmación, como badges.
+   *   - Texto/Fondos: Colores que imitan el tono emerald-400 de Tailwind CSS.
+   */
+  --color-accent-emerald: #34d399;
+
   /* 
    * PÚRPURA ACENTO / BRAND PURPLE
    * Valor Hexadecimal: #a855f7
@@ -53,6 +62,50 @@
    *   - Texto: Badges, llamadas a la acción, títulos secundarios.
    */
   --color-accent-purple: #a855f7;
+
+    /* 
+   * AMBER ACENTO / BRAND AMBER (NEW)
+   * Valor Hexadecimal: #f59e0b
+   * Usos Principales:
+   *   - Páginas: Mensajes de advertencia no críticos, alertas de estado.
+   *   - Texto/Fondos: Indicadores de precaución y estados de monitoreo.
+   */
+  --color-accent-amber: #f59e0b;
+  --color-accent-red: #ef4444;
+  --color-accent-yellow: #facc15;
+  --color-accent-rose: #f43f5e;
+
+    /* 
+   * FONDO PROFUNDO / DEEP SLATE
+   * Valor Hexadecimal: #0f172a
+   * Usos Principales:
+   *   - Fondos de tarjetas y secciones de alto contraste.
+   */
+  --color-bg-deep-slate: #0f172a;
+
+  /* 
+   * FONDO EMERALDA OSCURO / DARK EMERALD
+   * Valor Hexadecimal: #0a1f1a
+   * Usos Principales:
+   *   - Fondos de secciones de financiamiento o éxito.
+   */
+  --color-bg-emerald-dark: #0a1f1a;
+
+  /* 
+   * FONDO PÚRPURA PROFUNDO / DEEP PURPLE
+   * Valor Hexadecimal: #0d0720
+   * Usos Principales:
+   *   - Fondos de banners de donación o secciones especiales.
+   */
+  --color-bg-deep-purple: #0d0720;
+
+  /* 
+   * CIAN / TEAL ACENTO
+   * Valor Hexadecimal: #2dd4bf
+   * Usos Principales:
+   *   - Degradados y acentos de progreso.
+   */
+  --color-accent-teal: #2dd4bf;
 
   /* 
    * FONDO PRINCIPAL / PRIMARY BACKGROUND

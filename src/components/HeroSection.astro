@@ -2,32 +2,32 @@
 import estadisticas from '../content/estadisticas.json';
 ---
 
-<section class="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 overflow-hidden bg-grid-pattern bg-wave-pattern">
+<div class="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 overflow-hidden bg-grid-pattern bg-wave-pattern">
   <!-- Glowing central radial overlay -->
   <div class="absolute inset-0 bg-radial-gradient from-transparent via-bg-primary/70 to-bg-primary pointer-events-none"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
     
     <!-- Chapter Tag Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-cyan-500/30 backdrop-blur-md mb-8">
-      <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-      <span class="text-xs uppercase tracking-widest text-cyan-300 font-mono">IEEE Communications Society</span>
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-[var(--color-accent-cyan)]/30 backdrop-blur-md mb-8">
+      <span class="w-2 h-2 rounded-full bg-[var(--color-accent-cyan)] animate-pulse"></span>
+      <span class="text-xs uppercase tracking-widest text-[var(--color-accent-cyan)] font-mono">IEEE Communications Society</span>
     </div>
 
     <!-- Main Title -->
     <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4 font-heading">
-      <span class="text-white">IEEE</span>{" "}
-      <span class="bg-linear-to-r from-accent-blue via-accent-cyan to-accent-purple bg-clip-text text-transparent glow-text">
+      <span class="text-[var(--color-text-primary)]">IEEE</span>{" "}
+      <span class="bg-linear-to-r from-[var(--color-accent-blue)] via-[var(--color-accent-cyan)] to-[var(--color-accent-purple)] bg-clip-text text-transparent glow-text">
         COMSOC
       </span>
     </h1>
 
-    <h2 class="text-xl sm:text-3xl font-semibold tracking-widest uppercase text-gray-300 mb-6 font-mono">
+    <h2 class="text-xl sm:text-3xl font-semibold tracking-widest uppercase text-[var(--color-text-secondary)] mb-6 font-mono">
       Student Chapter
     </h2>
 
     <!-- Subtitle Description -->
-    <p class="max-w-2xl text-base sm:text-lg text-gray-400 mb-10 leading-relaxed font-light">
+    <p class="max-w-2xl text-base sm:text-lg text-[var(--color-text-secondary)] mb-10 leading-relaxed font-light">
       Liderando la innovación en redes de próxima generación, internet de las cosas (IoT), sistemas inalámbricos 5G/6G y comunicaciones cuánticas.
     </p>
 
@@ -35,7 +35,7 @@ import estadisticas from '../content/estadisticas.json';
     <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
       <a
         href="/eventos"
-        class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-white bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all text-center flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-[var(--color-text-primary)] bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-[var(--color-accent-blue)]/25 hover:shadow-[var(--color-accent-blue)]/40 hover:scale-[1.02] transition-all text-center flex items-center justify-center gap-2"
       >
         <span>Explorar Eventos</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,7 +44,7 @@ import estadisticas from '../content/estadisticas.json';
       </a>
       <a
         href="/convocatorias"
-        class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md hover:scale-[1.02] transition-all text-center"
+        class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md hover:scale-[1.02] transition-all text-center"
       >
         Unirse al Equipo
       </a>
@@ -54,10 +54,10 @@ import estadisticas from '../content/estadisticas.json';
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 w-full max-w-4xl pt-8 border-t border-white/10">
       {estadisticas.map((stat) => (
         <div class="p-4 rounded-xl glass-panel text-center">
-          <div class={`text-2xl sm:text-3xl font-bold font-mono ${stat.color || 'text-white'}`}>
+          <div class={`text-2xl sm:text-3xl font-bold font-mono ${stat.color || 'text-[var(--color-text-primary)]'}`}>
             {stat.valor}
           </div>
-          <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider font-light">
+          <div class="text-xs text-[var(--color-text-secondary)] mt-1 uppercase tracking-wider font-light">
             {stat.etiqueta}
           </div>
         </div>

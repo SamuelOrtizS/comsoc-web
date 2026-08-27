@@ -39,14 +39,14 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
     <!-- Back to events -->
     <a
       href="/eventos"
-      class="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 font-mono mb-8 group"
+      class="inline-flex items-center gap-2 text-sm text-[var(--color-accent-cyan)] hover:text-[var(--color-accent-cyan)] font-mono mb-8 group"
     >
       <span class="group-hover:-translate-x-1 transition-transform">←</span>
       <span>Volver a eventos</span>
     </a>
 
     <!-- Main Hero Card -->
-    <div class="glass-card rounded-3xl overflow-hidden border border-cyan-500/30 mb-12">
+    <div class="glass-card rounded-3xl overflow-hidden border border-[var(--color-accent-cyan)]/30 mb-12">
       <div class="aspect-21/9 w-full relative overflow-hidden bg-slate-950">
         <img
           src={data.imagenPrincipal}
@@ -58,11 +58,11 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
         
         <!-- Badges on image -->
         <div class="absolute top-4 left-4 flex gap-2">
-          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-cyan-300 border border-cyan-500/40 font-mono">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-[var(--color-accent-cyan)] border border-[var(--color-accent-cyan)]/40 font-mono">
             {data.tipo}
           </span>
           {isPast && (
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-800/80 backdrop-blur-md text-gray-300 border border-gray-700">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-800/80 backdrop-blur-md text-[var(--color-text-secondary)] border border-gray-700">
               Finalizado
             </span>
           )}
@@ -70,29 +70,29 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
       </div>
 
       <div class="p-6 sm:p-10 space-y-6">
-        <div class="text-xs font-mono text-cyan-400">
+        <div class="text-xs font-mono text-[var(--color-accent-cyan)]">
           ORGANIZADO POR: {data.organizador}
         </div>
 
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-[var(--color-text-primary)] leading-tight">
           {data.titulo}
         </h1>
 
         <!-- Key Meta Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
           <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-gray-400 font-mono">Fecha</div>
-            <div class="text-sm font-semibold text-white mt-1 capitalize">📅 {formattedDate}</div>
+            <div class="text-xs uppercase text-[var(--color-text-secondary)] font-mono">Fecha</div>
+            <div class="text-sm font-semibold text-[var(--color-text-primary)] mt-1 capitalize">📅 {formattedDate}</div>
           </div>
 
           <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-gray-400 font-mono">Horario</div>
-            <div class="text-sm font-semibold text-white mt-1">🕒 {data.horaInicio} - {data.horaFin}</div>
+            <div class="text-xs uppercase text-[var(--color-text-secondary)] font-mono">Horario</div>
+            <div class="text-sm font-semibold text-[var(--color-text-primary)] mt-1">🕒 {data.horaInicio} - {data.horaFin}</div>
           </div>
 
           <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-gray-400 font-mono">Lugar</div>
-            <div class="text-sm font-semibold text-white mt-1 truncate" title={data.lugarNombre}>
+            <div class="text-xs uppercase text-[var(--color-text-secondary)] font-mono">Lugar</div>
+            <div class="text-sm font-semibold text-[var(--color-text-primary)] mt-1 truncate" title={data.lugarNombre}>
               📍 {data.lugarNombre}
             </div>
           </div>
@@ -104,14 +104,14 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
       <div class="lg:col-span-8 space-y-8">
         <div class="glass-card rounded-2xl p-8 border border-white/10">
-          <h2 class="text-xl font-bold text-white mb-4 font-mono">Descripción del Evento</h2>
-          <p class="text-gray-300 text-base leading-relaxed font-light whitespace-pre-line">
+          <h2 class="text-xl font-bold text-[var(--color-text-primary)] mb-4 font-mono">Descripción del Evento</h2>
+          <p class="text-[var(--color-text-secondary)] text-base leading-relaxed font-light whitespace-pre-line">
             {data.descripcion}
           </p>
 
           {data.lugarDireccion && (
-            <div class="mt-6 pt-6 border-t border-white/10 text-xs text-gray-400 font-mono">
-              <span class="text-gray-500 uppercase block mb-1">Dirección del Campus / Ubicación</span>
+            <div class="mt-6 pt-6 border-t border-white/10 text-xs text-[var(--color-text-secondary)] font-mono">
+              <span class="text-[var(--color-text-secondary)] uppercase block mb-1">Dirección del Campus / Ubicación</span>
               {data.lugarDireccion}
             </div>
           )}
@@ -120,7 +120,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
         <!-- Gallery if available -->
         {data.galeria && data.galeria.length > 0 && (
           <div class="glass-card rounded-2xl p-8 border border-white/10">
-            <h2 class="text-xl font-bold text-white mb-6 font-mono">Galería &amp; Recursos</h2>
+            <h2 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 font-mono">Galería &amp; Recursos</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {data.galeria.map((img, idx) => (
                 <div class="rounded-xl overflow-hidden aspect-video bg-slate-900 border border-white/10">
@@ -143,8 +143,8 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 
         <!-- Share & Action Box -->
         <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
-          <h3 class="text-base font-bold text-white">Comparte este evento</h3>
-          <p class="text-xs text-gray-400 font-light">
+          <h3 class="text-base font-bold text-[var(--color-text-primary)]">Comparte este evento</h3>
+          <p class="text-xs text-[var(--color-text-secondary)] font-light">
             Invita a tus compañeros de carrera a participar en las actividades de IEEE ComSoc.
           </p>
           <div class="flex gap-2 justify-center pt-2">
@@ -152,7 +152,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
               href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`¡Te invito a este evento de IEEE ComSoc!: ${data.titulo}`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-semibold rounded-xl bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/50 transition flex items-center gap-1.5"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-[var(--color-accent-emerald)]/30 text-[var(--color-accent-emerald)] border border-[var(--color-accent-emerald)]/40 hover:bg-[var(--color-accent-emerald)]/50 transition flex items-center gap-1.5"
             >
               WhatsApp
             </a>
@@ -160,7 +160,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://comsoc.org')}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-semibold rounded-xl bg-blue-600/30 text-blue-300 border border-blue-500/40 hover:bg-blue-600/50 transition flex items-center gap-1.5"
+              class="px-4 py-2 text-xs font-semibold rounded-xl bg-[var(--color-accent-blue)]/30 text-[var(--color-accent-blue)] border border-[var(--color-accent-blue)]/40 hover:bg-[var(--color-accent-blue)]/50 transition flex items-center gap-1.5"
             >
               LinkedIn
             </a>

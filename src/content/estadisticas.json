@@ -2,21 +2,21 @@
   {
     "valor": "+30",
     "etiqueta": "Miembros Activos",
-    "color": "text-white"
+    "color": "text-[var(--color-text-primary)]"
   },
   {
     "valor": "35+",
     "etiqueta": "Workshops & Charlas",
-    "color": "text-[#22d3ee]"
+    "color": "text-[var(--color-accent-cyan)]"
   },
   {
     "valor": "12+",
     "etiqueta": "Proyectos de Redes",
-    "color": "text-[#a855f7]"
+    "color": "text-[var(--color-accent-purple)]"
   },
   {
     "valor": "100%",
     "etiqueta": "Pasión Tecnológica",
-    "color": "text-emerald-400"
+    "color": "text-[var(--color-accent-emerald)]"
   }
 ]

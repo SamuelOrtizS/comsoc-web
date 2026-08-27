@@ -27,37 +27,37 @@ const isClosed = data.estado === 'Cerrada';
     <!-- Back button -->
     <a
       href="/convocatorias"
-      class="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 font-mono mb-8 group"
+      class="inline-flex items-center gap-2 text-sm text-[var(--color-accent-cyan)] hover:text-[var(--color-accent-cyan)] font-mono mb-8 group"
     >
       <span class="group-hover:-translate-x-1 transition-transform">←</span>
       <span>Volver a convocatorias</span>
     </a>
 
     <!-- Detail Box -->
-    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 relative overflow-hidden">
+    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-[var(--color-accent-purple)]/30 relative overflow-hidden">
       <!-- Ambient light -->
-      <div class="absolute top-0 right-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute top-0 right-0 w-80 h-80 bg-[var(--color-accent-purple)]/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <!-- Header details -->
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-white/10 pb-6">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30 font-mono">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[var(--color-accent-purple)]/20 text-[var(--color-accent-purple)] border border-[var(--color-accent-purple)]/30 font-mono">
           {data.area}
         </span>
         <div class="flex items-center gap-3">
-          <span class={`text-xs font-mono px-3 py-1 rounded-lg ${isClosed ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'}`}>
+          <span class={`text-xs font-mono px-3 py-1 rounded-lg ${isClosed ? 'bg-[var(--color-accent-red)]/10 text-[var(--color-accent-red)] border border-[var(--color-accent-red)]/20' : 'bg-[var(--color-accent-emerald)]/10 text-[var(--color-accent-emerald)] border border-[var(--color-accent-emerald)]/20'}`}>
             Estado: {data.estado}
           </span>
-          <span class="text-xs font-mono text-gray-400">
+          <span class="text-xs font-mono text-[var(--color-text-secondary)]">
             ⏳ Límite: {data.fechaLimite}
           </span>
         </div>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[var(--color-text-primary)] mb-6">
         {data.titulo}
       </h1>
 
-      <p class="text-base sm:text-lg text-gray-300 font-light leading-relaxed mb-10">
+      <p class="text-base sm:text-lg text-[var(--color-text-secondary)] font-light leading-relaxed mb-10">
         {data.descripcion}
       </p>
 
@@ -65,14 +65,14 @@ const isClosed = data.estado === 'Cerrada';
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         <!-- Requisitos -->
         <div class="bg-white/5 rounded-2xl p-6 border border-white/10">
-          <h2 class="text-lg font-bold text-cyan-300 mb-4 flex items-center gap-2 font-mono">
+          <h2 class="text-lg font-bold text-[var(--color-accent-cyan)] mb-4 flex items-center gap-2 font-mono">
             <span>📋</span>
             <span>Requisitos</span>
           </h2>
-          <ul class="space-y-3 text-sm text-gray-300 font-light">
+          <ul class="space-y-3 text-sm text-[var(--color-text-secondary)] font-light">
             {data.requisitos.map((req) => (
               <li class="flex items-start gap-2.5">
-                <span class="text-cyan-400 font-bold">✓</span>
+                <span class="text-[var(--color-accent-cyan)] font-bold">✓</span>
                 <span>{req}</span>
               </li>
             ))}
@@ -81,14 +81,14 @@ const isClosed = data.estado === 'Cerrada';
 
         <!-- Responsabilidades -->
         <div class="bg-white/5 rounded-2xl p-6 border border-white/10">
-          <h2 class="text-lg font-bold text-purple-300 mb-4 flex items-center gap-2 font-mono">
+          <h2 class="text-lg font-bold text-[var(--color-accent-purple)] mb-4 flex items-center gap-2 font-mono">
             <span>🎯</span>
             <span>Responsabilidades</span>
           </h2>
-          <ul class="space-y-3 text-sm text-gray-300 font-light">
+          <ul class="space-y-3 text-sm text-[var(--color-text-secondary)] font-light">
             {data.responsabilidades.map((resp) => (
               <li class="flex items-start gap-2.5">
-                <span class="text-purple-400 font-bold">★</span>
+                <span class="text-[var(--color-accent-purple)] font-bold">★</span>
                 <span>{resp}</span>
               </li>
             ))}
@@ -98,7 +98,7 @@ const isClosed = data.estado === 'Cerrada';
 
       <!-- Application CTA -->
       <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div class="text-sm text-gray-400 font-light">
+        <div class="text-sm text-[var(--color-text-secondary)] font-light">
           {isClosed ? (
             <p>Esta convocatoria ha cerrado sus postulaciones. ¡Gracias por tu interés!</p>
           ) : (
@@ -111,7 +111,7 @@ const isClosed = data.estado === 'Cerrada';
             href={data.formUrl || 'https://forms.gle/sample-comsoc'}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-white bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition text-center"
+            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-[var(--color-text-primary)] bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-[var(--color-accent-blue)]/25 hover:shadow-[var(--color-accent-blue)]/40 hover:scale-[1.02] transition text-center"
           >
             Postular Ahora ↗
           </a>
