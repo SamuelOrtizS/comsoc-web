@@ -50,6 +50,29 @@ El proyecto utiliza colecciones de contenido. Los archivos en `src/content/` deb
 - **Donaciones (/)**: Métodos de pago e información de soporte.
 - **Unirse (/)**: Información para nuevos miembros.
 
+## Mejoras Sugeridas y Recomendaciones Futuras
+
+### 🚀 SEO y Accesibilidad (A11y)
+
+Para asegurar que el sitio sea visible para buscadores y utilizable por personas con discapacidad, se recomienda implementar lo siguiente:
+
+- **Meta Tags**: Asegurar que cada página de destino (`index.astro`, `[id].astro`, etc.) tenga meta etiquetas `<title>` y `<meta name="description">` únicas, alimentadas por los metadatos del contenido o de la colección.
+- **Estructura Semántica**: Usar etiquetas HTML5 semánticas (e.g., `<header>`, `<main>`, `<nav>`, `<footer>`) en todos los layouts principales (`BaseLayout.astro`).
+- **Atributos ARIA**: Añadir atributos ARIA donde sea necesario, especialmente para elementos interactivos o menús colapsables (como el `MobileMenu.astro`).
+
+### ⚙️ Buenas Prácticas de Desarrollo y Mantenimiento
+
+- **Tipado en Componentes**: Aunque se usa TypeScript, es crucial tipar todas las props pasadas a los componentes Astro (`ConvocatoriaCard`, `EventCard`, etc.) para garantizar la seguridad en tiempo de compilación.
+
+- **Gestión de Estado Global**: Si la aplicación crece y requiere compartir estado entre páginas (ej. un usuario logueado o filtros complejos), se debe considerar implementar un patrón de gestión de estado ligero, como el uso de *client-side state management* con bibliotecas Astro compatibles o Context API si es necesario.
+- **Testing**: Implementar un enfoque de testing:
+  - **Unit Tests**: Para utilidades complejas (ej. `src/utils/currency.ts`).
+  - **Component Tests**: Usando herramientas como Vitest y testing-library para validar el comportamiento de componentes Astro clave (`Header`, `EventCard`) en diferentes estados.
+
+### ♻️ Optimización del Ciclo de Vida del Contenido
+
+- **Validación Automática**: Integrar un paso de pre-commit hook (ej. usando Husky) que ejecute validadores de esquema JSON para todas las colecciones (`src/content/*/*.json`) antes de permitir el commit, previniendo la rotura del *build* por datos malformados.
+
 ## Construcción y Ejecución
 
 | Comando | Descripción |
