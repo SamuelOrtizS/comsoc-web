@@ -24,10 +24,10 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-mono mb-4">
         Calendario Académico &amp; Técnico
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
         Eventos, Talleres &amp; Conferencias
       </h1>
-      <p class="max-w-2xl mx-auto text-[var(--color-text-secondary)] text-base sm:text-lg font-light leading-relaxed">
+      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
         Capacitaciones prácticas, competencias de innovación y ponencias magistrales dictadas por expertos globales de IEEE ComSoc.
       </p>
     </div>
@@ -38,10 +38,10 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
     <!-- Upcoming Events Section -->
     <section>
       <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
-        <h2 class="text-2xl font-bold text-[var(--color-text-primary)] flex items-center gap-3">
+        <h2 class="text-2xl font-bold text-text-primary flex items-center gap-3">
           <span class="w-3 h-3 rounded-full bg-accent-cyan animate-ping"></span>
           <span>Próximos Eventos</span>
-          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-accent-cyan/20 text-accent-[var(--color-accent-cyan)] border border-accent-cyan/30">
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-accent-cyan/20 text-accent-accent-cyan border border-accent-cyan/30">
             {upcomingEvents.length}
           </span>
         </h2>
@@ -50,8 +50,8 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
       {upcomingEvents.length === 0 ? (
         <div class="glass-card rounded-2xl p-12 text-center border border-white/10 max-w-xl mx-auto">
           <div class="text-4xl mb-4">📅</div>
-          <h3 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">No hay eventos programados en este momento</h3>
-          <p class="text-sm text-[var(--color-text-secondary)] font-light">
+          <h3 class="text-lg font-bold text-text-primary mb-2">No hay eventos programados en este momento</h3>
+          <p class="text-sm text-text-secondary font-light">
             Estamos planificando los próximos talleres. Mantente atento a nuestras redes sociales.
           </p>
         </div>
@@ -78,17 +78,17 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
     <!-- Past Events Section -->
     <section>
       <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
-        <h2 class="text-2xl font-bold text-[var(--color-text-secondary)] flex items-center gap-3">
-          <span class="text-[var(--color-text-secondary)] font-mono">📦</span>
+        <h2 class="text-2xl font-bold text-text-secondary flex items-center gap-3">
+          <span class="text-text-secondary font-mono">📦</span>
           <span>Eventos Pasados</span>
-          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-[var(--color-text-secondary)] border border-white/10">
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-text-secondary border border-white/10">
             {pastEvents.length}
           </span>
         </h2>
       </div>
 
       {pastEvents.length === 0 ? (
-        <p class="text-sm text-[var(--color-text-secondary)]">No hay registros de eventos pasados.</p>
+        <p class="text-sm text-text-secondary">No hay registros de eventos pasados.</p>
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {pastEvents.map((ev) => (

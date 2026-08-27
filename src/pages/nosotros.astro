@@ -72,13 +72,13 @@ const benefits = [
   <!-- Page Header Banner -->
   <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent-cyan)]/10 border border-[var(--color-accent-cyan)]/30 text-[var(--color-accent-cyan)] text-xs font-mono mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-mono mb-4">
         Sobre la Comunidad
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
         Conectando al Mundo a través de la Tecnología
       </h1>
-      <p class="max-w-2xl mx-auto text-[var(--color-text-secondary)] text-base sm:text-lg font-light leading-relaxed">
+      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
         El Capítulo Estudiantil IEEE ComSoc es el espacio universitario donde convergen la ciencia, la investigación y la pasión por las redes y telecomunicaciones.
       </p>
     </div>
@@ -107,14 +107,14 @@ const benefits = [
       <!-- Navigation Arrows -->
       <button 
         id="gallery-prev" 
-        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-[var(--color-text-primary)] flex items-center justify-center hover:bg-white/10 hover:border-[var(--color-accent-cyan)]/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-text-primary flex items-center justify-center hover:bg-white/10 hover:border-accent-cyan/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
         aria-label="Anterior"
       >
         ←
       </button>
       <button 
         id="gallery-next" 
-        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-[var(--color-text-primary)] flex items-center justify-center hover:bg-white/10 hover:border-[var(--color-accent-cyan)]/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-text-primary flex items-center justify-center hover:bg-white/10 hover:border-accent-cyan/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
         aria-label="Siguiente"
       >
         →
@@ -124,7 +124,7 @@ const benefits = [
       <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {galleryImages.map((_, idx) => (
           <button 
-            class={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-[var(--color-accent-cyan)] scale-125' : 'bg-white/40'}`} 
+            class={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-accent-cyan scale-125' : 'bg-white/40'}`} 
             data-index={idx}
             aria-label={`Ver diapositiva ${idx + 1}`}
           />
@@ -138,23 +138,23 @@ const benefits = [
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       
       <!-- Mission -->
-      <div class="glass-card rounded-3xl p-8 border border-[var(--color-accent-blue)]/30 relative overflow-hidden">
-        <div class="w-12 h-12 rounded-2xl bg-[var(--color-accent-blue)]/20 text-[var(--color-accent-blue)] flex items-center justify-center text-2xl mb-6 border border-[var(--color-accent-blue)]/30">
+      <div class="glass-card rounded-3xl p-8 border border-accent-blue/30 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-2xl bg-accent-blue/20 text-accent-blue flex items-center justify-center text-2xl mb-6 border border-accent-blue/30">
           🎯
         </div>
-        <h2 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4">Nuestra Misión</h2>
-        <p class="text-[var(--color-text-secondary)] font-light leading-relaxed">
+        <h2 class="text-2xl font-bold text-text-primary mb-4">Nuestra Misión</h2>
+        <p class="text-text-secondary font-light leading-relaxed">
           Fomentar la excelencia académica, técnica y humana de los estudiantes a través de conferencias de primer nivel, talleres prácticos, proyectos interdisciplinarios e investigación en comunicaciones inalámbricas, ópticas, satelitales y ciberseguridad.
         </p>
       </div>
 
       <!-- Vision -->
-      <div class="glass-card rounded-3xl p-8 border border-[var(--color-accent-cyan)]/30 relative overflow-hidden">
-        <div class="w-12 h-12 rounded-2xl bg-[var(--color-accent-cyan)]/20 text-[var(--color-accent-cyan)] flex items-center justify-center text-2xl mb-6 border border-[var(--color-accent-cyan)]/30">
+      <div class="glass-card rounded-3xl p-8 border border-accent-cyan/30 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-2xl bg-accent-cyan/20 text-accent-cyan flex items-center justify-center text-2xl mb-6 border border-accent-cyan/30">
           🚀
         </div>
-        <h2 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4">Nuestra Visión</h2>
-        <p class="text-[var(--color-text-secondary)] font-light leading-relaxed">
+        <h2 class="text-2xl font-bold text-text-primary mb-4">Nuestra Visión</h2>
+        <p class="text-text-secondary font-light leading-relaxed">
           Posicionarnos como el capítulo estudiantil referente en la región, reconocido por la calidad técnica de sus miembros, su capacidad de innovación tecnológica y su compromiso con el cierre de la brecha digital mediante la ingeniería.
         </p>
       </div>
@@ -168,20 +168,20 @@ const benefits = [
       <div class="text-xs uppercase font-mono tracking-widest text-accent-cyan mb-2 font-semibold">
         Valor para Estudiantes
       </div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
         Beneficios de ser Miembro IEEE ComSoc
       </h2>
-      <p class="text-[var(--color-text-secondary)] font-light">
+      <p class="text-text-secondary font-light">
         Ser parte de la red de telecomunicaciones más grande del planeta te brinda ventajas únicas para acelerar tu desarrollo.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {benefits.map((b) => (
-        <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-[var(--color-accent-cyan)]/40 transition">
+        <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-accent-cyan/40 transition">
           <div class="text-3xl mb-4">{b.icon}</div>
-          <h3 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">{b.title}</h3>
-          <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed font-light">{b.desc}</p>
+          <h3 class="text-lg font-bold text-text-primary mb-2">{b.title}</h3>
+          <p class="text-xs text-text-secondary leading-relaxed font-light">{b.desc}</p>
         </div>
       ))}
     </div>
@@ -193,10 +193,10 @@ const benefits = [
       <div class="text-xs uppercase font-mono tracking-widest text-accent-purple mb-2 font-semibold">
         Liderazgo 2026
       </div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
         Mesa Directiva &amp; Asesoría
       </h2>
-      <p class="text-[var(--color-text-secondary)] font-light">
+      <p class="text-text-secondary font-light">
         Estudiantes y docentes comprometidos en liderar las iniciativas y proyectos del capítulo. Haz clic en cualquier perfil para ver más información.
       </p>
     </div>
@@ -205,27 +205,27 @@ const benefits = [
       {team.map((member) => (
         <button
           type="button"
-          class="member-card glass-card rounded-2xl p-6 border border-white/10 text-center flex flex-col items-center group cursor-pointer hover:border-[var(--color-accent-cyan)]/40 hover:shadow-lg hover:shadow-[var(--color-accent-cyan)]/10 transition-all duration-300 w-full"
+          class="member-card glass-card rounded-2xl p-6 border border-white/10 text-center flex flex-col items-center group cursor-pointer hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10 transition-all duration-300 w-full"
           data-member={JSON.stringify(member)}
           aria-label={`Ver perfil de ${member.name}`}
         >
           <!-- Avatar or Image -->
-          <div class="w-20 h-20 rounded-full bg-linear-to-tr from-[var(--color-accent-blue)]/30 to-[var(--color-accent-cyan)]/30 border-2 border-[var(--color-accent-cyan)]/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 group-hover:border-[var(--color-accent-cyan)]/80 transition-all duration-300 overflow-hidden">
+          <div class="w-20 h-20 rounded-full bg-linear-to-tr from-accent-blue/30 to-accent-cyan/30 border-2 border-accent-cyan/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 group-hover:border-accent-cyan/80 transition-all duration-300 overflow-hidden">
             {member.image
               ? <img src={member.image} alt={member.name} loading="lazy" decoding="async" class="w-full h-full object-cover rounded-full" />
               : <span>{member.avatar || '👤'}</span>
             }
           </div>
-          <h3 class="text-lg font-bold text-[var(--color-text-primary)] mb-1 group-hover:text-[var(--color-accent-cyan)] transition text-center">
+          <h3 class="text-lg font-bold text-text-primary mb-1 group-hover:text-accent-cyan transition text-center">
             {member.name}
           </h3>
           <div class="text-xs font-mono custom-rosa-comsoc font-medium mb-1">
             {member.role}
           </div>
-          <p class="text-xs text-[var(--color-text-secondary)] font-light mb-4 text-center">
+          <p class="text-xs text-text-secondary font-light mb-4 text-center">
             {member.department}
           </p>
-          <div class="text-[10px] font-mono text-[var(--color-text-secondary)] border border-white/10 px-3 py-1 rounded-full hover:border-[var(--color-accent-cyan)]/40 hover:text-[var(--color-accent-cyan)] transition">
+          <div class="text-[10px] font-mono text-text-secondary border border-white/10 px-3 py-1 rounded-full hover:border-accent-cyan/40 hover:text-accent-cyan transition">
             Ver perfil →
           </div>
         </button>
@@ -246,7 +246,7 @@ const benefits = [
       <button
         id="modal-close"
         type="button"
-        class="absolute top-4 right-4 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] p-2 rounded-xl hover:bg-white/10 transition"
+        class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2 rounded-xl hover:bg-white/10 transition"
         aria-label="Cerrar"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -256,11 +256,11 @@ const benefits = [
 
       <!-- Avatar -->
       <div class="flex flex-col items-center gap-3">
-        <div id="modal-avatar-wrap" class="w-24 h-24 rounded-full bg-linear-to-tr from-[var(--color-accent-blue)]/40 to-[var(--color-accent-cyan)]/40 border-2 border-[var(--color-accent-cyan)]/60 flex items-center justify-center text-5xl overflow-hidden"></div>
+        <div id="modal-avatar-wrap" class="w-24 h-24 rounded-full bg-linear-to-tr from-accent-blue/40 to-accent-cyan/40 border-2 border-accent-cyan/60 flex items-center justify-center text-5xl overflow-hidden"></div>
         <div class="text-center">
-          <h2 id="modal-member-name" class="text-xl font-extrabold text-[var(--color-text-primary)]"></h2>
-          <div id="modal-role" class="text-xs font-mono text-[var(--color-accent-cyan)] font-medium mt-0.5"></div>
-          <div id="modal-dept" class="text-xs text-[var(--color-text-secondary)] mt-0.5"></div>
+          <h2 id="modal-member-name" class="text-xl font-extrabold text-text-primary"></h2>
+          <div id="modal-role" class="text-xs font-mono text-accent-cyan font-medium mt-0.5"></div>
+          <div id="modal-dept" class="text-xs text-text-secondary mt-0.5"></div>
         </div>
       </div>
 
@@ -269,7 +269,7 @@ const benefits = [
 
       <!-- Bio -->
       <div id="modal-bio-wrap" class="hidden">
-        <p id="modal-bio" class="text-sm text-[var(--color-text-secondary)] font-light leading-relaxed"></p>
+        <p id="modal-bio" class="text-sm text-text-secondary font-light leading-relaxed"></p>
       </div>
 
       <!-- Contact info -->
@@ -306,9 +306,9 @@ const benefits = [
       dots.forEach((dot, idx) => {
         if (idx === currentSlide) {
           dot.classList.remove('bg-white/40');
-          dot.classList.add('bg-[var(--color-accent-cyan)]', 'scale-125');
+          dot.classList.add('bg-accent-cyan', 'scale-125');
         } else {
-          dot.classList.remove('bg-[var(--color-accent-cyan)]', 'scale-125');
+          dot.classList.remove('bg-accent-cyan', 'scale-125');
           dot.classList.add('bg-white/40');
         }
       });
@@ -409,14 +409,14 @@ const benefits = [
       contactEl.innerHTML = '';
       if (member.email) {
         contactEl.insertAdjacentHTML('beforeend', `
-          <a href="mailto:${member.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-accent-cyan)] hover:border-[var(--color-accent-cyan)]/40 transition text-xs font-mono">
+          <a href="mailto:${member.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             ${member.email}
           </a>`);
       }
       if (member.phone) {
         contactEl.insertAdjacentHTML('beforeend', `
-          <a href="tel:${member.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-accent-cyan)] hover:border-[var(--color-accent-cyan)]/40 transition text-xs font-mono">
+          <a href="tel:${member.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
             ${member.phone}
           </a>`);
@@ -426,11 +426,11 @@ const benefits = [
       const socialsEl = document.getElementById('modal-socials') as HTMLElement;
       socialsEl.innerHTML = '';
       const socialLinks: { key: keyof MemberData; label: string; color: string }[] = [
-        { key: 'linkedin',  label: 'LinkedIn',  color: 'bg-[var(--color-accent-blue)]/20 text-[var(--color-accent-blue)] border-[var(--color-accent-blue)]/30 hover:bg-[var(--color-accent-blue)]/40' },
+        { key: 'linkedin',  label: 'LinkedIn',  color: 'bg-accent-blue/20 text-accent-blue border-accent-blue/30 hover:bg-accent-blue/40' },
         { key: 'instagram', label: 'Instagram', color: 'bg-pink-600/20 text-pink-300 border-pink-500/30 hover:bg-pink-600/40' },
         { key: 'facebook',  label: 'Facebook',  color: 'bg-indigo-600/20 text-indigo-300 border-indigo-500/30 hover:bg-indigo-600/40' },
-        { key: 'github',    label: 'GitHub',    color: 'bg-gray-600/20 text-[var(--color-text-secondary)] border-gray-500/30 hover:bg-gray-600/40' },
-        { key: 'website',   label: 'Sitio Web', color: 'bg-[var(--color-accent-emerald)]/20 text-[var(--color-accent-emerald)] border-[var(--color-accent-emerald)]/30 hover:bg-[var(--color-accent-emerald)]/40' },
+        { key: 'github',    label: 'GitHub',    color: 'bg-gray-600/20 text-text-secondary border-gray-500/30 hover:bg-gray-600/40' },
+        { key: 'website',   label: 'Sitio Web', color: 'bg-accent-emerald/20 text-accent-emerald border-accent-emerald/30 hover:bg-accent-emerald/40' },
       ];
       socialLinks.forEach(({ key, label, color }) => {
         const url = member[key] as string | undefined;

@@ -17,9 +17,9 @@ const completados = sorted.filter((p) => p.data.estado === 'Completado');
 const enPausa    = sorted.filter((p) => p.data.estado === 'En Pausa');
 
 const estadoStyle = {
-  Activo:      { dot: 'bg-[var(--color-accent-emerald)] animate-ping', badge: 'text-[var(--color-accent-emerald)] border-[var(--color-accent-emerald)]/30 bg-[var(--color-accent-emerald)]/10', icon: '🟢' },
-  Completado:  { dot: 'bg-[var(--color-accent-blue)]',                  badge: 'text-[var(--color-accent-blue)] border-[var(--color-accent-blue)]/30 bg-[var(--color-accent-blue)]/10',         icon: '✅' },
-  'En Pausa':  { dot: 'bg-[var(--color-accent-yellow)]',                badge: 'text-[var(--color-accent-yellow)] border-[var(--color-accent-yellow)]/30 bg-[var(--color-accent-yellow)]/10',   icon: '⏸' },
+  Activo:      { dot: 'bg-accent-emerald animate-ping', badge: 'text-accent-emerald border-accent-emerald/30 bg-accent-emerald/10', icon: '🟢' },
+  Completado:  { dot: 'bg-accent-blue',                  badge: 'text-accent-blue border-accent-blue/30 bg-accent-blue/10',         icon: '✅' },
+  'En Pausa':  { dot: 'bg-accent-yellow',                badge: 'text-accent-yellow border-accent-yellow/30 bg-accent-yellow/10',   icon: '⏸' },
 };
 ---
 
@@ -30,32 +30,32 @@ const estadoStyle = {
   <!-- Page Header -->
   <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent-purple)]/10 border-l-[var(--color-accent-purple)]/30 text-[var(--color-accent-purple)]/70 text-xs font-mono mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-purple/10 border-l-accent-purple/30 text-accent-purple/70 text-xs font-mono mb-4">
         Investigación &amp; Desarrollo
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
         Proyectos del Capítulo IEEE ComSoc
       </h1>
-      <p class="max-w-2xl mx-auto text-[var(--color-text-secondary)] text-base sm:text-lg font-light leading-relaxed">
+      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
         Iniciativas técnicas y de investigación desarrolladas por nuestros miembros en telecomunicaciones, IoT, IA aplicada y comunicaciones ópticas.
       </p>
 
       <!-- Stats Row -->
       <div class="flex flex-wrap items-center justify-center gap-6 mt-8">
         <div class="flex items-center gap-2 text-sm font-mono">
-          <span class="w-2.5 h-2.5 rounded-full bg-[var(--color-accent-emerald)] inline-block"></span>
-          <span class="text-[var(--color-accent-emerald)] font-semibold">{activos.length}</span>
-          <span class="text-[var(--color-text-secondary)]">Activos</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-accent-emerald inline-block"></span>
+          <span class="text-accent-emerald font-semibold">{activos.length}</span>
+          <span class="text-text-secondary">Activos</span>
         </div>
         <div class="flex items-center gap-2 text-sm font-mono">
-          <span class="w-2.5 h-2.5 rounded-full bg-[var(--color-accent-blue)] inline-block"></span>
-          <span class="text-[var(--color-accent-blue)] font-semibold">{completados.length}</span>
-          <span class="text-[var(--color-text-secondary)]">Completados</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-accent-blue inline-block"></span>
+          <span class="text-accent-blue font-semibold">{completados.length}</span>
+          <span class="text-text-secondary">Completados</span>
         </div>
         <div class="flex items-center gap-2 text-sm font-mono">
-          <span class="w-2.5 h-2.5 rounded-full bg-[var(--color-accent-yellow)] inline-block"></span>
-          <span class="text-[var(--color-accent-yellow)] font-semibold">{enPausa.length}</span>
-          <span class="text-[var(--color-text-secondary)]">En Pausa</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-accent-yellow inline-block"></span>
+          <span class="text-accent-yellow font-semibold">{enPausa.length}</span>
+          <span class="text-text-secondary">En Pausa</span>
         </div>
       </div>
     </div>
@@ -68,11 +68,11 @@ const estadoStyle = {
       <section>
         <div class="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
           <span class="relative flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent-emerald)] opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-accent-emerald)]"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-emerald opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-accent-emerald"></span>
           </span>
-          <h2 class="text-2xl font-bold text-[var(--color-text-primary)]">Proyectos Activos</h2>
-          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[var(--color-accent-emerald)]/20 text-[var(--color-text-secondary)] border border-[var(--color-accent-emerald)]/30">
+          <h2 class="text-2xl font-bold text-text-primary">Proyectos Activos</h2>
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-accent-emerald/20 text-text-secondary border border-accent-emerald/30">
             {activos.length}
           </span>
         </div>
@@ -81,7 +81,7 @@ const estadoStyle = {
           {activos.map((proyecto) => (
             <a
               href={`/proyectos/${proyecto.id}`}
-              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-[var(--color-accent-emerald)]/40 transition-all duration-300"
+              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-accent-emerald/40 transition-all duration-300"
             >
               <div class="aspect-video relative overflow-hidden bg-slate-900">
                 <img
@@ -92,39 +92,39 @@ const estadoStyle = {
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute top-3 left-3 flex gap-2">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-[var(--color-accent-purple)] border border-[var(--color-accent-purple)]/30">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-purple border border-accent-purple/30">
                     {proyecto.data.categoria}
                   </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-[var(--color-accent-emerald)] border border-[var(--color-accent-emerald)]/30">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-emerald border border-accent-emerald/30">
                     🟢 Activo
                   </span>
                 </div>
               </div>
 
               <div class="p-6 flex flex-col grow">
-                <h3 class="text-base font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-emerald)] transition-colors mb-2 line-clamp-2">
+                <h3 class="text-base font-bold text-text-primary group-hover:text-accent-emerald transition-colors mb-2 line-clamp-2">
                   {proyecto.data.titulo}
                 </h3>
-                <p class="text-xs text-[var(--color-text-secondary)] font-light leading-relaxed line-clamp-3 grow mb-4">
+                <p class="text-xs text-text-secondary font-light leading-relaxed line-clamp-3 grow mb-4">
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
                   <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
                     <div class="flex justify-between items-baseline text-[11px] font-mono">
-                      <span class="text-[var(--color-text-secondary)]">Financiación (USD):</span>
+                      <span class="text-text-secondary">Financiación (USD):</span>
                       <span class="text-accent-cyan font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
-                    <div class="flex justify-between items-baseline text-[10px] font-mono text-[var(--color-text-secondary)]">
+                    <div class="flex justify-between items-baseline text-[10px] font-mono text-text-secondary">
                       <span>En COP:</span>
-                      <span class="text-[var(--color-accent-emerald)] font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
+                      <span class="text-accent-emerald font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-linear-to-r from-[var(--color-accent-blue)] to-accent-cyan rounded-full transition-all duration-500" 
+                        class="h-full bg-linear-to-r from-accent-blue to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
-                    <div class="text-[10px] text-right font-mono text-[var(--color-text-secondary)]">
+                    <div class="text-[10px] text-right font-mono text-text-secondary">
                       {Math.round((proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}% Completado
                     </div>
                   </div>
@@ -132,7 +132,7 @@ const estadoStyle = {
                 {proyecto.data.tags && proyecto.data.tags.length > 0 && (
                   <div class="flex flex-wrap gap-1.5">
                     {proyecto.data.tags.map((tag) => (
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-[var(--color-text-secondary)] border border-white/10">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-secondary border border-white/10">
                         {tag}
                       </span>
                     ))}
@@ -149,9 +149,9 @@ const estadoStyle = {
     {completados.length > 0 && (
       <section>
         <div class="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
-          <span class="text-[var(--color-accent-blue)] font-mono text-xl">✅</span>
-          <h2 class="text-2xl font-bold text-[var(--color-text-primary)]">Proyectos Completados</h2>
-          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[var(--color-accent-blue)]/20 text-[var(--color-accent-blue)] border border-[var(--color-accent-blue)]/30">
+          <span class="text-accent-blue font-mono text-xl">✅</span>
+          <h2 class="text-2xl font-bold text-text-primary">Proyectos Completados</h2>
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-accent-blue/20 text-accent-blue border border-accent-blue/30">
             {completados.length}
           </span>
         </div>
@@ -160,7 +160,7 @@ const estadoStyle = {
           {completados.map((proyecto) => (
             <a
               href={`/proyectos/${proyecto.id}`}
-              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-[var(--color-accent-blue)]/40 transition-all duration-300"
+              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-accent-blue/40 transition-all duration-300"
             >
               <div class="aspect-video relative overflow-hidden bg-slate-900">
                 <img
@@ -171,39 +171,39 @@ const estadoStyle = {
                   class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute top-3 left-3 flex gap-2">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-[var(--color-accent-purple)] border border-[var(--color-accent-purple)]/30">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-purple border border-accent-purple/30">
                     {proyecto.data.categoria}
                   </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-[var(--color-accent-blue)] border border-[var(--color-accent-blue)]/30">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-blue border border-accent-blue/30">
                     ✅ Completado
                   </span>
                 </div>
               </div>
 
               <div class="p-6 flex flex-col grow">
-                <h3 class="text-base font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-blue)] transition-colors mb-2 line-clamp-2">
+                <h3 class="text-base font-bold text-text-primary group-hover:text-accent-blue transition-colors mb-2 line-clamp-2">
                   {proyecto.data.titulo}
                 </h3>
-                <p class="text-xs text-[var(--color-text-secondary)] font-light leading-relaxed line-clamp-3 grow mb-4">
+                <p class="text-xs text-text-secondary font-light leading-relaxed line-clamp-3 grow mb-4">
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
                   <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
                     <div class="flex justify-between items-baseline text-[11px] font-mono">
-                      <span class="text-[var(--color-text-secondary)]">Financiación (USD):</span>
+                      <span class="text-text-secondary">Financiación (USD):</span>
                       <span class="text-accent-cyan font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
-                    <div class="flex justify-between items-baseline text-[10px] font-mono text-[var(--color-text-secondary)]">
+                    <div class="flex justify-between items-baseline text-[10px] font-mono text-text-secondary">
                       <span>En COP:</span>
-                      <span class="text-[var(--color-accent-emerald)] font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
+                      <span class="text-accent-emerald font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-linear-to-r from-[var(--color-accent-blue)] to-accent-cyan rounded-full transition-all duration-500" 
+                        class="h-full bg-linear-to-r from-accent-blue to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
-                    <div class="text-[10px] text-right font-mono text-[var(--color-text-secondary)]">
+                    <div class="text-[10px] text-right font-mono text-text-secondary">
                       {Math.round((proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}% Completado
                     </div>
                   </div>
@@ -211,7 +211,7 @@ const estadoStyle = {
                 {proyecto.data.tags && proyecto.data.tags.length > 0 && (
                   <div class="flex flex-wrap gap-1.5">
                     {proyecto.data.tags.map((tag) => (
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-[var(--color-text-secondary)] border border-white/10">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-secondary border border-white/10">
                         {tag}
                       </span>
                     ))}
@@ -228,9 +228,9 @@ const estadoStyle = {
     {enPausa.length > 0 && (
       <section>
         <div class="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
-          <span class="text-[var(--color-accent-yellow)] font-mono text-xl">⏸</span>
-          <h2 class="text-2xl font-bold text-[var(--color-text-secondary)]">Proyectos en Pausa</h2>
-          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[var(--color-accent-yellow)]/20 text-[var(--color-accent-yellow)] border border-[var(--color-accent-yellow)]/30">
+          <span class="text-accent-yellow font-mono text-xl">⏸</span>
+          <h2 class="text-2xl font-bold text-text-secondary">Proyectos en Pausa</h2>
+          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-accent-yellow/20 text-accent-yellow border border-accent-yellow/30">
             {enPausa.length}
           </span>
         </div>
@@ -239,7 +239,7 @@ const estadoStyle = {
           {enPausa.map((proyecto) => (
             <a
               href={`/proyectos/${proyecto.id}`}
-              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-[var(--color-accent-yellow)]/30 transition-all duration-300 opacity-75 hover:opacity-100"
+              class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-accent-yellow/30 transition-all duration-300 opacity-75 hover:opacity-100"
             >
               <div class="aspect-video relative overflow-hidden bg-slate-900">
                 <img
@@ -250,39 +250,39 @@ const estadoStyle = {
                   class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <div class="absolute top-3 left-3 flex gap-2">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-[var(--color-accent-purple)] border border-[var(--color-accent-purple)]/30">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-purple border border-accent-purple/30">
                     {proyecto.data.categoria}
                   </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-[var(--color-accent-yellow)] border border-[var(--color-accent-yellow)]/30">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-yellow border border-accent-yellow/30">
                     ⏸ En Pausa
                   </span>
                 </div>
               </div>
 
               <div class="p-6 flex flex-col grow">
-                <h3 class="text-base font-bold text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors mb-2 line-clamp-2">
+                <h3 class="text-base font-bold text-text-secondary group-hover:text-text-primary transition-colors mb-2 line-clamp-2">
                   {proyecto.data.titulo}
                 </h3>
-                <p class="text-xs text-[var(--color-text-secondary)] font-light leading-relaxed line-clamp-3 grow mb-4">
+                <p class="text-xs text-text-secondary font-light leading-relaxed line-clamp-3 grow mb-4">
                   {proyecto.data.descripcion}
                 </p>
                 {proyecto.data.montoActual !== undefined && proyecto.data.montoMeta !== undefined && (
                   <div class="mb-4 space-y-1.5 bg-white/5 p-3 rounded-xl border border-white/10">
                     <div class="flex justify-between items-baseline text-[11px] font-mono">
-                      <span class="text-[var(--color-text-secondary)]">Financiación (USD):</span>
+                      <span class="text-text-secondary">Financiación (USD):</span>
                       <span class="text-accent-cyan font-semibold">{formatUSD(proyecto.data.montoActual)} / {formatUSD(proyecto.data.montoMeta)}</span>
                     </div>
-                    <div class="flex justify-between items-baseline text-[10px] font-mono text-[var(--color-text-secondary)]">
+                    <div class="flex justify-between items-baseline text-[10px] font-mono text-text-secondary">
                       <span>En COP:</span>
-                      <span class="text-[var(--color-accent-emerald)] font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
+                      <span class="text-accent-emerald font-semibold">{formatCOP(proyecto.data.montoActual, currentRate)} / {formatCOP(proyecto.data.montoMeta, currentRate)}</span>
                     </div>
                     <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/10 relative mt-1">
                       <div 
-                        class="h-full bg-linear-to-r from-[var(--color-accent-blue)] to-accent-cyan rounded-full transition-all duration-500" 
+                        class="h-full bg-linear-to-r from-accent-blue to-accent-cyan rounded-full transition-all duration-500" 
                         style={`width: ${Math.min(100, (proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}%`}
                       ></div>
                     </div>
-                    <div class="text-[10px] text-right font-mono text-[var(--color-text-secondary)]">
+                    <div class="text-[10px] text-right font-mono text-text-secondary">
                       {Math.round((proyecto.data.montoActual / proyecto.data.montoMeta) * 100)}% Completado
                     </div>
                   </div>
@@ -290,7 +290,7 @@ const estadoStyle = {
                 {proyecto.data.tags && proyecto.data.tags.length > 0 && (
                   <div class="flex flex-wrap gap-1.5">
                     {proyecto.data.tags.map((tag) => (
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-[var(--color-text-secondary)] border border-white/10">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-secondary border border-white/10">
                         {tag}
                       </span>
                     ))}
@@ -306,31 +306,31 @@ const estadoStyle = {
     {allProyectos.length === 0 && (
       <div class="glass-card rounded-2xl p-16 text-center border border-white/10 max-w-xl mx-auto">
         <div class="text-5xl mb-4">🔬</div>
-        <h3 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">No hay proyectos registrados aún</h3>
-        <p class="text-sm text-[var(--color-text-secondary)] font-light">Pronto publicaremos las iniciativas en curso del capítulo.</p>
+        <h3 class="text-lg font-bold text-text-primary mb-2">No hay proyectos registrados aún</h3>
+        <p class="text-sm text-text-secondary font-light">Pronto publicaremos las iniciativas en curso del capítulo.</p>
       </div>
     )}
 
     <!-- Donations CTA -->
-    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-[var(--color-accent-purple)]/30 text-center relative overflow-hidden max-w-4xl mx-auto mt-12 bg-linear-to-b from-bg-primary to-bg-secondary">
+    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-accent-purple/30 text-center relative overflow-hidden max-w-4xl mx-auto mt-12 bg-linear-to-b from-bg-primary to-bg-secondary">
       <div class="relative z-10 space-y-4">
         <div class="text-4xl">❤️</div>
-        <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)]">¿Quieres apoyar nuestras iniciativas?</h2>
-        <p class="text-[var(--color-text-secondary)] max-w-2xl mx-auto text-sm font-light leading-relaxed">
+        <h2 class="text-2xl sm:text-3xl font-bold text-text-primary">¿Quieres apoyar nuestras iniciativas?</h2>
+        <p class="text-text-secondary max-w-2xl mx-auto text-sm font-light leading-relaxed">
           Tanto si deseas financiar un proyecto tecnológico específico como si prefieres contribuir al crecimiento y operation general del capítulo, tu donación hace la diferencia.
         </p>
         <div class="pt-4">
           <a
             href="/donaciones"
-            class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-[var(--color-text-primary)] hover:opacity-95 shadow-md shadow-[var(--color-accent-blue)]/25 hover:scale-[1.02] transition-all animate-pulse"
+            class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/25 hover:scale-[1.02] transition-all animate-pulse"
           >
             Donar al Capítulo ↗
           </a>
         </div>
       </div>
       <!-- Background glowing orb -->
-      <div class="absolute -z-10 w-80 h-80 bg-[var(--color-accent-purple)]/10 rounded-full blur-[100px] -bottom-40 -left-40"></div>
-      <div class="absolute -z-10 w-80 h-80 bg-[var(--color-accent-cyan)]/10 rounded-full blur-[100px] -top-40 -right-40"></div>
+      <div class="absolute -z-10 w-80 h-80 bg-accent-purple/10 rounded-full blur-[100px] -bottom-40 -left-40"></div>
+      <div class="absolute -z-10 w-80 h-80 bg-accent-cyan/10 rounded-full blur-[100px] -top-40 -right-40"></div>
     </div>
 
   </div>

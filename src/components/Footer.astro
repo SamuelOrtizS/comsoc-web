@@ -28,7 +28,7 @@ const navSections = [
 ];
 ---
 
-<footer class="w-full bg-[var(--color-bg-primary)] border-t border-white/10 mt-20 pt-16 pb-12 relative overflow-hidden">
+<footer class="w-full bg-bg-primary border-t border-white/10 mt-20 pt-16 pb-12 relative overflow-hidden">
   <!-- Ambient background glow -->
   <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-32 bg-linear-to-t from-accent-blue/10 to-transparent pointer-events-none"></div>
 
@@ -40,7 +40,7 @@ const navSections = [
         <a href="/" class="inline-block">
           <img src="/images/logo-comsoc.svg" alt="IEEE ComSoc" loading="lazy" decoding="async" class="h-22 w-auto" style="filter: brightness(0) invert(1);" />
         </a>
-          <p class="text-[var(--color-text-secondary)] text-sm max-w-md leading-relaxed font-light">
+          <p class="text-text-secondary text-sm max-w-md leading-relaxed font-light">
           ComSoc Student Chapter. Impulsamos el desarrollo profesional, técnico y académico en comunicaciones digitales, redes de nueva generación, IoT y ciberseguridad.
         </p>
         
@@ -50,7 +50,7 @@ const navSections = [
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[var(--color-text-primary)] hover:text-accent-cyan hover:border-accent-cyan/60 hover:bg-white/15 transition-all shadow-sm group"
+            class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-text-primary hover:text-accent-cyan hover:border-accent-cyan/60 hover:bg-white/15 transition-all shadow-sm group"
             aria-label="Instagram"
           >
             <svg class="w-5 h-5 fill-white group-hover:fill-accent-cyan transition-colors" viewBox="0 0 24 24">
@@ -61,7 +61,7 @@ const navSections = [
             href="https://chat.whatsapp.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[var(--color-text-primary)] hover:text-accent-cyan hover:border-accent-cyan/60 hover:bg-white/15 transition-all shadow-sm group"
+            class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-text-primary hover:text-accent-cyan hover:border-accent-cyan/60 hover:bg-white/15 transition-all shadow-sm group"
             aria-label="WhatsApp"
           >
             <svg class="w-5 h-5 fill-white group-hover:fill-accent-cyan transition-colors" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ const navSections = [
       <!-- Links Grid -->
       {navSections.map((section) => (
         <div>
-          <h3 class="text-sm font-semibold text-[var(--color-text-primary)] tracking-wider uppercase mb-4 font-mono">
+          <h3 class="text-sm font-semibold text-text-primary tracking-wider uppercase mb-4 font-mono">
             {section.title}
           </h3>
           <ul class="space-y-2.5 text-sm">
@@ -84,7 +84,7 @@ const navSections = [
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
-                    class="text-[var(--color-accent-cyan)] hover:text-[var(--color-text-primary)] transition-colors font-light">
+                    class="text-accent-cyan hover:text-text-primary transition-colors font-light">
                   {link.name}
                   {link.external && <span class="text-xs opacity-60 ml-1">↗</span>}
                 </a>
@@ -97,9 +97,9 @@ const navSections = [
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[var(--color-text-secondary)] gap-4 font-light">
-       <p class="text-[var(--color-text-secondary)] font-mono text-xs">© {currentYear} IEEE ComSoc Universidad del Valle Student Branch Chapter. Todos los derechos reservados.</p>
-       <p class="text-[var(--color-text-secondary)] font-mono text-xs">Diseñado por: Samuel Ortiz, Cristhian Moreno</p>
+    <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-text-secondary gap-4 font-light">
+       <p class="text-text-secondary font-mono text-xs">© {currentYear} IEEE ComSoc Universidad del Valle Student Branch Chapter. Todos los derechos reservados.</p>
+       <p class="text-text-secondary font-mono text-xs">Diseñado por: Samuel Ortiz, Cristhian Moreno</p>
     </div>
   </div>
 </footer>

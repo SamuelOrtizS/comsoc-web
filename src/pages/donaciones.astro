@@ -7,25 +7,25 @@ const destinies = [
     title: 'Equipamiento de Laboratorio',
     desc: 'Adquisición de microcontroladores, sensores IoT, kits de fibra óptica, SDRs y componentes electrónicos para el desarrollo de proyectos técnicos.',
     icon: '🔬',
-    color: 'border-[var(--color-accent-cyan)]/30 text-[var(--color-accent-cyan)] bg-[var(--color-accent-cyan)]/10'
+    color: 'border-accent-cyan/30 text-accent-cyan bg-accent-cyan/10'
   },
   {
     title: 'Talleres y Conferencias',
     desc: 'Financiamiento de plataformas, materiales pedagógicos y viáticos para ponentes en nuestros workshops y webinars técnicos gratuitos.',
     icon: '⚡',
-    color: 'border-[var(--color-accent-purple)]/30 text-[var(--color-accent-purple)] bg-[var(--color-accent-purple)]/10'
+    color: 'border-accent-purple/30 text-accent-purple bg-accent-purple/10'
   },
   {
     title: 'Participación en Eventos',
     desc: 'Apoyo económico para el traslado e inscripción de nuestros miembros destacados en competencias nacionales e internacionales de IEEE.',
     icon: '🎓',
-    color: 'border-[var(--color-accent-blue)]/30 text-[var(--color-accent-blue)] bg-[var(--color-accent-blue)]/10'
+    color: 'border-accent-blue/30 text-accent-blue bg-accent-blue/10'
   },
   {
     title: 'Operación del Capítulo',
     desc: 'Sostenimiento de infraestructura digital, licencias de software, hosting y materiales de difusión para el correcto funcionamiento administrativo.',
     icon: '⚙️',
-    color: 'border-[var(--color-accent-emerald)]/30 text-[var(--color-accent-emerald)] bg-[var(--color-accent-emerald)]/10'
+    color: 'border-accent-emerald/30 text-accent-emerald bg-accent-emerald/10'
   }
 ];
 ---
@@ -37,13 +37,13 @@ const destinies = [
   <!-- Hero Section -->
   <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent-emerald)]/10 border border-[var(--color-accent-emerald)]/30 text-[var(--color-accent-emerald)] text-xs font-mono mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 text-accent-emerald text-xs font-mono mb-4">
         Apoya Nuestra Labor
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
         Impulsa la Innovación y la Ingeniería
       </h1>
-      <p class="max-w-2xl mx-auto text-[var(--color-text-secondary)] text-base sm:text-lg font-light leading-relaxed">
+      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
         Somos una organización sin fines de lucro. El 100% de las donaciones se destina directamente al funcionamiento operativo y académico del capítulo, empoderando a futuros ingenieros.
       </p>
     </div>
@@ -55,8 +55,8 @@ const destinies = [
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
       <div class="lg:col-span-7 flex flex-col justify-between glass-card rounded-3xl p-8 border border-white/10">
         <div>
-          <h2 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4">¿A qué se destinan los fondos?</h2>
-          <p class="text-[var(--color-text-secondary)] font-light leading-relaxed mb-6">
+          <h2 class="text-2xl font-bold text-text-primary mb-4">¿A qué se destinan los fondos?</h2>
+          <p class="text-text-secondary font-light leading-relaxed mb-6">
             Como capítulo estudiantil de la Sociedad de Comunicaciones de IEEE, dependemos del apoyo de la comunidad, patrocinadores y egresados para continuar brindando educación extracurricular de alto nivel y desarrollar proyectos que impacten a la sociedad.
           </p>
         </div>
@@ -64,46 +64,46 @@ const destinies = [
           {destinies.map((dest) => (
             <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col">
               <div class="text-2xl mb-2">{dest.icon}</div>
-              <h3 class="text-sm font-semibold text-[var(--color-text-primary)] mb-1">{dest.title}</h3>
-              <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed font-light">{dest.desc}</p>
+              <h3 class="text-sm font-semibold text-text-primary mb-1">{dest.title}</h3>
+              <p class="text-xs text-text-secondary leading-relaxed font-light">{dest.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
       <!-- Specific Project Note Alert -->
-      <div class="lg:col-span-5 flex flex-col justify-between bg-linear-to-br from-[var(--color-accent-purple)]/40 to-indigo-950/40 rounded-3xl p-8 border border-[var(--color-accent-purple)]/30 text-[var(--color-text-primary)] relative overflow-hidden">
+      <div class="lg:col-span-5 flex flex-col justify-between bg-linear-to-br from-accent-purple/40 to-indigo-950/40 rounded-3xl p-8 border border-accent-purple/30 text-text-primary relative overflow-hidden">
         <div class="relative z-10 space-y-6">
           <div class="text-4xl">💡</div>
           <h3 class="text-xl font-bold">¿Quieres apoyar un proyecto en específico?</h3>
-          <p class="text-sm text-[var(--color-accent-purple)] leading-relaxed font-light">
+          <p class="text-sm text-accent-purple leading-relaxed font-light">
             Nuestros miembros desarrollan múltiples proyectos técnicos que requieren financiamiento dedicado. Si deseas que tu donación vaya destinada a una de las iniciativas mostradas en nuestra sección de proyectos (como la estación base LoRaWAN, el simulador de modulaciones, etc.):
           </p>
-          <div class="p-4 rounded-xl bg-[var(--color-accent-purple)]/10 border border-[var(--color-accent-purple)]/30 text-xs font-mono text-[var(--color-accent-purple)]">
+          <div class="p-4 rounded-xl bg-accent-purple/10 border border-accent-purple/30 text-xs font-mono text-accent-purple">
             <strong>Nota Importante:</strong> Por favor especifica el nombre del proyecto en la nota/asunto al momento de enviar el dinero, o comunícalo a través de nuestros canales oficiales de contacto.
           </div>
           <div class="pt-4 flex flex-col gap-2">
-            <span class="text-xs text-[var(--color-text-secondary)] font-mono">Medios de contacto directos:</span>
+            <span class="text-xs text-text-secondary font-mono">Medios de contacto directos:</span>
             <div class="flex flex-wrap gap-2">
-              <a href="mailto:comsoc@universidad.edu.pe" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-[var(--color-text-secondary)] border border-white/10 transition font-mono">
+              <a href="mailto:comsoc@universidad.edu.pe" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-text-secondary border border-white/10 transition font-mono">
                 comsoc@universidad.edu.pe
               </a>
-              <a href="/nosotros" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-[var(--color-text-secondary)] border border-white/10 transition font-mono">
+              <a href="/nosotros" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-text-secondary border border-white/10 transition font-mono">
                 Ver directiva
               </a>
             </div>
           </div>
         </div>
         <!-- Ambient background decor -->
-        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-[var(--color-accent-purple)]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-accent-purple/10 rounded-full blur-3xl pointer-events-none"></div>
       </div>
     </section>
 
     <!-- Payment Methods Section -->
     <section class="border-t border-white/10 pt-16">
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <h2 class="text-3xl font-bold text-[var(--color-text-primary)] mb-4">Métodos de Donación</h2>
-        <p class="text-[var(--color-text-secondary)] font-light">
+        <h2 class="text-3xl font-bold text-text-primary mb-4">Métodos de Donación</h2>
+        <p class="text-text-secondary font-light">
           Elige la opción que más te acomode para realizar tu contribución de forma segura.
         </p>
       </div>
@@ -120,16 +120,16 @@ const destinies = [
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-mono text-accent-cyan uppercase tracking-wider">{method.type}</span>
                   {method.badge && (
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-[var(--color-text-secondary)]">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-text-secondary">
                       {method.badge}
                     </span>
                   )}
                 </div>
-                <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-4 font-heading">{method.name}</h3>
+                <h3 class="text-xl font-bold text-text-primary mb-4 font-heading">{method.name}</h3>
                 <div class="space-y-3">
                   {method.details.map((detail) => (
                     <div class="flex flex-col border-b border-white/5 pb-2">
-                      <span class="text-[10px] uppercase font-mono text-[var(--color-text-secondary)]">{detail.label}</span>
+                      <span class="text-[10px] uppercase font-mono text-text-secondary">{detail.label}</span>
                       {detail.value.startsWith('http') ? (
                         <a
                           href={detail.value}
@@ -140,7 +140,7 @@ const destinies = [
                           {detail.value} ↗
                         </a>
                       ) : (
-                        <span class="text-sm font-semibold text-[var(--color-text-primary)] mt-0.5 select-all">{detail.value}</span>
+                        <span class="text-sm font-semibold text-text-primary mt-0.5 select-all">{detail.value}</span>
                       )}
                     </div>
                   ))}
@@ -153,7 +153,7 @@ const destinies = [
                     href={paypalLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-[var(--color-text-primary)] hover:opacity-95 shadow-md shadow-[var(--color-accent-blue)]/20 transition flex items-center justify-center gap-1.5"
+                    class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/20 transition flex items-center justify-center gap-1.5"
                   >
                     <span>Donar vía PayPal</span>
                     <span>↗</span>
@@ -162,7 +162,7 @@ const destinies = [
                   <button 
                     type="button"
                     data-copy-text={copyText}
-                    class="copy-btn w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-[var(--color-text-primary)] border border-white/10 transition active:scale-95 flex items-center justify-center gap-1.5"
+                    class="copy-btn w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-text-primary border border-white/10 transition active:scale-95 flex items-center justify-center gap-1.5"
                   >
                     <span>📋 Copiar Datos de Pago</span>
                   </button>
@@ -185,10 +185,10 @@ const destinies = [
           await navigator.clipboard.writeText(textToCopy);
           const originalText = btn.innerHTML;
           btn.innerHTML = '<span>✅ ¡Datos Copiados!</span>';
-          btn.classList.add('border-[var(--color-accent-emerald)]', 'text-[var(--color-accent-emerald)]');
+          btn.classList.add('border-accent-emerald', 'text-accent-emerald');
           setTimeout(() => {
             btn.innerHTML = originalText;
-            btn.classList.remove('border-[var(--color-accent-emerald)]', 'text-[var(--color-accent-emerald)]');
+            btn.classList.remove('border-accent-emerald', 'text-accent-emerald');
           }, 2000);
         } catch (err) {
           console.error('Error al copiar al portapapeles', err);

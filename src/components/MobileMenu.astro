@@ -21,7 +21,7 @@ const links = [
     <button
       id="close-mobile-menu"
       type="button"
-      class="p-2 rounded-xl bg-white/5 border border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+      class="p-2 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-text-primary"
       aria-label="Cerrar menú"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,7 +34,7 @@ const links = [
     {links.map((link) => (
       <a
         href={link.href}
-        class="text-xl font-medium tracking-wide text-[var(--color-text-secondary)] hover:text-accent-cyan transition-colors py-2 px-3 rounded-lg hover:bg-white/5"
+        class="text-xl font-medium tracking-wide text-text-secondary hover:text-accent-cyan transition-colors py-2 px-3 rounded-lg hover:bg-white/5"
       >
         {link.name}
       </a>
@@ -44,7 +44,7 @@ const links = [
   <div class="pt-6 border-t border-white/10 flex flex-col gap-3">
     <a
       href="/unirse"
-      class="w-full py-3 text-center font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-[var(--color-text-primary)] shadow-lg shadow-[var(--color-accent-blue)]/25"
+      class="w-full py-3 text-center font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary shadow-lg shadow-accent-blue/25"
     >
       ¡Únete al Capítulo!
     </a>

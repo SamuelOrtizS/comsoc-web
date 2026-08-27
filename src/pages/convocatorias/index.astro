@@ -13,13 +13,13 @@ const allConvocatorias = await getCollection('convocatorias');
   <!-- Header Banner -->
   <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent-purple)]/10 border border-[var(--color-accent-purple)]/30 text-[var(--color-accent-purple)] text-xs font-mono mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-purple/10 border border-accent-purple/30 text-accent-purple text-xs font-mono mb-4">
         Oportunidades de Voluntariado
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
         Convocatorias &amp; Reclutamiento
       </h1>
-      <p class="max-w-2xl mx-auto text-[var(--color-text-secondary)] text-base sm:text-lg font-light leading-relaxed">
+      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
         Forma parte de nuestros equipos de proyectos, organización de eventos, marketing e investigación. Potencia tu perfil profesional.
       </p>
 
@@ -30,9 +30,9 @@ const allConvocatorias = await getCollection('convocatorias');
             id="search-input"
             type="text"
             placeholder="Buscar por cargo, área o tecnología..."
-            class="w-full px-5 py-3 rounded-2xl bg-white/5 border border-white/15 text-[var(--color-text-primary)] placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent-cyan)] focus:ring-1 focus:ring-[var(--color-accent-cyan)] text-sm backdrop-blur-md transition"
+            class="w-full px-5 py-3 rounded-2xl bg-white/5 border border-white/15 text-text-primary placeholder-gray-500 focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan text-sm backdrop-blur-md transition"
           />
-          <div class="absolute right-4 top-3.5 text-[var(--color-text-secondary)] pointer-events-none text-sm">
+          <div class="absolute right-4 top-3.5 text-text-secondary pointer-events-none text-sm">
             🔍
           </div>
         </div>
@@ -43,9 +43,9 @@ const allConvocatorias = await getCollection('convocatorias');
   <!-- Convocatorias Grid Section -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="flex items-center justify-between mb-8">
-      <h2 class="text-xl font-bold text-[var(--color-text-primary)] font-mono flex items-center gap-2">
+      <h2 class="text-xl font-bold text-text-primary font-mono flex items-center gap-2">
         <span>Puestos Disponibles</span>
-        <span class="text-xs px-2.5 py-0.5 rounded-full bg-[var(--color-accent-cyan)]/20 text-[var(--color-accent-cyan)] border border-[var(--color-accent-cyan)]/30">
+        <span class="text-xs px-2.5 py-0.5 rounded-full bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30">
           {allConvocatorias.length}
         </span>
       </h2>
@@ -54,8 +54,8 @@ const allConvocatorias = await getCollection('convocatorias');
     {allConvocatorias.length === 0 ? (
       <div class="glass-card rounded-2xl p-12 text-center border border-white/10 max-w-xl mx-auto">
         <div class="text-4xl mb-4">📭</div>
-        <h3 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">No hay convocatorias activas en este momento</h3>
-        <p class="text-sm text-[var(--color-text-secondary)] font-light">
+        <h3 class="text-lg font-bold text-text-primary mb-2">No hay convocatorias activas en este momento</h3>
+        <p class="text-sm text-text-secondary font-light">
           Síguenos en nuestras redes sociales para estar atento al próximo periodo de postulaciones.
         </p>
       </div>
@@ -81,7 +81,7 @@ const allConvocatorias = await getCollection('convocatorias');
 
     <!-- Empty search result state -->
     <div id="no-results-msg" class="hidden glass-card rounded-2xl p-12 text-center border border-white/10 max-w-md mx-auto mt-8">
-      <p class="text-[var(--color-text-secondary)] text-sm">No se encontraron convocatorias que coincidan con tu búsqueda.</p>
+      <p class="text-text-secondary text-sm">No se encontraron convocatorias que coincidan con tu búsqueda.</p>
     </div>
   </section>
 </BaseLayout>

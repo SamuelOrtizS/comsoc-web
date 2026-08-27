@@ -180,7 +180,7 @@ Edita el archivo `src/content/estadisticas.json` directamente. Contiene una list
   {
     "valor": "+30",
     "etiqueta": "Miembros Activos",
-    "color": "text-[var(--color-text-primary)]"
+    "color": "text-text-primary"
   },
   {
     "valor": "35+",
@@ -195,7 +195,7 @@ Edita el archivo `src/content/estadisticas.json` directamente. Contiene una list
   {
     "valor": "100%",
     "etiqueta": "Pasión Tecnológica",
-    "color": "text-[var(--color-accent-emerald)]"
+    "color": "text-accent-emerald"
   }
 ]
 ```

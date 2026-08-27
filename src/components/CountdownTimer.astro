@@ -7,13 +7,13 @@ interface Props {
 const { targetDate, eventName = "Próximo Evento" } = Astro.props;
 ---
 
-<div class="glass-card rounded-2xl p-6 relative overflow-hidden border border-[var(--color-accent-cyan)]/20 shadow-xl shadow-cyan-950/30">
+<div class="glass-card rounded-2xl p-6 relative overflow-hidden border border-accent-cyan/20 shadow-xl shadow-cyan-950/30">
   <div class="flex items-center justify-between gap-4 mb-4">
     <div class="flex items-center gap-2">
-      <span class="w-2.5 h-2.5 rounded-full bg-[var(--color-accent-cyan)] animate-ping"></span>
-      <span class="text-xs uppercase font-mono tracking-widest text-[var(--color-accent-cyan)] font-semibold">Cuenta Regresiva</span>
+      <span class="w-2.5 h-2.5 rounded-full bg-accent-cyan animate-ping"></span>
+      <span class="text-xs uppercase font-mono tracking-widest text-accent-cyan font-semibold">Cuenta Regresiva</span>
     </div>
-    <span class="text-xs text-[var(--color-text-secondary)] font-mono truncate max-w-50">{eventName}</span>
+    <span class="text-xs text-text-secondary font-mono truncate max-w-50">{eventName}</span>
   </div>
 
   <div
@@ -21,20 +21,20 @@ const { targetDate, eventName = "Próximo Evento" } = Astro.props;
     data-target={targetDate}
   >
     <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
-      <div class="text-2xl sm:text-4xl font-bold font-mono text-[var(--color-text-primary)] days-val">00</div>
-      <div class="text-[10px] sm:text-xs text-[var(--color-text-secondary)] uppercase mt-1 font-mono">Días</div>
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-text-primary days-val">00</div>
+      <div class="text-[10px] sm:text-xs text-text-secondary uppercase mt-1 font-mono">Días</div>
     </div>
     <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
-      <div class="text-2xl sm:text-4xl font-bold font-mono text-[var(--color-accent-cyan)] hours-val">00</div>
-      <div class="text-[10px] sm:text-xs text-[var(--color-text-secondary)] uppercase mt-1 font-mono">Horas</div>
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-accent-cyan hours-val">00</div>
+      <div class="text-[10px] sm:text-xs text-text-secondary uppercase mt-1 font-mono">Horas</div>
     </div>
     <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
-      <div class="text-2xl sm:text-4xl font-bold font-mono text-[var(--color-text-primary)] mins-val">00</div>
-      <div class="text-[10px] sm:text-xs text-[var(--color-text-secondary)] uppercase mt-1 font-mono">Min</div>
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-text-primary mins-val">00</div>
+      <div class="text-[10px] sm:text-xs text-text-secondary uppercase mt-1 font-mono">Min</div>
     </div>
     <div class="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
-      <div class="text-2xl sm:text-4xl font-bold font-mono text-[var(--color-accent-purple)] secs-val">00</div>
-      <div class="text-[10px] sm:text-xs text-[var(--color-text-secondary)] uppercase mt-1 font-mono">Seg</div>
+      <div class="text-2xl sm:text-4xl font-bold font-mono text-accent-purple secs-val">00</div>
+      <div class="text-[10px] sm:text-xs text-text-secondary uppercase mt-1 font-mono">Seg</div>
     </div>
   </div>
 </div>
