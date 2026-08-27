@@ -28,7 +28,7 @@ const estadoBadge = {
 ---
 
 <BaseLayout
-  title={`${data.titulo} | Proyecto IEEE ComSoc`}
+  title={`${data.titulo} | Proyecto IEEE ComSoc Univalle`}
   description={data.descripcion}
   image={data.imagen}
 >
@@ -67,7 +67,7 @@ const estadoBadge = {
 
       <div class="p-6 sm:p-10 space-y-6">
         <div class="text-xs font-mono text-accent-purple uppercase tracking-widest">
-          Proyecto de Investigación &amp; Desarrollo — IEEE ComSoc Chapter
+          Proyecto de Investigación &amp; Desarrollo — IEEE ComSoc Univalle
         </div>
 
         <h1 class="text-3xl sm:text-5xl font-extrabold text-text-primary leading-tight">
@@ -162,20 +162,6 @@ const estadoBadge = {
             </div>
           </div>
         )}
-
-        <!-- Tags -->
-        {data.tags && data.tags.length > 0 && (
-          <div class="glass-card rounded-2xl p-8 border border-white/10">
-            <h2 class="text-xl font-bold text-text-primary mb-4 font-mono">Tecnologías &amp; Tags</h2>
-            <div class="flex flex-wrap gap-2">
-              {data.tags.map((tag) => (
-                <span class="px-3 py-1.5 rounded-lg text-sm font-mono bg-accent-purple/10 text-accent-purple border border-accent-purple/30 hover:bg-accent-purple/20 transition">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
       <!-- Sidebar -->
@@ -217,6 +203,19 @@ const estadoBadge = {
             </a>
           </div>
         </div>
+        <!-- Tags -->
+        {data.tags && data.tags.length > 0 && (
+          <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
+            <h2 class="text-xl font-bold text-text-primary mb-4 font-mono">Tecnologías &amp; Tags</h2>
+            <div class="flex flex-wrap gap-2">
+              {data.tags.map((tag) => (
+                <span class="px-3 py-1.5 rounded-lg text-sm font-mono bg-accent-purple/10 text-accent-purple border border-accent-purple/30 hover:bg-accent-purple/20 transition">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
 
