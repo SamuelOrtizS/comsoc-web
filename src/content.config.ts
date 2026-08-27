@@ -79,6 +79,12 @@ const proyectos = defineCollection({
         destacado: z.boolean().default(false),
         montoActual: z.number().optional(),
         montoMeta: z.number().optional(),
+        recursos: z.array(z.object({
+            title: z.string(),
+            link: z.string(),
+            icon: z.string().optional(), // Optional icon/emoji for visual flair
+        })).optional(),
+        resumenTecnico: z.string().optional(), // For detailed technical insights (plain text)
     }),
 });
 

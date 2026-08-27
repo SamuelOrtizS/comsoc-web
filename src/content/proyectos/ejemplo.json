@@ -13,5 +13,10 @@
   "enlace": "https://github.com/ejemplo/lora-iot",
   "destacado": true,
   "montoActual": 450,
-  "montoMeta": 1200
+  "montoMeta": 1200,
+  "recursos": [
+    { "title": "GitHub Repo", "link": "https://github.com/ejemplo/lora-iot", "icon": "💻" },
+    { "title": "Paper PDF", "link": "https://example.com/paper.pdf", "icon": "📄" }
+  ],
+  "resumenTecnico": "El sistema utiliza un modelo de detección de anomalías basado en series temporales (LSTM). Se implementó un protocolo de comunicación ligero que garantiza el bajo consumo energético, crucial para despliegues remotos. La calibración se realizó utilizando sensores Bosch BME680."
 }
