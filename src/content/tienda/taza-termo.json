@@ -4,5 +4,33 @@
   "price": "$ 38.000 COP",
   "description": "Termo de acero inoxidable 500ml con pantalla táctil LED que indica la temperatura exacta de tu bebida.",
   "image": "/images/event-iot.svg",
-  "available": true
+  "available": true,
+  "resources": [
+    {
+      "title": "Garantía de 1 Año",
+      "link": "/políticas/garantia",
+      "icon": "🛡️",
+      "color": "#3b82f6"
+    },
+    {
+      "title": "Envío Express",
+      "link": "/politicas/envio-express",
+      "icon": "🚀",
+      "color": "#10b981"
+    }
+  ],
+  "specifications": [
+    {
+      "key": "Capacidad",
+      "value": "500ml"
+    },
+    {
+      "key": "Material",
+      "value": "Acero Inoxidable 304"
+    },
+    {
+      "key": "Tecnología Display",
+      "value": "LED Táctil"
+    }
+  ]
 }

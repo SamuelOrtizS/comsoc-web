@@ -34,6 +34,7 @@ const eventos = defineCollection({
     }),
 });
 
+
 const tienda = defineCollection({
     loader: glob({ pattern: ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/tienda' }),
     schema: z.object({
@@ -43,6 +44,16 @@ const tienda = defineCollection({
         description: z.string(),
         image: z.string(),
         available: z.boolean().default(true),
+        resources: z.array(z.object({ // New field for Resources
+            title: z.string(),
+            link: z.string(),
+            icon: z.string(),
+            color: z.string(), // Hexadecimal color
+        })).optional(),
+        specifications: z.array(z.object({ // New field for Specifications
+            key: z.string(),
+            value: z.string(),
+        })).optional(),
     }),
 });
 
