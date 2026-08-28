@@ -14,7 +14,7 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-40 bg-bg-primary/70 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
+<header class="fixed top-0 left-0 right-0 z-40 bg-bg-primary/70 backdrop-blur-xl border-b border-white/5 transition-all duration-500">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       
@@ -25,7 +25,7 @@ const currentPath = Astro.url.pathname;
             src="/images/logo-comsoc.svg"
             alt="IEEE ComSoc Logo"
             decoding="async"
-            class="h-10 sm:h-18 w-auto transition-transform duration-300 group-hover:scale-105"
+            class="h-10 sm:h-14 w-auto transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
           />
         </div>
       </a>
@@ -37,13 +37,21 @@ const currentPath = Astro.url.pathname;
           return (
             <a
               href={link.href}
-              class={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              class={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group ${
                 isActive
-                ? 'text-accent-cyan bg-accent-blue/10 shadow-inner'
-                : 'text-text-secondary hover:text-text-primary hover:bg-glass-bg/5'
+                ? 'text-accent-cyan'
+                : 'text-text-secondary hover:text-text-primary'
               }`}
             >
-              {link.name}
+              <span class={`relative z-10 ${isActive ? 'font-semibold' : ''}`}>
+                {link.name}
+              </span>
+              {isActive && (
+                <span class="absolute inset-0 bg-accent-blue/10 rounded-xl border border-accent-cyan/20 shadow-[inset_0_0_12px_rgba(34,211,238,0.1)]" />
+              )}
+              {!isActive && (
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100 opacity-0 group-hover:opacity-100" />
+              )}
             </a>
           );
         })}
@@ -53,16 +61,20 @@ const currentPath = Astro.url.pathname;
       <div class="flex items-center gap-4">
         <a
           href="/unirse"
-          class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/20 transition-all hover:scale-[1.02]"
+          class="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-extrabold rounded-2xl bg-gradient-to-br from-accent-blue via-accent-cyan/60 to-accent-blue bg-[length:200%_200%] text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_0_35px_rgba(34,211,238,0.5)] hover:bg-[position:right_center] group relative overflow-hidden active:scale-95"
         >
-          Unirse
+          <span class="relative z-10">Unirse</span>
+          <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <svg class="w-4 h-4 transition-all duration-500 group-hover:translate-x-1.5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
         </a>
 
         <!-- Hamburger Icon -->
         <button
           id="open-mobile-menu"
           type="button"
-          class="md:hidden p-2.5 rounded-xl bg-glass-bg border border-glass-border text-text-secondary hover:text-text-primary hover:bg-glass-bg transition"
+          class="md:hidden p-2.5 rounded-xl bg-glass-bg border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all duration-300"
           aria-label="Abrir menú"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
