@@ -56,6 +56,7 @@ The website is "Content-First". Most pages are generated from data in `src/conte
 
 - [Project Codebase Guide](docs/CODEBASE.md)
 - [Admin Guide](docs/GUIA_ADMINISTRACION.md)
+- [Developer Notes](notas/)
 
 ## 🤖 Agentic Workflow
 
