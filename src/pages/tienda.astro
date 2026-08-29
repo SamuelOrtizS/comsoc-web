@@ -66,7 +66,7 @@ const tiendaItems = await getCollection('tienda');
               data-product={JSON.stringify(prod)}
               aria-label={`Ver detalles de ${prod.name}`}
             >
-              <div class="relative overflow-hidden bg-slate-900">
+              <div class="relative overflow-hidden bg-bg-secondary">
                 <div class="aspect-square overflow-hidden">
                   <Image
                     src={resolveImage(prod.image) as any}
@@ -151,7 +151,7 @@ const tiendaItems = await getCollection('tienda');
       </button>
 
       <div class="grid gap-0 md:grid-cols-[1.05fr_1fr]">
-        <div class="relative aspect-[5/4] overflow-hidden bg-slate-900 md:aspect-auto">
+        <div class="relative aspect-[5/4] overflow-hidden bg-bg-secondary md:aspect-auto">
           <img id="modal-product-image" src="" alt="" class="h-full w-full object-cover" />
           <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,15,36,0.15),rgba(10,15,36,0.7))]"></div>
           <span id="modal-product-category" class="absolute left-4 top-4 rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono backdrop-blur-sm"></span>

@@ -41,9 +41,9 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 });
 ---
 
-<article class={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-slate-950/60 backdrop-blur-xl transition-all duration-300 ${isPast ? 'border-white/10 opacity-90' : 'border-accent-cyan/20 hover:border-accent-cyan/40'}`}>
+<article class={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-bg-primary/60 backdrop-blur-xl transition-all duration-300 ${isPast ? 'border-white/10 opacity-90' : 'border-accent-cyan/20 hover:border-accent-cyan/40'}`}>
   <!-- Image banner thumbnail -->
-  <div class="relative aspect-video w-full overflow-hidden bg-slate-900">
+  <div class="relative aspect-video w-full overflow-hidden bg-bg-secondary">
     <Image
       src={resolvedPrincipal as any}
       alt={titulo}
@@ -54,22 +54,22 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
       loading="lazy"
       decoding="async"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-slate-950/5" />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/30 to-bg-primary/5" />
 
     <!-- Type & Status Badges -->
     <div class="absolute inset-x-0 top-0 flex items-center justify-between gap-2 p-3">
-      <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-slate-950/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan backdrop-blur-md">
+      <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-bg-primary/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan backdrop-blur-md">
         {tipo}
       </span>
       {isPast && (
-        <span class="inline-flex items-center rounded-full border border-white/10 bg-slate-900/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-secondary backdrop-blur-md">
+        <span class="inline-flex items-center rounded-full border border-white/10 bg-bg-secondary/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-secondary backdrop-blur-md">
           Finalizado
         </span>
       )}
     </div>
 
     <!-- Date pill -->
-    <div class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/75 px-2.5 py-1 text-[10px] font-medium text-text-primary backdrop-blur-md">
+    <div class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-bg-primary/75 px-2.5 py-1 text-[10px] font-medium text-text-primary backdrop-blur-md">
       <Icon name="material-symbols:calendar-today-rounded" class="w-3.5 h-3.5 text-accent-cyan" aria-hidden="true" />
       <span class="font-mono tracking-[0.08em] uppercase">{formattedDate}</span>
     </div>

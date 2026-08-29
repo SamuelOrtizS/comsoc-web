@@ -80,7 +80,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
               {data.tipo}
             </span>
             {isPast && (
-              <span class="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-slate-900/80 backdrop-blur-md text-text-secondary border border-white/10 font-mono">
+              <span class="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-bg-secondary/80 backdrop-blur-md text-text-secondary border border-white/10 font-mono">
                 Finalizado
               </span>
             )}
@@ -168,7 +168,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {data.galeria.map((img, idx) => (
-                <div class="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900 aspect-video">
+                <div class="group overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary aspect-video">
                   <Image
                     src={resolveImage(img) as any}
                     alt={`Foto ${idx + 1}`}
