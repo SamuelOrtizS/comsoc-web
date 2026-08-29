@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-29T00:00:00.000Z",
+  "title": "Design System: IEEE ComSoc Univalle",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Azul Señal", "canonical": "#155dfc", "tonalRamp": ["#0a1a4a", "#0f2a6b", "#155dfc", "#2d6cf5", "#5a8af7", "#8ab0f8", "#c2d4fb", "#e8eefc"] },
+      "accent-cyan": { "role": "secondary", "displayName": "Cian Espectral", "canonical": "#22d3ee", "tonalRamp": ["#0a3a44", "#0e5a6b", "#1499b3", "#22d3ee", "#5ae0f0", "#8ee9f5", "#c2f2fa", "#e6fafd"] },
+      "accent-purple": { "role": "secondary", "displayName": "Púrpura Cuántico", "canonical": "#a855f7", "tonalRamp": ["#2a0f4a", "#3d1a6b", "#6b2f9e", "#a855f7", "#c084f9", "#d6b0fb", "#e8d5fd", "#f5ebfe"] },
+      "accent-emerald": { "role": "tertiary", "displayName": "Esmeralda de Enlace", "canonical": "#34d399", "tonalRamp": ["#0a2e1f", "#0f4a32", "#1a7a52", "#34d399", "#6fe3b8", "#a8eccf", "#d6f5e6", "#eefbf5"] },
+      "accent-amber": { "role": "tertiary", "displayName": "Ámbar de Órbita", "canonical": "#f59e0b", "tonalRamp": ["#3d2500", "#5a3700", "#8a5300", "#f59e0b", "#f8b84a", "#fbd18a", "#fde9c2", "#fef6e6"] },
+      "neutral-bg": { "role": "neutral", "displayName": "Fondo Órbita", "canonical": "#050816", "tonalRamp": ["#02040a", "#050816", "#0a0f24", "#141a3a", "#2a3050", "#55596e", "#8a8d9e", "#c2c4ce"] },
+      "neutral-bg-secondary": { "role": "neutral", "displayName": "Fondo Satélite", "canonical": "#0a0f24", "tonalRamp": ["#050816", "#0a0f24", "#141a3a", "#2a3050", "#55596e", "#8a8d9e", "#c2c4ce", "#e8e9ed"] },
+      "neutral-text-primary": { "role": "neutral", "displayName": "Texto Primario", "canonical": "#ffffff", "tonalRamp": ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#e8e9ed", "#c2c4ce", "#8a8d9e", "#55596e"] },
+      "neutral-text-secondary": { "role": "neutral", "displayName": "Texto Secundario", "canonical": "#cbd5e0", "tonalRamp": ["#94a3b8", "#a8b5c8", "#cbd5e0", "#d8e0e8", "#e8ecf0", "#f1f4f7", "#f8fafc", "#ffffff"] },
+      "glass-bg": { "role": "neutral", "displayName": "Vidrio", "canonical": "rgba(255, 255, 255, 0.05)", "tonalRamp": ["rgba(255,255,255,0.02)", "rgba(255,255,255,0.05)", "rgba(255,255,255,0.08)", "rgba(255,255,255,0.12)"] },
+      "glass-border": { "role": "neutral", "displayName": "Borde Vidrio", "canonical": "rgba(255, 255, 255, 0.1)", "tonalRamp": ["rgba(255,255,255,0.05)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.15)", "rgba(255,255,255,0.2)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero y métricas, Formata 700, clamp(2.5rem,7vw,4.5rem)" },
+      "headline": { "displayName": "Headline", "purpose": "Títulos de sección H2, Formata 700" },
+      "title": { "displayName": "Title", "purpose": "Títulos de tarjeta H3" },
+      "body": { "displayName": "Body", "purpose": "Párrafos y descripciones, Nunito Sans 400/1.6, 65–75ch" },
+      "label": { "displayName": "Label", "purpose": "Pills, badges, mono Share Tech Mono 10px uppercase" }
+    },
+    "shadows": [
+      { "name": "card-hover", "value": "0 12px 30px -10px rgba(21, 93, 252, 0.25)", "purpose": "Elevación sutil de glass-card en hover" },
+      { "name": "glow-cta", "value": "0 18px 40px -18px rgba(21, 93, 252, 0.9)", "purpose": "Resplandor difuso bajo CTA primario" },
+      { "name": "glow-dot", "value": "0 0 30px rgba(34, 211, 238, 0.12)", "purpose": "Atmósfera dot-grid" }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default para hover/translate" },
+      { "name": "ease-emphasized", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Ripple y modales" },
+      { "name": "duration-300", "value": "300ms", "purpose": "Transiciones de tarjeta y CTA" }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA principal — gradiente azul→cian, usado para Unirse/Inscribirse.",
+      "html": "<button class=\"ds-btn-primary\">Unirse al Equipo</button>",
+      "css": ".ds-btn-primary { background: linear-gradient(to right, #155dfc, #22d3ee); color: #050816; padding: 14px 28px; border-radius: 16px; font-weight: 600; box-shadow: 0 18px 40px -18px rgba(21,93,252,0.9); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 48px -16px rgba(34,211,238,0.82); } .ds-btn-primary:focus-visible { outline: 2px solid #22d3ee; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "CTA secundario — borde sutil sobre vidrio, para Explorar.",
+      "html": "<button class=\"ds-btn-ghost\">Explorar Eventos</button>",
+      "css": ".ds-btn-ghost { background: rgba(255,255,255,0.05); color: #cbd5e0; border: 1px solid rgba(255,255,255,0.1); padding: 14px 28px; border-radius: 16px; transition: all 0.3s; } .ds-btn-ghost:hover { border-color: rgba(34,211,238,0.4); background: rgba(255,255,255,0.1); color: #ffffff; }"
+    },
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Tarjeta base para pilares, proyectos, aliados — vidrio oscuro.",
+      "html": "<div class=\"ds-card\"><h3>5G / 6G & Redes Móviles</h3><p>Arquitecturas Open RAN...</p></div>",
+      "css": ".ds-card { background: #0a0f24; backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); border-radius: 22px; padding: 24px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); } .ds-card:hover { border-color: rgba(34,211,238,0.35); transform: translateY(-4px); box-shadow: 0 12px 30px -10px rgba(21,93,252,0.25); }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "card",
+      "description": "Header fijo con blur y dropdown.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link is-active\">Inicio</a><a class=\"ds-nav-link\">Eventos</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 8px; } .ds-nav-link { padding: 8px 16px; border-radius: 12px; color: #cbd5e0; font-size: 14px; font-weight: 500; } .ds-nav-link.is-active { color: #22d3ee; background: rgba(21,93,252,0.1); border: 1px solid rgba(34,211,238,0.2); }"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "card",
+      "description": "Badges y pills mono 10px uppercase.",
+      "html": "<span class=\"ds-chip\">Workshop</span>",
+      "css": ".ds-chip { background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); color: #22d3ee; border: 1px solid rgba(34,211,238,0.3); border-radius: 9999px; padding: 4px 10px; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Órbita ComSoc",
+    "overview": "El sistema orbita alrededor de una idea central: una constelación en movimiento. Cada sección es un satélite —hero, eventos, pilares, proyectos, aliados— que gira en torno a un núcleo oscuro y estable, sostenido por gravedad visual (vidrio, blur y luz). La estética no es decorativa sino orbital: profundidad por capas tonales, no por sombras arrojadas; luz que se difunde como señal, no como decoración. Es un mundo tech sobrio y preciso. La densidad es media, la jerarquía es estricta y la voz es académica pero accesible. Se evita el brillo gratuito, el neón saturado y la ilustración genérica de stock tech. La anti-referencia es el “startup oscuro con gradientes agresivos” — aquí el gradiente es atmosférico, contenido y siempre al servicio de la legibilidad.",
+    "keyCharacteristics": [
+      "Órbitas y capas — profundidad por tono y blur, no por sombra dura",
+      "Precisión académica — métricas verificables, no vanity",
+      "Vidrio sobrio — glass-card con borde rgba(255,255,255,0.1) y desenfoque contenido",
+      "Señal como luz — cian como portadora, no como decoración"
+    ],
+    "rules": [
+      { "name": "The Orbital Signal Rule", "body": "El cian espectral solo porta señal — estados, enlaces y bordes activos. Nunca como relleno decorativo de grandes superficies.", "section": "colors" },
+      { "name": "The Dark Matter Rule", "body": "El fondo permanece oscuro. No se introduce modo claro; la profundidad se construye por tono y blur, no por inversión.", "section": "colors" },
+      { "name": "The Telemetry Label Rule", "body": "Todo meta (estado, fecha límite, categoría) es mono Share Tech Mono 10px uppercase. No se usa sans para meta.", "section": "typography" },
+      { "name": "The Tonal Orbit Rule", "body": "Las superficies son planas en reposo; la profundidad aparece solo como respuesta (hover, focus, active) mediante blur y traslación, nunca como sombra permanente.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do usar glass-card con backdrop-blur 16px y borde rgba(255,255,255,0.1) para todas las tarjetas de contenido.",
+      "Do reservar el cian #22d3ee para señal — estados, enlaces y bordes activos, nunca como fondo sólido grande.",
+      "Do mantener hero con un solo H1 sr-only y jerarquía CTA primaria (gradient) + secundaria (text link).",
+      "Do usar material-symbols:xxx-rounded validado vía astro-icon con aria-hidden=\"true\" y w-4 h-4 / w-6 h-6.",
+      "Do respetar prefers-reduced-motion — desactiva animate-ping/pulse y CustomCursor."
+    ],
+    "donts": [
+      "Don't usar cursor:none !important global — el cursor custom es solo decorativo.",
+      "Don't introducir palette-rounded o colores hex ad-hoc fuera de global.css:24 — usa tokens.",
+      "Don't usar contain: paint en header con dropdowns — recorta el absolute del submenu.",
+      "Don't randomizar contenido destacado — usa orden determinístico por fechaInicio + ?event=slug client-side.",
+      "Don't anidar <p> en <p> en Footer — usa div contenedor."
+    ]
+  }
+}
