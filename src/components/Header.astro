@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname;
                 <span class="absolute inset-0 bg-accent-blue/10 rounded-xl border border-accent-cyan/20 shadow-[inset_0_0_12px_rgba(34,211,238,0.1)]" />
               )}
               {!isActive && (
-                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100 opacity-0 group-hover:opacity-100" />
+                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100 opacity-0 group-hover:opacity-100"></span>
               )}
             </a>
           );
@@ -61,7 +61,7 @@ const currentPath = Astro.url.pathname;
       <div class="flex items-center gap-4">
         <a
           href="/unirse"
-          class="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-extrabold rounded-2xl bg-gradient-to-br from-accent-blue via-accent-cyan/60 to-accent-blue bg-[length:200%_200%] text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_0_35px_rgba(34,211,238,0.5)] hover:bg-[position:right_center] group relative overflow-hidden active:scale-95"
+          class="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-extrabold rounded-2xl bg-linear-to-br from-accent-blue via-accent-cyan/60 to-accent-blue bg-size-[200%_200%] text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_0_35px_rgba(34,211,238,0.5)] group relative overflow-hidden active:scale-95"
         >
           <span class="relative z-10">Unirse</span>
           <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
