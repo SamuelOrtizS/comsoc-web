@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
@@ -19,9 +20,9 @@ const completados = sorted.filter((p) => p.data.estado === 'Completado');
 const enPausa    = sorted.filter((p) => p.data.estado === 'En Pausa');
 
 const estadoStyle = {
-  Activo:      { dot: 'bg-accent-emerald animate-ping', badge: 'text-accent-emerald border-accent-emerald/30 bg-accent-emerald/10', icon: '🟢' },
-  Completado:  { dot: 'bg-accent-blue',                  badge: 'text-accent-blue border-accent-blue/30 bg-accent-blue/10',         icon: '✅' },
-  'En Pausa':  { dot: 'bg-accent-yellow',                badge: 'text-accent-yellow border-accent-yellow/30 bg-accent-yellow/10',   icon: '⏸' },
+  Activo:      { dot: 'bg-accent-emerald animate-ping', badge: 'text-accent-emerald border-accent-emerald/30 bg-accent-emerald/10', icon: 'material-symbols:check-circle-rounded' },
+  Completado:  { dot: 'bg-accent-blue',                  badge: 'text-accent-blue border-accent-blue/30 bg-accent-blue/10',         icon: 'material-symbols:verified-rounded' },
+  'En Pausa':  { dot: 'bg-accent-yellow',                badge: 'text-accent-yellow border-accent-yellow/30 bg-accent-yellow/10',   icon: 'material-symbols:pause-circle-rounded' },
 };
 
 const fundingPercent = (actual?: number, meta?: number) => {
@@ -106,8 +107,8 @@ const fundingPercent = (actual?: number, meta?: number) => {
                   <span class="rounded-full border border-accent-purple/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-purple backdrop-blur-md">
                     {proyecto.data.categoria}
                   </span>
-                  <span class="rounded-full border border-emerald-400/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-emerald-300 backdrop-blur-md">
-                    🟢 Activo
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-emerald-300 backdrop-blur-md">
+                    <Icon name="material-symbols:check-circle-rounded" class="w-3.5 h-3.5" aria-hidden="true" /> Activo
                   </span>
                 </div>
               </div>
@@ -165,7 +166,7 @@ const fundingPercent = (actual?: number, meta?: number) => {
     {completados.length > 0 && (
       <section>
         <div class="mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
-          <span class="text-xl text-accent-blue">✅</span>
+          <Icon name="material-symbols:verified-rounded" class="w-6 h-6 text-accent-blue" aria-hidden="true" />
           <h2 class="text-2xl font-bold text-text-primary">Proyectos Completados</h2>
           <span class="rounded-full border border-blue-400/30 bg-blue-400/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] text-blue-300">
             {completados.length}
@@ -193,8 +194,8 @@ const fundingPercent = (actual?: number, meta?: number) => {
                   <span class="rounded-full border border-accent-purple/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-purple backdrop-blur-md">
                     {proyecto.data.categoria}
                   </span>
-                  <span class="rounded-full border border-blue-400/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-blue backdrop-blur-md">
-                    ✅ Completado
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-blue backdrop-blur-md">
+                    <Icon name="material-symbols:verified-rounded" class="w-3.5 h-3.5" aria-hidden="true" /> Completado
                   </span>
                 </div>
               </div>
@@ -252,7 +253,7 @@ const fundingPercent = (actual?: number, meta?: number) => {
     {enPausa.length > 0 && (
       <section>
         <div class="mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
-          <span class="text-xl text-accent-yellow">⏸</span>
+          <Icon name="material-symbols:pause-circle-rounded" class="w-6 h-6 text-accent-yellow" aria-hidden="true" />
           <h2 class="text-2xl font-bold text-text-secondary">Proyectos en Pausa</h2>
           <span class="rounded-full border border-yellow-300/30 bg-yellow-300/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] text-yellow-300">
             {enPausa.length}
@@ -280,8 +281,8 @@ const fundingPercent = (actual?: number, meta?: number) => {
                   <span class="rounded-full border border-accent-purple/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-purple backdrop-blur-md">
                     {proyecto.data.categoria}
                   </span>
-                  <span class="rounded-full border border-yellow-300/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-yellow backdrop-blur-md">
-                    ⏸ En Pausa
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-yellow-300/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-yellow backdrop-blur-md">
+                    <Icon name="material-symbols:pause-circle-rounded" class="w-3.5 h-3.5" aria-hidden="true" /> En Pausa
                   </span>
                 </div>
               </div>
@@ -338,7 +339,7 @@ const fundingPercent = (actual?: number, meta?: number) => {
 
     {allProyectos.length === 0 && (
       <div class="mx-auto max-w-xl rounded-2xl border border-white/10 bg-bg-secondary/80 p-16 text-center shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md">
-        <div class="mb-4 text-5xl">🔬</div>
+        <div class="mb-4 flex justify-center text-accent-purple"><Icon name="material-symbols:science" class="w-12 h-12" aria-hidden="true" /></div>
         <h3 class="mb-2 text-lg font-bold text-text-primary">No hay proyectos registrados aún</h3>
         <p class="text-sm font-light text-text-secondary">Pronto publicaremos las iniciativas en curso del capítulo.</p>
       </div>
@@ -346,7 +347,7 @@ const fundingPercent = (actual?: number, meta?: number) => {
 
     <div class="mx-auto mt-12 max-w-4xl overflow-hidden rounded-3xl border border-accent-purple/30 bg-gradient-to-b from-bg-primary to-bg-secondary p-8 text-center shadow-[0_18px_45px_rgba(15,23,42,0.38)] sm:p-12">
       <div class="relative z-10 space-y-4">
-        <div class="text-4xl">❤️</div>
+        <div class="flex justify-center text-accent-rose"><Icon name="material-symbols:favorite-rounded" class="w-10 h-10" aria-hidden="true" /></div>
         <h2 class="text-2xl font-bold text-text-primary sm:text-3xl">¿Quieres apoyar nuestras iniciativas?</h2>
         <p class="mx-auto max-w-2xl text-sm leading-relaxed text-text-secondary">
           Tanto si deseas financiar un proyecto tecnológico específico como si prefieres contribuir al crecimiento y operación general del capítulo, tu donación hace la diferencia.

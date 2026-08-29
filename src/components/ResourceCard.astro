@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../utils/imageResolver';
 import type { CollectionEntry } from 'astro:content';
 
@@ -20,6 +21,7 @@ const resolvedImagen = imagen ? resolveImage(imagen) : null;
         alt={titulo}
         width={800}
         height={450}
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         decoding="async"
         loading="lazy"
@@ -59,13 +61,7 @@ const resolvedImagen = imagen ? resolveImage(imagen) : null;
           class="group/link flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-text-primary transition-all duration-200 hover:border-accent-cyan/30 hover:bg-accent-cyan/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-secondary"
         >
           <span class="flex items-center gap-2">
-            <svg class="h-4 w-4 shrink-0 text-text-secondary transition-colors group-hover/link:text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              {link.tipo === 'Canva' ? (
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M7 8h10M7 12h10M7 16h6M3 6.5A1.5 1.5 0 014.5 5h15A1.5 1.5 0 0121 6.5v11A1.5 1.5 0 0119.5 19h-15A1.5 1.5 0 013 17.5v-11z" />
-              ) : (
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M12 10.5v6M12 18.75h0M8.25 12l3.75-3.75L15.75 12M13.5 6.75h3.75A1.5 1.5 0 0118.75 8.25v7.5A1.5 1.5 0 0117.25 17.25H6.75A1.5 1.5 0 015.25 15.75v-7.5A1.5 1.5 0 016.75 6.75H10.5" />
-              )}
-            </svg>
+            <Icon name={link.tipo === 'Canva' ? 'material-symbols:palette' : 'material-symbols:download-rounded'} class="w-4 h-4 shrink-0 text-text-secondary transition-colors group-hover/link:text-accent-cyan" aria-hidden="true" />
             <span>{link.label}</span>
           </span>
           <span class="flex items-center gap-1.5">
@@ -74,9 +70,7 @@ const resolvedImagen = imagen ? resolveImage(imagen) : null;
                 Canva
               </span>
             )}
-            <svg class="h-3.5 w-3.5 shrink-0 text-text-secondary transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
+            <Icon name="material-symbols:arrow-forward-rounded" class="w-3.5 h-3.5 shrink-0 text-text-secondary transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:text-accent-cyan" aria-hidden="true" />
           </span>
         </a>
       ))}

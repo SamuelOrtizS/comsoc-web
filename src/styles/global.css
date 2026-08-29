@@ -1,21 +1,6 @@
 @import "tailwindcss";
 
-/* Custom Font - Formata */
-@font-face {
-  font-family: 'Formata';
-  src: url('/fonts/Formata-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Formata';
-  src: url('/fonts/Formata-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
+/* Fonts gestionadas por Astro (astro:assets) - @font-face inyectadas automáticamente */
 
 :root {
   color-scheme: dark;
@@ -153,11 +138,11 @@
   --color-glass-bg: rgba(255, 255, 255, 0.05);
   --color-glass-border: rgba(255, 255, 255, 0.1);
 
-  /* Typography */
-  --font-heading: 'Formata', 'Space Grotesk', system-ui, sans-serif;
-  --font-sans: 'Nunito Sans', system-ui, sans-serif;
-  --font-body: 'Nunito Sans', system-ui, sans-serif;
-  --font-mono: 'Share Tech Mono', monospace;
+  /* Typography — variables inyectadas por Astro Fonts */
+  --font-heading: var(--font-formata), var(--font-space-grotesk), system-ui, sans-serif;
+  --font-sans: var(--font-nunito-sans), system-ui, sans-serif;
+  --font-body: var(--font-nunito-sans), system-ui, sans-serif;
+  --font-mono: var(--font-share-tech-mono), monospace;
 }
 
 /* Custom Base & Utilities */

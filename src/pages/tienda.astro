@@ -1,8 +1,10 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import { resolveImage } from '../utils/imageResolver';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import iconMap from '../utils/tiendaIconMap.json';
 
 const tiendaItems = await getCollection('tienda');
 ---
@@ -30,9 +32,7 @@ const tiendaItems = await getCollection('tienda');
   <div class="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="glass-card flex flex-col items-center gap-4 rounded-2xl border border-glass-border/30 bg-bg-secondary/20 p-4 sm:flex-row sm:p-6">
       <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
-        <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-6.716-4.5-9-8.13C1.546 10.79 2.795 6 7.264 6c1.6 0 2.64.75 3.236 1.38A4.15 4.15 0 0 1 13.736 6C18.205 6 19.454 10.79 21 12.87 18.716 16.5 12 21 12 21Z" />
-        </svg>
+        <Icon name="material-symbols:favorite-rounded" class="h-5 w-5" aria-hidden="true" />
       </div>
       <div class="grow text-sm leading-relaxed text-text-secondary font-light sm:text-base">
         <strong class="font-semibold text-text-primary">Punto de entrega:</strong> Entregas presenciales en el Campus Universitario y envíos a nivel nacional previa coordinación por WhatsApp.
@@ -121,9 +121,7 @@ const tiendaItems = await getCollection('tienda');
                 aria-label={`Consultar por WhatsApp el producto ${prod.name}`}
               >
                 <span>WhatsApp</span>
-                <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 9.5h7m-7 3h5m-7 5 3.8-2.1A7.1 7.1 0 0 0 18 8.5A6.5 6.5 0 0 0 6 12.5a6.4 6.4 0 0 0 2.5 5.1Z" />
-                </svg>
+                <Icon name="material-symbols:chat-rounded" class="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
           </article>
@@ -149,9 +147,7 @@ const tiendaItems = await getCollection('tienda');
         class="absolute right-4 top-4 z-10 rounded-xl border border-white/10 bg-black/25 p-2 text-text-secondary transition hover:border-white/20 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
         aria-label="Cerrar"
       >
-        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <Icon name="material-symbols:close-rounded" class="h-5 w-5" aria-hidden="true" />
       </button>
 
       <div class="grid gap-0 md:grid-cols-[1.05fr_1fr]">
@@ -181,9 +177,7 @@ const tiendaItems = await getCollection('tienda');
               class="flex w-full items-center justify-center gap-2 rounded-xl border border-accent-emerald/35 bg-accent-emerald/20 px-4 py-3 text-sm font-semibold text-accent-emerald transition hover:bg-accent-emerald/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-secondary"
             >
               <span>Pedir por WhatsApp</span>
-              <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 9.5h7m-7 3h5m-7 5 3.8-2.1A7.1 7.1 0 0 0 18 8.5A6.5 6.5 0 0 0 6 12.5a6.4 6.4 0 0 0 2.5 5.1Z" />
-              </svg>
+              <Icon name="material-symbols:chat-rounded" class="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -192,23 +186,40 @@ const tiendaItems = await getCollection('tienda');
   </div>
 </BaseLayout>
 
-<script>
-  type Product = {
-    name: string;
-    category: string;
-    price: string;
-    description: string;
-    image: string;
-    available: boolean;
-    resources?: Array<{ title: string; link: string; icon: string; color?: string }>;
-    specifications?: Array<{ key: string; value: string }>;
-  };
+<script define:vars={{ iconMap }}>
+  const overlay = document.getElementById('product-modal-overlay');
+  const modal = document.getElementById('product-modal');
+  const closeBtn = document.getElementById('product-modal-close');
 
-  const overlay = document.getElementById('product-modal-overlay') as HTMLElement;
-  const modal = document.getElementById('product-modal') as HTMLElement;
-  const closeBtn = document.getElementById('product-modal-close') as HTMLButtonElement;
+  const iconBodies = iconMap;
 
-  function hexToRgba(hex: string, alpha: number) {
+  function getIconBody(icon) {
+    if (!icon) return iconBodies['palette'] ?? '';
+    let key = icon.replace('material-symbols:', '');
+    if (iconBodies[key]) return iconBodies[key];
+    const base = key.replace(/-rounded|-outlined|-sharp/g, '');
+    if (iconBodies[base]) return iconBodies[base];
+    if (iconBodies[key + '-rounded']) return iconBodies[key + '-rounded'];
+    // emoji fallback
+    const emojiMap = {
+      '🛡️': iconBodies['shield-rounded'] ?? '',
+      '🚀': iconBodies['local-shipping-rounded'] ?? '',
+      '💧': iconBodies['water-drop-rounded'] ?? '',
+      '🌐': iconBodies['palette'] ?? '',
+      '💦': iconBodies['water-drop-rounded'] ?? '',
+      '✨': iconBodies['auto-awesome-rounded'] ?? '',
+      '💡': iconBodies['lightbulb-rounded'] ?? '',
+      '🧵': iconBodies['checkroom-rounded'] ?? '',
+    };
+    return emojiMap[icon] ?? iconBodies['palette'] ?? '';
+  }
+
+  function iconSvg(icon, size = 20) {
+    const body = getIconBody(icon);
+    return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="currentColor" aria-hidden="true">${body}</svg>`;
+  }
+
+  function hexToRgba(hex, alpha) {
     const clean = hex.startsWith('#') ? hex.slice(1) : hex;
     const normalized = clean.length === 3 ? clean.split('').map((char) => char + char).join('') : clean;
     const value = Number.parseInt(normalized, 16);
@@ -218,16 +229,16 @@ const tiendaItems = await getCollection('tienda');
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
-  function openProductModal(prod: Product) {
-    const modalImage = document.getElementById('modal-product-image') as HTMLImageElement;
-    const modalCategory = document.getElementById('modal-product-category') as HTMLElement;
-    const modalPrice = document.getElementById('modal-product-price') as HTMLElement;
-    const modalName = document.getElementById('modal-product-name') as HTMLElement;
-    const modalDesc = document.getElementById('modal-product-desc') as HTMLElement;
-    const availability = document.getElementById('modal-availability') as HTMLElement;
-    const resourcesContainer = document.getElementById('modal-resources') as HTMLElement;
-    const specsContainer = document.getElementById('modal-specifications') as HTMLElement;
-    const waBtn = document.getElementById('modal-whatsapp-btn') as HTMLAnchorElement;
+  function openProductModal(prod) {
+    const modalImage = document.getElementById('modal-product-image');
+    const modalCategory = document.getElementById('modal-product-category');
+    const modalPrice = document.getElementById('modal-product-price');
+    const modalName = document.getElementById('modal-product-name');
+    const modalDesc = document.getElementById('modal-product-desc');
+    const availability = document.getElementById('modal-availability');
+    const resourcesContainer = document.getElementById('modal-resources');
+    const specsContainer = document.getElementById('modal-specifications');
+    const waBtn = document.getElementById('modal-whatsapp-btn');
 
     modalImage.src = prod.image;
     modalImage.alt = prod.name;
@@ -237,8 +248,8 @@ const tiendaItems = await getCollection('tienda');
     modalDesc.textContent = prod.description;
 
     availability.innerHTML = prod.available
-      ? '<span class="inline-flex items-center gap-2 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1 text-accent-emerald font-mono text-xs uppercase tracking-[0.12em]">✓ En stock</span>'
-      : '<span class="inline-flex items-center gap-2 rounded-full border border-accent-red/30 bg-accent-red/10 px-3 py-1 text-accent-red font-mono text-xs uppercase tracking-[0.12em]">✗ Agotado</span>';
+      ? `<span class="inline-flex items-center gap-1.5 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1 text-accent-emerald font-mono text-xs uppercase tracking-[0.12em]">${iconSvg('material-symbols:check-circle-rounded', 16)} En stock</span>`
+      : `<span class="inline-flex items-center gap-1.5 rounded-full border border-accent-red/30 bg-accent-red/10 px-3 py-1 text-accent-red font-mono text-xs uppercase tracking-[0.12em]">${iconSvg('material-symbols:cancel-rounded', 16)} Agotado</span>`;
 
     if (prod.resources && prod.resources.length > 0) {
       resourcesContainer.innerHTML = `
@@ -257,8 +268,8 @@ const tiendaItems = await getCollection('tienda');
                     style="border-color: ${color}; background: ${hexToRgba(color, 0.08)};"
                   >
                     <div class="flex items-center gap-3">
-                      <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-black/25 text-lg" style="color: ${color};">
-                        ${resource.icon}
+                      <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-black/25" style="color: ${color};">
+                        ${iconSvg(resource.icon, 20)}
                       </span>
                       <div>
                         <p class="text-sm font-semibold text-text-primary">${resource.title}</p>
@@ -318,11 +329,11 @@ const tiendaItems = await getCollection('tienda');
     document.body.style.overflow = '';
   }
 
-  document.querySelectorAll<HTMLButtonElement>('.product-card-btn').forEach((btn) => {
+  document.querySelectorAll('.product-card-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const raw = btn.getAttribute('data-product');
       if (raw) {
-        openProductModal(JSON.parse(raw) as Product);
+        openProductModal(JSON.parse(raw));
       }
     });
   });

@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import paymentMethods from '../content/donaciones.json';
 
@@ -6,25 +7,25 @@ const destinies = [
   {
     title: 'Equipamiento de Laboratorio',
     desc: 'Adquisición de microcontroladores, sensores IoT, kits de fibra óptica, SDRs y componentes electrónicos para el desarrollo de proyectos técnicos.',
-    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M7 20V9m10 11V5M4 20h16M9 9l3-4 3 4M12 13v7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    icon: 'material-symbols:science',
     tone: 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300'
   },
   {
     title: 'Talleres y Conferencias',
     desc: 'Financiamiento de plataformas, materiales pedagógicos y viáticos para ponentes en nuestros workshops y webinars técnicos gratuitos.',
-    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    icon: 'material-symbols:school-rounded',
     tone: 'border-violet-400/30 bg-violet-400/10 text-violet-300'
   },
   {
     title: 'Participación en Eventos',
     desc: 'Apoyo económico para el traslado e inscripción de nuestros miembros destacados en competencias nacionales e internacionales de IEEE.',
-    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M12 3v13m0 0 4-4m-4 4-4-4M4 18.5h16" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    icon: 'material-symbols:groups-rounded',
     tone: 'border-blue-400/30 bg-blue-400/10 text-blue-300'
   },
   {
     title: 'Operación del Capítulo',
     desc: 'Sostenimiento de infraestructura digital, licencias de software, hosting y materiales de difusión para el correcto funcionamiento administrativo.',
-    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M14 3.5v5.1m-4 0V3.5M6 8.5h12M7 10.5v8.7m10-8.7v8.7M4.5 19h15" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    icon: 'material-symbols:settings-rounded',
     tone: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
   }
 ];
@@ -61,7 +62,7 @@ const destinies = [
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {destinies.map((dest) => (
             <div class="rounded-2xl border border-white/10 bg-white/3 p-5 transition duration-300 hover:border-accent-cyan/30 hover:bg-white/5">
-              <div class={`mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl border ${dest.tone}`} set:html={dest.icon} />
+              <div class={`mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl border ${dest.tone}`}><Icon name={dest.icon} class="w-6 h-6" aria-hidden="true" /></div>
               <h3 class="mb-2 text-base font-semibold text-text-primary">{dest.title}</h3>
               <p class="text-sm leading-relaxed text-text-secondary">{dest.desc}</p>
             </div>
@@ -72,9 +73,7 @@ const destinies = [
       <div class="relative flex flex-col justify-between overflow-hidden rounded-[28px] border border-accent-purple/25 bg-[linear-gradient(135deg,rgba(168,85,247,0.12),rgba(77,39,104,0.28),rgba(15,23,42,0.72))] p-6 text-text-primary shadow-[0_20px_80px_-30px_rgba(168,85,247,0.4)] sm:p-8 lg:col-span-5">
         <div class="relative z-10 space-y-6">
           <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-accent-purple/30 bg-accent-purple/10 text-2xl text-accent-purple">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-7 w-7 stroke-current">
-              <path d="M9 18h6M10 12.5l2.2-2.2L15 13.3M7 5.5h10M6.5 8.5h11a2 2 0 0 1 2 2v6.5a1.5 1.5 0 0 1-1.5 1.5H6a1.5 1.5 0 0 1-1.5-1.5V10.5a2 2 0 0 1 2-2Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <Icon name="material-symbols:volunteer-activism-rounded" class="h-7 w-7 stroke-current" aria-hidden="true" />
           </div>
           <h3 class="text-2xl font-bold">¿Quieres apoyar un proyecto en específico?</h3>
           <p class="text-sm leading-relaxed text-violet-100/90">

@@ -88,11 +88,38 @@ const { targetDate, eventName = "Próximo Evento" } = Astro.props;
 
       container.dataset.initialized = 'true';
       update();
-      const intervalId = window.setInterval(update, 1000);
+      const intervalId = window.setInterval(() => {
+        if (document.hidden) return;
+        update();
+        if (new Date(targetStr).getTime() - Date.now() <= 0) {
+          window.clearInterval(intervalId);
+          container.dataset.initialized = 'false';
+        }
+      }, 1000);
       container.dataset.intervalId = String(intervalId);
+    });
+  }
+
+  function clearCountdowns() {
+    document.querySelectorAll<HTMLElement>('.countdown-container').forEach((c) => {
+      const id = c.dataset.intervalId;
+      if (id) window.clearInterval(Number(id));
+      c.dataset.initialized = 'false';
     });
   }
 
   initCountdowns();
   document.addEventListener('astro:page-load', initCountdowns);
+  document.addEventListener('astro:before-swap', clearCountdowns);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      document.querySelectorAll<HTMLElement>('.countdown-container').forEach((c) => {
+        const id = c.dataset.intervalId;
+        if (id) window.clearInterval(Number(id));
+      });
+    } else {
+      document.querySelectorAll<HTMLElement>('.countdown-container').forEach((c) => { c.dataset.initialized = 'false'; });
+      initCountdowns();
+    }
+  });
 </script>

@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../utils/imageResolver';
 interface Props {
   id: string;
@@ -48,6 +49,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
       alt={titulo}
       width={800}
       height={450}
+      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
       class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       loading="lazy"
       decoding="async"
@@ -68,7 +70,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 
     <!-- Date pill -->
     <div class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/75 px-2.5 py-1 text-[10px] font-medium text-text-primary backdrop-blur-md">
-      <span aria-hidden="true">📅</span>
+      <Icon name="material-symbols:calendar-today-rounded" class="w-3.5 h-3.5 text-accent-cyan" aria-hidden="true" />
       <span class="font-mono tracking-[0.08em] uppercase">{formattedDate}</span>
     </div>
   </div>
@@ -95,10 +97,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 
     {lugarNombre && (
       <div class="mb-5 flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-2.5 py-2 text-xs text-text-secondary">
-        <svg class="h-3.5 w-3.5 shrink-0 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
+        <Icon name="material-symbols:location-on-rounded" class="w-3.5 h-3.5 shrink-0 text-accent-cyan" aria-hidden="true" />
         <span class="truncate">{lugarNombre}</span>
       </div>
     )}
@@ -109,9 +108,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
         class="group/link inline-flex w-full items-center justify-center gap-2 rounded-xl border border-accent-cyan/30 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-accent-cyan transition-all duration-300 hover:border-accent-cyan hover:bg-accent-cyan/10"
       >
         <span>Ver detalles</span>
-        <svg class="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
+        <Icon name="material-symbols:arrow-forward-rounded" class="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1" aria-hidden="true" />
       </a>
     </div>
   </div>

@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 interface Props {
   id: string;
   titulo: string;
@@ -55,9 +56,7 @@ const isClosed = estado === 'Cerrada';
         <ul class="space-y-2 text-sm text-text-secondary">
           {requisitos.slice(0, 2).map((req) => (
             <li class="flex items-start gap-2.5">
-              <svg class="w-4 h-4 flex-shrink-0 text-accent-cyan mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-              </svg>
+              <Icon name="material-symbols:check-rounded" class="w-4 h-4 flex-shrink-0 text-accent-cyan mt-0.5" aria-hidden="true" />
               <span class="line-clamp-2 break-words">{req}</span>
             </li>
           ))}
@@ -71,9 +70,7 @@ const isClosed = estado === 'Cerrada';
     <div class="text-sm text-text-secondary font-mono w-full sm:w-auto">
       <span class="text-text-secondary block text-[10px] uppercase">Fecha límite</span>
       <time class="inline-flex items-center gap-1.5 mt-1.5">
-        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <Icon name="material-symbols:calendar-clock-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
         <span>{fechaLimite}</span>
       </time>
     </div>
@@ -94,9 +91,7 @@ const isClosed = estado === 'Cerrada';
           class="flex-1 sm:flex-none text-center px-4 py-2.5 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40 hover:from-accent-blue hover:to-accent-cyan hover:brightness-110 active:scale-95 transition-all duration-200 flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
           <span>Postular</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-          </svg>
+          <Icon name="material-symbols:open-in-new-rounded" class="w-4 h-4" aria-hidden="true" />
         </a>
       ) : (
         <a

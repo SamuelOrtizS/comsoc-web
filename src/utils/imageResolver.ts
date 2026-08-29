@@ -22,12 +22,20 @@ const aliasMap: Record<string, string> = {
   '/images/moreno CJPG.JPG': '/images/moreno-cjpg.jpg',
   '/images/Moreno CJPG.JPG': '/images/moreno-cjpg.jpg',
   '/images/perfil_fabio_guerrero.png': '/images/perfil-fabio-guerrero.png',
+  '/images/yela_provisional.jpg': '/images/yela-provisional.jpg',
+  '/images/yela-provisional.jpg': '/images/yela-provisional.jpg',
 };
 
 // Populate aliases
 for (const [oldPath, newPath] of Object.entries(aliasMap)) {
   const meta = imageMap.get(newPath);
   if (meta) imageMap.set(oldPath, meta);
+}
+
+// Precompute lowercase map for O(1) case-insensitive fallback
+const lowerMap = new Map<string, ImageMetadata>();
+for (const [key, val] of imageMap.entries()) {
+  lowerMap.set(key.toLowerCase(), val);
 }
 
 export function resolveImage(src: string | undefined | null): ImageMetadata | string | undefined {
@@ -38,12 +46,10 @@ export function resolveImage(src: string | undefined | null): ImageMetadata | st
   if (src.startsWith('/images/')) {
     const mapped = imageMap.get(src);
     if (mapped) return mapped;
-    // Fallback: try case-insensitive search
-    const lower = src.toLowerCase();
-    for (const [key, val] of imageMap.entries()) {
-      if (key.toLowerCase() === lower) return val;
-    }
+    const lowerHit = lowerMap.get(src.toLowerCase());
+    if (lowerHit) return lowerHit;
     // No match -> return original string (will 404 but avoids build crash)
+    if (import.meta.env.DEV) console.warn(`[imageResolver] no match for "${src}"`);
     return src;
   }
   return src;

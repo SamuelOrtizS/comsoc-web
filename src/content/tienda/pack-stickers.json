@@ -9,13 +9,13 @@
     {
       "title": "Resistente al Agua",
       "link": "/políticas/resistencias",
-      "icon": "💦",
+      "icon": "material-symbols:water-drop-rounded",
       "color": "#0f766e"
     },
     {
       "title": "Colección Limitada",
       "link": "/colecciones/stickers",
-      "icon": "✨",
+      "icon": "material-symbols:auto-awesome-rounded",
       "color": "#ec4899"
     }
   ],

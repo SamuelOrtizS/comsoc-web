@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CountdownTimer from '../../components/CountdownTimer.astro';
@@ -65,8 +66,10 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
           alt={data.titulo}
           width={1200}
           height={675}
+          sizes="100vw"
           decoding="async"
           loading="eager"
+          fetchpriority="high"
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-bg-primary/35 to-black/35"></div>
@@ -106,7 +109,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
           <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
             <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Fecha</div>
             <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed capitalize">
-              <span aria-hidden="true">📅</span>
+              <Icon name="material-symbols:calendar-today-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
               <span>{formattedDate}</span>
             </div>
           </div>
@@ -114,7 +117,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
           <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
             <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Horario</div>
             <div class="mt-2 flex items-center gap-2 text-sm font-semibold text-text-primary leading-relaxed">
-              <span aria-hidden="true">🕒</span>
+              <Icon name="material-symbols:schedule-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
               <span>{data.horaInicio} - {data.horaFin}</span>
             </div>
           </div>
@@ -122,7 +125,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
           <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
             <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Lugar</div>
             <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed" title={data.lugarNombre}>
-              <span aria-hidden="true">📍</span>
+              <Icon name="material-symbols:location-on-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
               <span class="block min-w-0 break-words">{data.lugarNombre}</span>
             </div>
           </div>
@@ -171,6 +174,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
                     alt={`Foto ${idx + 1}`}
                     width={800}
                     height={450}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     loading="lazy"
                     decoding="async"
                     class="h-full w-full object-cover transition duration-500 group-hover:scale-105"

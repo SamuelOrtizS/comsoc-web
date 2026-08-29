@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import logoComsoc from '../assets/images/logo-comsoc.svg';
 import MobileMenu from './MobileMenu.astro';
@@ -14,13 +15,7 @@ const navLinks = [
     ]
   },
   { name: 'Eventos', href: '/eventos' },
-  { 
-    name: 'Proyectos', 
-    href: '/proyectos',
-    subLinks: [
-      { name: 'Todos los Proyectos', href: '/proyectos' },
-    ]
-  },
+  { name: 'Proyectos', href: '/proyectos', },
   { name: 'Convocatorias', href: '/convocatorias' },
   { name: 'Tienda', href: '/tienda' },
   { name: 'Donaciones', href: '/donaciones' },
@@ -41,6 +36,9 @@ const currentPath = Astro.url.pathname;
             alt="IEEE ComSoc Logo"
             decoding="async"
             loading="eager"
+            fetchpriority="high"
+            width={120}
+            height={64}
             class="h-16 sm:h-16 w-auto transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
           />
         </div>
@@ -100,9 +98,7 @@ const currentPath = Astro.url.pathname;
         >
           <span class="relative z-10">Unirse</span>
           <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <svg class="w-4 h-4 transition-all duration-500 group-hover:translate-x-1.5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
+          <Icon name="material-symbols:group-add-rounded" class="w-4 h-4 transition-all duration-500 group-hover:translate-x-1.5 relative z-10" aria-hidden="true" />
         </a>
 
         <!-- Hamburger Icon -->
@@ -112,9 +108,7 @@ const currentPath = Astro.url.pathname;
           class="md:hidden p-2.5 rounded-xl bg-glass-bg border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all duration-300"
           aria-label="Abrir menú"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
+          <Icon name="material-symbols:menu-rounded" class="w-6 h-6" aria-hidden="true" />
         </button>
       </div>
 

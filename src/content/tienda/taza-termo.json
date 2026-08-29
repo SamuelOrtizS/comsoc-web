@@ -9,13 +9,13 @@
     {
       "title": "Garantía de 1 Año",
       "link": "/políticas/garantia",
-      "icon": "🛡️",
+      "icon": "material-symbols:shield-rounded",
       "color": "#3b82f6"
     },
     {
       "title": "Envío Express",
       "link": "/politicas/envio-express",
-      "icon": "🚀",
+      "icon": "material-symbols:local-shipping-rounded",
       "color": "#10b981"
     }
   ],

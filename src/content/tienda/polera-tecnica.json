@@ -9,13 +9,13 @@
     {
       "title": "Material Dry-Fit",
       "link": "/materiales/dryfit",
-      "icon": "💧",
+      "icon": "material-symbols:water-drop-rounded",
       "color": "#06b6d4"
     },
     {
       "title": "Diseño Oficial 2026",
       "link": "/colecciones/2026",
-      "icon": "🌐",
+      "icon": "material-symbols:palette",
       "color": "#f59e0b"
     }
   ],

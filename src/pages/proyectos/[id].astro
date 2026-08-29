@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -23,10 +24,10 @@ const data = proyecto.data;
 const currentRate = await getUsdToCopRate();
 
 const estadoBadge = {
-  Activo:     { text: '🟢 Activo',     cls: 'text-accent-emerald border-accent-emerald/40 bg-accent-emerald/10' },
-  Completado: { text: '✅ Completado', cls: 'text-accent-blue border-accent-blue/40 bg-accent-blue/10' },
-  'En Pausa': { text: '⏸ En Pausa',   cls: 'text-accent-yellow border-accent-yellow/40 bg-accent-yellow/10' },
-}[data.estado] ?? { text: data.estado, cls: 'text-text-secondary border-glass-border bg-glass-bg' };
+  Activo:     { text: 'Activo',     icon: 'material-symbols:check-circle-rounded', cls: 'text-accent-emerald border-accent-emerald/40 bg-accent-emerald/10' },
+  Completado: { text: 'Completado', icon: 'material-symbols:verified-rounded', cls: 'text-accent-blue border-accent-blue/40 bg-accent-blue/10' },
+  'En Pausa': { text: 'En Pausa',   icon: 'material-symbols:pause-circle-rounded', cls: 'text-accent-yellow border-accent-yellow/40 bg-accent-yellow/10' },
+}[data.estado] ?? { text: data.estado, icon: 'material-symbols:circle', cls: 'text-text-secondary border-glass-border bg-glass-bg' };
 
 // --- OPTIONAL FIELDS & SAFE CALCULATIONS ---
 const hasResources = Array.isArray(data.recursos) && data.recursos.length > 0;
@@ -63,8 +64,10 @@ const resolvedImagen = resolveImage(data.imagen);
           alt={data.titulo}
           width={1200}
           height={600}
+          sizes="100vw"
           decoding="async"
           loading="eager"
+          fetchpriority="high"
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-black/40"></div>
@@ -74,7 +77,8 @@ const resolvedImagen = resolveImage(data.imagen);
           <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-accent-purple border border-accent-purple/40 font-mono">
             {data.categoria}
           </span>
-          <span class={`px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md border font-mono ${estadoBadge.cls}`}>
+          <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md border font-mono ${estadoBadge.cls}`}>
+            <Icon name={estadoBadge.icon} class="w-3.5 h-3.5" aria-hidden="true" />
             {estadoBadge.text}
           </span>
         </div>
@@ -93,20 +97,21 @@ const resolvedImagen = resolveImage(data.imagen);
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-glass-border">
           <div class="bg-white/5 p-4 rounded-xl border border-glass-border">
             <div class="text-[11px] uppercase tracking-[0.14em] text-text-secondary font-mono">Categoría</div>
-            <div class="text-sm font-semibold text-text-primary mt-2">🔬 {data.categoria}</div>
+            <div class="text-sm font-semibold text-text-primary mt-2 flex items-center gap-1.5"><Icon name="material-symbols:science" class="w-4 h-4 text-accent-purple" aria-hidden="true" /> {data.categoria}</div>
           </div>
 
           <div class="bg-white/5 p-4 rounded-xl border border-glass-border">
             <div class="text-[11px] uppercase tracking-[0.14em] text-text-secondary font-mono">Estado</div>
-            <div class={`text-sm font-semibold mt-2 ${estadoBadge.cls.split(' ')[0]}`}>
+            <div class={`text-sm font-semibold mt-2 flex items-center gap-1.5 ${estadoBadge.cls.split(' ')[0]}`}>
+              <Icon name={estadoBadge.icon} class="w-4 h-4" aria-hidden="true" />
               {estadoBadge.text}
             </div>
           </div>
 
           <div class="bg-white/5 p-4 rounded-xl border border-glass-border">
             <div class="text-[11px] uppercase tracking-[0.14em] text-text-secondary font-mono">Destacado</div>
-            <div class="text-sm font-semibold text-text-primary mt-2">
-              {data.destacado ? '⭐ Proyecto Destacado' : '—'}
+            <div class="text-sm font-semibold text-text-primary mt-2 flex items-center gap-1.5">
+              {data.destacado ? <><Icon name="material-symbols:star-rounded" class="w-4 h-4 text-accent-yellow" aria-hidden="true" /> Proyecto Destacado</> : '—'}
             </div>
           </div>
         </div>
@@ -128,7 +133,7 @@ const resolvedImagen = resolveImage(data.imagen);
         {data.montoActual !== undefined && data.montoMeta !== undefined && (
           <div class="glass-card rounded-2xl p-8 border border-accent-emerald/30 bg-linear-to-br from-bg-primary to-bg-emerald-dark">
             <h2 class="text-xl font-bold text-text-primary mb-2 font-mono flex items-center gap-2">
-              <span>💰</span> Estado de Financiamiento
+              <Icon name="material-symbols:payments-rounded" class="w-6 h-6 text-accent-emerald" aria-hidden="true" /> Estado de Financiamiento
             </h2>
             <p class="text-xs text-text-secondary font-light mb-6">
               Este proyecto requiere fondos externos para la adquisición de componentes y licencias. Puedes apoyar directamente su desarrollo.
@@ -185,7 +190,7 @@ const resolvedImagen = resolveImage(data.imagen);
         {technicalSummary && (
           <div class="glass-card rounded-2xl p-8 border border-accent-emerald/30 bg-linear-to-br from-bg-primary to-bg-emerald-dark">
             <h2 class="text-xl font-bold text-text-primary mb-4 font-mono flex items-center gap-2">
-              <span class="text-accent-emerald">💡</span> Resumen Técnico e Insights
+              <Icon name="material-symbols:lightbulb-rounded" class="w-6 h-6 text-accent-emerald" aria-hidden="true" /> Resumen Técnico e Insights
             </h2>
             <p class="text-base text-text-secondary leading-relaxed">
               {technicalSummary}
@@ -198,7 +203,7 @@ const resolvedImagen = resolveImage(data.imagen);
       <div class="lg:col-span-4 space-y-6">
         <!-- CTA -->
         <div class="glass-card rounded-2xl p-6 border border-accent-purple/30 text-center space-y-4">
-          <div class="text-3xl">🚀</div>
+          <div class="flex justify-center text-accent-purple"><Icon name="material-symbols:rocket-launch-rounded" class="w-10 h-10" aria-hidden="true" /></div>
           <h3 class="text-base font-bold text-text-primary">¿Te interesa este proyecto?</h3>
           <p class="text-xs text-text-secondary font-light">
             Únete al equipo o contáctanos para saber cómo participar en esta iniciativa.
@@ -214,7 +219,7 @@ const resolvedImagen = resolveImage(data.imagen);
         <!-- Resource Links -->
         {hasResources && (
           <div class="glass-card rounded-2xl p-6 border border-white/10 text-left space-y-4">
-            <h3 class="text-base font-bold text-text-primary mb-1">📚 Recursos Adicionales</h3>
+            <h3 class="text-base font-bold text-text-primary mb-1 flex items-center gap-2"><Icon name="material-symbols:library-books-rounded" class="w-5 h-5 text-accent-purple" aria-hidden="true" /> Recursos Adicionales</h3>
             <div class="space-y-3">
               {data.recursos.map((resource) => (
                 <a
@@ -224,7 +229,7 @@ const resolvedImagen = resolveImage(data.imagen);
                   class="group flex items-center justify-between gap-3 p-3 rounded-xl text-sm transition border border-transparent hover:border-accent-purple/30 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-purple focus-visible:ring-offset-2 focus-visible:ring-offset-bg-secondary"
                 >
                   <div class="flex items-center gap-3 min-w-0">
-                    <span class="text-lg shrink-0">{resource.icon || '🔗'}</span>
+                    <Icon name={resource.icon?.startsWith('material-symbols:') ? resource.icon : 'material-symbols:link-rounded'} class="w-5 h-5 text-accent-purple shrink-0" aria-hidden="true" />
                     <span class="font-medium text-text-primary group-hover:underline truncate">{resource.title}</span>
                   </div>
                   <span class="text-xs text-accent-purple/80 whitespace-nowrap">Ir →</span>
@@ -276,7 +281,7 @@ const resolvedImagen = resolveImage(data.imagen);
     <div class="mt-16 border-t border-white/10 pt-12">
       <div class="glass-card rounded-3xl p-8 sm:p-12 border border-accent-purple/30 text-center relative overflow-hidden bg-linear-to-b from-bg-primary to-bg-deep-purple">
         <div class="relative z-10 space-y-4">
-          <div class="text-3xl">🤝</div>
+          <div class="flex justify-center text-accent-purple"><Icon name="material-symbols:volunteer-activism-rounded" class="w-10 h-10" aria-hidden="true" /></div>
           <h2 class="text-xl sm:text-2xl font-bold text-text-primary">Apoya los proyectos de IEEE ComSoc</h2>
           <p class="text-text-secondary max-w-2xl mx-auto text-xs sm:text-sm font-light leading-relaxed">
             Como organización sin fines de lucro, tu generosidad impulsa la educación técnica y el desarrollo tecnológico local. Todo el capital se reinvierte íntegramente en las operaciones académicas y de investigación del capítulo.

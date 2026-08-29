@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../utils/imageResolver';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
@@ -47,32 +48,32 @@ const benefits = [
   {
     title: 'Acceso a IEEE Xplore',
     desc: 'Publicaciones científicas, papers técnicos de telecomunicaciones y estándares globales al alcance de los miembros.',
-    icon: '📚',
+    icon: 'material-symbols:menu-book-rounded',
   },
   {
     title: 'Networking Internacional',
     desc: 'Conexión con ingenieros, investigadores y capítulos ComSoc de más de 160 países alrededor del mundo.',
-    icon: '🌐',
+    icon: 'material-symbols:public',
   },
   {
     title: 'Descuentos & Becas',
     desc: 'Precios especiales en conferencias internacionales de IEEE (Globecom, ICC, WCNC) y becas para estudiantes.',
-    icon: '🎓',
+    icon: 'material-symbols:school-rounded',
   },
   {
     title: 'Workshops & Certificaciones',
     desc: 'Talleres prácticos con laboratorios en tiempo real sobre redes 5G, LoRaWAN, microcontroladores y fibra óptica.',
-    icon: '⚡',
+    icon: 'material-symbols:construction-rounded',
   },
   {
     title: 'Liderazgo & Gestión',
     desc: 'Experiencia real dirigiendo comités técnicos, organizando congresos y gestionando presupuestos y patrocinadores.',
-    icon: '🏆',
+    icon: 'material-symbols:trophy-rounded',
   },
   {
     title: 'Mentoria con la Industria',
     desc: 'Vínculo directo con empresas líderes del sector telecomunicaciones (operadores, vendors y cloud providers).',
-    icon: '🤝',
+    icon: 'material-symbols:handshake-rounded',
   },
 ];
 ---
@@ -115,7 +116,9 @@ const benefits = [
               alt={`Imagen de galería ${idx + 1}`} 
               width={1200}
               height={675}
+              sizes="100vw"
               loading={idx === 0 ? 'eager' : 'lazy'}
+              fetchpriority={idx === 0 ? 'high' : 'low'}
               decoding="async"
               class="w-full h-full object-cover" 
             />
@@ -130,14 +133,14 @@ const benefits = [
         class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-text-primary flex items-center justify-center hover:bg-white/10 hover:border-accent-cyan/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
         aria-label="Anterior"
       >
-        ←
+        <Icon name="material-symbols:arrow-back-rounded" class="w-5 h-5" aria-hidden="true" />
       </button>
       <button 
         id="gallery-next" 
         class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-black/60 border border-white/10 text-text-primary flex items-center justify-center hover:bg-white/10 hover:border-accent-cyan/40 transition opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
         aria-label="Siguiente"
       >
-        →
+        <Icon name="material-symbols:arrow-forward-rounded" class="w-5 h-5" aria-hidden="true" />
       </button>
 
       <!-- Dots Indicators -->
@@ -168,8 +171,8 @@ const benefits = [
       <div class="group relative overflow-hidden rounded-[28px] border border-accent-blue/30 bg-[linear-gradient(180deg,rgba(15,23,42,0.96),rgba(5,8,22,0.96))] p-8 shadow-[0_20px_65px_-40px_rgba(21,93,252,0.65)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-blue/60">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(21,93,252,0.22),transparent_35%)]" aria-hidden="true"></div>
         <div class="relative">
-          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-blue/30 bg-accent-blue/15 text-2xl text-accent-blue shadow-[0_0_24px_rgba(21,93,252,0.18)]">
-            🎯
+          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-blue/30 bg-accent-blue/15 text-accent-blue shadow-[0_0_24px_rgba(21,93,252,0.18)]">
+            <Icon name="material-symbols:target" class="w-7 h-7" aria-hidden="true" />
           </div>
           <h3 class="mb-4 text-2xl font-bold tracking-[-0.04em] text-text-primary">Nuestra Misión</h3>
           <p class="text-base leading-relaxed text-text-secondary font-light">
@@ -181,8 +184,8 @@ const benefits = [
       <div class="group relative overflow-hidden rounded-[28px] border border-accent-cyan/30 bg-[linear-gradient(180deg,rgba(11,18,33,0.96),rgba(5,8,22,0.96))] p-8 shadow-[0_20px_65px_-40px_rgba(34,211,238,0.6)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/60">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.2),transparent_35%)]" aria-hidden="true"></div>
         <div class="relative">
-          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-cyan/30 bg-accent-cyan/15 text-2xl text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
-            🚀
+          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-cyan/30 bg-accent-cyan/15 text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
+            <Icon name="material-symbols:rocket-launch-rounded" class="w-7 h-7" aria-hidden="true" />
           </div>
           <h3 class="mb-4 text-2xl font-bold tracking-[-0.04em] text-text-primary">Nuestra Visión</h3>
           <p class="text-base leading-relaxed text-text-secondary font-light">
@@ -210,8 +213,8 @@ const benefits = [
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {benefits.map((b) => (
         <article class="group relative overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.9),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)]">
-          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-3xl shadow-[0_18px_30px_-20px_rgba(34,211,238,0.72)]">
-            {b.icon}
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_18px_30px_-20px_rgba(34,211,238,0.72)]">
+            <Icon name={b.icon} class="w-7 h-7" aria-hidden="true" />
           </div>
           <h3 class="mb-2 text-lg font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">{b.title}</h3>
           <p class="text-sm leading-relaxed text-text-secondary font-light">{b.desc}</p>
@@ -242,10 +245,10 @@ const benefits = [
           data-member={JSON.stringify(member)}
           aria-label={`Ver perfil de ${member.name}`}
         >
-          <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-accent-cyan/40 bg-[linear-gradient(135deg,rgba(21,93,252,0.3),rgba(34,211,238,0.3))] text-4xl transition-all duration-300 group-hover:scale-105 group-hover:border-accent-cyan/80">
+          <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-accent-cyan/40 bg-[linear-gradient(135deg,rgba(21,93,252,0.3),rgba(34,211,238,0.3))] text-accent-cyan transition-all duration-300 group-hover:scale-105 group-hover:border-accent-cyan/80">
             {member.image
-              ? <Image src={resolveImage(member.image) as any} alt={member.name} width={200} height={200} loading="lazy" decoding="async" class="h-full w-full rounded-full object-cover" />
-              : <span>{member.avatar || '👤'}</span>
+              ? <Image src={resolveImage(member.image) as any} alt={member.name} width={200} height={200} sizes="80px" loading="lazy" decoding="async" class="h-full w-full rounded-full object-cover" />
+              : <Icon name="material-symbols:person-rounded" class="w-10 h-10" aria-hidden="true" />
             }
           </div>
           <h3 class="mb-1 text-lg font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">
@@ -282,9 +285,7 @@ const benefits = [
         class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2 rounded-xl hover:bg-white/10 transition"
         aria-label="Cerrar"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <Icon name="material-symbols:close-rounded" class="w-5 h-5" aria-hidden="true" />
       </button>
 
       <!-- Avatar -->
@@ -357,7 +358,8 @@ const benefits = [
 
     function startAutoPlay() {
       stopAutoPlay();
-      autoPlayInterval = window.setInterval(nextSlide, 5000);
+      if (document.hidden) return;
+      autoPlayInterval = window.setInterval(() => { if (!document.hidden) nextSlide(); }, 5000);
     }
 
     function stopAutoPlay() {
@@ -365,6 +367,9 @@ const benefits = [
         clearInterval(autoPlayInterval);
       }
     }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoPlay(); else startAutoPlay();
+    });
 
     if (prevBtn && nextBtn && slides.length > 0) {
       prevBtn.addEventListener('click', () => {
@@ -420,7 +425,7 @@ const benefits = [
       const avatarWrap = document.getElementById('modal-avatar-wrap') as HTMLElement;
       avatarWrap.innerHTML = member.image
         ? `<img src="${member.image}" alt="${member.name}" class="w-full h-full object-cover rounded-full" />`
-        : `<span>${member.avatar ?? '👤'}</span>`;
+        : `<span class="text-accent-cyan flex items-center justify-center w-full h-full"><Icon name="material-symbols:star-rounded" class="w-5 h-5" aria-hidden="true" /></span>`;
 
       // Basic info
       (document.getElementById('modal-member-name') as HTMLElement).textContent = member.name;
@@ -443,14 +448,14 @@ const benefits = [
       if (member.email) {
         contactEl.insertAdjacentHTML('beforeend', `
           <a href="mailto:${member.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono">
-            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <Icon name="material-symbols:star-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
             ${member.email}
           </a>`);
       }
       if (member.phone) {
         contactEl.insertAdjacentHTML('beforeend', `
           <a href="tel:${member.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono">
-            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <Icon name="material-symbols:star-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
             ${member.phone}
           </a>`);
       }

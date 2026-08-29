@@ -16,10 +16,11 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
     id="custom-cursor-img"
     src={cursorStep1}
     alt="Cursor"
-    width={671}
-    height={1035}
+    width={32}
+    height={32}
     loading="eager"
-    decoding="sync"
+    decoding="async"
+    fetchpriority="low"
     class="w-8 h-8 block"
   />
 </div>
@@ -49,7 +50,7 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
   const cursor    = document.getElementById('custom-cursor');
   const cursorImg = document.getElementById('custom-cursor-img');
 
-  if (cursor && cursorImg && window.matchMedia('(any-pointer: fine)').matches) {
+  if (cursor && cursorImg && window.matchMedia('(any-pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let visible = false;
     let mouseX = -100;
     let mouseY = -100;

@@ -9,13 +9,13 @@
     {
       "title": "Diseño Reflectivo",
       "link": "/materiales/reflectivo",
-      "icon": "💡",
+      "icon": "material-symbols:lightbulb-rounded",
       "color": "#fde047"
     },
     {
       "title": "Algodón Premium",
       "link": "/materiales/algodon",
-      "icon": "🧵",
+      "icon": "material-symbols:checkroom-rounded",
       "color": "#9ca3af"
     }
   ],

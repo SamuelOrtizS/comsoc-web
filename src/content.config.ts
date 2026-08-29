@@ -53,7 +53,7 @@ const tienda = defineCollection({
         resources: z.array(z.object({ // New field for Resources
             title: z.string(),
             link: z.string(),
-            icon: z.string(),
+            icon: z.string(), //Material symbols
             color: z.string(), // Hexadecimal color
         })).optional(),
         specifications: z.array(z.object({ // New field for Specifications

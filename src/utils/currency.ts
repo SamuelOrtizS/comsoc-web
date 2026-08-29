@@ -21,7 +21,7 @@ export async function getUsdToCopRate(): Promise<number> {
     : 'https://open.er-api.com/v6/latest/USD';
 
   try {
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, { signal: AbortSignal.timeout(3000) });
     if (!response.ok) {
       throw new Error(`Failed to fetch exchange rate: ${response.statusText}`);
     }
