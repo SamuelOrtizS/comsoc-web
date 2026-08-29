@@ -73,6 +73,52 @@ const ogImageURL = new URL(image, Astro.site || 'http://localhost:4321').toStrin
   <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-text-primary relative overflow-x-hidden font-sans antialiased bg-dot-grid">
     <Header />
 
+    <!-- Development Banner (no bloqueante) -->
+    <div
+      id="development-banner"
+      role="status"
+      aria-live="polite"
+      aria-label="Aviso de versión de desarrollo"
+      class="sticky top-22 z-30 mx-4 sm:mx-6 lg:mx-8 mt-2 hidden border border-accent-amber/30 bg-accent-amber/10 backdrop-blur-md rounded-2xl"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-accent-amber/15 border border-accent-amber/30 text-accent-amber shrink-0">
+            <Icon name="material-symbols:construction-rounded" class="w-5 h-5" aria-hidden="true" />
+          </span>
+          <div class="min-w-0">
+            <p class="text-[11px] font-mono font-semibold tracking-[0.14em] uppercase text-accent-amber flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent-amber animate-pulse"></span>
+              Versión de desarrollo — Sincronizando infraestructura
+            </p>
+            <p class="text-xs text-text-secondary font-light leading-tight truncate sm:whitespace-normal">
+              Propuesta técnica preliminar sujeta a revisión de junta directiva. <span class="hidden sm:inline">Status: System Initializing</span>
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a
+            href="https://www.instagram.com/ieee.comsoc.univalle/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-accent-purple/30 bg-white/5 text-accent-purple hover:bg-accent-purple/10 text-xs font-medium transition"
+          >
+            <Icon name="mdi:instagram" class="w-4 h-4" aria-hidden="true" />
+            Síguenos
+          </a>
+          <button
+            type="button"
+            data-dismiss-banner
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-accent-amber text-bg-primary text-xs font-bold hover:bg-accent-amber/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-amber"
+            aria-label="Cerrar aviso"
+          >
+            <Icon name="material-symbols:close-rounded" class="w-3.5 h-3.5" aria-hidden="true" />
+            Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+
     <main class="grow pt-20 ">
       <slot />
     </main>
@@ -80,104 +126,26 @@ const ogImageURL = new URL(image, Astro.site || 'http://localhost:4321').toStrin
     <Footer />
     <CustomCursor />
 
-    <!-- Construction Modal -->
-    <div
-      id="construction-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="construction-modal-title"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-bg-primary/90 backdrop-blur-md p-4 transition-opacity duration-300"
-    >
-      <div class="relative max-w-lg w-full p-1 bg-linear-to-br from-accent-cyan/40 via-accent-purple/40 to-accent-blue/40 rounded-3xl shadow-[0_0_50px_rgba(34,211,238,0.15)]">
-        <div class="bg-bg-secondary border border-glass-border rounded-[calc(1.5rem-1px)] p-8 md:p-12 overflow-hidden relative">
-          <div class="absolute inset-0 opacity-10 pointer-events-none bg-dot-grid"></div>
-
-          <div class="relative z-10 text-center">
-            <div class="mb-8 flex justify-center">
-              <div class="relative">
-                <div class="absolute inset-0 rounded-full bg-accent-cyan/30 animate-ping"></div>
-                <div class="w-20 h-20 bg-linear-to-br from-accent-cyan to-accent-purple rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(34,211,238,0.5)] relative">
-                  <Icon name="material-symbols:sync-rounded" class="w-10 h-10 text-white" aria-hidden="true" />
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-4">
-              <h2 id="construction-modal-title" class="text-4xl font-bold tracking-tight bg-linear-to-r from-accent-cyan via-white to-accent-purple bg-clip-text text-transparent font-heading">
-                Sincronizando...
-              </h2>
-              <div class="inline-block px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 text-[10px] font-mono text-accent-cyan uppercase tracking-widest">
-                Status: System Initializing
-              </div>
-              <p class="text-text-secondary text-lg leading-relaxed max-w-sm mx-auto">
-                Estamos configurando nuestra infraestructura digital para ofrecerte una experiencia de vanguardia.
-              </p>
-            </div>
-
-            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                type="button"
-                data-dismiss-modal
-                class="w-full sm:w-auto px-8 py-3 bg-accent-cyan text-bg-primary rounded-full font-bold transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-              >
-                Entendido
-              </button>
-              <a
-                href="https://www.instagram.com/ieee.comsoc.univalle/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full sm:w-auto px-8 py-3 bg-transparent border border-accent-purple/50 text-accent-purple hover:bg-accent-purple/10 rounded-full font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-purple focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-              >
-                Síguenos
-              </a>
-            </div>
-
-            <div class="mt-8 pt-6 border-t border-glass-border">
-              <p class="text-[10px] font-mono text-accent-amber/80 uppercase tracking-widest flex items-center justify-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-accent-amber animate-pulse"></span>
-                Aviso: Versión de desarrollo no aprobada
-              </p>
-              <p class="text-[9px] text-text-secondary/50 mt-2 leading-tight">
-                Este sitio es una propuesta técnica preliminar y está sujeto a cambios y revisiones de la junta directiva.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script is:inline>
       (() => {
-        const modal = document.getElementById('construction-modal');
-        if (!modal) return;
-
-        const KEY = 'comsoc-construction-modal-dismissed';
-        const closeModal = () => {
-          modal.setAttribute('aria-hidden', 'true');
-          modal.classList.add('hidden');
-          localStorage.setItem(KEY, 'true');
-        };
-
-        const shouldShow = !localStorage.getItem(KEY);
-
+        const banner = document.getElementById('development-banner');
+        if (!banner) return;
+        const KEY = 'comsoc-development-banner-dismissed';
+        // Solo mostrar si no está en ?preview y no fue descartado
+        const isPreview = new URLSearchParams(window.location.search).has('preview');
+        const shouldShow = !localStorage.getItem(KEY) && !isPreview;
         if (!shouldShow) {
-          closeModal();
+          banner.classList.add('hidden');
           return;
         }
-
-        modal.setAttribute('aria-hidden', 'false');
-        modal.classList.remove('hidden');
-
-        const dismissButton = modal.querySelector('[data-dismiss-modal]');
-        dismissButton?.addEventListener('click', closeModal);
-
-        modal.addEventListener('click', (event) => {
-          if (event.target === modal) closeModal();
-        });
-
-        document.addEventListener('keydown', (event) => {
-          if (event.key === 'Escape') closeModal();
-        });
+        banner.classList.remove('hidden');
+        const dismissBtn = banner.querySelector('[data-dismiss-banner]');
+        const close = () => {
+          banner.classList.add('hidden');
+          localStorage.setItem(KEY, 'true');
+        };
+        dismissBtn?.addEventListener('click', close);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
       })();
     </script>
 

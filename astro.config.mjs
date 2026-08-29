@@ -26,6 +26,9 @@ export default defineConfig({
     prefetchAll: false,
     defaultStrategy: 'viewport',
   },
+  build: {
+    inlineStylesheets: 'auto',
+  },
   fonts: [
     {
       provider: fontProviders.local(),

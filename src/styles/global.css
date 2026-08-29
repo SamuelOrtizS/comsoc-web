@@ -220,15 +220,27 @@ h6 {
   box-shadow: 0 0 30px var(--color-accent-cyan);
 }
 
-/* Subtle Dot Grid Background */
+/* Subtle Dot Grid Background — tono reducido para evitar Moiré en 4K */
 .bg-dot-grid {
   position: relative;
-  background-image: radial-gradient(circle, rgba(34, 211, 238, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-dot-grid {
+    background-image: none;
+  }
 }
 
 /* Content visibility optimization for offscreen sections */
 .content-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ping,
+  .animate-pulse {
+    animation: none !important;
+  }
 }

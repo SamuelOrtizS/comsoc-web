@@ -24,7 +24,9 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-40 bg-bg-primary/70 backdrop-blur-xl border-b border-white/5 transition-all duration-500">
+
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-bg-primary/70 supports-[backdrop-filter]:backdrop-blur-xl border-b border-white/5 transition-all duration-500">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       
@@ -67,7 +69,7 @@ const currentPath = Astro.url.pathname;
                   <span class="absolute inset-0 bg-accent-blue/10 rounded-xl border border-accent-cyan/20 shadow-[inset_0_0_12px_rgba(34,211,238,0.1)]" />
                 )}
                 {!isActive && (
-                  <span class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover/link:scale-x-100 opacity-0 group-hover/link:opacity-100"></span>
+                  <span class="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover/link:scale-x-100 opacity-0 group-hover/link:opacity-100"></span>
                 )}
               </a>
 
@@ -105,7 +107,7 @@ const currentPath = Astro.url.pathname;
         <button
           id="open-mobile-menu"
           type="button"
-          class="md:hidden p-2.5 rounded-xl bg-glass-bg border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all duration-300"
+          class="md:hidden min-w-[44px] min-h-[44px] p-3 rounded-xl bg-glass-bg border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all duration-300 flex items-center justify-center"
           aria-label="Abrir menú"
         >
           <Icon name="material-symbols:menu-rounded" class="w-6 h-6" aria-hidden="true" />

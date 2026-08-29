@@ -11,16 +11,24 @@ import estadisticas from '../content/estadisticas.json';
 const allEvents = await getCollection('eventos');
 const upcomingEvents = allEvents.filter((ev) => ev.data.estado === 'Publicado');
 
-// Pick a random featured event from upcoming (or all if none upcoming)
-const eventPool = upcomingEvents.length > 0 ? upcomingEvents : allEvents;
-const featuredEvent = eventPool[Math.floor(Math.random() * eventPool.length)];
+// Deterministic featured event: nearest upcoming by fechaInicio, with ?event=slug override for shareability
+const urlEventSlug = Astro.url.searchParams.get('event');
+let featuredEvent = null as typeof allEvents[0] | null;
+if (urlEventSlug) {
+  featuredEvent = allEvents.find((ev) => ev.id.replace(/\/evento$/, '') === urlEventSlug) ?? null;
+}
+if (!featuredEvent) {
+  const sortedUpcoming = [...upcomingEvents].sort((a, b) => new Date(a.data.fechaInicio).getTime() - new Date(b.data.fechaInicio).getTime());
+  const pool = sortedUpcoming.length > 0 ? sortedUpcoming : [...allEvents].sort((a, b) => new Date(b.data.fechaInicio).getTime() - new Date(a.data.fechaInicio).getTime());
+  featuredEvent = pool[0] ?? null;
+}
 const featuredEventSlug = featuredEvent ? featuredEvent.id.replace(/\/evento$/, '') : '';
 
-// Load projects from content/proyectos — prefer destacado=true, then fill with others, shuffle, take 2
+// Load projects deterministically — destacado=true first (sorted by titulo), then others alphabetically
 const allProyectos = await getCollection('proyectos');
-const destacados = allProyectos.filter((p) => p.data.destacado);
-const noDestacados = allProyectos.filter((p) => !p.data.destacado);
-const projectPool = [...destacados.sort(() => Math.random() - 0.5), ...noDestacados.sort(() => Math.random() - 0.5)];
+const destacados = [...allProyectos.filter((p) => p.data.destacado)].sort((a, b) => a.data.titulo.localeCompare(b.data.titulo));
+const noDestacados = [...allProyectos.filter((p) => !p.data.destacado)].sort((a, b) => a.data.titulo.localeCompare(b.data.titulo));
+const projectPool = [...destacados, ...noDestacados];
 const featuredProjects = projectPool.slice(0, 2).map((p) => ({
   title: p.data.titulo,
   category: p.data.categoria,
@@ -75,6 +83,7 @@ const pillars = [
 
     <div class="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl items-center justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8">
       <div class="w-full max-w-5xl text-center">
+        <h1 class="sr-only">IEEE ComSoc Univalle — Comunidad de Ingenieros en Telecomunicaciones</h1>
         <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-accent-cyan/30 bg-white/5 px-4 py-2 shadow-[0_0_30px_rgba(34,211,238,0.12)] backdrop-blur-md">
           <span class="h-2.5 w-2.5 rounded-full bg-accent-cyan shadow-[0_0_16px_rgba(34,211,238,0.9)]"></span>
           <span class="text-[10px] font-medium uppercase tracking-[0.28em] text-accent-cyan font-mono">
@@ -92,18 +101,19 @@ const pillars = [
 
         <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
-            href="/eventos"
-            class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent-blue via-accent-cyan to-accent-cyan px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)] sm:w-auto"
+            href="/convocatorias"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent-blue via-accent-cyan to-accent-cyan px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto"
           >
-            <span>Explorar Eventos</span>
-            <Icon name="material-symbols:arrow-forward-rounded" class="h-4 w-4" aria-hidden="true" />
+            <span>Unirse al Equipo</span>
+            <Icon name="material-symbols:group-add-rounded" class="h-4 w-4" aria-hidden="true" />
           </a>
 
           <a
-            href="/convocatorias"
-            class="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-7 py-3.5 font-semibold text-text-secondary transition duration-200 hover:-translate-y-0.5 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary sm:w-auto"
+            href="/eventos"
+            class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl px-7 py-3.5 font-medium text-accent-cyan hover:text-white transition duration-200 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto"
           >
-            Unirse al Equipo
+            <span>Explorar Eventos</span>
+            <Icon name="material-symbols:arrow-forward-rounded" class="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
 
@@ -310,9 +320,11 @@ const pillars = [
         {aliados.map((aliado) => (
           <button
             type="button"
-            class="aliado-card glass-card rounded-2xl p-6 border border-white/10 text-left group cursor-pointer hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10 transition-all duration-300 w-full flex flex-col gap-4"
+            class="aliado-card glass-card rounded-2xl p-6 border border-white/10 text-left group cursor-pointer hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10 transition-all duration-300 w-full flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan"
             data-aliado={JSON.stringify(aliado.data)}
             aria-label={`Conocer más sobre ${aliado.data.nombre}`}
+            aria-haspopup="dialog"
+            aria-expanded="false"
           >
             <div class="flex items-center gap-4">
               {aliado.data.logo
@@ -392,7 +404,7 @@ const pillars = [
       const logoWrap = document.getElementById('aliado-modal-logo') as HTMLElement;
       logoWrap.innerHTML = a.logo
         ? `<img src="${a.logo}" alt="${a.nombre}" class="w-full h-full object-contain brightness-0 invert" />`
-        : `<span class="text-accent-cyan flex items-center justify-center w-full h-full"><Icon name="material-symbols:star-rounded" class="w-5 h-5" aria-hidden="true" /></span>`;
+        : `<span class="text-accent-cyan flex items-center justify-center w-full h-full"><Icon name="material-symbols:handshake-rounded" class="w-6 h-6" aria-hidden="true" /></span>`;
 
       (document.getElementById('aliado-modal-tipo') as HTMLElement).textContent = a.tipo;
       (document.getElementById('modal-aliado-name') as HTMLElement).textContent = a.nombre;
@@ -409,10 +421,10 @@ const pillars = [
       const contactEl = document.getElementById('aliado-modal-contact') as HTMLElement;
       contactEl.innerHTML = '';
       if (a.email) {
-        contactEl.insertAdjacentHTML('beforeend', `<a href="mailto:${a.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><Icon name="material-symbols:star-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />${a.email}</a>`);
+        contactEl.insertAdjacentHTML('beforeend', `<a href="mailto:${a.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><Icon name="material-symbols:mail-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />${a.email}</a>`);
       }
       if (a.phone) {
-        contactEl.insertAdjacentHTML('beforeend', `<a href="tel:${a.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><Icon name="material-symbols:star-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />${a.phone}</a>`);
+        contactEl.insertAdjacentHTML('beforeend', `<a href="tel:${a.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><Icon name="material-symbols:call-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />${a.phone}</a>`);
       }
 
       const linksEl = document.getElementById('aliado-modal-links') as HTMLElement;
@@ -442,15 +454,25 @@ const pillars = [
       document.body.style.overflow = '';
     }
 
+    let lastAliadoTrigger: HTMLButtonElement | null = null;
     document.querySelectorAll<HTMLButtonElement>('.aliado-card').forEach((card) => {
       card.addEventListener('click', () => {
+        lastAliadoTrigger = card;
+        card.setAttribute('aria-expanded', 'true');
         const raw = card.getAttribute('data-aliado');
         if (raw) openAliadoModal(JSON.parse(raw) as AliadoData);
       });
     });
-    aliadoClose.addEventListener('click', closeAliadoModal);
-    aliadoOverlay.addEventListener('click', (e) => { if (e.target === aliadoOverlay) closeAliadoModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAliadoModal(); });
+    const resetAliadoAria = () => {
+      document.querySelectorAll('.aliado-card[aria-expanded="true"]').forEach(el => el.setAttribute('aria-expanded', 'false'));
+      if (lastAliadoTrigger) { lastAliadoTrigger.focus(); lastAliadoTrigger = null; }
+    };
+    const originalClose = closeAliadoModal;
+    // Wrap close to reset aria
+    const closeWithAria = () => { resetAliadoAria(); originalClose(); };
+    aliadoClose.addEventListener('click', closeWithAria);
+    aliadoOverlay.addEventListener('click', (e) => { if (e.target === aliadoOverlay) closeWithAria(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWithAria(); });
   </script>
 
   <!-- Join CTA Banner -->
@@ -459,7 +481,7 @@ const pillars = [
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.07),transparent_45%)]"></div>
       <div class="relative z-10 mx-auto max-w-2xl space-y-6">
         <div class="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
-          Unete a la comunidad
+          Únete a la comunidad
         </div>
         <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl">
           ¿Listo para liderar el futuro de las telecomunicaciones?
