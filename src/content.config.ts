@@ -122,6 +122,21 @@ const aliados = defineCollection({
     }),
 });
 
+const recursos = defineCollection({
+    loader: glob({ pattern: ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/recursos' }),
+    schema: z.object({
+        titulo: z.string(),
+        descripcion: z.string(),
+        categoria: z.string(),
+        imagen: z.string().optional(),
+        links: z.array(z.object({
+            label: z.string(),
+            url: z.string(),
+            tipo: z.string().optional(), // e.g., 'Download', 'Canva', 'External'
+        })),
+    }),
+});
+
 export const collections = {
     convocatorias,
     eventos,
@@ -129,4 +144,5 @@ export const collections = {
     juntaDirectiva,
     proyectos,
     aliados,
+    recursos,
 };

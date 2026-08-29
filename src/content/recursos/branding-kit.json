@@ -1,0 +1,25 @@
+
+  {
+    "titulo": "Kit de Marca IEEE ComSoc Univalle",
+    "descripcion": "Descarga los recursos oficiales de identidad visual para asegurar la consistencia de la marca en todos nuestros materiales.",
+    "categoria": "Branding",
+    "imagen": "/images/branding-kit.jpg",
+    "links": [
+      {
+        "label": "Logotipos Oficiales (ZIP)",
+        "url": "https://example.com/logo.zip",
+        "tipo": "Download"
+      },
+      {
+        "label": "Guía de Estilo",
+        "url": "https://example.com/style-guide.pdf",
+        "tipo": "Download"
+      },
+      {
+        "label": "Plantilla de Presentación",
+        "url": "https://canva.com/design/...",
+        "tipo": "Canva"
+      }
+    ]
+  }
+

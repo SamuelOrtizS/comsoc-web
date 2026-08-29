@@ -1,0 +1,80 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  recurso: CollectionEntry<'recursos'>;
+}
+
+const { recurso } = Astro.props;
+const { titulo, descripcion, categoria, imagen, links } = recurso.data;
+---
+
+<div class="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary/80 shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_24px_60px_rgba(34,211,238,0.10)]">
+  {imagen ? (
+    <div class="relative aspect-video w-full overflow-hidden bg-slate-900">
+      <img
+        src={imagen}
+        alt={titulo}
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        decoding="async"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent"></div>
+      <div class="absolute left-3 top-3">
+        <span class="inline-flex items-center rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-white backdrop-blur-md">
+          {categoria}
+        </span>
+      </div>
+    </div>
+  ) : (
+    <div class="h-1 w-full bg-gradient-to-r from-accent-cyan via-accent-blue to-accent-purple opacity-80"></div>
+  )}
+
+  <div class="flex flex-grow flex-col p-6">
+    {!imagen && (
+      <span class="mb-3 inline-flex w-fit rounded-full border border-accent-cyan/20 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-accent-cyan">
+        {categoria}
+      </span>
+    )}
+
+    <h3 class="mb-2 line-clamp-2 text-lg font-bold leading-tight text-text-primary transition-colors duration-300 group-hover:text-accent-cyan">
+      {titulo}
+    </h3>
+
+    <p class="mb-6 line-clamp-3 flex-grow text-sm leading-relaxed text-text-secondary">
+      {descripcion}
+    </p>
+
+    <div class="space-y-2">
+      {links.map((link) => (
+        <a
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group/link flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-text-primary transition-all duration-200 hover:border-accent-cyan/30 hover:bg-accent-cyan/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-secondary"
+        >
+          <span class="flex items-center gap-2">
+            <svg class="h-4 w-4 shrink-0 text-text-secondary transition-colors group-hover/link:text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              {link.tipo === 'Canva' ? (
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M7 8h10M7 12h10M7 16h6M3 6.5A1.5 1.5 0 014.5 5h15A1.5 1.5 0 0121 6.5v11A1.5 1.5 0 0119.5 19h-15A1.5 1.5 0 013 17.5v-11z" />
+              ) : (
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M12 10.5v6M12 18.75h0M8.25 12l3.75-3.75L15.75 12M13.5 6.75h3.75A1.5 1.5 0 0118.75 8.25v7.5A1.5 1.5 0 0117.25 17.25H6.75A1.5 1.5 0 015.25 15.75v-7.5A1.5 1.5 0 016.75 6.75H10.5" />
+              )}
+            </svg>
+            <span>{link.label}</span>
+          </span>
+          <span class="flex items-center gap-1.5">
+            {link.tipo === 'Canva' && (
+              <span class="rounded-full border border-accent-cyan/20 bg-accent-cyan/15 px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wide text-accent-cyan">
+                Canva
+              </span>
+            )}
+            <svg class="h-3.5 w-3.5 shrink-0 text-text-secondary transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>

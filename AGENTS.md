@@ -63,15 +63,21 @@ The website is "Content-First". Most pages are generated from data in `src/conte
 This project uses a specialized structure to manage AI agent behavior, specialized instructions, and reusable skills.
 
 ### 1. Custom Agents (`.agents/`)
+
 Contains specialized agent configurations. These define specific personas and behaviors for complex tasks.
+
 - **Example**: `.agents/technical-reviewer/` contains logic for code and architecture reviews.
 
 ### 2. Specialized Instructions (`instructions/`)
+
 Modular instruction sets that can be referenced by agents to perform domain-specific tasks without cluttering the main agent definition.
+
 - **Content Management**: `instructions/content-management/`
 - **Technical Review**: `instructions/technical-review/`
 
 ### 3. Reusable Skills (`skills/`)
+
 Domain-specific knowledge modules that agents can invoke to automate common patterns or enforce technical standards.
+
 - **API Integration**: `skills/api-integration/`
 - **Frontend UI**: `skills/frontend-ui/`

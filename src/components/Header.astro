@@ -3,9 +3,22 @@ import MobileMenu from './MobileMenu.astro';
 
 const navLinks = [
   { name: 'Inicio', href: '/' },
-  { name: 'Nosotros', href: '/nosotros' },
+  { 
+    name: 'Nosotros', 
+    href: '/nosotros',
+    subLinks: [
+      { name: 'Sobre Nosotros', href: '/nosotros' },
+      { name: 'Recursos', href: '/nosotros/recursos' },
+    ]
+  },
   { name: 'Eventos', href: '/eventos' },
-  { name: 'Proyectos', href: '/proyectos' },
+  { 
+    name: 'Proyectos', 
+    href: '/proyectos',
+    subLinks: [
+      { name: 'Todos los Proyectos', href: '/proyectos' },
+    ]
+  },
   { name: 'Convocatorias', href: '/convocatorias' },
   { name: 'Tienda', href: '/tienda' },
   { name: 'Donaciones', href: '/donaciones' },
@@ -34,25 +47,44 @@ const currentPath = Astro.url.pathname;
       <nav class="hidden md:flex items-center gap-1 lg:gap-2">
         {navLinks.map((link) => {
           const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+          const hasSublinks = link.subLinks && link.subLinks.length > 0;
+
           return (
-            <a
-              href={link.href}
-              class={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group ${
-                isActive
-                ? 'text-accent-cyan'
-                : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              <span class={`relative z-10 ${isActive ? 'font-semibold' : ''}`}>
-                {link.name}
-              </span>
-              {isActive && (
-                <span class="absolute inset-0 bg-accent-blue/10 rounded-xl border border-accent-cyan/20 shadow-[inset_0_0_12px_rgba(34,211,238,0.1)]" />
+            <div class={`relative group/nav ${hasSublinks ? 'py-2' : ''}`}>
+              <a
+                href={link.href}
+                class={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group/link ${
+                  isActive
+                  ? 'text-accent-cyan'
+                  : 'text-text-secondary hover:text-text-primary'
+                }`}
+              >
+                <span class={`relative z-10 ${isActive ? 'font-semibold' : ''}`}>
+                  {link.name}
+                </span>
+                {isActive && (
+                  <span class="absolute inset-0 bg-accent-blue/10 rounded-xl border border-accent-cyan/20 shadow-[inset_0_0_12px_rgba(34,211,238,0.1)]" />
+                )}
+                {!isActive && (
+                  <span class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover/link:scale-x-100 opacity-0 group-hover/link:opacity-100"></span>
+                )}
+              </a>
+
+              {hasSublinks && (
+                <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-300 translate-y-2 group-hover/nav:translate-y-0 z-50">
+                  <div class="bg-bg-primary/90 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl min-w-[220px] p-2 overflow-hidden">
+                    {link.subLinks.map((subLink) => (
+                      <a
+                        href={subLink.href}
+                        class="flex items-center px-4 py-3 rounded-xl text-sm text-text-secondary hover:text-accent-cyan hover:bg-white/5 transition-all duration-200 group/sub"
+                      >
+                        <span class="relative z-10">{subLink.name}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
               )}
-              {!isActive && (
-                <span class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100 opacity-0 group-hover:opacity-100"></span>
-              )}
-            </a>
+            </div>
           );
         })}
       </nav>
