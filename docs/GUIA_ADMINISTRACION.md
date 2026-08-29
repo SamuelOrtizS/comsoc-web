@@ -13,8 +13,10 @@ src/content/
 ├── eventos/          # Talleres, simposios y actividades
 ├── juntaDirectiva/   # Miembros de la mesa directiva
 ├── proyectos/        # Proyectos técnicos y de investigación
+├── recursos/         # Kits de marca, plantillas y materiales descargables
 ├── tienda/           # Artículos y merchandising
-└── estadisticas.json # Cifras y métricas mostradas en la página de inicio
+├── estadisticas.json # Cifras y métricas mostradas en la página de inicio
+└── donaciones.json   # Métodos de pago / donación mostrados en /donaciones
 ```
 
 > **Nota sobre archivos de ejemplo:**  
@@ -243,6 +245,75 @@ Los métodos de pago (transferencia bancaria a Nu, billetera digital a Nequi / B
   }
 ]
 ```
+
+---
+
+## 9. Recursos (`src/content/recursos/`)
+
+Página pública: **`/nosotros/recursos`** (`src/pages/nosotros/recursos/index.astro`). Muestra kits de marca, plantillas y materiales descargables en tarjetas (`src/components/ResourceCard.astro`) con contador de recursos/categorías y estado vacío cuando no hay contenido.
+
+Cada recurso es un archivo `.json` independiente (ejemplo: `branding-kit.json`, `educacion.json`). El `id` de la colección es el nombre del archivo sin extensión.
+
+```json
+{
+  "titulo": "Kit de Marca IEEE ComSoc Univalle",
+  "descripcion": "Descarga los recursos oficiales de identidad visual para asegurar la consistencia de la marca en todos nuestros materiales.",
+  "categoria": "Branding",
+  "imagen": "/images/branding-kit.jpg",
+  "links": [
+    {
+      "label": "Logotipos Oficiales (ZIP)",
+      "url": "https://example.com/logo.zip",
+      "tipo": "Download"
+    },
+    {
+      "label": "Guía de Estilo",
+      "url": "https://example.com/style-guide.pdf",
+      "tipo": "Download"
+    },
+    {
+      "label": "Plantilla de Presentación",
+      "url": "https://canva.com/design/...",
+      "tipo": "Canva"
+    }
+  ]
+}
+```
+
+- **Campos obligatorios:** `titulo` (string), `descripcion` (string), `categoria` (string — ej. `"Branding"`, `"Educación"`, `"Plantillas"`; se usa para agrupar y contar categorías en la cabecera), `links` (array no vacío).
+- **Campos opcionales:** `imagen` (string — URL externa `https://...` o ruta local `/images/...`; si se omite la tarjeta muestra una franja degradada y el badge de categoría dentro del cuerpo).
+- **Objeto `links[]`:**
+  - `label` (string, obligatorio) — texto del botón, ej. `"Logotipos Oficiales (ZIP)"`.
+  - `url` (string, obligatorio) — enlace absoluto. Los enlaces se abren con `target="_blank"` + `rel="noopener noreferrer"`.
+  - `tipo` (string, opcional) — controla icono y badge. Valores usados actualmente:
+    - `"Download"` (por defecto) → icono de descarga.
+    - `"Canva"` → icono de plantilla + badge `Canva` en el botón.
+    - Cualquier otro valor (ej. `"External"`) → se renderiza con estilo Download sin badge.
+
+**Esquema (fuente de verdad `src/content.config.ts:125`):**
+
+```ts
+z.object({
+  titulo: z.string(),
+  descripcion: z.string(),
+  categoria: z.string(),
+  imagen: z.string().optional(),
+  links: z.array(z.object({
+    label: z.string(),
+    url: z.string(),
+    tipo: z.string().optional(),
+  })),
+})
+```
+
+**Cómo agregar un recurso nuevo:**
+
+1. Crea `src/content/recursos/mi-recurso.json` con la estructura anterior.
+2. Si usas imagen local, coloca el archivo en `public/images/` y referencia como `/images/mi-recurso.jpg`.
+3. Verifica `npm run build` — un JSON que no cumpla el esquema rompe el build.
+4. La página `/nosotros/recursos` se regenera automáticamente: agrupa por `categoria` y renderiza un `ResourceCard` por entrada. Los archivos `ejemplo.json` o `_* .json` se ignoran.
+
+> **Nota:** La página no tiene ruta dinámica `[id]`; todos los recursos se listan en una sola vista de grilla (`1 col → 2 cols → 3 cols`). Para recursos con un solo `link`, se muestra un único botón; para varios, se apilan verticalmente.
 
 ---
 
