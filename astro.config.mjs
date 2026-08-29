@@ -2,6 +2,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
+import fs from 'node:fs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,6 +21,23 @@ export default defineConfig({
       },
     }),
     sitemap(),
+    {
+      name: 'sitemap-xml',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          const sitemap0 = new URL('sitemap-0.xml', dir);
+          const sitemap = new URL('sitemap.xml', dir);
+          try {
+            if (fs.existsSync(sitemap0)) {
+              await fs.promises.copyFile(sitemap0, sitemap);
+            } else {
+              const index = new URL('sitemap-index.xml', dir);
+              if (fs.existsSync(index)) await fs.promises.copyFile(index, sitemap);
+            }
+          } catch {}
+        },
+      },
+    },
   ],
   compressHTML: true,
   prefetch: {

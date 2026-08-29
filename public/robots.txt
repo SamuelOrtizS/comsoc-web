@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://comsoc.ieeeunivalle.link/sitemap-index.xml
+Sitemap: https://comsoc.ieeeunivalle.link/sitemap.xml

@@ -205,10 +205,10 @@ Edita el archivo directamente. Actualmente 4 indicadores verificables (no vanity
 
 ```json
 [
-  { "valor": "16", "etiqueta": "Miembros Activos", "color": "text-text-primary" },
-  { "valor": "3", "etiqueta": "Eventos 2025", "color": "text-accent-cyan" },
-  { "valor": "2", "etiqueta": "Proyectos Activos", "color": "text-accent-purple" },
-  { "valor": "4", "etiqueta": "Aliados Estratégicos", "color": "text-accent-emerald" }
+  { "valor": "16+", "etiqueta": "Miembros Activos", "color": "text-text-primary" },
+  { "valor": "10+", "etiqueta": "Workshops & Charlas Planeados", "color": "text-accent-cyan" },
+  { "valor": "4+", "etiqueta": "Proyectos de Redes en curso", "color": "text-accent-purple" },
+  { "valor": "100%", "etiqueta": "Pasión Tecnológica", "color": "text-accent-emerald" }
 ]
 ```
 
