@@ -15,9 +15,6 @@
   ],
   "estado": "Publicado",
   "detalles": [
-    { "label": "Organizador", "value": "ComSoc Student Chapter" },
-    { "label": "Tipo", "value": "Workshop" },
-    { "label": "Ubicación", "value": "Laboratorio de Telecomunicaciones" },
     { "label": "Modalidad", "value": "Presencial" },
     { "label": "Nivel", "value": "Básico" }
   ]

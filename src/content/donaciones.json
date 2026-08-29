@@ -2,7 +2,7 @@
   {
     "type": "Transferencia Bancaria",
     "name": "Nu",
-    "badge": "Transferencias & Llaves",
+    "badge": "Transferencias",
     "details": [
       { "label": "Banco / Entidad", "value": "Nu" },
       { "label": "Tipo de Cuenta", "value": "Cuenta de Ahorros" },

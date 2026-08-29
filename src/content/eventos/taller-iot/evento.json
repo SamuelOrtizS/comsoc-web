@@ -16,9 +16,6 @@
   ],
   "estado": "Publicado",
   "detalles": [
-    { "label": "Organizador", "value": "IEEE ComSoc & Laboratorio de Telecomunicaciones" },
-    { "label": "Tipo", "value": "Workshop" },
-    { "label": "Ubicación", "value": "Laboratorio de Redes y Telecomunicaciones" },
     { "label": "Modalidad", "value": "Presencial + Online" },
     { "label": "Nivel", "value": "Intermedio" }
   ]

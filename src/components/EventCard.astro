@@ -37,71 +37,77 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 });
 ---
 
-<div class={`glass-card rounded-2xl overflow-hidden flex flex-col group h-full border ${isPast ? 'opacity-85 border-white/5' : 'border-accent-cyan/20'}`}>
+<article class={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-slate-950/60 backdrop-blur-xl transition-all duration-300 ${isPast ? 'border-white/10 opacity-90' : 'border-accent-cyan/20 hover:border-accent-cyan/40'}`}>
   <!-- Image banner thumbnail -->
   <div class="relative aspect-video w-full overflow-hidden bg-slate-900">
     <img
       src={imagenPrincipal}
       alt={titulo}
-      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       loading="lazy"
       decoding="async"
     />
-    
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-slate-950/5" />
+
     <!-- Type & Status Badges -->
-    <div class="absolute top-3 left-3 flex flex-wrap gap-2">
-        <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-black/60 backdrop-blur-md text-accent-cyan border border-accent-cyan/30">
+    <div class="absolute inset-x-0 top-0 flex items-center justify-between gap-2 p-3">
+      <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-slate-950/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan backdrop-blur-md">
         {tipo}
       </span>
       {isPast && (
-        <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-gray-800/80 backdrop-blur-md text-text-secondary border border-gray-700">
+        <span class="inline-flex items-center rounded-full border border-white/10 bg-slate-900/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-secondary backdrop-blur-md">
           Finalizado
         </span>
       )}
     </div>
 
     <!-- Date pill -->
-    <div class="absolute bottom-3 right-3 px-2.5 py-1 text-xs font-mono rounded-lg bg-black/70 backdrop-blur-md text-text-primary border border-white/10">
-      📅 {formattedDate}
+    <div class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/75 px-2.5 py-1 text-[10px] font-medium text-text-primary backdrop-blur-md">
+      <span aria-hidden="true">📅</span>
+      <span class="font-mono tracking-[0.08em] uppercase">{formattedDate}</span>
     </div>
   </div>
 
   <!-- Content -->
-  <div class="p-6 flex flex-col grow justify-between">
-    <div>
-      <div class="flex items-center gap-2 text-xs text-text-secondary font-mono mb-2">
-        <span class="truncate">{organizador}</span>
-        {horaInicio && <span>• {horaInicio}</span>}
-      </div>
-
-      <h3 class="text-lg font-bold text-text-primary group-hover:text-accent-cyan transition-colors line-clamp-2 mb-3">
-        {titulo}
-      </h3>
-
-      <p class="text-sm text-text-secondary line-clamp-3 mb-4 leading-relaxed font-light">
-        {descripcion}
-      </p>
-
-      {lugarNombre && (
-        <div class="flex items-center gap-1.5 text-xs text-text-secondary font-mono mb-4">
-          <svg class="w-3.5 h-3.5 text-accent-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-          <span class="truncate">{lugarNombre}</span>
-        </div>
+  <div class="flex flex-1 flex-col p-5 sm:p-6">
+    <div class="mb-3 flex items-center gap-2 text-[11px] font-mono text-text-secondary">
+      <span class="truncate">{organizador}</span>
+      {horaInicio && (
+        <>
+          <span class="text-accent-cyan/70">•</span>
+          <span>{horaInicio}</span>
+        </>
       )}
     </div>
 
-    <!-- Detail action button -->
-    <a
-      href={`/eventos/${cleanId}`}
-      class="mt-2 w-full py-2.5 px-4 rounded-xl text-center text-sm font-semibold bg-white/5 hover:bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30 hover:border-accent-cyan transition-all flex items-center justify-center gap-2"
-    >
-      <span>Ver Detalles</span>
-      <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </a>
+    <h3 class="mb-3 text-xl font-bold leading-tight text-text-primary transition-colors duration-300 group-hover:text-accent-cyan">
+      {titulo}
+    </h3>
+
+    <p class="mb-4 line-clamp-3 text-sm leading-relaxed text-text-secondary">
+      {descripcion}
+    </p>
+
+    {lugarNombre && (
+      <div class="mb-5 flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-2.5 py-2 text-xs text-text-secondary">
+        <svg class="h-3.5 w-3.5 shrink-0 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span class="truncate">{lugarNombre}</span>
+      </div>
+    )}
+
+    <div class="mt-auto pt-4">
+      <a
+        href={`/eventos/${cleanId}`}
+        class="group/link inline-flex w-full items-center justify-center gap-2 rounded-xl border border-accent-cyan/30 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-accent-cyan transition-all duration-300 hover:border-accent-cyan hover:bg-accent-cyan/10"
+      >
+        <span>Ver detalles</span>
+        <svg class="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
   </div>
-</div>
+</article>

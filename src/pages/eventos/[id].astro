@@ -18,10 +18,15 @@ interface Props {
 const { evento } = Astro.props;
 const data = evento.data;
 const isPast = data.estado === 'Pasado';
-const eventDetails = data.detalles ?? [
+const canonicalDetailLabels = new Set(['organizador', 'tipo', 'ubicación', 'ubicacion']);
+const eventDetails = [
   { label: 'Organizador', value: data.organizador },
   { label: 'Tipo', value: data.tipo },
   { label: 'Ubicación', value: data.lugarNombre },
+  ...(data.detalles ?? []).filter((detail) => {
+    const normalizedLabel = detail.label.trim().toLowerCase();
+    return !canonicalDetailLabels.has(normalizedLabel);
+  }),
 ];
 
 // Format Date

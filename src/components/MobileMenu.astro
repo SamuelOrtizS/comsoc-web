@@ -8,46 +8,63 @@ const links = [
   { name: 'Tienda', href: '/tienda' },
   { name: 'Donaciones', href: '/donaciones' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <div
   id="mobile-menu-overlay"
-  class="fixed inset-0 z-50 bg-bg-primary backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300 md:hidden flex flex-col justify-between p-6"
+  class="fixed inset-0 z-50 bg-bg-primary/85 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-300 md:hidden"
+  aria-hidden="true"
 >
-  <div class="flex items-center justify-between border-b border-white/10 pb-4">
-    <a href="/" class="flex items-center gap-3">
-      <img src="/images/logo-comsoc.svg" alt="IEEE ComSoc" class="h-9 w-auto" />
-    </a>
-    <button
-      id="close-mobile-menu"
-      type="button"
-      class="p-2 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-text-primary"
-      aria-label="Cerrar menú"
-    >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-  </div>
-
-  <nav class="flex flex-col gap-4 py-8">
-    {links.map((link) => (
-      <a
-        href={link.href}
-        class="text-xl font-medium tracking-wide text-text-secondary hover:text-accent-cyan transition-colors py-2 px-3 rounded-lg hover:bg-white/5"
-      >
-        {link.name}
+  <div class="flex h-full flex-col justify-between p-5 sm:p-6">
+    <div class="flex items-center justify-between border-b border-white/10 pb-4">
+      <a href="/" class="flex items-center gap-3 rounded-full p-1 transition-transform duration-300 hover:scale-[1.02]">
+        <img src="/images/logo-comsoc.svg" alt="IEEE ComSoc" class="h-9 w-auto" />
       </a>
-    ))}
-  </nav>
+      <button
+        id="close-mobile-menu"
+        type="button"
+        class="p-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 transition-all duration-300"
+        aria-label="Cerrar menú"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
 
-  <div class="pt-6 border-t border-white/10 flex flex-col gap-3">
-    <a
-      href="/unirse"
-      class="w-full py-3 text-center font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary shadow-lg shadow-accent-blue/25"
-    >
-      ¡Únete al Capítulo!
-    </a>
+    <nav class="flex flex-col gap-2 py-8" aria-label="Navegación móvil">
+      {links.map((link) => {
+        const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+
+        return (
+          <a
+            href={link.href}
+            aria-current={isActive ? 'page' : undefined}
+            class={`group relative flex items-center justify-between rounded-2xl border px-3 py-3 text-lg font-medium tracking-wide transition-all duration-300 ${
+              isActive
+                ? 'border-accent-cyan/30 bg-accent-blue/10 text-accent-cyan shadow-[inset_0_0_18px_rgba(34,211,238,0.08)]'
+                : 'border-transparent text-text-secondary hover:border-white/10 hover:bg-white/5 hover:text-text-primary'
+            }`}
+          >
+            <span>{link.name}</span>
+            {isActive && (
+              <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.9)]" aria-hidden="true" />
+            )}
+          </a>
+        );
+      })}
+    </nav>
+
+    <div class="pt-6 border-t border-white/10 flex flex-col gap-3">
+      <a
+        href="/unirse"
+        class="w-full py-3.5 text-center font-semibold rounded-2xl bg-linear-to-r from-accent-blue via-accent-cyan to-accent-blue text-text-primary shadow-[0_0_28px_rgba(34,211,238,0.2)] hover:shadow-[0_0_34px_rgba(34,211,238,0.35)] transition-all duration-300 hover:scale-[1.01]"
+      >
+        ¡Únete al Capítulo!
+      </a>
+    </div>
   </div>
 </div>
 
@@ -61,16 +78,30 @@ const links = [
       if (open) {
         overlay.classList.remove('opacity-0', 'pointer-events-none');
         overlay.classList.add('opacity-100', 'pointer-events-auto');
+        overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
       } else {
         overlay.classList.add('opacity-0', 'pointer-events-none');
         overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        overlay.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
       }
     };
 
     openBtn.addEventListener('click', () => toggleMenu(true));
     closeBtn.addEventListener('click', () => toggleMenu(false));
+
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) {
+        toggleMenu(false);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        toggleMenu(false);
+      }
+    });
 
     overlay.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => toggleMenu(false));

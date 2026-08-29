@@ -16,9 +16,6 @@
   ],
   "estado": "Publicado",
   "detalles": [
-    { "label": "Organizador", "value": "IEEE ComSoc Student Chapter" },
-    { "label": "Tipo", "value": "Hackathon" },
-    { "label": "Ubicación", "value": "Auditorio Principal & Plataforma Discord" },
     { "label": "Modalidad", "value": "Híbrida" },
     { "label": "Nivel", "value": "Abierto" }
   ]

@@ -17,6 +17,13 @@
   font-display: swap;
 }
 
+:root {
+  color-scheme: dark;
+  --shadow-glow-cyan: 0 0 30px rgba(34, 211, 238, 0.25);
+  --shadow-glow-blue: 0 0 30px rgba(21, 93, 252, 0.2);
+  --shadow-glow-purple: 0 0 30px rgba(168, 85, 247, 0.18);
+}
+
 @theme {
   /* ---------------------------------------------------------------------- */
   /*                         GUÍA DE COLORES Y USOS                         */
@@ -159,9 +166,54 @@
 /* Custom Base & Utilities */
 html {
   scroll-behavior: smooth;
-  background-color: var(--color-bg-primary, #050816);
+  background:
+    linear-gradient(180deg, #01060d 0%, #050a14 26%, #030b16 100%);
   color: var(--color-text-primary, #ffffff);
   font-family: var(--font-body, 'Nunito Sans', sans-serif);
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(1, 6, 13, 0.98) 0%, rgba(2, 7, 18, 0.96) 18%, rgba(4, 9, 19, 0.98) 52%, rgba(2, 5, 12, 1) 100%);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(148, 163, 184, 0.12) 0.9px, transparent 1.3px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1500' height='150' viewBox='0 0 1500 150'%3E%3Cpath d='M0,76 C130,16 260,132 390,76 C520,16 650,132 780,76 C910,16 1040,132 1170,76 C1300,16 1430,132 1500,76' stroke='rgba(34,211,238,0.42)' stroke-width='2.2' fill='none'/%3E%3Cpath d='M0,94 C120,42 240,148 360,94 C480,42 600,148 720,94 C840,42 960,148 1080,94 C1200,42 1320,148 1440,94 C1470,82 1488,77 1500,74' stroke='rgba(99,102,241,0.25)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M0,58 C90,32 180,90 270,58 C360,26 450,90 540,58 C630,26 720,90 810,58 C900,26 990,90 1080,58 C1170,26 1260,90 1350,58 C1415,40 1460,36 1500,34' stroke='rgba(34,211,238,0.18)' stroke-width='1.2' fill='none'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1800' height='180' viewBox='0 0 1800 180'%3E%3Cpath d='M0,98 C180,25 360,170 540,98 C720,25 900,170 1080,98 C1260,25 1440,170 1620,98 C1710,64 1765,58 1800,54' stroke='rgba(99,102,241,0.28)' stroke-width='1.8' fill='none'/%3E%3Cpath d='M0,111 C150,76 300,146 450,111 C600,76 750,146 900,111 C1050,76 1200,146 1350,111 C1500,76 1650,146 1800,111' stroke='rgba(34,211,238,0.18)' stroke-width='1.1' fill='none'/%3E%3C/svg%3E");
+  background-size: 30px 30px, 1500px 150px, 1800px 180px;
+  background-position: center, 0 10%, 0 0;
+  background-repeat: repeat, repeat-x, repeat-x;
+  opacity: 1;
+  mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.008), transparent 18%, transparent 82%, rgba(255, 255, 255, 0.008)),
+    radial-gradient(circle at center, transparent 62%, rgba(2, 6, 18, 0.55) 100%);
+  pointer-events: none;
+}
+
+main {
+  position: relative;
+  background: transparent;
 }
 
 h1,
@@ -171,11 +223,35 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+  letter-spacing: -0.03em;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  transition: color 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 ::selection {
-  background-color: var(--color-accent-blue);
+  background-color: rgba(21, 93, 252, 0.8);
   color: var(--color-text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.9);
+  outline-offset: 3px;
 }
 
 /* Custom Scrollbar */
@@ -198,37 +274,55 @@ h6 {
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background: var(--color-glass-bg);
+  background: rgba(15, 23, 42, 0.62);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-glass-border);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .glass-card {
-  background: var(--color-bg-secondary);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(10, 15, 36, 0.9));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-glass-border);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 0 18px 30px -24px rgba(15, 23, 42, 0.9);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .glass-card:hover {
-  border-color: rgba(34, 211, 238, 0.35);
+  border-color: rgba(34, 211, 238, 0.4);
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px -10px rgba(21, 93, 252, 0.25);
+  box-shadow: 0 18px 30px -18px rgba(34, 211, 238, 0.18);
 }
 
 .glow-text {
-  text-shadow: 0 0 25px var(--color-accent-cyan);
+  text-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
 }
 
 .glow-btn {
-  box-shadow: 0 0 20px var(--color-accent-blue);
-  transition: all 0.3s ease;
+  box-shadow: 0 0 22px rgba(21, 93, 252, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
 }
 
 .glow-btn:hover {
-  box-shadow: 0 0 30px var(--color-accent-cyan);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.34);
+  filter: brightness(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── ComSoc wave background ─────────────────────────────────────────────────
@@ -242,37 +336,28 @@ h6 {
   contain-intrinsic-size: auto 600px;
 }
 
-.bg-grid-pattern {
-  position: relative;
-  background-color: transparent;
-  background-image:
-    radial-gradient(circle, rgba(34, 211, 238, 0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
+/* Global background system: one continuous page backdrop for every section. */
+.bg-grid-pattern,
+.bg-wave-pattern,
+.bg-grid-pattern::before,
+.bg-grid-pattern::after,
+.bg-wave-pattern::before,
+.bg-wave-pattern::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  background-size: auto !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
 }
 
-/* Layer 1 (Fast wave) using a fixed, clean, pre-calculated SVG wave pattern */
-.bg-grid-pattern.bg-wave-pattern::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='120' viewBox='0 0 1200 120'%3E%3Cpath d='M0,60 C100,20 200,100 300,60 C400,20 500,100 600,60 C700,20 800,100 900,60 C1000,20 1100,100 1200,60' stroke='rgba(34,211,238,0.11)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M0,68 C150,18 250,118 400,68 C550,18 650,118 800,68 C950,18 1050,118 1200,68' stroke='rgba(99,102,241,0.07)' stroke-width='1.1' fill='none'/%3E%3Cpath d='M0,54 C80,34 160,74 240,54 C320,34 400,74 480,54 C560,34 640,74 720,54 C800,34 880,74 960,54 C1040,34 1120,74 1200,54' stroke='rgba(34,211,238,0.05)' stroke-width='0.75' fill='none'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-size: 1200px 120px;
-  mix-blend-mode: screen;
-  opacity: 1;
-}
-
-/* Layer 2 (Slow wave) using a fixed, clean, pre-calculated SVG wave pattern */
-.bg-grid-pattern.bg-wave-pattern::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='160' viewBox='0 0 1600 160'%3E%3Cpath d='M0,80 C200,20 400,140 600,80 C800,20 1000,140 1200,80 C1400,20 1600,140 1600,80' stroke='rgba(99,102,241,0.08)' stroke-width='1.2' fill='none'/%3E%3Cpath d='M0,80 C133,50 266,110 400,80 C533,50 666,110 800,80 C933,50 1066,110 1200,80 C1333,50 1466,110 1600,80' stroke='rgba(34,211,238,0.05)' stroke-width='0.75' fill='none'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-size: 1600px 160px;
-  background-position: 0 60%;
-  mix-blend-mode: screen;
-  opacity: 0.85;
+.bg-grid-pattern,
+.bg-wave-pattern {
+  position: static !important;
+  overflow: visible !important;
+  background-color: transparent !important;
+  isolation: isolate;
 }

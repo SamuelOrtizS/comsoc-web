@@ -66,7 +66,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
       gtag('config', 'G-7Q9FC7KE7Y');
     </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-text-primary relative overflow-x-hidden font-sans">
+  <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-text-primary relative overflow-x-hidden font-sans antialiased">
     <!-- Background glow ambient effects (optimized GPU layers) -->
     <div class="fixed top-0 left-1/4 -z-10 w-125 h-87.5 bg-accent-blue/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
     <div class="fixed bottom-1/4 right-10 -z-10 w-112.5 h-87.5 bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none transform-gpu"></div>
@@ -80,21 +80,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
 
     <Footer />
     <CustomCursor />
+
     <!-- Construction Modal -->
-    <div id="construction-modal" class="fixed inset-0 z-100 flex items-center justify-center bg-bg-primary/90 backdrop-blur-md p-4">
+    <div
+      id="construction-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="construction-modal-title"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-bg-primary/90 backdrop-blur-md p-4 transition-opacity duration-300"
+    >
       <div class="relative max-w-lg w-full p-1 bg-linear-to-br from-accent-cyan/40 via-accent-purple/40 to-accent-blue/40 rounded-3xl shadow-[0_0_50px_rgba(34,211,238,0.15)]">
         <div class="bg-bg-secondary border border-glass-border rounded-[calc(1.5rem-1px)] p-8 md:p-12 overflow-hidden relative">
-          
-          <!-- Technical Background Pattern for Modal -->
           <div class="absolute inset-0 opacity-10 pointer-events-none bg-grid-pattern bg-wave-pattern"></div>
-          
+
           <div class="relative z-10 text-center">
-            <!-- Animated Signal Icon -->
             <div class="mb-8 flex justify-center">
               <div class="relative">
                 <div class="absolute inset-0 rounded-full bg-accent-cyan/30 animate-ping"></div>
                 <div class="w-20 h-20 bg-linear-to-br from-accent-cyan to-accent-purple rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(34,211,238,0.5)] relative">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18.375 19.5h-15a.75.75 0 01-.75-.75V7.5a.75.75 0 01.75-.75h15a.75.75 0 01.75.75v11.25a.75.75 0 01-.75.75z" />
                   </svg>
@@ -103,7 +107,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
             </div>
 
             <div class="space-y-4">
-              <h2 class="text-4xl font-bold tracking-tight bg-linear-to-r from-accent-cyan via-white to-accent-purple bg-clip-text text-transparent font-heading">
+              <h2 id="construction-modal-title" class="text-4xl font-bold tracking-tight bg-linear-to-r from-accent-cyan via-white to-accent-purple bg-clip-text text-transparent font-heading">
                 Sincronizando...
               </h2>
               <div class="inline-block px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 text-[10px] font-mono text-accent-cyan uppercase tracking-widest">
@@ -115,17 +119,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
             </div>
 
             <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button 
-                onclick="document.getElementById('construction-modal').style.display='none'" 
-                class="w-full sm:w-auto px-8 py-3 bg-accent-cyan text-bg-primary rounded-full font-bold transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(34,211,238,0.3)]"
+              <button
+                type="button"
+                data-dismiss-modal
+                class="w-full sm:w-auto px-8 py-3 bg-accent-cyan text-bg-primary rounded-full font-bold transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
               >
                 Entendido
               </button>
-              <a 
-                href="https://www.instagram.com/ieee.comsoc.univalle/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="w-full sm:w-auto px-8 py-3 bg-transparent border border-accent-purple/50 text-accent-purple hover:bg-accent-purple/10 rounded-full font-medium transition-all duration-300"
+              <a
+                href="https://www.instagram.com/ieee.comsoc.univalle/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full sm:w-auto px-8 py-3 bg-transparent border border-accent-purple/50 text-accent-purple hover:bg-accent-purple/10 rounded-full font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-purple focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
               >
                 Síguenos
               </a>
@@ -144,6 +149,42 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
         </div>
       </div>
     </div>
+
+    <script is:inline>
+      (() => {
+        const modal = document.getElementById('construction-modal');
+        if (!modal) return;
+
+        const KEY = 'comsoc-construction-modal-dismissed';
+        const closeModal = () => {
+          modal.setAttribute('aria-hidden', 'true');
+          modal.classList.add('hidden');
+          localStorage.setItem(KEY, 'true');
+        };
+
+        const shouldShow = !localStorage.getItem(KEY);
+
+        if (!shouldShow) {
+          closeModal();
+          return;
+        }
+
+        modal.setAttribute('aria-hidden', 'false');
+        modal.classList.remove('hidden');
+
+        const dismissButton = modal.querySelector('[data-dismiss-modal]');
+        dismissButton?.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') closeModal();
+        });
+      })();
+    </script>
+
     <TouchRipple />
   </body>
 </html>

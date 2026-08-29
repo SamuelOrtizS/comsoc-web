@@ -6,47 +6,65 @@
 <style is:global>
   .touch-ripple {
     position: absolute;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    animation: ripple-animation 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    border-radius: 9999px;
+    transform: translate(-50%, -50%) scale(0.15);
+    opacity: 0;
     pointer-events: none;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.45) 0%, rgba(21, 93, 252, 0.25) 40%, rgba(34, 211, 238, 0) 70%);
-    border: 1.5px solid rgba(34, 211, 238, 0.6);
-    box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+    background: radial-gradient(
+      circle,
+      rgba(34, 211, 238, 0.6) 0%,
+      rgba(21, 93, 252, 0.38) 28%,
+      rgba(34, 211, 238, 0.14) 56%,
+      rgba(34, 211, 238, 0) 72%
+    );
+    border: 1px solid rgba(34, 211, 238, 0.65);
+    box-shadow:
+      0 0 0 1px rgba(34, 211, 238, 0.12),
+      0 0 24px rgba(34, 211, 238, 0.28),
+      inset 0 0 18px rgba(34, 211, 238, 0.14);
+    mix-blend-mode: screen;
+    will-change: transform, opacity, width, height;
+    animation: ripple-animation 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   @keyframes ripple-animation {
     0% {
-      width: 0px;
-      height: 0px;
+      width: 12px;
+      height: 12px;
       opacity: 0.9;
-      transform: translate(-50%, -50%) scale(0);
+      transform: translate(-50%, -50%) scale(0.15);
     }
-    50% {
-      opacity: 0.6;
+    26% {
+      opacity: 1;
     }
     100% {
-      width: 100px;
-      height: 100px;
+      width: 180px;
+      height: 180px;
       opacity: 0;
-      transform: translate(-50%, -50%) scale(1.8);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .touch-ripple {
+      animation: none;
+      opacity: 0;
     }
   }
 </style>
 
 <script>
-  // Detect touch events and trigger ripple waves
   if (typeof window !== 'undefined') {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    
-    if (isTouchDevice) {
+
+    if (isTouchDevice && !prefersReducedMotion) {
       const container = document.getElementById('touch-ripple-container');
-      const MAX_RIPPLES = 5;
+      const MAX_RIPPLES = 6;
 
       const createRipple = (x: number, y: number) => {
         if (!container) return;
 
-        // Keep DOM node count bounded
         if (container.children.length >= MAX_RIPPLES) {
           container.firstElementChild?.remove();
         }
@@ -58,18 +76,22 @@
 
         container.appendChild(ripple);
 
-        setTimeout(() => {
+        window.setTimeout(() => {
           ripple.remove();
-        }, 650);
+        }, 720);
       };
 
-      window.addEventListener('touchstart', (e: TouchEvent) => {
-        const count = Math.min(e.touches.length, 3);
-        for (let i = 0; i < count; i++) {
-          const touch = e.touches[i];
-          createRipple(touch.clientX, touch.clientY);
-        }
-      }, { passive: true });
+      window.addEventListener(
+        'touchstart',
+        (event: TouchEvent) => {
+          const count = Math.min(event.touches.length, 3);
+          for (let index = 0; index < count; index += 1) {
+            const touch = event.touches[index];
+            createRipple(touch.clientX, touch.clientY);
+          }
+        },
+        { passive: true }
+      );
     }
   }
 </script>
