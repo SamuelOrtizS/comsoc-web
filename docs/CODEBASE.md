@@ -1,171 +1,104 @@
-# Proyecto: ComSoc Web
+# Proyecto: ComSoc Web — IEEE ComSoc Univalle
 
 ## Descripción General
 
-Este proyecto es el sitio web oficial de la sección estudiantil de ComSoc (Sociedad de Comunicaciones) de IEEE en la Universidad del Valle. Está construido con **Astro**, **Tailwind CSS** y **TypeScript**.
+Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Universidad del Valle. Construido con **Astro 7.2.9**, **Tailwind CSS v4**, **TypeScript** y optimizado para GitHub Pages (`https://comsoc.ieeeunivalle.link/`).
 
-El sitio cumple varias funciones principales:
-
-- Mostrar y gestionar **Convocatorias** actuales.
-- Mostrar y detallar **Eventos**.
-- Proporcionar una **Tienda** virtual de productos.
-- Presentar a la **Junta Directiva**.
-- Mostrar **Proyectos** y **Aliados** estratégicos.
+**Funciones principales:**
+- Convocatorias de voluntariado (`/convocatorias`)
+- Eventos y talleres con detalle (`/eventos`, `/eventos/[id]`)
+- Proyectos de investigación con financiamiento USD→COP (`/proyectos`, `/proyectos/[id]`)
+- Junta Directiva (`/nosotros` + modales)
+- Tienda catálogo (`/tienda` con modal `product-modal`)
+- Aliados y Red de Colaboración (home + modales)
+- Recursos descargables (`/nosotros/recursos`)
+- Donaciones y métodos de pago (`/donaciones`)
 
 ## Arquitectura Técnica
 
-- **Framework**: Astro (Generación de Sitios Estáticos).
-- **Estilos**: Tailwind CSS (v4.0.0) con una estética de "tecnología espacial" (fondo oscuro, acentos en Cian, Púrpura y azul).
-- **Gestión de Contenido**: Astro Content Collections (definido en `src/content.config.ts`). Los datos se almacenan en archivos JSON dentro de `src/content/`.
-- **Lenguaje**: TypeScript para asegurar la integridad de los datos.
-- **Herramientas de Construcción**: Vite (integrado en Astro).
-- **Experiencia de Usuario (UX)**: Incluye elementos interactivos como `CustomCursor`, efectos de `TouchRipple` y componentes de visualización dinámica (ej. `CountdownTimer`).
+- **Framework:** Astro `output: static` (`astro.config.mjs:10`), `site: https://comsoc.ieeeunivalle.link/` (`astro.config.mjs:8`), `compressHTML: true`.
+- **Estilos:** Tailwind CSS v4.0.0 vía `@tailwindcss/vite` (`astro.config.mjs:2`), tema centralizado en `src/styles/global.css:24` (`--color-accent-cyan #22d3ee`, `--color-bg-primary #050816`, etc.), `backdrop-blur` y `glass-card` (`global.css:196`).
+- **Fuentes:** Gestionadas por `astro:assets` (`astro.config.mjs:32`, `src/layouts/BaseLayout.astro:44`): `Formata` local (`src/assets/fonts/Formata-*.woff2`) + Google `Nunito Sans` (400,600,700), `Share Tech Mono` (400), `Space Grotesk` (400,500,600,700) con `font-display: swap` y `preload` para Formata/Nunito.
+- **Iconos:** `astro-icon` (`astro.config.mjs:14`) con `material-symbols:*`, `mdi:*`, `simple-icons:*` (`@iconify-json/material-symbols` etc.), mapeo central `src/utils/tiendaIconMap.json:1` y `src/utils/imageResolver.ts:33`.
+- **Gestión de Contenido:** Astro Content Collections (`src/content.config.ts:1`) — 7 colecciones (`convocatorias`, `eventos`, `tienda`, `juntaDirectiva`, `proyectos`, `aliados`, `recursos`) validadas con `zod`.
+- **Imágenes:** `astro:assets` + `sharp` (`package.json:27`), `src/utils/imageResolver.ts:4` (`import.meta.glob` eager) con alias para compatibilidad (`Samuel O.jpg` → `samuel-o.jpg`), `sizes` y `fetchpriority="high"` en LCP (`src/pages/index.astro:86`).
+- **Moneda:** `src/utils/currency.ts:1` (`DEFAULT_USD_TO_COP_RATE 4100`, `getUsdToCopRate()` con `AbortSignal.timeout(3000)` y caché 1h, `formatUSD`/`formatCOP`).
+- **Sitemap & SEO:** `@astrojs/sitemap` (`astro.config.mjs:14`) genera `sitemap-0.xml` + `sitemap-index.xml`, copiado a `sitemap.xml` vía integración `sitemap-xml` (`astro.config.mjs:14`), referenciado en `public/robots.txt:4` y `src/layouts/BaseLayout.astro:50` (OG canónico con `ogImageURL` absoluto).
+- **Markdown para Agentes:** Negociación `Accept: text/markdown` vía `src/middleware.ts:13` (`turndown` + `x-markdown-tokens`, `Vary: Accept`) y `worker.js:1`/`functions/_middleware.js:1` para Cloudflare; generación estática `.md` en `dist/**/*.md` vía `src/utils/markdownIntegration.ts:1`. Cloudflare puede habilitar “Markdown for Agents” sin código.
+- **Prefetch & Build:** `prefetch: { prefetchAll:false, defaultStrategy:'viewport' }` (`astro.config.mjs:25`), `vite.build.cssCodeSplit:true`, `build.inlineStylesheets:'auto'` (`astro.config.mjs:29`), `compressHTML:true`.
+- **UX:** `CustomCursor.astro:28` (solo decorativo, sin `cursor:none`, `will-change` bajo demanda), `TouchRipple.astro:26` (solo `transform`), `CountdownTimer.astro:48` (con `visibilitychange` y `astro:before-swap` cleanup), `MobileMenu.astro:1`.
 
 ## 🛠 Guía para Agentes (Contexto de Automatización)
 
-Para agentes que realizan tareas de mantenimiento, contenido o desarrollo, sigan estas directrices:
-
 ### 1. Flujo de Trabajo de Contenido
-- **Validación**: Antes de cualquier commit, es imperativo que los archivos JSON en `src/content/` coincidan con los esquemas de `src/content.config.ts`.
-- **Patrón de Archivos**: 
-  - Use `ejemplo.json` para plantillas de nuevos contenidos.
-  - Los archivos que comienzan con `_` o se llaman `ejemplo.json` son ignorados por Astro.
-- **Imágenes**: Pueden ser URLs externas o rutas relativas a `public/images/`.
+- **Validación:** Antes de commit, los JSON en `src/content/` deben coincidir con `src/content.config.ts:1`. Archivos `ejemplo.json` o `_*` son ignorados (`glob` patterns).
+- **Imágenes:** URLs externas o `/images/...` en `public/images/` o `src/assets/images/` (optimizadas a WebP).
 
 ### 2. Patrones de Desarrollo
-- **Componentes**: Todos los componentes `.astro` deben usar Tailwind CSS para el estilizado.
-- **Tipado**: Al crear nuevos componentes, defina interfaces TypeScript para las `Props`.
-- **Internacionalización**: El sitio está en **Español**. Todo el contenido nuevo debe seguir este idioma.
+- **Componentes:** `.astro` con Tailwind, `PascalCase` (`EventCard.astro`), `Icon` de `astro-icon/components`.
+- **Tipado:** Interfaces `Props` para cada componente.
+- **Idioma:** Español (`es-ES`), `lang="es"` en `BaseLayout.astro:26`.
+- **Performance:** `decoding="async"`, `loading="lazy"` + `sizes`, `fetchpriority="high"` para LCP, `transform-gpu` para animaciones.
 
 ### 3. Localización de Recursos
-- **Estilos Globales**: `src/styles/global.css` (Contiene el sistema de diseño).
-- **Utilidades de Moneda**: `src/utils/currency.ts` (No reinventar la lógica de conversión).
-- **Layout Base**: `src/layouts/BaseLayout.astro` (Wrapper principal para SEO y estructura).
-- **Configuración de Colecciones**: `src/content.config.ts` (Fuente de verdad para esquemas).
+- **Estilos Globales:** `src/styles/global.css:1` (tokens + `.glass-card`, `.bg-dot-grid` con `0.04` opacidad y `prefers-reduced-motion`).
+- **Utilidades:** `src/utils/currency.ts:1`, `src/utils/imageResolver.ts:33` (con `lowerMap` O(1)), `src/utils/tiendaIconMap.json:1`, `src/utils/markdownIntegration.ts:1`.
+- **Layout Base:** `src/layouts/BaseLayout.astro:1` (SEO, `Font` preload, `Header`, `Footer`, banner de desarrollo `development-banner` no bloqueante).
+- **Configuración:** `src/content.config.ts:1`, `astro.config.mjs:1`, `public/robots.txt:1`, `public/_headers` (si Cloudflare Pages).
 
 ## Gestión de Contenidos (src/content/)
 
-El proyecto utiliza colecciones de contenido. Los archivos en `src/content/` deben seguir estrictamente los esquemas definidos en `src/content.config.ts`.
+**Reglas Generales:** `ejemplo.json` o `_*` ignorados; imágenes vía `resolveImage`; iconos via `material-symbols:xxx-rounded` validados contra `@iconify-json/material-symbols`.
 
-**Reglas Generales:**
-
-- Los archivos llamados `ejemplo.json` o que comienzan con `_` son ignorados automáticamente por el sistema.
-- Las imágenes pueden ser URLs externas o rutas relativas a `public/images/`.
-
-**Tipos de Colecciones (Esquemas detallados en `src/content.config.ts`):**
-
-1. **Convocatorias**: `titulo`, `area`, `fechaLimite` (YYYY-MM-DD), `descripcion`, `requisitos` (Array), `responsabilidades` (Array), `estado` (Publicada/Cerrada), `formUrl` (Opcional).
-2. **Eventos**: `titulo`, `tipo`, `organizador`, `fechaInicio`, `fechaFin` (Opcional), `horaInicio`, `horaFin`, `lugarNombre`, `lugarDireccion` (Opcional), `descripcion`, `imagenPrincipal`, `galeria` (Array opcional), `estado` (Publicado/Pasado).
-3. **Tienda**: `name`, `category`, `price`, `description`, `image`, `available` (Boolean), `resources` (Array de objetos con title, link, icon, color), `specifications` (Array de objetos con key, value).
-4. **Junta Directiva**: `order`, `name`, `role`, `department`, `avatar` (Emoji), `image` (Opcional), `bio`, `email`, `phone`, redes sociales (linkedin, instagram, etc.).
-5. **Proyectos**: `titulo`, `categoria`, `descripcion`, `imagen`, `estado` (Activo/Completado/En Pausa), `tags` (Array), `enlace` (Opcional), `destacado` (Boolean), `montoActual` (Number), `montoMeta` (Number), `recursos` (Array), `resumenTecnico` (String).
-6. **Aliados**: `order`, `nombre`, `tipo`, `logo` (Opcional), `descripcion`, `acerca` (Opcional), `website`, `email`, `linkedin`, `instagram`.
+**Colecciones (esquemas en `src/content.config.ts:1`):**
+1. **Convocatorias:** `titulo`, `area`, `fechaLimite` (YYYY-MM-DD), `descripcion`, `requisitos[]`, `responsabilidades[]`, `estado` (Publicada/Cerrada), `formUrl?`.
+2. **Eventos:** `titulo`, `tipo`, `organizador`, `fechaInicio`, `fechaFin?`, `horaInicio`, `horaFin`, `lugarNombre`, `lugarDireccion?`, `descripcion`, `imagenPrincipal`, `galeria?`, `estado` (Publicado/Pasado), `detalles?` (`{label,value}[]`). Destacado determinístico por `fechaInicio` más próxima (`src/pages/index.astro:14`).
+3. **Tienda:** `name`, `category`, `price`, `description`, `image`, `available` (boolean), `resources?` (`{title,link,icon,color}[]` con `icon: material-symbols:*`), `specifications?` (`{key,value}[]`).
+4. **Junta Directiva:** `order`, `name`, `role`, `department`, `avatar` (emoji fallback → `Icon:person`), `image?` (`/images/...` 200×200), `bio?`, `email?`, `phone?`, `linkedin?`, `instagram?`, `facebook?`, `github?`, `website?`.
+5. **Proyectos:** `titulo`, `categoria`, `descripcion`, `imagen`, `estado` (Activo/Completado/En Pausa), `tags?`, `enlace?`, `destacado` (boolean, orden alfabético en home), `montoActual?`, `montoMeta?` (USD, conversión a COP vía `currency.ts`), `recursos?` (`{title,link,icon?}[]`), `resumenTecnico?`.
+6. **Aliados:** `order`, `nombre`, `tipo`, `logo?` (200×80), `descripcion`, `acerca?`, `website?`, `email?`, `phone?`, `linkedin?`, `instagram?`.
+7. **Recursos:** `titulo`, `descripcion`, `categoria`, `imagen?`, `links[]` (`{label,url,tipo?}` donde `tipo: "Canva"` → `palette`, `"Download"` → `download-rounded` en `ResourceCard.astro:64`).
 
 ## Mapa del Sitio
 
-- **Home (/)**: Landing page con Hero, evento destacado, pilares tecnológicos, proyecciones destacados y sección de aliados.
-- **Nosotros (/)**: Información sobre la organización.
-- **Tienda (/)**: Catálogo de productos y merchandising.
-- **Proyectos (/)**: Listado de proyectos (con vistas individuales `/proyectos/[id]`).
-- **Eventos (/)**: Calendario de eventos (vista general y detalle `/eventos/[id]`).
-- **Convocatorias (/)**: Listado de convocatorias abiertas.
-- **Donaciones (/)**: Métodos de pago e información de soporte.
-- **Unirse (/)**: Información para nuevos miembros.
-
-## Mejoras Sugeridas y Recomendaciones Futuras
-
-### 🚀 SEO y Accesibilidad (A11y)
-
-Para asegurar que el sitio sea visible para buscadores y utilizable por personas con discapacidad, se recomienda implementar lo siguiente:
-
-- **Meta Tags**: Asegurar que cada página de destino (`index.astro`, `[id].astro`, etc.) tenga meta etiquetas `<title>` y `<meta name="description">` únicas, alimentadas por los metadatos del contenido o de la colección.
-- **Estructura Semántica**: Usar etiquetas HTML5 semánticas (e.g., `<header>`, `<main>`, `<nav>`, `<footer>`) en todos los layouts principales (`BaseLayout.astro`).
-- **Atributos ARIA**: Añadir atributos ARIA donde sea necesario, especialmente para elementos interactivos o menús colapsables (como el `MobileMenu.astro`).
-
-### ⚙️ Buenas Prácticas de Desarrollo y Mantenimiento
-
-- **Tipado en Componentes**: Aunque se usa TypeScript, es crucial tipar todas las props pasadas a los componentes Astro (`ConvocatoriaCard`, `EventCard`, etc.) para garantizar la seguridad en tiempo de compilación.
-- **Gestión de Estado Global**: Si la aplicación crece y requiere compartir estado entre páginas (ej. un usuario logueado o filtros complejos), se debe considerar implementar un patrón de gestión de estado ligero, como el uso de *client-side state management* con bibliotecas Astro compatibles o Context API si es necesario.
-- **Testing**: Implementar un enfoque de testing:
-  - **Unit Tests**: Para utilidades complejas (ej. `src/utils/currency.ts`).
-  - **Component Tests**: Usando herramientas como Vitest y testing-library para validar el comportamiento de componentes Astro clave (`Header`, `EventCard`) en diferentes estados.
-
-### ♻️ Optimización del Ciclo de Vida del Contenido
-
-- **Validación Automática**: Integrar un paso de pre-commit hook (ej. usando Husky) que ejecute validadores de esquema JSON para todas las colecciones (`src/content/*/*.json`) antes de permitir el commit, previniendo la rotura del *build* por datos malformados.
+| Ruta | Archivo | Descripción |
+|------|---------|-------------|
+| `/` | `src/pages/index.astro:71` | Hero (H1 sr-only + CTA jerárquico), evento destacado determinístico, pilares (cell-tower/sensors/cable/psychology), proyectos destacados, aliados (modal con `aria-expanded`), CTA Únete |
+| `/nosotros` | `src/pages/nosotros.astro:1` | Misión/Visión (target/construction), beneficios (6 cards), galería (gallery-slider con `visibilitychange`), mesa directiva (modal person) |
+| `/nosotros/recursos` | `src/pages/nosotros/recursos/index.astro:1` | Grilla `ResourceCard` por categoría, estado vacío con `folder-off` |
+| `/tienda` | `src/pages/tienda.astro:1` | Catálogo 4 cols, modal `product-modal` con `iconSvg` dinámico desde `tiendaIconMap.json` |
+| `/proyectos` | `src/pages/proyectos/index.astro:1` | Activos/Completados/En Pausa con `check-circle`/`verified`/`pause-circle`, financiamiento USD/COP |
+| `/proyectos/[id]` | `src/pages/proyectos/[id].astro:1` | Hero `fetchpriority=high`, `estadoBadge` con Icon, `resumenTecnico`, `recursos` |
+| `/eventos` | `src/pages/eventos/index.astro:1` | Próximos/Pasados, `EventCard` con `calendar-today`/`location-on` |
+| `/eventos/[id]` | `src/pages/eventos/[id].astro:1` | Hero 1200×675, `CountdownTimer` con `role=timer` |
+| `/convocatorias` | `src/pages/convocatorias/index.astro:1` | `ConvocatoriaCard` con `check`/`calendar-clock`/`open-in-new` |
+| `/donaciones` | `src/pages/donaciones.astro:1` | Destinies con `science`/`school`/`groups`/`settings`, métodos de pago con copiado |
+| `/unirse` | `src/pages/unirse.astro:1` | CTA Unirse, info `verified`/`mdi:whatsapp` |
+| `/403`, `/404`, `/500`, `/error`, `/3301` | `src/components/ErrorPage.astro:1` | `code/tagline/title` con `Icon` custom (`shield`→403, `search-off`→404, `error`→500/generic, `bug-report`→3301) |
 
 ## Construcción y Ejecución
 
 | Comando | Descripción |
-| ---------- | ------------- |
-| `npm run dev` | Inicia el servidor de desarrollo local de Astro.
-| `npm run build` | Genera la versión de producción del sitio.
-| `npm run preview` | Previsualiza la versión de producción localmente.
-| `npm install` | Instala todas las dependencias del proyecto.
+|----------|-------------|
+| `npm run dev` | Servidor local Astro (http://localhost:4321) |
+| `npm run build` | Genera producción en `dist/` (valida Content Collections, genera sitemap.xml + .md) |
+| `npm run preview` | Previsualiza `dist/` |
+| `npm install` | Instala dependencias |
+
+**Salida `dist/`:**
+- `sitemap.xml` (copia de `sitemap-0.xml`, 20 URLs) + `sitemap-index.xml` + `robots.txt` con `Sitemap: https://.../sitemap.xml`
+- `_astro/fonts/` (7 ficheros woff2/woff con fallback optimizado) + `_astro/*.webp/*.svg` (sharp)
+- `**/*.html` + `**/*.md` (markdown estático)
 
 ## Convenciones de Desarrollo
 
-- **Validación de Contenido**: Al añadir o modificar archivos en `src/content/`, es obligatorio cumplir con los esquemas definidos en `src/content.config.ts`.
-- **Componentes Reutilizables**: El proyecto utiliza componentes como `Header`, `Footer`, `HeroSection`, `CountdownTimer`, y tarjetas de contenido (`EventCard`, `ConvocatoriaCard`).
-- **Diseño de Interfaz (UI)**: Se utiliza una estética basada en capas "glassmorphism", gradientes de brillo y fuentes específicas (Nunito Sans, Space Grotesk).
-- **Estilos**: Implementación mediante clases de Tailwind CSS.
-- **Tipado**: Uso de TypeScript para asegurar la integridad de las funciones y componentes.
-- **Utilidades de Moneda (currency.ts)**: Gestión de conversión y formato de monedas (USD y COP), con lógica de caché y una tasa de respaldo (4100).
-- **Rutas**: Definidas en `src/pages/`.
-- **Estadísticas**: Los datos de la página principal se modifican en `src/content/estadisticas.json`.
-- **Donaciones**: Los métodos de pago se configuran en `src/content/donaciones.json`.
-
-## Mapa del Sitio
-
-- **Home (/)**: Landing page con Hero, evento destacado, pilares tecnológicos, proyecciones destacados y sección de aliados.
-- **Nosotros (/)**: Información sobre la organización.
-- **Tienda (/)**: Catálogo de productos y merchandising.
-- **Proyectos (/)**: Listado de proyectos (con vistas individuales `/proyectos/[id]`).
-- **Eventos (/)**: Calendario de eventos (vista general y detalle `/eventos/[id]`).
-- **Convocatorias (/)**: Listado de convocatorias abiertas.
-- **Donaciones (/)**: Métodos de pago e información de soporte.
-- **Unirse (/)**: Información para nuevos miembros.
-
-## Mejoras Sugeridas y Recomendaciones Futuras
-
-### 🚀 SEO y Accesibilidad (A11y)
-
-Para asegurar que el sitio sea visible para buscadores y utilizable por personas con discapacidad, se recomienda implementar lo siguiente:
-
-- **Meta Tags**: Asegurar que cada página de destino (`index.astro`, `[id].astro`, etc.) tenga meta etiquetas `<title>` y `<meta name="description">` únicas, alimentadas por los metadatos del contenido o de la colección.
-- **Estructura Semántica**: Usar etiquetas HTML5 semánticas (e.g., `<header>`, `<main>`, `<nav>`, `<footer>`) en todos los layouts principales (`BaseLayout.astro`).
-- **Atributos ARIA**: Añadir atributos ARIA donde sea necesario, especialmente para elementos interactivos o menús colapsables (como el `MobileMenu.astro`).
-
-### ⚙️ Buenas Prácticas de Desarrollo y Mantenimiento
-
-- **Tipado en Componentes**: Aunque se usa TypeScript, es crucial tipar todas las props pasadas a los componentes Astro (`ConvocatoriaCard`, `EventCard`, etc.) para garantizar la seguridad en tiempo de compilación.
-
-- **Gestión de Estado Global**: Si la aplicación crece y requiere compartir estado entre páginas (ej. un usuario logueado o filtros complejos), se debe considerar implementar un patrón de gestión de estado ligero, como el uso de *client-side state management* con bibliotecas Astro compatibles o Context API si es necesario.
-- **Testing**: Implementar un enfoque de testing:
-  - **Unit Tests**: Para utilidades complejas (ej. `src/utils/currency.ts`).
-  - **Component Tests**: Usando herramientas como Vitest y testing-library para validar el comportamiento de componentes Astro clave (`Header`, `EventCard`) en diferentes estados.
-
-### ♻️ Optimización del Ciclo de Vida del Contenido
-
-- **Validación Automática**: Integrar un paso de pre-commit hook (ej. usando Husky) que ejecute validadores de esquema JSON para todas las colecciones (`src/content/*/*.json`) antes de permitir el commit, previniendo la rotura del *build* por datos malformados.
-
-## Construcción y Ejecución
-
-| Comando | Descripción |
-| ---------- | ------------- |
-| `npm run dev` | Inicia el servidor de desarrollo local de Astro. |
-| `npm run build` | Genera la versión de producción del sitio. |
-| `npm run preview` | Previsualiza la versión de producción localmente. |
-| `npm install` | Instala todas las dependencias del proyecto. |
-
-## Convenciones de Desarrollo
-
-- **Validación de Contenido**: Al añadir o modificar archivos en `src/content/`, es obligatorio cumplir con los esquemas definidos en `src/content.config.ts`.
-- **Componentes Reutilizables**: El proyecto utiliza componentes como `Header`, `Footer`, `HeroSection`, `CountdownTimer`, y tarjetas de contenido (`EventCard`, `ConvocatoriaCard`).
-- **Diseño de Interfaz (UI)**: Se utiliza una estética basada en capas "glassmorphism", gradientes de brillo y fuentes específicas (Nunito Sans, Space Grotesk).
-- **Estilos**: Implementación mediante clases de Tailwind CSS.
-- **Tipado**: Uso de TypeScript para asegurar la integridad de las funciones y componentes.
-- **Utilidades de Moneda (currency.ts)**: Gestión de conversión y formato de monedas (USD y COP), con lógica de caché y una tasa de respaldo (4100).
-- **Rutas**: Definidas en `src/pages/`.
-- **Estadísticas**: Los datos de la página principal se modifican en `src/content/estadisticas.json`.
-- **Donaciones**: Los métodos de pago se configuran en `src/content/donaciones.json`.
+- **Validación de Contenido:** Cumplir `src/content.config.ts`; `npm run build` rompe si no.
+- **Componentes Reutilizables:** `Header` (`supports-[backdrop-filter]:backdrop-blur-xl`, `contain: layout` sin `paint` para dropdown), `Footer` (social 44×44px), `HeroSection`, `CountdownTimer`, `EventCard`, `ConvocatoriaCard`, `ErrorPage` (custom `icon: string`).
+- **Diseño UI:** Glassmorphism (`glass-card` con `backdrop-blur 16px`, `contain:paint` solo en cards, no en header), gradientes, fuentes `Formata`/`Nunito Sans`/`Space Grotesk`/`Share Tech Mono` vía `astro:assets`.
+- **Tipado:** TypeScript para Props y `CollectionEntry`.
+- **Moneda:** `currency.ts` con `AbortSignal.timeout(3000)` y caché 1h.
+- **Rutas:** `src/pages/` con `[id].astro` para colecciones.
+- **Estadísticas:** `src/content/estadisticas.json:1` (16 Miembros, 3 Eventos 2025, 2 Proyectos Activos, 4 Aliados).
+- **Donaciones:** `src/content/donaciones.json:1`.
+- **Iconos:** Astro Icon (`material-symbols:*` validado, `mdi:*` para marcas, `simple-icons:*`); `src/icons/.gitkeep` evita warning `ENOENT`.
+- **Accesibilidad:** `cursor:none` eliminado (solo decorativo con `prefers-reduced-motion`), H1 sr-only en home, `aria-expanded` en aliados, `role=timer` en countdown, `focus-visible:ring` en CTAs.

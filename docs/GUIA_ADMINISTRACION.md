@@ -1,6 +1,6 @@
 # 📘 Guía de Administración de Contenidos - IEEE ComSoc Web
 
-Esta guía explica cómo modificar, agregar y gestionar la información del sitio web de **IEEE ComSoc Student Chapter**. Todos los contenidos dinámicos se gestionan a través de archivos **JSON** ubicados en el directorio `src/content/`.
+Esta guía explica cómo modificar, agregar y gestionar la información del sitio web de **IEEE ComSoc Student Chapter**. Todos los contenidos dinámicos se gestionan a través de archivos **JSON** ubicados en `src/content/` y validados contra `src/content.config.ts:1`.
 
 ---
 
@@ -10,7 +10,7 @@ Esta guía explica cómo modificar, agregar y gestionar la información del siti
 src/content/
 ├── aliados/          # Empresas, ramas y patrocinadores
 ├── convocatorias/    # Oportunidades de voluntariado y roles
-├── eventos/          # Talleres, simposios y actividades
+├── eventos/          # Talleres, simposios y actividades (subcarpeta/evento.json)
 ├── juntaDirectiva/   # Miembros de la mesa directiva
 ├── proyectos/        # Proyectos técnicos y de investigación
 ├── recursos/         # Kits de marca, plantillas y materiales descargables
@@ -20,7 +20,11 @@ src/content/
 ```
 
 > **Nota sobre archivos de ejemplo:**  
-> Cada carpeta cuenta con un archivo `ejemplo.json` (o subcarpeta `ejemplo/` en eventos) que sirve como plantilla. El compilador de la página **ignora automáticamente** cualquier archivo nombrado `ejemplo.json` o que comience con `_`.
+> Cada carpeta cuenta con un archivo `ejemplo.json` (o subcarpeta `ejemplo/` en eventos) que sirve como plantilla. El compilador **ignora automáticamente** cualquier archivo nombrado `ejemplo.json`, `_* .json` o que comience con `_` (`src/content.config.ts:5`).
+
+**Imágenes:** Puedes usar URLs externas `https://...` o rutas locales `/images/mi-foto.jpg` colocadas en `public/images/` o `src/assets/images/` (resueltas vía `src/utils/imageResolver.ts:33`). Para `juntaDirectiva` se recomienda 400×400px; para eventos/proyectos 800×450px (optimizado a WebP).
+
+**Iconos:** Los campos `icon` ahora usan **Google Symbols** vía `astro-icon` (`material-symbols:shield-rounded`, `material-symbols:rocket-launch-rounded`, etc.), no emojis. Ver `src/utils/tiendaIconMap.json:1` para mapeo usado en tienda.
 
 ---
 
@@ -47,8 +51,8 @@ Para crear una convocatoria, añade un archivo `.json` (ejemplo: `marketing-lead
 }
 ```
 
-- **Campos obligatorios:** `titulo`, `area`, `fechaLimite` (formato `YYYY-MM-DD`), `descripcion`, `requisitos` (lista), `responsabilidades` (lista), `estado` (`"Publicada"` o `"Cerrada"`).
-- **Campos opcionales:** `formUrl` (enlace al formulario de Google/Microsoft).
+- **Campos obligatorios:** `titulo`, `area`, `fechaLimite` (`YYYY-MM-DD`), `descripcion`, `requisitos` (lista), `responsabilidades` (lista), `estado` (`"Publicada"` o `"Cerrada"`).
+- **Campos opcionales:** `formUrl` (enlace al formulario).
 
 ---
 
@@ -68,35 +72,49 @@ Cada evento se ubica en su propia subcarpeta con el nombre del slug y un archivo
   "lugarNombre": "Auditorio Central de Ingeniería",
   "lugarDireccion": "Av. Universitaria 1801, Pabellón V",
   "descripcion": "Aprende los fundamentos de la arquitectura de redes 5G de forma práctica.",
-  "imagenPrincipal": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
+  "imagenPrincipal": "/images/event-iot.svg",
   "galeria": [
-    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+    "/images/galeria/foto1.jpg"
   ],
-  "estado": "Publicado"
+  "estado": "Publicado",
+  "detalles": [
+    { "label": "Capacidad", "value": "40 personas" }
+  ]
 }
 ```
 
-- **Campos obligatorios:** `titulo`, `tipo`, `organizador`, `fechaInicio`, `horaInicio`, `horaFin`, `lugarNombre`, `descripcion`, `imagenPrincipal`, `estado` (`"Publicado"` o `"Pasado"`).
-- **Campos opcionales:** `fechaFin`, `lugarDireccion`, `galeria` (lista de URLs de imágenes).
+- **Obligatorios:** `titulo`, `tipo`, `organizador`, `fechaInicio`, `horaInicio`, `horaFin`, `lugarNombre`, `descripcion`, `imagenPrincipal`, `estado` (`"Publicado"` o `"Pasado"`).
+- **Opcionales:** `fechaFin`, `lugarDireccion`, `galeria` (lista de rutas `/images/...` o URLs), `detalles` (array `{label,value}`).
+
+La portada del home elige el evento destacado de forma **determinística**: el `Publicado` más próximo por `fechaInicio` (`src/pages/index.astro:14`). Usa `?event=slug` para forzar uno en la URL.
 
 ---
 
 ## 3. Tienda / Merchandising (`src/content/tienda/`)
 
-Crea un archivo `.json` por producto (ejemplo: `taza-comsoc.json`). Los precios se expresan en **Pesos Colombianos (COP)**:
+Crea un archivo `.json` por producto (ejemplo: `taza-comsoc.json`):
 
 ```json
 {
   "name": "Taza Térmica ComSoc",
   "category": "Accesorios",
-  "price": "$ 25.000 COP",
+  "price": "$ 38.000 COP",
   "description": "Taza de acero inoxidable con logo grabado láser.",
-  "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
-  "available": true
+  "image": "/images/event-iot.svg",
+  "available": true,
+  "resources": [
+    { "title": "Garantía de 1 Año", "link": "/políticas/garantia", "icon": "material-symbols:shield-rounded", "color": "#3b82f6" }
+  ],
+  "specifications": [
+    { "key": "Capacidad", "value": "500ml" }
+  ]
 }
 ```
 
-- **Campos:** `name`, `category`, `price` (texto con formato `$ XX.XXX COP`), `description`, `image` (URL de imagen), `available` (`true` o `false`).
+- **Campos:** `name`, `category`, `price` (texto `$ XX.XXX COP`), `description`, `image` (URL o `/images/...`), `available` (`true`/`false`).
+- **Opcionales:** `resources` (array `{title, link, icon, color}` — `icon` debe ser `material-symbols:xxx-rounded`, ver `src/utils/tiendaIconMap.json:1`), `specifications` (array `{key,value}`).
+
+El modal de detalles convierte `icon` a SVG de Google Symbols vía `src/pages/tienda.astro:212`.
 
 ---
 
@@ -110,8 +128,8 @@ Crea un archivo `.json` por miembro (ejemplo: `presidente.json`):
   "name": "Juan Pérez",
   "role": "Presidente del Capítulo",
   "department": "Junta Directiva",
-  "avatar": "👨‍💼",
-  "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+  "avatar": "👤",
+  "image": "/images/samuel-o.jpg",
   "bio": "Estudiante de 9no ciclo con especialización en telecomunicaciones.",
   "email": "juan.perez@ieee.org",
   "phone": "+51 987 654 321",
@@ -122,47 +140,53 @@ Crea un archivo `.json` por miembro (ejemplo: `presidente.json`):
 }
 ```
 
-- **Campos principales:** `order` (número para ordenar apariciones: 1, 2, 3...), `name`, `role`, `department`.
-- **Redes y multimedia opcionales:** `avatar` (emoji), `image` (URL de foto), `bio`, `email`, `phone`, `linkedin`, `instagram`, `github`, `facebook`, `website`.
+- **Principales:** `order` (1,2,3...), `name`, `role`, `department`.
+- **Opcionales:** `avatar` (emoji fallback, se muestra `Icon:person` si no hay `image`), `image` (`/images/...` 400×400px, se optimiza a WebP), `bio`, `email`, `phone`, `linkedin`, `instagram`, `github`, `facebook`, `website`.
+
+Imágenes locales se resuelven con alias para compatibilidad (`src/utils/imageResolver.ts:20`: `Samuel O.jpg` → `samuel-o.jpg`).
 
 ---
 
 ## 5. Proyectos (`src/content/proyectos/`)
 
-Crea un archivo `.json` por proyecto (ejemplo: `satelite-cubesat.json`). Los proyectos manejan financiamiento tanto en **Dólares (USD)** como en **Pesos Colombianos (COP)**:
+Crea un archivo `.json` por proyecto (ejemplo: `satelite-cubesat.json`):
 
 ```json
 {
   "titulo": "Estación Terrena para Recepción Satelital",
   "categoria": "Satelital & RF",
-  "descripcion": "Diseño de antena Yagi automatizada y decodificación SDR para satélites meteorológicos NOAA.",
-  "imagen": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+  "descripcion": "Diseño de antena Yagi automatizada y decodificación SDR para satélites NOAA.",
+  "imagen": "/images/event-hackathon.svg",
   "estado": "Activo",
   "tags": ["RF", "SDR", "Satélites", "Python"],
   "enlace": "https://github.com/comsoc/estacion-terrena",
   "destacado": true,
   "montoActual": 600,
   "montoMeta": 1500,
-  "montoActualCOP": 2400000,
-  "montoMetaCOP": 6000000
+  "recursos": [
+    { "title": "Repositorio", "link": "https://github.com/...", "icon": "material-symbols:link-rounded" }
+  ],
+  "resumenTecnico": "Detalles de modulación y presupuesto de enlace..."
 }
 ```
 
-- **Campos obligatorios:** `titulo`, `categoria`, `descripcion`, `imagen`, `estado` (`"Activo"`, `"Completado"` o `"En Pausa"`).
-- **Campos opcionales:** `tags` (array de strings), `enlace` (URL de GitHub/Demo), `destacado` (`true`/`false`), `montoActual` (número en USD), `montoMeta` (número meta en USD), `montoActualCOP` (número en COP), `montoMetaCOP` (número meta en COP). Si no se indican montos en COP, el sistema los calcula automáticamente con la tasa de referencia.
+- **Obligatorios:** `titulo`, `categoria`, `descripcion`, `imagen`, `estado` (`"Activo"`, `"Completado"` o `"En Pausa"`).
+- **Opcionales:** `tags`, `enlace`, `destacado` (boolean, prioriza en home), `montoActual`/`montoMeta` (USD, se convierte a COP vía `src/utils/currency.ts:47` con tasa `4100` por defecto y `fetch` con `AbortSignal.timeout(3000)`), `recursos` (array `{title,link,icon?}`), `resumenTecnico`.
+
+El home muestra 2 proyectos destacados ordenados alfabéticamente por `titulo` (`src/pages/index.astro:28`).
 
 ---
 
 ## 6. Aliados y Patrocinadores (`src/content/aliados/`)
 
-Crea un archivo `.json` por entidad aliada (ejemplo: `huawei.json`):
+Crea un archivo `.json` por entidad (ejemplo: `huawei.json`):
 
 ```json
 {
   "order": 1,
   "nombre": "Huawei ICT Academy",
   "tipo": "Partner Académico",
-  "logo": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=300&q=80",
+  "logo": "/images/logo-comsoc.svg",
   "descripcion": "Convenio para certificaciones gratuitas en 5G y Cloud.",
   "acerca": "Capacitaciones y acceso a plataformas de laboratorio.",
   "website": "https://www.huawei.com",
@@ -171,153 +195,80 @@ Crea un archivo `.json` por entidad aliada (ejemplo: `huawei.json`):
 }
 ```
 
+Campos: `order`, `nombre`, `tipo`, `descripcion` (obligatorios); `logo` (`/images/...` 200×80px), `acerca`, `website`, `email`, `phone`, `linkedin`, `instagram` (opcionales).
+
 ---
 
 ## 7. Estadísticas del Inicio (`src/content/estadisticas.json`)
 
-Edita el archivo `src/content/estadisticas.json` directamente. Contiene una lista de 4 indicadores:
+Edita el archivo directamente. Actualmente 4 indicadores verificables (no vanity):
 
 ```json
 [
-  {
-    "valor": "+30",
-    "etiqueta": "Miembros Activos",
-    "color": "text-text-primary"
-  },
-  {
-    "valor": "35+",
-    "etiqueta": "Workshops & Charlas",
-    "color": "text-[#22d3ee]"
-  },
-  {
-    "valor": "12+",
-    "etiqueta": "Proyectos de Redes",
-    "color": "text-[#a855f7]"
-  },
-  {
-    "valor": "100%",
-    "etiqueta": "Pasión Tecnológica",
-    "color": "text-accent-emerald"
-  }
+  { "valor": "16", "etiqueta": "Miembros Activos", "color": "text-text-primary" },
+  { "valor": "3", "etiqueta": "Eventos 2025", "color": "text-accent-cyan" },
+  { "valor": "2", "etiqueta": "Proyectos Activos", "color": "text-accent-purple" },
+  { "valor": "4", "etiqueta": "Aliados Estratégicos", "color": "text-accent-emerald" }
 ]
 ```
+
+Se renderizan en `src/pages/index.astro:110`.
 
 ---
 
 ## 8. Métodos de Donación (`src/content/donaciones.json`)
 
-Los métodos de pago (transferencia bancaria a Nu, billetera digital a Nequi / Bre-B e internacional con PayPal) se configuran en el archivo `src/content/donaciones.json`:
-
-```json
-[
-  {
-    "type": "Transferencia Bancaria",
-    "name": "Nu",
-    "badge": "Transferencias & Llaves",
-    "details": [
-      { "label": "Banco / Entidad", "value": "Nu" },
-      { "label": "Tipo de Cuenta", "value": "Cuenta de Ahorros" },
-      { "label": "Número de Cuenta", "value": "XXXXXXXXXXXX" },
-      { "label": "Titular", "value": "IEEE ComSoc Student Chapter" }
-    ]
-  },
-  {
-    "type": "Billetera Digital",
-    "name": "Nequi / Bre-B",
-    "badge": "Pagos Inmediatos",
-    "details": [
-      { "label": "Plataforma", "value": "Nequi / Bre-B" },
-      { "label": "Número Celular / Llave", "value": "+57 300 000 0000" },
-      { "label": "Titular", "value": "Tesorero IEEE ComSoc" },
-      { "label": "Nota requerida", "value": "Indicar nombre y/o proyecto" }
-    ]
-  },
-  {
-    "type": "Donación Internacional",
-    "name": "PayPal",
-    "badge": "Internacional",
-    "details": [
-      { "label": "Plataforma", "value": "PayPal" },
-      { "label": "Enlace PayPal", "value": "https://paypal.me/comsocchapter" },
-      { "label": "Correo PayPal", "value": "donaciones.comsoc@ieee.org" },
-      { "label": "Monedas aceptadas", "value": "USD, EUR y divisas globales" }
-    ]
-  }
-]
-```
+Configura transferencias (Nu), billeteras (Nequi/Bre-B) y PayPal internacional. Cada método tiene `type`, `name`, `badge` y `details[]` (`label`+`value`). Se renderizan en `/donaciones` con copiado al portapapeles.
 
 ---
 
 ## 9. Recursos (`src/content/recursos/`)
 
-Página pública: **`/nosotros/recursos`** (`src/pages/nosotros/recursos/index.astro`). Muestra kits de marca, plantillas y materiales descargables en tarjetas (`src/components/ResourceCard.astro`) con contador de recursos/categorías y estado vacío cuando no hay contenido.
+Página: `/nosotros/recursos` (`src/pages/nosotros/recursos/index.astro`). Muestra kits de marca y plantillas en `ResourceCard.astro`.
 
-Cada recurso es un archivo `.json` independiente (ejemplo: `branding-kit.json`, `educacion.json`). El `id` de la colección es el nombre del archivo sin extensión.
+Cada recurso es un `.json` independiente:
 
 ```json
 {
   "titulo": "Kit de Marca IEEE ComSoc Univalle",
-  "descripcion": "Descarga los recursos oficiales de identidad visual para asegurar la consistencia de la marca en todos nuestros materiales.",
+  "descripcion": "Descarga los recursos oficiales de identidad visual...",
   "categoria": "Branding",
   "imagen": "/images/branding-kit.jpg",
   "links": [
-    {
-      "label": "Logotipos Oficiales (ZIP)",
-      "url": "https://example.com/logo.zip",
-      "tipo": "Download"
-    },
-    {
-      "label": "Guía de Estilo",
-      "url": "https://example.com/style-guide.pdf",
-      "tipo": "Download"
-    },
-    {
-      "label": "Plantilla de Presentación",
-      "url": "https://canva.com/design/...",
-      "tipo": "Canva"
-    }
+    { "label": "Logotipos Oficiales (ZIP)", "url": "https://example.com/logo.zip", "tipo": "Download" },
+    { "label": "Plantilla de Presentación", "url": "https://canva.com/design/...", "tipo": "Canva" }
   ]
 }
 ```
 
-- **Campos obligatorios:** `titulo` (string), `descripcion` (string), `categoria` (string — ej. `"Branding"`, `"Educación"`, `"Plantillas"`; se usa para agrupar y contar categorías en la cabecera), `links` (array no vacío).
-- **Campos opcionales:** `imagen` (string — URL externa `https://...` o ruta local `/images/...`; si se omite la tarjeta muestra una franja degradada y el badge de categoría dentro del cuerpo).
-- **Objeto `links[]`:**
-  - `label` (string, obligatorio) — texto del botón, ej. `"Logotipos Oficiales (ZIP)"`.
-  - `url` (string, obligatorio) — enlace absoluto. Los enlaces se abren con `target="_blank"` + `rel="noopener noreferrer"`.
-  - `tipo` (string, opcional) — controla icono y badge. Valores usados actualmente:
-    - `"Download"` (por defecto) → icono de descarga.
-    - `"Canva"` → icono de plantilla + badge `Canva` en el botón.
-    - Cualquier otro valor (ej. `"External"`) → se renderiza con estilo Download sin badge.
+- **Obligatorios:** `titulo`, `descripcion`, `categoria`, `links` (array no vacío).
+- **Opcionales:** `imagen` (`/images/...` o URL).
+- **`links[].tipo`:** `"Download"` (icono `download-rounded`) o `"Canva"` (icono `palette` + badge). Otro valor → estilo Download.
 
-**Esquema (fuente de verdad `src/content.config.ts:125`):**
-
-```ts
-z.object({
-  titulo: z.string(),
-  descripcion: z.string(),
-  categoria: z.string(),
-  imagen: z.string().optional(),
-  links: z.array(z.object({
-    label: z.string(),
-    url: z.string(),
-    tipo: z.string().optional(),
-  })),
-})
-```
-
-**Cómo agregar un recurso nuevo:**
-
-1. Crea `src/content/recursos/mi-recurso.json` con la estructura anterior.
-2. Si usas imagen local, coloca el archivo en `public/images/` y referencia como `/images/mi-recurso.jpg`.
-3. Verifica `npm run build` — un JSON que no cumpla el esquema rompe el build.
-4. La página `/nosotros/recursos` se regenera automáticamente: agrupa por `categoria` y renderiza un `ResourceCard` por entrada. Los archivos `ejemplo.json` o `_* .json` se ignoran.
-
-> **Nota:** La página no tiene ruta dinámica `[id]`; todos los recursos se listan en una sola vista de grilla (`1 col → 2 cols → 3 cols`). Para recursos con un solo `link`, se muestra un único botón; para varios, se apilan verticalmente.
+Esquema fuente: `src/content.config.ts:125`.
 
 ---
 
-## 💡 Recomendaciones para Imágenes
+## 10. SEO, Sitemap y Markdown para Agentes
 
-- Puedes usar imágenes alojadas en internet (Unsplash, Cloudinary, Imgur) mediante URLs directas `https://...`.
-- O puedes colocar archivos de imagen locales en la carpeta `public/images/` y referenciarlas como `/images/mi-foto.png`.
+- **Sitemap:** Se genera automáticamente en `dist/sitemap.xml` (copia de `sitemap-0.xml`) y `sitemap-index.xml` vía `@astrojs/sitemap` + integración `sitemap-xml` en `astro.config.mjs:14`. Listado en `public/robots.txt:4` como `Sitemap: https://comsoc.ieeeunivalle.link/sitemap.xml`. Se actualiza en cada `npm run build`.
+- **Markdown para Agentes:** Soporte `Accept: text/markdown` vía `src/middleware.ts:13` (usa `turndown` + `x-markdown-tokens`) y `worker.js:1`/`functions/_middleware.js:1` para Cloudflare. Archivos estáticos `.md` se generan en `dist/**/*.md` vía `src/utils/markdownIntegration.ts:1`. Cloudflare puede habilitar “Markdown for Agents” sin código adicional.
+
+---
+
+## 💡 Recomendaciones para Imágenes e Iconos
+
+- **Imágenes:** Usa `/images/...` locales (se optimizan a WebP 800×450px para eventos/proyectos, 200×200px para avatares) o URLs externas. Evita duplicados con espacios (`Samuel O.jpg` → `samuel-o.jpg`).
+- **Iconos:** Usa `material-symbols:xxx-rounded` (ej. `shield-rounded`, `local-shipping-rounded`, `water-drop-rounded`, `palette`, `auto-awesome-rounded`, `lightbulb-rounded`, `checkroom-rounded`). Verifica existencia en `@iconify-json/material-symbols` (`src/utils/tiendaIconMap.json:1`). Para marcas usa `mdi:instagram`, `simple-icons:github`.
+- **Fuentes:** Gestionadas por `astro:assets` (`astro.config.mjs:32`): `Formata` local + `Nunito Sans`, `Share Tech Mono`, `Space Grotesk` de Google. No añadas `<link>` manualmente.
+
+---
+
+## ✅ Verificación
+
+```bash
+npm run build   # valida esquemas y genera sitemap + .md
+npm run preview # previsualiza producción
+```
+
+Un JSON que no cumpla el esquema rompe el build — revisa `src/content.config.ts` como fuente de verdad.
