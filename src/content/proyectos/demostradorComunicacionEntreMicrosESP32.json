@@ -1,0 +1,27 @@
+{
+  "titulo": "Demostrador de comunicación cableada entre microcontroladores ESP32",
+  "categoria": "Microcontroladores & Redes",
+  "descripcion": "Proyecto educativo y de prototipado para comparar distintos protocolos de comunicación cableada entre ESP32, incluyendo UART, I2C, SPI, RS-485 y CAN. La demostración permite evaluar velocidad, robustez, facilidad de implementación y arquitectura de red en aplicaciones de instrumentación, control y adquisición de datos.",
+  "imagen": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+  "estado": "Activo",
+  "tags": [
+    "ESP32",
+    "UART",
+    "I2C",
+    "SPI",
+    "RS-485",
+    "CAN",
+    "Microcontroladores",
+    "Educativo"
+  ],
+  "enlace": "https://github.com/ejemplo/esp32-protocolos-cableados",
+  "destacado": true,
+  "montoActual": 15,
+  "montoMeta": 15,
+  "recursos": [
+    { "title": "Repositorio del proyecto", "link": "https://github.com/ejemplo/esp32-protocolos-cableados", "icon": "💻" },
+    { "title": "Diagrama de conexiones", "link": "https://example.com/diagrama-esp32-cableado", "icon": "🧩" },
+    { "title": "Guía de pruebas", "link": "https://example.com/guia-pruebas-comunicacion", "icon": "📘" }
+  ],
+  "resumenTecnico": "El sistema está conformado por varios nodos ESP32 interconectados mediante buses físicos para analizar el comportamiento de protocolos de comunicación cableada en condiciones controladas. Se implementan pruebas de transmisión de datos entre sensores, actuadores y módulos maestros/esclavos con mediciones de latencia, tasa de error, sincronización y consumo energético. La plataforma sirve como herramienta didáctica para comprender diferencias entre UART, I2C, SPI, RS-485 y CAN en escenarios reales de automatización y monitoreo industrial."
+}

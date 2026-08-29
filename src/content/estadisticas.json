@@ -1,17 +1,17 @@
 [
   {
-    "valor": "+30",
+    "valor": "+16",
     "etiqueta": "Miembros Activos",
     "color": "text-text-primary"
   },
   {
-    "valor": "35+",
-    "etiqueta": "Workshops & Charlas",
+    "valor": "10+",
+    "etiqueta": "Workshops & Charlas Planeados",
     "color": "text-accent-cyan"
   },
   {
-    "valor": "12+",
-    "etiqueta": "Proyectos de Redes",
+    "valor": "4+",
+    "etiqueta": "Proyectos de Redes en curso",
     "color": "text-accent-purple"
   },
   {

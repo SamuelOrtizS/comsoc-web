@@ -71,39 +71,47 @@ const pillars = [
   <!-- Featured Event & Live Countdown Spotlight -->
   {featuredEvent && (
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="relative rounded-3xl overflow-hidden glass-card p-6 sm:p-10 border border-accent-cyan/30">
-<div class="absolute -right-20 -top-20 w-96 h-96 bg-accent-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative overflow-hidden rounded-[28px] border border-accent-cyan/30 bg-[linear-gradient(135deg,rgba(13,17,40,0.96),rgba(8,14,28,0.92))] p-6 sm:p-8 lg:p-10 shadow-[0_30px_90px_-45px_rgba(21,93,252,0.75)]">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.18),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(21,93,252,0.16),transparent_32%)]"></div>
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent"></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <div class="lg:col-span-7 space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-mono">
-              ⭐ Evento Destacado
-            </div>
-            
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-text-primary leading-tight">
-              {featuredEvent.data.titulo}
-            </h2>
-            
-             <p class="text-text-secondary leading-relaxed font-light">
-              {featuredEvent.data.descripcion}
-            </p>
-
-            <div class="flex flex-wrap gap-4 text-xs font-mono text-text-secondary pt-2 font-light">
-              <div>📍 {featuredEvent.data.lugarNombre}</div>
-              <div>🕒 {featuredEvent.data.horaInicio} - {featuredEvent.data.horaFin}</div>
+        <div class="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+          <div class="space-y-5 lg:col-span-7">
+            <div class="inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(34,211,238,0.18)]">
+              <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.95)]"></span>
+              Evento Destacado
             </div>
 
-            <div class="pt-4 flex flex-wrap gap-3">
+            <div class="space-y-3">
+              <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl lg:text-5xl">
+                {featuredEvent.data.titulo}
+              </h2>
+              <p class="max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
+                {featuredEvent.data.descripcion}
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3 text-xs font-mono text-text-secondary font-light sm:text-[11px]">
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+                <span aria-hidden="true">📍</span>
+                {featuredEvent.data.lugarNombre}
+              </div>
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+                <span aria-hidden="true">🕒</span>
+                {featuredEvent.data.horaInicio} - {featuredEvent.data.horaFin}
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
               <a
                 href={`/eventos/${featuredEventSlug}`}
-                  class="px-6 py-3 rounded-xl font-semibold text-text-primary bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40 transition"
+                class="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-accent-blue via-accent-cyan to-accent-cyan px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
               >
                 Inscribirse al Evento
               </a>
               <a
                 href="/eventos"
-                class="px-6 py-3 rounded-xl font-semibold text-text-secondary bg-white/5 hover:bg-white/10 border border-white/10 transition"
+                class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-text-secondary transition duration-200 hover:-translate-y-0.5 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary"
               >
                 Ver todos los eventos
               </a>
@@ -111,12 +119,13 @@ const pillars = [
           </div>
 
           <div class="lg:col-span-5">
-            <CountdownTimer
-              targetDate={`${featuredEvent.data.fechaInicio}T${featuredEvent.data.horaInicio || '09:00'}:00`}
-              eventName={featuredEvent.data.titulo}
-            />
+            <div class="rounded-[24px] border border-white/10 bg-black/20 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm">
+              <CountdownTimer
+                targetDate={`${featuredEvent.data.fechaInicio}T${featuredEvent.data.horaInicio || '09:00'}:00`}
+                eventName={featuredEvent.data.titulo}
+              />
+            </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -124,31 +133,31 @@ const pillars = [
 
   <!-- Ecosystem / Technical Pillars -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <div class="text-xs uppercase font-mono tracking-widest text-accent-cyan mb-2 font-semibold">
+    <div class="mx-auto mb-12 max-w-3xl text-center">
+      <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
         Áreas de Especialización
       </div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+      <h2 class="mb-4 text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl">
         Ecosistema Tecnológico de IEEE ComSoc
       </h2>
-      <p class="text-text-secondary text-sm sm:text-base font-light">
+      <p class="text-sm leading-relaxed text-text-secondary sm:text-base font-light">
         Desarrollamos proyectos, capacitaciones e investigaciones orientadas a las áreas de mayor impacto en la industria moderna de telecomunicaciones.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {pillars.map((pillar) => (
-        <div class={`glass-card rounded-2xl p-6 border ${pillar.border} relative group hover:-translate-y-2 transition-all duration-300`}>
-          <div class="text-3xl mb-4 p-3 w-fit rounded-xl bg-white/5 border border-white/10">
+        <article class={`group relative overflow-hidden rounded-[22px] border ${pillar.border} bg-[linear-gradient(180deg,rgba(15,23,42,0.86),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-38px_rgba(34,211,238,0.55)]`}>
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-2xl shadow-[0_16px_32px_-22px_rgba(34,211,238,0.8)]">
             {pillar.icon}
           </div>
-          <h3 class="text-lg font-bold text-text-primary mb-2 group-hover:text-accent-cyan transition-colors">
+          <h3 class="mb-3 text-lg font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">
             {pillar.title}
           </h3>
-          <p class="text-xs text-text-secondary leading-relaxed font-light">
+          <p class="text-xs leading-relaxed text-text-secondary font-light">
             {pillar.desc}
           </p>
-        </div>
+        </article>
       ))}
     </div>
   </section>
@@ -389,24 +398,28 @@ const pillars = [
 
   <!-- Join CTA Banner -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="glass-card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden border border-accent-purple/30 bg-linear-to-r from-blue-900/20 via-accent-purple/20 to-cyan-900/20">
-      <div class="max-w-2xl mx-auto space-y-6 relative z-10">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-text-primary">
+    <div class="relative overflow-hidden rounded-[30px] border border-accent-purple/30 bg-[linear-gradient(135deg,rgba(21,93,252,0.16),rgba(168,85,247,0.14),rgba(34,211,238,0.12))] p-8 sm:p-12 text-center shadow-[0_35px_90px_-48px_rgba(168,85,247,0.8)]">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.07),transparent_45%)]"></div>
+      <div class="relative z-10 mx-auto max-w-2xl space-y-6">
+        <div class="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
+          Unete a la comunidad
+        </div>
+        <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl">
           ¿Listo para liderar el futuro de las telecomunicaciones?
         </h2>
-        <p class="text-text-secondary text-sm sm:text-base font-light leading-relaxed">
+        <p class="text-sm leading-relaxed text-text-secondary sm:text-base font-light">
           Conéctate con mentores de la industria, accede a recursos globales de IEEE, organiza congresos internacionales y potencia tu carrera profesional.
         </p>
         <div class="flex flex-wrap justify-center gap-4 pt-2">
           <a
             href="/convocatorias"
-            class="px-8 py-3.5 rounded-xl font-semibold text-text-primary bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-accent-blue/25 hover:scale-[1.02] transition"
+            class="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan px-8 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
           >
             Ver Convocatorias Abiertas
           </a>
           <a
             href="/nosotros"
-            class="px-8 py-3.5 rounded-xl font-semibold text-text-secondary bg-white/5 hover:bg-white/10 border border-white/10 transition"
+            class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-text-secondary transition duration-200 hover:-translate-y-0.5 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary"
           >
             Conoce Más Sobre Nosotros
           </a>

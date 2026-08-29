@@ -9,79 +9,102 @@ const tiendaItems = await getCollection('tienda');
   title="IEEE ComSoc Univalle | Tienda Oficial & Merchandising"
   description="Adquiere la indumentaria oficial y merchandising del Capítulo Estudiantil IEEE ComSoc."
 >
-  <!-- Header -->
-  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 text-accent-emerald text-sm font-mono mb-4">
-        Official Chapter Merch
+  <section class="relative overflow-hidden border-b border-white/10 bg-grid-pattern bg-wave-pattern py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent-emerald font-mono shadow-[0_0_18px_rgba(52,211,153,0.15)]">
+          Merch oficial del capítulo
+        </div>
+        <h1 class="mb-4 text-4xl font-black tracking-[-0.06em] text-text-primary sm:text-5xl lg:text-6xl">
+          Tienda IEEE ComSoc
+        </h1>
+        <p class="mx-auto max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
+          Lleva con orgullo los colores y la identidad de nuestra comunidad. Todos los fondos recaudados se reinvierten en becas, eventos y proyectos del capítulo.
+        </p>
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
-        Tienda IEEE ComSoc
-      </h1>
-      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
-        Lleva con orgullo los colores y la identidad de nuestra comunidad. Todos los fondos recaudados son reinvertidos en becas y proyectos del capítulo.
-      </p>
     </div>
   </section>
 
-  <!-- Notice Banner: Pickup info -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-    <div class="glass-card rounded-2xl p-4 sm:p-6 border border-glass-border/30 flex flex-col sm:flex-row items-center gap-4 bg-bg-secondary/20">
-      <div class="text-3xl">📍</div>
-      <div class="text-sm sm:text-sm text-text-secondary grow font-light">
-        <strong class="text-text-primary font-medium">Punto de Entrega:</strong> Entregas presenciales en el Campus Universitario (Laboratorio de Telecomunicaciones) y envíos a nivel nacional previa coordinación vía WhatsApp.
+  <div class="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="glass-card flex flex-col items-center gap-4 rounded-2xl border border-glass-border/30 bg-bg-secondary/20 p-4 sm:flex-row sm:p-6">
+      <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-6.716-4.5-9-8.13C1.546 10.79 2.795 6 7.264 6c1.6 0 2.64.75 3.236 1.38A4.15 4.15 0 0 1 13.736 6C18.205 6 19.454 10.79 21 12.87 18.716 16.5 12 21 12 21Z" />
+        </svg>
+      </div>
+      <div class="grow text-sm leading-relaxed text-text-secondary font-light sm:text-base">
+        <strong class="font-semibold text-text-primary">Punto de entrega:</strong> Entregas presenciales en el Campus Universitario y envíos a nivel nacional previa coordinación por WhatsApp.
       </div>
     </div>
   </div>
 
-  <!-- Products Grid -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <div class="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
+          Catálogo disponible
+        </div>
+        <h2 class="text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
+          Merchandising del capítulo
+        </h2>
+      </div>
+      <p class="max-w-xl text-sm leading-relaxed text-text-secondary font-light">
+        Cada compra ayuda a sostener actividades, becas y proyectos de la comunidad IEEE ComSoc Univalle.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
       {tiendaItems.map((item) => {
         const prod = item.data;
         return (
-          <div class="glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col justify-between group hover:border-accent-cyan/40 transition-all duration-300">
+          <article class="glass-card group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-bg-secondary/30 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-cyan/40 hover:shadow-[0_30px_70px_-46px_rgba(34,211,238,0.7)]">
             <button
               type="button"
-              class="product-card-btn text-left w-full"
+              class="product-card-btn w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
               data-product={JSON.stringify(prod)}
               aria-label={`Ver detalles de ${prod.name}`}
             >
-              <div>
-                <div class="aspect-square relative overflow-hidden bg-slate-900">
+              <div class="relative overflow-hidden bg-slate-900">
+                <div class="aspect-square overflow-hidden">
                   <img
                     src={prod.image}
                     alt={prod.name}
                     loading="lazy"
                     decoding="async"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-accent-cyan border border-accent-cyan/30">
+                </div>
+                <div class="absolute inset-x-3 top-3 flex items-center justify-between gap-2">
+                  <span class="rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono backdrop-blur-sm">
                     {prod.category}
                   </span>
-                  {!prod.available && (
-                    <div class="absolute inset-0 bg-black/60 flex items-center justify-center">
-                      <span class="text-sm font-mono text-accent-red border border-accent-red/40 bg-accent-red/10 px-3 py-1 rounded-full">Agotado</span>
-                    </div>
+                  {prod.available ? (
+                    <span class="rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-emerald font-mono">
+                      En stock
+                    </span>
+                  ) : (
+                    <span class="rounded-full border border-accent-red/30 bg-accent-red/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-red font-mono">
+                      Agotado
+                    </span>
                   )}
                 </div>
+              </div>
 
-                <div class="p-5">
-                  <div class="text-lg font-bold text-accent-cyan font-mono mb-1">{prod.price}</div>
-                  <h3 class="text-base font-bold text-text-primary group-hover:text-accent-cyan transition-colors mb-2 line-clamp-2">
-                    {prod.name}
-                  </h3>
-                  <p class="text-sm text-text-secondary font-light leading-relaxed line-clamp-3">
-                    {prod.description}
-                  </p>
-                </div>
+              <div class="p-5">
+                <div class="mb-2 text-lg font-bold text-accent-cyan font-mono">{prod.price}</div>
+                <h3 class="mb-2 text-base font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">
+                  {prod.name}
+                </h3>
+                <p class="text-sm leading-relaxed text-text-secondary font-light line-clamp-3">
+                  {prod.description}
+                </p>
               </div>
             </button>
 
-            <div class="p-5 pt-0 flex gap-2">
+            <div class="mt-auto flex items-center gap-2 p-5 pt-0">
               <button
                 type="button"
-                class="product-card-btn flex-1 py-2 rounded-xl text-center text-sm font-semibold bg-white/5 hover:bg-white/10 text-text-secondary border border-white/10 transition"
+                class="product-card-btn flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-center text-sm font-semibold text-text-secondary transition hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
                 data-product={JSON.stringify(prod)}
               >
                 Ver detalles
@@ -90,66 +113,75 @@ const tiendaItems = await getCollection('tienda');
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex-1 py-2 rounded-xl text-center text-sm font-semibold bg-accent-emerald/30 hover:bg-accent-emerald/50 text-accent-emerald border border-accent-emerald/40 transition flex items-center justify-center gap-1"
+                class="flex flex-1 items-center justify-center gap-2 rounded-xl border border-accent-emerald/35 bg-accent-emerald/20 px-3 py-2.5 text-sm font-semibold text-accent-emerald transition hover:bg-accent-emerald/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                aria-label={`Consultar por WhatsApp el producto ${prod.name}`}
               >
                 <span>WhatsApp</span>
-                <span>💬</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 9.5h7m-7 3h5m-7 5 3.8-2.1A7.1 7.1 0 0 0 18 8.5A6.5 6.5 0 0 0 6 12.5a6.4 6.4 0 0 0 2.5 5.1Z" />
+                </svg>
               </a>
             </div>
-          </div>
+          </article>
         );
       })}
     </div>
   </section>
 
-  <!-- Product Detail Modal -->
   <div
     id="product-modal-overlay"
-    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
+    class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 opacity-0 backdrop-blur-xl transition-all duration-300"
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-product-name"
   >
-      <div id="product-modal" class="relative bg-bg-secondary border border-white/15 rounded-3xl shadow-2xl shadow-accent-blue/40 w-full max-w-md flex flex-col overflow-y-auto translate-y-4 transition-all duration-300">
-      <!-- Close -->
+    <div
+      id="product-modal"
+      class="relative w-full max-w-2xl translate-y-4 overflow-hidden rounded-[28px] border border-white/10 bg-bg-secondary shadow-[0_32px_80px_-28px_rgba(21,93,252,0.8)] transition-all duration-300"
+    >
       <button
         id="product-modal-close"
         type="button"
-        class="absolute top-4 right-4 z-10 text-text-secondary hover:text-text-primary p-2 rounded-xl hover:bg-white/10 transition"
+        class="absolute right-4 top-4 z-10 rounded-xl border border-white/10 bg-black/25 p-2 text-text-secondary transition hover:border-white/20 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
         aria-label="Cerrar"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
 
-      <!-- Image -->
-      <div class="aspect-video relative overflow-hidden bg-slate-900">
-        <img id="modal-product-image" src="" alt="" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-linear-to-t from-bg-secondary via-transparent to-transparent"></div>
-        <span id="modal-product-category" class="absolute top-4 left-4 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-black/70 text-accent-cyan border border-accent-cyan/30"></span>
-      </div>
-
-      <!-- Info -->
-      <div class="p-7 space-y-4">
-        <div>
-          <div id="modal-product-price" class="text-2xl font-bold text-accent-cyan font-mono mb-1"></div>
-          <h2 id="modal-product-name" class="text-xl font-extrabold text-text-primary"></h2>
+      <div class="grid gap-0 md:grid-cols-[1.05fr_1fr]">
+        <div class="relative aspect-[5/4] overflow-hidden bg-slate-900 md:aspect-auto">
+          <img id="modal-product-image" src="" alt="" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,15,36,0.15),rgba(10,15,36,0.7))]"></div>
+          <span id="modal-product-category" class="absolute left-4 top-4 rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono backdrop-blur-sm"></span>
         </div>
-        <div id="modal-availability" class="text-sm font-mono"></div>
-        <div id="modal-resources"></div>
-        <div id="modal-specifications"></div>
-        <p id="modal-product-desc" class="text-sm text-text-secondary font-light leading-relaxed"></p>
-        <div class="pt-2">
-          <a
-            id="modal-whatsapp-btn"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full py-3 rounded-xl text-center text-sm font-semibold bg-accent-emerald/30 hover:bg-accent-emerald/50 text-accent-emerald border border-accent-emerald/40 transition flex items-center justify-center gap-2"
-          >
-            Pedir por WhatsApp 💬
-          </a>
+
+        <div class="flex flex-col p-6 sm:p-7">
+          <div class="mb-3">
+            <div id="modal-product-price" class="mb-2 text-2xl font-bold text-accent-cyan font-mono"></div>
+            <h2 id="modal-product-name" class="text-2xl font-black tracking-[-0.05em] text-text-primary"></h2>
+          </div>
+
+          <div id="modal-availability" class="mb-4 text-sm font-mono"></div>
+          <div id="modal-resources" class="space-y-3"></div>
+          <div id="modal-specifications" class="space-y-3"></div>
+          <p id="modal-product-desc" class="mt-4 text-sm leading-relaxed text-text-secondary font-light"></p>
+
+          <div class="mt-6 pt-4">
+            <a
+              id="modal-whatsapp-btn"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex w-full items-center justify-center gap-2 rounded-xl border border-accent-emerald/35 bg-accent-emerald/20 px-4 py-3 text-sm font-semibold text-accent-emerald transition hover:bg-accent-emerald/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-secondary"
+            >
+              <span>Pedir por WhatsApp</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 9.5h7m-7 3h5m-7 5 3.8-2.1A7.1 7.1 0 0 0 18 8.5A6.5 6.5 0 0 0 6 12.5a6.4 6.4 0 0 0 2.5 5.1Z" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -164,80 +196,109 @@ const tiendaItems = await getCollection('tienda');
     description: string;
     image: string;
     available: boolean;
-    resources?: Array<{ title: string; link: string; icon: string; color: string }>; // New field for Resources
-    specifications?: Array<{ key: string; value: string }>; // New field for Specifications
+    resources?: Array<{ title: string; link: string; icon: string; color?: string }>;
+    specifications?: Array<{ key: string; value: string }>;
   };
 
   const overlay = document.getElementById('product-modal-overlay') as HTMLElement;
-  const modal   = document.getElementById('product-modal') as HTMLElement;
+  const modal = document.getElementById('product-modal') as HTMLElement;
   const closeBtn = document.getElementById('product-modal-close') as HTMLButtonElement;
+
+  function hexToRgba(hex: string, alpha: number) {
+    const clean = hex.startsWith('#') ? hex.slice(1) : hex;
+    const normalized = clean.length === 3 ? clean.split('').map((char) => char + char).join('') : clean;
+    const value = Number.parseInt(normalized, 16);
+    const r = (value >> 16) & 255;
+    const g = (value >> 8) & 255;
+    const b = value & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
 
   function openProductModal(prod: Product) {
     const modalImage = document.getElementById('modal-product-image') as HTMLImageElement;
+    const modalCategory = document.getElementById('modal-product-category') as HTMLElement;
+    const modalPrice = document.getElementById('modal-product-price') as HTMLElement;
+    const modalName = document.getElementById('modal-product-name') as HTMLElement;
+    const modalDesc = document.getElementById('modal-product-desc') as HTMLElement;
+    const availability = document.getElementById('modal-availability') as HTMLElement;
+    const resourcesContainer = document.getElementById('modal-resources') as HTMLElement;
+    const specsContainer = document.getElementById('modal-specifications') as HTMLElement;
+    const waBtn = document.getElementById('modal-whatsapp-btn') as HTMLAnchorElement;
 
     modalImage.src = prod.image;
     modalImage.alt = prod.name;
-    (document.getElementById('modal-product-category') as HTMLElement).textContent = prod.category;
-    (document.getElementById('modal-product-price') as HTMLElement).textContent = prod.price;
-    (document.getElementById('modal-product-name') as HTMLElement).textContent = prod.name;
-    (document.getElementById('modal-product-desc') as HTMLElement).textContent = prod.description;
+    modalCategory.textContent = prod.category;
+    modalPrice.textContent = prod.price;
+    modalName.textContent = prod.name;
+    modalDesc.textContent = prod.description;
 
-    const availability = document.getElementById('modal-availability') as HTMLElement;
-    if (prod.available) {
-      availability.innerHTML = '<span class="text-accent-emerald">✓ En Stock</span>';
-    } else {
-      availability.innerHTML = '<span class="text-accent-red">✗ Agotado</span>';
-    }
+    availability.innerHTML = prod.available
+      ? '<span class="inline-flex items-center gap-2 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1 text-accent-emerald font-mono text-xs uppercase tracking-[0.12em]">✓ En stock</span>'
+      : '<span class="inline-flex items-center gap-2 rounded-full border border-accent-red/30 bg-accent-red/10 px-3 py-1 text-accent-red font-mono text-xs uppercase tracking-[0.12em]">✗ Agotado</span>';
 
-    // --- New: Resources Section ---
-    const resourcesContainer = document.getElementById('modal-resources') as HTMLElement;
     if (prod.resources && prod.resources.length > 0) {
-      let html = '<div class="grid grid-cols-2 gap-4 mt-6 border-t border-white/10 pt-4">';
-      prod.resources.forEach(resource => {
-        html += `
-          <div style="border: 1px solid ${resource.color}; background-color: rgba(${parseInt(resource.color.substring(1, 3), 16)}, ${parseInt(resource.color.substring(3, 5), 16)}, ${parseInt(resource.color.substring(5, 7), 16)}, 0.1);" class="rounded-xl p-2">
-            <div class="flex items-center gap-2">
-              <span style="color: ${resource.color}; font-size: 1.5rem;">${resource.icon}</span>
-              <div>
-                <p class="text-sm font-semibold text-text-primary">${resource.title}</p>
-                <a href="${resource.link}" target="_blank" rel="noopener noreferrer" class="text-xs text-accent-cyan hover:underline">Ver más</a>
-              </div>
-            </div>
+      resourcesContainer.innerHTML = `
+        <div class="space-y-3 border-t border-white/10 pt-4">
+          <h3 class="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-secondary font-mono">Recursos</h3>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            ${prod.resources
+              .map((resource) => {
+                const color = resource.color ?? '#22d3ee';
+                return `
+                  <a
+                    href="${resource.link}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group rounded-2xl border p-3 transition hover:-translate-y-0.5"
+                    style="border-color: ${color}; background: ${hexToRgba(color, 0.08)};"
+                  >
+                    <div class="flex items-center gap-3">
+                      <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-black/25 text-lg" style="color: ${color};">
+                        ${resource.icon}
+                      </span>
+                      <div>
+                        <p class="text-sm font-semibold text-text-primary">${resource.title}</p>
+                        <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-accent-cyan">Ver más</span>
+                      </div>
+                    </div>
+                  </a>
+                `;
+              })
+              .join('')}
           </div>
-        `;
-      });
-      html += '</div>';
-      resourcesContainer.innerHTML = html;
+        </div>
+      `;
     } else {
-      // Ensure the container exists but is empty or hidden if no resources are present
-       if (resourcesContainer) resourcesContainer.innerHTML = '';
+      resourcesContainer.innerHTML = '';
     }
 
-    // --- New: Specifications Section ---
-    const specsContainer = document.getElementById('modal-specifications') as HTMLElement;
     if (prod.specifications && prod.specifications.length > 0) {
-      let html = '<dl class="mt-6 space-y-2 border-t border-white/10 pt-4">';
-      prod.specifications.forEach(spec => {
-        html += `
-          <div class="flex justify-between text-sm">
-            <dt class="font-medium text-text-secondary">${spec.key}:</dt>
-            <dd class="text-text-primary ml-4">${spec.value}</dd>
-          </div>
-        `;
-      });
-      html += '</dl>';
-      specsContainer.innerHTML = html;
+      specsContainer.innerHTML = `
+        <div class="space-y-2 border-t border-white/10 pt-4">
+          <h3 class="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-secondary font-mono">Especificaciones</h3>
+          <dl class="space-y-2">
+            ${prod.specifications
+              .map(
+                (spec) => `
+                  <div class="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-white/3 px-3 py-2">
+                    <dt class="text-xs font-medium text-text-secondary font-mono uppercase tracking-[0.12em]">${spec.key}</dt>
+                    <dd class="text-right text-sm text-text-primary">${spec.value}</dd>
+                  </div>
+                `,
+              )
+              .join('')}
+          </dl>
+        </div>
+      `;
     } else {
-       // Ensure the container exists but is empty or hidden if no specifications are present
-       if (specsContainer) specsContainer.innerHTML = '';
+      specsContainer.innerHTML = '';
     }
 
-    const waBtn = document.getElementById('modal-whatsapp-btn') as HTMLAnchorElement;
     waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`;
     if (!prod.available) {
-      waBtn.classList.add('opacity-50', 'pointer-events-none');
+      waBtn.classList.add('pointer-events-none', 'opacity-50');
     } else {
-      waBtn.classList.remove('opacity-50', 'pointer-events-none');
+      waBtn.classList.remove('pointer-events-none', 'opacity-50');
     }
 
     overlay.classList.remove('opacity-0', 'pointer-events-none');
@@ -256,11 +317,23 @@ const tiendaItems = await getCollection('tienda');
   document.querySelectorAll<HTMLButtonElement>('.product-card-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const raw = btn.getAttribute('data-product');
-      if (raw) openProductModal(JSON.parse(raw) as Product);
+      if (raw) {
+        openProductModal(JSON.parse(raw) as Product);
+      }
     });
   });
 
   closeBtn.addEventListener('click', closeProductModal);
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeProductModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      closeProductModal();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeProductModal();
+    }
+  });
 </script>
+

@@ -70,17 +70,24 @@ const benefits = [
   description="Conoce la misión, visión, directiva y beneficios de pertenecer al Capítulo Estudiantil IEEE ComSoc."
 >
   <!-- Page Header Banner -->
-  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-mono mb-4">
+  <section class="relative overflow-hidden border-b border-white/10 bg-grid-pattern bg-wave-pattern py-18 sm:py-20">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(21,93,252,0.18),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.14),transparent_28%)]" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(34,211,238,0.12)]">
+        <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.9)]"></span>
         Sobre la Comunidad
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
-        Conectando al Mundo a través de la Tecnología
+      <h1 class="mx-auto max-w-4xl text-4xl font-black tracking-[-0.06em] text-text-primary sm:text-5xl lg:text-6xl">
+        Conectando al mundo a través de la tecnología
       </h1>
-      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg font-light">
         El Capítulo Estudiantil IEEE ComSoc es el espacio universitario donde convergen la ciencia, la investigación y la pasión por las redes y telecomunicaciones.
       </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-text-secondary">
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Investigación</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Innovación</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Comunidades</span>
+      </div>
     </div>
   </section>
 
@@ -134,55 +141,68 @@ const benefits = [
   </section>
 
   <!-- Mission & Vision Cards -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      
-      <!-- Mission -->
-      <div class="glass-card rounded-3xl p-8 border border-accent-blue/30 relative overflow-hidden">
-        <div class="w-12 h-12 rounded-2xl bg-accent-blue/20 text-accent-blue flex items-center justify-center text-2xl mb-6 border border-accent-blue/30">
-          🎯
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-10 max-w-3xl text-center mx-auto">
+      <div class="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
+        Qué nos mueve
+      </div>
+      <h2 class="text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
+        Una comunidad impulsada por la ingeniería aplicada
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div class="group relative overflow-hidden rounded-[28px] border border-accent-blue/30 bg-[linear-gradient(180deg,rgba(15,23,42,0.96),rgba(5,8,22,0.96))] p-8 shadow-[0_20px_65px_-40px_rgba(21,93,252,0.65)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-blue/60">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(21,93,252,0.22),transparent_35%)]" aria-hidden="true"></div>
+        <div class="relative">
+          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-blue/30 bg-accent-blue/15 text-2xl text-accent-blue shadow-[0_0_24px_rgba(21,93,252,0.18)]">
+            🎯
+          </div>
+          <h3 class="mb-4 text-2xl font-bold tracking-[-0.04em] text-text-primary">Nuestra Misión</h3>
+          <p class="text-base leading-relaxed text-text-secondary font-light">
+            Fomentar la excelencia académica, técnica y humana de los estudiantes a través de conferencias de primer nivel, talleres prácticos, proyectos interdisciplinarios e investigación en comunicaciones inalámbricas, ópticas, satelitales y ciberseguridad.
+          </p>
         </div>
-        <h2 class="text-2xl font-bold text-text-primary mb-4">Nuestra Misión</h2>
-        <p class="text-text-secondary font-light leading-relaxed">
-          Fomentar la excelencia académica, técnica y humana de los estudiantes a través de conferencias de primer nivel, talleres prácticos, proyectos interdisciplinarios e investigación en comunicaciones inalámbricas, ópticas, satelitales y ciberseguridad.
-        </p>
       </div>
 
-      <!-- Vision -->
-      <div class="glass-card rounded-3xl p-8 border border-accent-cyan/30 relative overflow-hidden">
-        <div class="w-12 h-12 rounded-2xl bg-accent-cyan/20 text-accent-cyan flex items-center justify-center text-2xl mb-6 border border-accent-cyan/30">
-          🚀
+      <div class="group relative overflow-hidden rounded-[28px] border border-accent-cyan/30 bg-[linear-gradient(180deg,rgba(11,18,33,0.96),rgba(5,8,22,0.96))] p-8 shadow-[0_20px_65px_-40px_rgba(34,211,238,0.6)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/60">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.2),transparent_35%)]" aria-hidden="true"></div>
+        <div class="relative">
+          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-cyan/30 bg-accent-cyan/15 text-2xl text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
+            🚀
+          </div>
+          <h3 class="mb-4 text-2xl font-bold tracking-[-0.04em] text-text-primary">Nuestra Visión</h3>
+          <p class="text-base leading-relaxed text-text-secondary font-light">
+            Posicionarnos como el capítulo estudiantil referente en la región, reconocido por la calidad técnica de sus miembros, su capacidad de innovación tecnológica y su compromiso con el cierre de la brecha digital mediante la ingeniería.
+          </p>
         </div>
-        <h2 class="text-2xl font-bold text-text-primary mb-4">Nuestra Visión</h2>
-        <p class="text-text-secondary font-light leading-relaxed">
-          Posicionarnos como el capítulo estudiantil referente en la región, reconocido por la calidad técnica de sus miembros, su capacidad de innovación tecnológica y su compromiso con el cierre de la brecha digital mediante la ingeniería.
-        </p>
       </div>
-
     </div>
   </section>
 
   <!-- Member Benefits Grid -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <div class="text-xs uppercase font-mono tracking-widest text-accent-cyan mb-2 font-semibold">
-        Valor para Estudiantes
+  <section class="mx-auto max-w-7xl border-t border-white/10 px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+      <div class="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
+        Valor para estudiantes
       </div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-        Beneficios de ser Miembro IEEE ComSoc
+      <h2 class="mb-4 text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
+        Beneficios de ser miembro IEEE ComSoc
       </h2>
-      <p class="text-text-secondary font-light">
+      <p class="text-base leading-relaxed text-text-secondary font-light">
         Ser parte de la red de telecomunicaciones más grande del planeta te brinda ventajas únicas para acelerar tu desarrollo.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {benefits.map((b) => (
-        <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-accent-cyan/40 transition">
-          <div class="text-3xl mb-4">{b.icon}</div>
-          <h3 class="text-lg font-bold text-text-primary mb-2">{b.title}</h3>
-          <p class="text-xs text-text-secondary leading-relaxed font-light">{b.desc}</p>
-        </div>
+        <article class="group relative overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.9),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)]">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-3xl shadow-[0_18px_30px_-20px_rgba(34,211,238,0.72)]">
+            {b.icon}
+          </div>
+          <h3 class="mb-2 text-lg font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">{b.title}</h3>
+          <p class="text-sm leading-relaxed text-text-secondary font-light">{b.desc}</p>
+        </article>
       ))}
     </div>
   </section>
@@ -201,32 +221,32 @@ const benefits = [
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {team.map((member) => (
         <button
           type="button"
-          class="member-card glass-card rounded-2xl p-6 border border-white/10 text-center flex flex-col items-center group cursor-pointer hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10 transition-all duration-300 w-full"
+          class="member-card group w-full rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.8),rgba(5,8,22,0.96))] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
           data-member={JSON.stringify(member)}
           aria-label={`Ver perfil de ${member.name}`}
         >
-          <!-- Avatar or Image -->
-          <div class="w-20 h-20 rounded-full bg-linear-to-tr from-accent-blue/30 to-accent-cyan/30 border-2 border-accent-cyan/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 group-hover:border-accent-cyan/80 transition-all duration-300 overflow-hidden">
+          <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-accent-cyan/40 bg-[linear-gradient(135deg,rgba(21,93,252,0.3),rgba(34,211,238,0.3))] text-4xl transition-all duration-300 group-hover:scale-105 group-hover:border-accent-cyan/80">
             {member.image
-              ? <img src={member.image} alt={member.name} loading="lazy" decoding="async" class="w-full h-full object-cover rounded-full" />
+              ? <img src={member.image} alt={member.name} loading="lazy" decoding="async" class="h-full w-full rounded-full object-cover" />
               : <span>{member.avatar || '👤'}</span>
             }
           </div>
-          <h3 class="text-lg font-bold text-text-primary mb-1 group-hover:text-accent-cyan transition text-center">
+          <h3 class="mb-1 text-lg font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">
             {member.name}
           </h3>
-          <div class="text-xs font-mono custom-rosa-comsoc font-medium mb-1">
+          <div class="mb-1 text-xs font-mono font-medium text-accent-cyan">
             {member.role}
           </div>
-          <p class="text-xs text-text-secondary font-light mb-4 text-center">
+          <p class="mb-4 text-xs leading-relaxed text-text-secondary font-light">
             {member.department}
           </p>
-          <div class="text-[10px] font-mono text-text-secondary border border-white/10 px-3 py-1 rounded-full hover:border-accent-cyan/40 hover:text-accent-cyan transition">
-            Ver perfil →
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-text-secondary transition-colors group-hover:border-accent-cyan/40 group-hover:text-accent-cyan">
+            Ver perfil
+            <span aria-hidden="true">→</span>
           </div>
         </button>
       ))}

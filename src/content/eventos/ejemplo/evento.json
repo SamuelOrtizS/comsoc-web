@@ -13,5 +13,12 @@
   "galeria": [
     "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
   ],
-  "estado": "Publicado"
+  "estado": "Publicado",
+  "detalles": [
+    { "label": "Organizador", "value": "ComSoc Student Chapter" },
+    { "label": "Tipo", "value": "Workshop" },
+    { "label": "Ubicación", "value": "Laboratorio de Telecomunicaciones" },
+    { "label": "Modalidad", "value": "Presencial" },
+    { "label": "Nivel", "value": "Básico" }
+  ]
 }

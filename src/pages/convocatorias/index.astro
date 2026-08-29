@@ -10,113 +10,56 @@ const allConvocatorias = await getCollection('convocatorias');
   title="IEEE ComSoc Univalle | Convocatorias Abiertas"
   description="Únete al equipo directivo y comités de trabajo del Capítulo Estudiantil IEEE ComSoc."
 >
-  <!-- Header Banner -->
-  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-purple/10 border border-accent-purple/30 text-accent-purple text-xs font-mono mb-4">
-        Oportunidades de Voluntariado
+  <section class="relative border-b border-white/10 bg-grid-pattern bg-wave-pattern py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent-purple/30 bg-accent-purple/10 px-3 py-1 text-xs font-mono uppercase tracking-[0.18em] text-accent-purple">
+        Oportunidades de voluntariado
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
-        Convocatorias &amp; Reclutamiento
+
+      <h1 class="mb-4 text-4xl font-extrabold tracking-[-0.04em] text-text-primary sm:text-5xl lg:text-6xl">
+        Convocatorias &amp; reclutamiento
       </h1>
-      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
+
+      <p class="mx-auto max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
         Forma parte de nuestros equipos de proyectos, organización de eventos, marketing e investigación. Potencia tu perfil profesional.
       </p>
-
-      <!-- Client-side Search Input -->
-      <div class="mt-8 max-w-md mx-auto">
-        <div class="relative">
-          <input
-            id="search-input"
-            type="text"
-            placeholder="Buscar por cargo, área o tecnología..."
-            class="w-full px-5 py-3 rounded-2xl bg-white/5 border border-white/15 text-text-primary placeholder-gray-500 focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan text-sm backdrop-blur-md transition"
-          />
-          <div class="absolute right-4 top-3.5 text-text-secondary pointer-events-none text-sm">
-            🔍
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- Convocatorias Grid Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="flex items-center justify-between mb-8">
-      <h2 class="text-xl font-bold text-text-primary font-mono flex items-center gap-2">
-        <span>Puestos Disponibles</span>
-        <span class="text-xs px-2.5 py-0.5 rounded-full bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30">
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex items-center justify-between">
+      <h2 class="flex items-center gap-3 text-xl font-bold text-text-primary sm:text-2xl">
+        <span>Puestos disponibles</span>
+        <span class="inline-flex min-w-9 items-center justify-center rounded-full border border-accent-cyan/30 bg-accent-cyan/15 px-2.5 py-1 text-xs font-mono text-accent-cyan">
           {allConvocatorias.length}
         </span>
       </h2>
     </div>
 
     {allConvocatorias.length === 0 ? (
-      <div class="glass-card rounded-2xl p-12 text-center border border-white/10 max-w-xl mx-auto">
-        <div class="text-4xl mb-4">📭</div>
-        <h3 class="text-lg font-bold text-text-primary mb-2">No hay convocatorias activas en este momento</h3>
-        <p class="text-sm text-text-secondary font-light">
+      <div class="glass-card mx-auto max-w-xl rounded-2xl border border-white/10 p-12 text-center">
+        <div class="mb-4 text-4xl">📭</div>
+        <h3 class="mb-2 text-lg font-bold text-text-primary">No hay convocatorias activas en este momento</h3>
+        <p class="text-sm text-text-secondary">
           Síguenos en nuestras redes sociales para estar atento al próximo periodo de postulaciones.
         </p>
       </div>
     ) : (
-      <div id="convocatorias-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
         {allConvocatorias.map((item) => (
-          <div class="convocatoria-item" data-title={item.data.titulo.toLowerCase()} data-area={item.data.area.toLowerCase()}>
-            <ConvocatoriaCard
-              id={item.id}
-              titulo={item.data.titulo}
-              area={item.data.area}
-              fechaLimite={item.data.fechaLimite}
-              descripcion={item.data.descripcion}
-              requisitos={item.data.requisitos}
-              responsabilidades={item.data.responsabilidades}
-              estado={item.data.estado}
-              formUrl={item.data.formUrl}
-            />
-          </div>
+          <ConvocatoriaCard
+            id={item.id}
+            titulo={item.data.titulo}
+            area={item.data.area}
+            fechaLimite={item.data.fechaLimite}
+            descripcion={item.data.descripcion}
+            requisitos={item.data.requisitos}
+            responsabilidades={item.data.responsabilidades}
+            estado={item.data.estado}
+            formUrl={item.data.formUrl}
+          />
         ))}
       </div>
     )}
-
-    <!-- Empty search result state -->
-    <div id="no-results-msg" class="hidden glass-card rounded-2xl p-12 text-center border border-white/10 max-w-md mx-auto mt-8">
-      <p class="text-text-secondary text-sm">No se encontraron convocatorias que coincidan con tu búsqueda.</p>
-    </div>
   </section>
 </BaseLayout>
-
-<script>
-  function setupSearch() {
-    const input = document.getElementById('search-input') as HTMLInputElement | null;
-    const items = document.querySelectorAll('.convocatoria-item');
-    const noResults = document.getElementById('no-results-msg');
-
-    if (!input || !items.length) return;
-
-    input.addEventListener('input', () => {
-      const q = input.value.toLowerCase().trim();
-      let visibleCount = 0;
-
-      items.forEach((el) => {
-        const item = el as HTMLElement;
-        const title = item.getAttribute('data-title') || '';
-        const area = item.getAttribute('data-area') || '';
-
-        if (title.includes(q) || area.includes(q)) {
-          item.style.display = '';
-          visibleCount++;
-        } else {
-          item.style.display = 'none';
-        }
-      });
-
-      if (noResults) {
-        noResults.classList.toggle('hidden', visibleCount > 0);
-      }
-    });
-  }
-
-  setupSearch();
-  document.addEventListener('astro:page-load', setupSearch);
-</script>

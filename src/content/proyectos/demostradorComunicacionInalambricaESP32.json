@@ -1,0 +1,27 @@
+{
+  "titulo": "Demostrador de protocolos inalámbricos con ESP32",
+  "categoria": "IoT & Comunicaciones",
+  "descripcion": "Plataforma educativa para comparar y demostrar el comportamiento de diferentes protocolos de comunicación inalámbrica en ESP32, incluyendo Wi‑Fi, Bluetooth, BLE, ESP‑Now y LoRa para aplicaciones de monitoreo, control y transmisión de datos en tiempo real.",
+  "imagen": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+  "estado": "Activo",
+  "tags": [
+    "ESP32",
+    "Wi‑Fi",
+    "Bluetooth",
+    "BLE",
+    "LoRa",
+    "ESP‑Now",
+    "IoT",
+    "Educativo"
+  ],
+  "enlace": "https://github.com/ejemplo/esp32-protocols-demo",
+  "destacado": true,
+  "montoActual": 15,
+  "montoMeta": 15,
+  "recursos": [
+    { "title": "Repositorio del proyecto", "link": "https://github.com/ejemplo/esp32-protocols-demo", "icon": "💻" },
+    { "title": "Guía de conexiones", "link": "https://example.com/guia-esp32-protocolos", "icon": "🧭" },
+    { "title": "Comparativa de protocolos", "link": "https://example.com/comparativa-esp32-redes", "icon": "📊" }
+  ],
+  "resumenTecnico": "El proyecto utiliza ESP32 como nodo base para evaluar el desempeño de distintos mecanismos de comunicación inalámbrica en entornos académicos y de prototipado. Se implementan módulos de prueba para Wi‑Fi, Bluetooth clásico, BLE, ESP‑Now y LoRa, con sensores ambientales y actuadores para medir latencia, alcance, consumo energético y confiabilidad de transmisión. La plataforma permite visualizar resultados en tiempo real y sirve como herramienta didáctica para comparar arquitecturas de red, diseño de firmware y estrategias de transmisión en IoT."
+}

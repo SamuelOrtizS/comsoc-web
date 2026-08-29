@@ -2,67 +2,59 @@
 import estadisticas from '../content/estadisticas.json';
 ---
 
-<div class="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 overflow-hidden bg-grid-pattern bg-wave-pattern">
-  <!-- Glowing central radial overlay -->
-  <div class="absolute inset-0 bg-radial-gradient from-transparent via-bg-primary/70 to-bg-primary pointer-events-none"></div>
+<div class="relative isolate min-h-[90vh] overflow-hidden bg-grid-pattern bg-wave-pattern">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.18),transparent_42%)]"></div>
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,22,0.15),rgba(5,8,22,0.72)_42%,rgba(5,8,22,0.9))]"></div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
-    
-    <!-- Chapter Tag Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-accent-cyan/30 backdrop-blur-md mb-8">
-      <span class="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
-      <span class="text-xs uppercase tracking-widest text-accent-cyan font-mono">IEEE Communications Society</span>
-    </div>
+  <div class="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl items-center justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8">
+    <div class="w-full max-w-5xl text-center">
+      <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-accent-cyan/30 bg-white/5 px-4 py-2 shadow-[0_0_30px_rgba(34,211,238,0.12)] backdrop-blur-md">
+        <span class="h-2.5 w-2.5 rounded-full bg-accent-cyan shadow-[0_0_16px_rgba(34,211,238,0.9)]"></span>
+        <span class="text-[10px] font-medium uppercase tracking-[0.28em] text-accent-cyan font-mono">
+          IEEE Communications Society
+        </span>
+      </div>
 
-    <!-- Main Title -->
-    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4 font-heading">
-      <span class="text-text-primary">IEEE</span>{" "}
-      <span class="bg-linear-to-r from-accent-blue via-accent-cyan to-accent-purple bg-clip-text text-transparent glow-text">
-        COMSOC
-      </span>
-    </h1>
+      <h1 class="font-heading text-5xl font-black tracking-[-0.06em] text-text-primary sm:text-7xl lg:text-[7rem]">
+        <span class="block">IEEE</span>
+        <span class="mt-2 block text-accent-cyan">ComSoc</span>
+      </h1>
 
-    <h2 class="text-xl sm:text-3xl font-semibold tracking-widest uppercase text-text-secondary mb-6 font-mono">
-      Student Chapter
-    </h2>
+      <p class="mx-auto mt-5 max-w-3xl text-base font-light leading-relaxed text-text-secondary sm:text-xl">
+        Liderando la innovación en redes de próxima generación, internet de las cosas (IoT), sistemas inalámbricos 5G/6G y comunicaciones cuánticas.
+      </p>
 
-    <!-- Subtitle Description -->
-    <p class="max-w-2xl text-base sm:text-lg text-text-secondary mb-10 leading-relaxed font-light">
-      Liderando la innovación en redes de próxima generación, internet de las cosas (IoT), sistemas inalámbricos 5G/6G y comunicaciones cuánticas.
-    </p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/eventos"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent-blue via-accent-cyan to-accent-cyan px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)] sm:w-auto"
+        >
+          <span>Explorar Eventos</span>
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
 
-    <!-- Call to Actions -->
-    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-      <a
-        href="/eventos"
-        class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-text-primary bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40 hover:scale-[1.02] transition-all text-center flex items-center justify-center gap-2"
-      >
-        <span>Explorar Eventos</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-        </svg>
-      </a>
-      <a
-        href="/convocatorias"
-        class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-text-secondary hover:text-text-primary bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md hover:scale-[1.02] transition-all text-center"
-      >
-        Unirse al Equipo
-      </a>
-    </div>
+        <a
+          href="/convocatorias"
+          class="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-7 py-3.5 font-semibold text-text-secondary transition duration-200 hover:-translate-y-0.5 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary sm:w-auto"
+        >
+          Unirse al Equipo
+        </a>
+      </div>
 
-    <!-- Live Quick Stats from JSON -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 w-full max-w-4xl pt-8 border-t border-white/10">
-      {estadisticas.map((stat) => (
-        <div class="p-4 rounded-xl glass-panel text-center">
-          <div class={`text-2xl sm:text-3xl font-bold font-mono ${stat.color || 'text-text-primary'}`}>
-            {stat.valor}
+      <div class="mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
+        {estadisticas.map((stat) => (
+          <div class="rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center shadow-[0_20px_40px_-32px_rgba(21,93,252,0.8)] backdrop-blur-sm transition duration-200 hover:border-accent-cyan/35 hover:bg-white/[0.04]">
+            <div class={`text-2xl font-bold font-mono sm:text-3xl ${stat.color || 'text-text-primary'}`}>
+              {stat.valor}
+            </div>
+            <div class="mt-2 text-[10px] uppercase tracking-[0.16em] text-text-secondary font-light">
+              {stat.etiqueta}
+            </div>
           </div>
-          <div class="text-xs text-text-secondary mt-1 uppercase tracking-wider font-light">
-            {stat.etiqueta}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-
   </div>
 </div>

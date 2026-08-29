@@ -6,26 +6,26 @@ const destinies = [
   {
     title: 'Equipamiento de Laboratorio',
     desc: 'Adquisición de microcontroladores, sensores IoT, kits de fibra óptica, SDRs y componentes electrónicos para el desarrollo de proyectos técnicos.',
-    icon: '🔬',
-    color: 'border-accent-cyan/30 text-accent-cyan bg-accent-cyan/10'
+    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M7 20V9m10 11V5M4 20h16M9 9l3-4 3 4M12 13v7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    tone: 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300'
   },
   {
     title: 'Talleres y Conferencias',
     desc: 'Financiamiento de plataformas, materiales pedagógicos y viáticos para ponentes en nuestros workshops y webinars técnicos gratuitos.',
-    icon: '⚡',
-    color: 'border-accent-purple/30 text-accent-purple bg-accent-purple/10'
+    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    tone: 'border-violet-400/30 bg-violet-400/10 text-violet-300'
   },
   {
     title: 'Participación en Eventos',
     desc: 'Apoyo económico para el traslado e inscripción de nuestros miembros destacados en competencias nacionales e internacionales de IEEE.',
-    icon: '🎓',
-    color: 'border-accent-blue/30 text-accent-blue bg-accent-blue/10'
+    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M12 3v13m0 0 4-4m-4 4-4-4M4 18.5h16" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    tone: 'border-blue-400/30 bg-blue-400/10 text-blue-300'
   },
   {
     title: 'Operación del Capítulo',
     desc: 'Sostenimiento de infraestructura digital, licencias de software, hosting y materiales de difusión para el correcto funcionamiento administrativo.',
-    icon: '⚙️',
-    color: 'border-accent-emerald/30 text-accent-emerald bg-accent-emerald/10'
+    icon: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-5 w-5 stroke-current"><path d="M14 3.5v5.1m-4 0V3.5M6 8.5h12M7 10.5v8.7m10-8.7v8.7M4.5 19h15" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    tone: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
   }
 ];
 ---
@@ -34,137 +34,137 @@ const destinies = [
   title="IEEE ComSoc Univalle | Donaciones y Financiamiento"
   description="Apoya al Capítulo Estudiantil IEEE ComSoc. Conoce el destino de los fondos, métodos de pago y cómo apoyar proyectos específicos."
 >
-  <!-- Hero Section -->
-  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 text-accent-emerald text-xs font-mono mb-4">
-        Apoya Nuestra Labor
+  <section class="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.16),_transparent_40%),linear-gradient(180deg,rgba(15,23,42,0.9),rgba(5,8,22,1))] py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="mb-4 text-xs font-mono uppercase tracking-[0.22em] text-accent-cyan/80">Financiamiento</p>
+        <h1 class="mb-5 text-4xl font-extrabold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
+          Impulsa la innovación y la ingeniería
+        </h1>
+        <p class="max-w-2xl text-base font-light leading-relaxed text-text-secondary sm:text-lg">
+          Somos una organización sin fines de lucro. El 100% de las donaciones se destina directamente al funcionamiento operativo y académico del capítulo, empoderando a futuros ingenieros.
+        </p>
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
-        Impulsa la Innovación y la Ingeniería
-      </h1>
-      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
-        Somos una organización sin fines de lucro. El 100% de las donaciones se destina directamente al funcionamiento operativo y académico del capítulo, empoderando a futuros ingenieros.
-      </p>
     </div>
   </section>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-    
-    <!-- Info & Transparency -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-      <div class="lg:col-span-7 flex flex-col justify-between glass-card rounded-3xl p-8 border border-white/10">
-        <div>
-          <h2 class="text-2xl font-bold text-text-primary mb-4">¿A qué se destinan los fondos?</h2>
-          <p class="text-text-secondary font-light leading-relaxed mb-6">
+  <div class="mx-auto max-w-7xl space-y-16 px-4 py-16 sm:px-6 lg:px-8">
+    <section class="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-7 flex flex-col justify-between rounded-[28px] border border-white/10 bg-bg-secondary/80 p-6 shadow-[0_20px_80px_-40px_rgba(21,93,252,0.45)] backdrop-blur-sm sm:p-8">
+        <div class="mb-7">
+          <h2 class="mb-3 text-2xl font-bold text-text-primary sm:text-3xl">¿A qué se destinan los fondos?</h2>
+          <p class="max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base">
             Como capítulo estudiantil de la Sociedad de Comunicaciones de IEEE, dependemos del apoyo de la comunidad, patrocinadores y egresados para continuar brindando educación extracurricular de alto nivel y desarrollar proyectos que impacten a la sociedad.
           </p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {destinies.map((dest) => (
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col">
-              <div class="text-2xl mb-2">{dest.icon}</div>
-              <h3 class="text-sm font-semibold text-text-primary mb-1">{dest.title}</h3>
-              <p class="text-xs text-text-secondary leading-relaxed font-light">{dest.desc}</p>
+            <div class="rounded-2xl border border-white/10 bg-white/3 p-5 transition duration-300 hover:border-accent-cyan/30 hover:bg-white/5">
+              <div class={`mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl border ${dest.tone}`} set:html={dest.icon} />
+              <h3 class="mb-2 text-base font-semibold text-text-primary">{dest.title}</h3>
+              <p class="text-sm leading-relaxed text-text-secondary">{dest.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <!-- Specific Project Note Alert -->
-      <div class="lg:col-span-5 flex flex-col justify-between bg-linear-to-br from-accent-purple/40 to-indigo-950/40 rounded-3xl p-8 border border-accent-purple/30 text-text-primary relative overflow-hidden">
+      <div class="relative flex flex-col justify-between overflow-hidden rounded-[28px] border border-accent-purple/30 bg-linear-to-br from-accent-purple/25 via-violet-950/50 to-indigo-950/80 p-6 text-text-primary shadow-[0_20px_80px_-30px_rgba(168,85,247,0.6)] sm:p-8 lg:col-span-5">
         <div class="relative z-10 space-y-6">
-          <div class="text-4xl">💡</div>
-          <h3 class="text-xl font-bold">¿Quieres apoyar un proyecto en específico?</h3>
-          <p class="text-sm text-accent-purple leading-relaxed font-light">
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-accent-purple/30 bg-accent-purple/10 text-2xl text-accent-purple">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-7 w-7 stroke-current">
+              <path d="M9 18h6M10 12.5l2.2-2.2L15 13.3M7 5.5h10M6.5 8.5h11a2 2 0 0 1 2 2v6.5a1.5 1.5 0 0 1-1.5 1.5H6a1.5 1.5 0 0 1-1.5-1.5V10.5a2 2 0 0 1 2-2Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold">¿Quieres apoyar un proyecto en específico?</h3>
+          <p class="text-sm leading-relaxed text-violet-100/90">
             Nuestros miembros desarrollan múltiples proyectos técnicos que requieren financiamiento dedicado. Si deseas que tu donación vaya destinada a una de las iniciativas mostradas en nuestra sección de proyectos (como la estación base LoRaWAN, el simulador de modulaciones, etc.):
           </p>
-          <div class="p-4 rounded-xl bg-accent-purple/10 border border-accent-purple/30 text-xs font-mono text-accent-purple">
-            <strong>Nota Importante:</strong> Por favor especifica el nombre del proyecto en la nota/asunto al momento de enviar el dinero, o comunícalo a través de nuestros canales oficiales de contacto.
+          <div class="rounded-2xl border border-accent-purple/30 bg-accent-purple/10 p-4 text-xs leading-relaxed font-mono text-violet-100">
+            <strong class="font-semibold text-white">Nota importante:</strong> especifica el nombre del proyecto en la nota o asunto al momento de enviar el dinero, o comunícalo a través de nuestros canales oficiales.
           </div>
-          <div class="pt-4 flex flex-col gap-2">
-            <span class="text-xs text-text-secondary font-mono">Medios de contacto directos:</span>
-            <div class="flex flex-wrap gap-2">
-              <a href="mailto:comsoc@universidad.edu.pe" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-text-secondary border border-white/10 transition font-mono">
+          <div class="pt-2">
+            <span class="text-[11px] uppercase tracking-[0.18em] text-violet-100/70">Medios de contacto</span>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="mailto:comsoc@universidad.edu.pe" class="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-text-primary transition hover:bg-white/10">
                 comsoc@universidad.edu.pe
               </a>
-              <a href="/nosotros" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-text-secondary border border-white/10 transition font-mono">
+              <a href="/nosotros" class="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-text-primary transition hover:bg-white/10">
                 Ver directiva
               </a>
             </div>
           </div>
         </div>
-        <!-- Ambient background decor -->
-        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-accent-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="pointer-events-none absolute -bottom-16 -right-16 h-52 w-52 rounded-full bg-accent-purple/15 blur-3xl"></div>
       </div>
     </section>
 
-    <!-- Payment Methods Section -->
     <section class="border-t border-white/10 pt-16">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <h2 class="text-3xl font-bold text-text-primary mb-4">Métodos de Donación</h2>
-        <p class="text-text-secondary font-light">
+      <div class="mx-auto mb-10 max-w-3xl text-center">
+        <h2 class="mb-3 text-3xl font-bold text-text-primary sm:text-4xl">Métodos de Donación</h2>
+        <p class="text-base text-text-secondary">
           Elige la opción que más te acomode para realizar tu contribución de forma segura.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {paymentMethods.map((method, idx) => {
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {paymentMethods.map((method) => {
           const isPayPal = method.name.toLowerCase().includes('paypal');
-          const paypalLink = method.details.find(d => d.value.startsWith('http'))?.value;
-          const copyText = method.details.map(d => `${d.label}: ${d.value}`).join('\n');
+          const paypalLink = method.details.find((d) => d.value.startsWith('http'))?.value;
+          const copyText = method.details.map((d) => `${d.label}: ${d.value}`).join('\n');
 
           return (
-            <div class="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between group hover:border-accent-cyan/40 transition-all duration-300">
+            <div class="glass-card group flex flex-col justify-between rounded-[24px] border border-white/10 p-6 transition-all duration-300 hover:border-accent-cyan/35">
               <div>
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-mono text-accent-cyan uppercase tracking-wider">{method.type}</span>
+                <div class="mb-4 flex items-center justify-between gap-3">
+                  <span class="text-[10px] font-mono uppercase tracking-[0.18em] text-accent-cyan">{method.type}</span>
                   {method.badge && (
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-text-secondary">
+                    <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-mono text-text-secondary">
                       {method.badge}
                     </span>
                   )}
                 </div>
-                <h3 class="text-xl font-bold text-text-primary mb-4 font-heading">{method.name}</h3>
+                <h3 class="mb-4 text-xl font-bold text-text-primary font-heading">{method.name}</h3>
                 <div class="space-y-3">
                   {method.details.map((detail) => (
-                    <div class="flex flex-col border-b border-white/5 pb-2">
-                      <span class="text-[10px] uppercase font-mono text-text-secondary">{detail.label}</span>
+                    <div class="flex flex-col border-b border-white/5 pb-2 last:border-b-0 last:pb-0">
+                      <span class="text-[10px] uppercase tracking-[0.18em] text-text-secondary font-mono">{detail.label}</span>
                       {detail.value.startsWith('http') ? (
                         <a
                           href={detail.value}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="text-sm font-semibold text-accent-cyan hover:underline mt-0.5 break-all inline-flex items-center gap-1"
+                          class="mt-1 inline-flex items-center gap-1 break-all text-sm font-semibold text-accent-cyan transition hover:underline"
                         >
-                          {detail.value} ↗
+                          {detail.value}
+                          <span aria-hidden="true">↗</span>
                         </a>
                       ) : (
-                        <span class="text-sm font-semibold text-text-primary mt-0.5 select-all">{detail.value}</span>
+                        <span class="mt-1 select-all text-sm font-semibold text-text-primary">{detail.value}</span>
                       )}
                     </div>
                   ))}
                 </div>
               </div>
-              
+
               <div class="pt-6">
                 {isPayPal && paypalLink ? (
                   <a
                     href={paypalLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/20 transition flex items-center justify-center gap-1.5"
+                    class="flex w-full items-center justify-center gap-1.5 rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan px-4 py-2.5 text-center text-xs font-semibold text-text-primary shadow-md shadow-accent-blue/20 transition hover:opacity-95"
                   >
                     <span>Donar vía PayPal</span>
-                    <span>↗</span>
+                    <span aria-hidden="true">↗</span>
                   </a>
                 ) : (
-                  <button 
+                  <button
                     type="button"
                     data-copy-text={copyText}
-                    class="copy-btn w-full py-2.5 rounded-xl text-center text-xs font-semibold bg-white/5 hover:bg-white/10 text-text-primary border border-white/10 transition active:scale-95 flex items-center justify-center gap-1.5"
+                    class="copy-btn flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-center text-xs font-semibold text-text-primary transition hover:bg-white/10 active:scale-[0.99]"
                   >
-                    <span>📋 Copiar Datos de Pago</span>
+                    <span aria-hidden="true">Copy</span>
+                    <span>Copiar Datos de Pago</span>
                   </button>
                 )}
               </div>

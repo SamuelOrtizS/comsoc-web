@@ -3,28 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const steps = [
   {
-    step: '01',
+    step: 'Paso 1',
     title: 'Crea tu cuenta en IEEE',
     description: 'Ingresa al portal oficial de IEEE.org y regístrate con tu correo universitario o personal.',
     link: 'https://www.ieee.org',
     linkText: 'Ir al portal de IEEE',
   },
   {
-    step: '02',
+    step: 'Paso 2',
     title: 'Adquiere tu Membresía Estudiantil IEEE',
     description: 'Selecciona la opción "Student Membership". Si estás en Perú u otra región elegible, cuentas con tarifa reducida especial de estudiante.',
     link: 'https://www.ieee.org/membership/join/index.html',
     linkText: 'Ver tarifas de estudiante',
   },
   {
-    step: '03',
+    step: 'Paso 3',
     title: 'Añade la Sociedad "IEEE ComSoc"',
     description: 'En la sección de Sociedades Técnicas, selecciona "IEEE Communications Society (ComSoc)". Tendrás acceso inmediato a webinars, revistas técnicas y recursos globales.',
     link: 'https://www.comsoc.org/membership',
     linkText: 'Beneficios ComSoc Global',
   },
   {
-    step: '04',
+    step: 'Paso 4',
     title: 'Reporta tu número de membresía al Capítulo',
     description: 'Escríbenos al WhatsApp oficial o llena el formulario del capítulo con tu IEEE Member ID para agregarte al padrón activo y a los grupos de trabajo oficiales.',
     link: 'https://chat.whatsapp.com',
@@ -60,190 +60,180 @@ const faqs = [
   title="Únete a IEEE ComSoc Univalle | Membresías y Colaboradores"
   description="Descubre cómo unirte al Capítulo Estudiantil IEEE ComSoc, adquirir tu membresía oficial o participar como colaborador en proyectos de telecomunicaciones y redes."
 >
-  <div class="relative overflow-hidden pt-12 pb-24">
-    
-    <!-- Hero Banner -->
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-blue/10 border border-accent-blue/30 text-xs font-mono text-accent-cyan">
-        <span class="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
-        COMUNIDAD & MEMBRESÍAS
+  <div class="relative overflow-hidden pb-24 pt-12">
+    <div class="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.18),transparent_52%)]" aria-hidden="true"></div>
+
+    <section class="relative mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(34,211,238,0.12)]">
+        <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.9)]"></span>
+        Comunidad y membresías
       </div>
 
-      <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-text-primary font-heading">
-        Forma parte de <span class="bg-linear-to-r from-accent-blue via-accent-cyan to-accent-purple bg-clip-text text-transparent">IEEE ComSoc</span>
+      <h1 class="mx-auto max-w-4xl text-4xl font-black tracking-[-0.06em] text-text-primary sm:text-5xl lg:text-6xl">
+        Forma parte de <span class="text-accent-cyan">IEEE ComSoc</span>
       </h1>
 
-      <p class="text-text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed font-light">
+      <p class="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-text-secondary font-light sm:text-xl">
         Aprende, construye proyectos reales e impulsa tu futuro profesional en comunicaciones digitales, IoT, 5G/6G y ciberseguridad.
       </p>
 
-      <!-- Main CTA Buttons -->
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a
           href="https://chat.whatsapp.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-linear-to-r from-accent-emerald to-accent-cyan text-slate-950 font-bold hover:opacity-95 shadow-lg shadow-accent-emerald/20 transition-all hover:scale-[1.02]"
+          aria-label="Unirse al grupo de WhatsApp de IEEE ComSoc Univalle (abre en una nueva ventana)"
+          class="inline-flex items-center gap-2.5 rounded-xl bg-linear-to-r from-accent-emerald to-accent-cyan px-6 py-3.5 font-bold text-slate-950 shadow-[0_18px_40px_-20px_rgba(52,211,153,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
-          <svg class="w-5 h-5 fill-currentColor" viewBox="0 0 24 24">
+          <svg class="h-5 w-5 fill-currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24M8.53 7.33c-.2 0-.43.08-.66.33-.23.26-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.76 2.69 4.26 3.77.6.26 1.06.41 1.42.53.6.19 1.15.16 1.58.1.48-.07 1.48-.6 1.69-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.3s-1.48-.73-1.71-.81c-.23-.08-.4-.12-.57.12-.17.25-.66.81-.81.98-.15.17-.3.19-.55.07-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.37-.78-1.88-.2-.5-.41-.43-.57-.44h-.49Z"/>
           </svg>
-          Unirse al Grupo de WhatsApp
+          Unirse al grupo de WhatsApp
         </a>
 
         <a
           href="#membresia"
-          class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-text-primary font-medium transition-all"
+          class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 font-medium text-text-primary transition-colors hover:border-accent-cyan/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
-          Guía de Membresía Oficial ↓
+          Ver guía de membresía
         </a>
       </div>
-    </div>
+    </section>
 
-    <!-- Colaboradores Destacado (Sin membresía obligatoria) -->
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-      <div class="relative rounded-3xl bg-linear-to-br from-accent-blue/20 via-bg-secondary to-accent-cyan/10 border border-accent-cyan/30 p-8 sm:p-12 overflow-hidden shadow-2xl">
-        <!-- Glow accents -->
-        <div class="absolute -top-24 -right-24 w-64 h-64 bg-accent-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-accent-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+    <section class="mx-auto mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="relative overflow-hidden rounded-[30px] border border-accent-cyan/25 bg-linear-to-br from-accent-blue/20 via-bg-secondary to-accent-cyan/10 p-8 shadow-[0_30px_80px_-40px_rgba(34,211,238,0.7)] sm:p-10">
+        <div class="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent-cyan/20 blur-3xl" aria-hidden="true"></div>
+        <div class="absolute -bottom-20 -left-12 h-52 w-52 rounded-full bg-accent-blue/20 blur-3xl" aria-hidden="true"></div>
 
-        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-          <div class="lg:col-span-2 space-y-4">
-            <span class="text-xs font-mono text-accent-cyan tracking-wider uppercase font-semibold">
-              ¡Colabora con nosotros!
-            </span>
-            <h2 class="text-2xl sm:text-3xl font-bold text-text-primary font-heading">
+        <div class="relative z-10 grid items-center gap-8 lg:grid-cols-[1.6fr_0.9fr]">
+          <div class="space-y-5">
+            <h2 class="text-2xl font-bold tracking-[-0.05em] text-text-primary sm:text-3xl">
               ¿No cuentas con membresía IEEE? ¡No te preocupes!
             </h2>
-            <p class="text-text-secondary leading-relaxed font-light text-base sm:text-lg">
-              En nuestro capítulo creemos que el talento y las ganas de superarse no dependen de un pago. <strong class="text-text-primary font-semibold">Puedes participar activamente como colaborador</strong> en el desarrollo de proyectos, asistencia a talleres, hackathones y organización de actividades técnicas.
+            <p class="max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
+              En nuestro capítulo creemos que el talento y las ganas de superarse no dependen de un pago. <span class="font-semibold text-text-primary">Puedes participar activamente como colaborador</span> en proyectos, talleres y actividades técnicas.
             </p>
-            <p class="text-text-secondary text-sm">
-              ✨ <span class="text-text-primary font-medium">Lo más importante:</span> Tener curiosidad técnica, ganas de aprender y compromiso de trabajo en equipo.
+            <p class="text-text-secondary text-sm sm:text-base">
+              <span class="font-semibold text-text-primary">Lo más importante:</span> tener curiosidad técnica, ganas de aprender y compromiso con el trabajo en equipo.
             </p>
           </div>
 
-          <div class="flex flex-col items-center justify-center p-6 rounded-2xl bg-white/5 border border-white/10 text-center space-y-4">
-            <div class="w-14 h-14 rounded-2xl bg-linear-to-tr from-accent-blue to-accent-cyan flex items-center justify-center text-text-primary text-2xl shadow-lg">
-              🚀
+          <div class="rounded-[24px] border border-white/10 bg-white/5 p-6 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.9)]">
+            <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-tr from-accent-blue to-accent-cyan text-2xl shadow-[0_0_30px_rgba(34,211,238,0.2)]">
+              <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current text-slate-950" aria-hidden="true">
+                <path d="M12 2 3 7v6c0 5 3.4 9.7 9 11 5.6-1.3 9-6 9-11V7l-9-5Zm1.2 14.8-3.2-3.2 1.4-1.4 1.8 1.8 4.6-4.6 1.4 1.4-6 6Z"/>
+              </svg>
             </div>
-            <div>
-              <h3 class="text-text-primary font-semibold text-lg">Paso 1 para Colaboradores</h3>
-              <p class="text-text-secondary text-xs mt-1">Entra a nuestra comunidad de mensajería y preséntate.</p>
-            </div>
+            <h3 class="text-lg font-bold text-text-primary">Primer paso para colaborar</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-secondary">
+              Entra a nuestra comunidad de mensajería y preséntate para comenzar a participar.
+            </p>
             <a
               href="https://chat.whatsapp.com"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-text-primary text-sm font-semibold transition text-center"
+              aria-label="Conectarme al WhatsApp de IEEE ComSoc Univalle (abre en una nueva ventana)"
+              class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-text-primary transition-colors hover:border-accent-cyan/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
             >
               Conectarme al WhatsApp
             </a>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Step by Step Membership Guide -->
-    <div id="membresia" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-28">
-      <div class="text-center space-y-3 mb-16">
-        <span class="text-xs font-mono text-accent-cyan tracking-wider uppercase font-semibold">
-          Ruta de Afiliación Oficial
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-text-primary font-heading">
-          Paso a Paso para Adquirir tu Membresía IEEE ComSoc
+    <section id="membresia" class="mx-auto mt-28 max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto mb-12 max-w-3xl text-center">
+        <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
+          Ruta de afiliación oficial
+        </div>
+        <h2 class="text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
+          Paso a paso para adquirir tu membresía IEEE ComSoc
         </h2>
-        <p class="text-text-secondary max-w-2xl mx-auto text-sm sm:text-base font-light">
-          Sigue esta sencilla guía para unirte formalmente a la sociedad de comunicaciones más grande del mundo.
+        <p class="mt-3 text-base leading-relaxed text-text-secondary font-light">
+          Sigue esta guía para unirte formalmente a la sociedad de comunicaciones más grande del mundo.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      <div class="grid gap-6 md:grid-cols-2">
         {steps.map((item) => (
-          <div class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between group">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="text-3xl font-bold font-mono text-accent-cyan/80 group-hover:text-accent-cyan transition-colors">
-                  {item.step}
-                </span>
-                <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-text-secondary">
-                  Paso Requerido
-                </span>
-              </div>
-              <h3 class="text-xl font-bold text-text-primary group-hover:text-accent-cyan transition-colors font-heading">
-                {item.title}
-              </h3>
-              <p class="text-text-secondary text-sm leading-relaxed font-light">
-                {item.description}
-              </p>
+          <article class="group relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_24px_55px_-35px_rgba(34,211,238,0.7)]">
+            <div class="mb-5 flex items-center justify-between">
+              <span class="inline-flex items-center rounded-full border border-accent-cyan/20 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-cyan font-mono">
+                {item.step}
+              </span>
+              <span class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">
+                Requerido
+              </span>
             </div>
-            
-            <div class="pt-6 mt-4 border-t border-white/10">
+
+            <h3 class="mb-3 text-xl font-bold tracking-[-0.04em] text-text-primary transition-colors group-hover:text-accent-cyan">
+              {item.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-text-secondary font-light">
+              {item.description}
+            </p>
+
+            <div class="mt-6 border-t border-white/10 pt-4">
               <a
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-cyan hover:text-text-primary transition"
+                aria-label={`${item.linkText} (abre en una nueva ventana)`}
+                class="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-cyan transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
               >
                 <span>{item.linkText}</span>
-                <span>↗</span>
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
-          </div>
+          </article>
         ))}
       </div>
-    </div>
+    </section>
 
-    <!-- FAQ Section -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-28">
-      <div class="text-center space-y-3 mb-12">
-        <span class="text-xs font-mono text-accent-purple tracking-wider uppercase font-semibold">
-          Dudas y Respuestas
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-text-primary font-heading">
-          Preguntas Frecuentes
+    <section class="mx-auto mt-28 max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto mb-10 max-w-3xl text-center">
+        <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-purple font-mono">
+          Dudas frecuentes
+        </div>
+        <h2 class="text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
+          Preguntas frecuentes
         </h2>
-        <p class="text-text-secondary text-sm sm:text-base font-light">
-          Todo lo que necesitas saber antes de dar tu primer paso en ComSoc.
-        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, idx) => (
-          <details class="glass-card rounded-xl p-5 group transition-all duration-200">
-            <summary class="flex items-center justify-between cursor-pointer font-semibold text-text-primary group-open:text-accent-cyan transition-colors select-none text-base sm:text-lg">
+        {faqs.map((faq) => (
+          <details class="group rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.9),rgba(5,8,22,0.96))] p-5 transition-colors hover:border-accent-cyan/30">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-text-primary text-base sm:text-lg">
               <span>{faq.q}</span>
-              <span class="ml-4 transition-transform duration-200 group-open:rotate-180 text-text-secondary">
-                ▾
-              </span>
+              <span class="ml-4 text-lg text-text-secondary transition-transform duration-200 group-open:rotate-180" aria-hidden="true">▾</span>
             </summary>
-            <p class="text-text-secondary text-sm sm:text-base mt-4 leading-relaxed font-light border-t border-white/10 pt-4">
+            <p class="mt-4 border-t border-white/10 pt-4 text-sm leading-relaxed text-text-secondary font-light sm:text-base">
               {faq.a}
             </p>
           </details>
         ))}
       </div>
-    </div>
+    </section>
 
-    <!-- Final CTA -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 text-center">
-      <div class="rounded-3xl bg-linear-to-r from-accent-blue/30 via-accent-cyan/20 to-accent-purple/30 border border-white/15 p-8 sm:p-12 space-y-6">
-        <h2 class="text-2xl sm:text-3xl font-bold text-text-primary font-heading">
+    <section class="mx-auto mt-24 max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="rounded-[28px] border border-white/10 bg-linear-to-r from-accent-blue/20 via-accent-cyan/10 to-accent-purple/20 p-8 shadow-[0_25px_70px_-35px_rgba(21,93,252,0.7)] sm:p-12">
+        <h2 class="text-2xl font-black tracking-[-0.05em] text-text-primary sm:text-3xl">
           ¿Listo para dar el siguiente paso en tu carrera?
         </h2>
-        <p class="text-text-secondary max-w-xl mx-auto text-sm sm:text-base font-light">
+        <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-secondary font-light">
           Únete hoy a nuestra comunidad universitaria y colabora en proyectos que impulsan el futuro de las telecomunicaciones.
         </p>
         <a
           href="https://chat.whatsapp.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary font-bold hover:scale-105 transition-all shadow-xl shadow-accent-blue/25"
+          aria-label="Únete a nuestro WhatsApp oficial de IEEE ComSoc Univalle (abre en una nueva ventana)"
+          class="mt-8 inline-flex items-center justify-center rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan px-8 py-4 font-bold text-slate-950 shadow-[0_20px_50px_-20px_rgba(34,211,238,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
-          ¡Únete a nuestro WhatsApp Oficial!
+          ¡Únete a nuestro WhatsApp oficial!
         </a>
       </div>
-    </div>
-
+    </section>
   </div>
 </BaseLayout>

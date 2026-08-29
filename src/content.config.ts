@@ -31,6 +31,12 @@ const eventos = defineCollection({
         imagenPrincipal: z.string(),
         galeria: z.array(z.string()).optional(),
         estado: z.enum(['Publicado', 'Pasado']),
+        detalles: z.array(
+            z.object({
+                label: z.string(),
+                value: z.string(),
+            })
+        ).optional(),
     }),
 });
 

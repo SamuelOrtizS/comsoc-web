@@ -5,8 +5,7 @@ import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('eventos');
 
-// Sort by date (descending)
-const sortedEvents = allEvents.sort(
+const sortedEvents = [...allEvents].sort(
   (a, b) => new Date(b.data.fechaInicio).getTime() - new Date(a.data.fechaInicio).getTime()
 );
 
@@ -18,45 +17,61 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
   title="IEEE ComSoc Univalle | Eventos & Workshops"
   description="Explora los próximos talleres técnicos, hackathons, conferencias y actividades del capítulo IEEE ComSoc."
 >
-  <!-- Page Header -->
-  <section class="relative py-16 bg-grid-pattern bg-wave-pattern border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-mono mb-4">
-        Calendario Académico &amp; Técnico
+  <section class="relative overflow-hidden border-b border-white/10 bg-grid-pattern bg-wave-pattern">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),transparent_38%)]" aria-hidden="true"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-[11px] sm:text-xs font-mono tracking-[0.2em] uppercase shadow-[0_0_25px_rgba(34,211,238,0.18)]">
+        Calendario académico &amp; técnico
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-4">
-        Eventos, Talleres &amp; Conferencias
+
+      <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-text-primary tracking-tight">
+        Eventos, talleres &amp; conferencias
       </h1>
-      <p class="max-w-2xl mx-auto text-text-secondary text-base sm:text-lg font-light leading-relaxed">
-        Capacitaciones prácticas, competencias de innovación y ponencias magistrales dictadas por expertos globales de IEEE ComSoc.
+
+      <p class="mx-auto mt-5 max-w-3xl text-base sm:text-lg text-text-secondary leading-relaxed font-light">
+        Capacitación práctica, competencia de innovación y conocimiento aplicado para impulsar la próxima generación de líderes en comunicaciones y tecnologías.
       </p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm">
+        <div class="glass-card rounded-2xl px-4 py-3 min-w-[120px] border border-white/10">
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">Próximos</div>
+          <div class="mt-1 text-xl font-bold text-accent-cyan">{upcomingEvents.length}</div>
+        </div>
+        <div class="glass-card rounded-2xl px-4 py-3 min-w-[120px] border border-white/10">
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">Pasados</div>
+          <div class="mt-1 text-xl font-bold text-text-primary">{pastEvents.length}</div>
+        </div>
+        <div class="glass-card rounded-2xl px-4 py-3 min-w-[120px] border border-white/10">
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">Agenda</div>
+          <div class="mt-1 text-xl font-bold text-text-primary">{sortedEvents.length}</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
-    
-    <!-- Upcoming Events Section -->
-    <section>
-      <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
-        <h2 class="text-2xl font-bold text-text-primary flex items-center gap-3">
-          <span class="w-3 h-3 rounded-full bg-accent-cyan animate-ping"></span>
-          <span>Próximos Eventos</span>
-          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-accent-cyan/20 text-accent-accent-cyan border border-accent-cyan/30">
-            {upcomingEvents.length}
-          </span>
-        </h2>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 space-y-16 lg:space-y-20">
+    <section class="space-y-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div class="inline-flex items-center gap-3">
+          <span class="h-3 w-3 rounded-full bg-accent-cyan shadow-[0_0_20px_rgba(34,211,238,0.9)]"></span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-text-primary">Próximos eventos</h2>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-mono">
+          <span>{upcomingEvents.length}</span>
+          <span>actividades</span>
+        </div>
       </div>
 
       {upcomingEvents.length === 0 ? (
-        <div class="glass-card rounded-2xl p-12 text-center border border-white/10 max-w-xl mx-auto">
-          <div class="text-4xl mb-4">📅</div>
-          <h3 class="text-lg font-bold text-text-primary mb-2">No hay eventos programados en este momento</h3>
-          <p class="text-sm text-text-secondary font-light">
-            Estamos planificando los próximos talleres. Mantente atento a nuestras redes sociales.
+        <div class="glass-card rounded-3xl p-10 sm:p-12 text-center border border-white/10 max-w-2xl mx-auto shadow-[0_20px_60px_rgba(15,23,42,0.4)]">
+          <div class="text-5xl mb-4" aria-hidden="true">📅</div>
+          <h3 class="text-xl font-bold text-text-primary mb-2">No hay eventos programados en este momento</h3>
+          <p class="text-sm sm:text-base text-text-secondary font-light leading-relaxed">
+            Estamos preparando la próxima tanda de talleres, hackathons y conferencias. Sigue nuestras redes para no perderte la apertura de inscripciones.
           </p>
         </div>
       ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {upcomingEvents.map((ev) => (
             <EventCard
               id={ev.id}
@@ -75,22 +90,24 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
       )}
     </section>
 
-    <!-- Past Events Section -->
-    <section>
-      <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
-        <h2 class="text-2xl font-bold text-text-secondary flex items-center gap-3">
-          <span class="text-text-secondary font-mono">📦</span>
-          <span>Eventos Pasados</span>
-          <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-text-secondary border border-white/10">
-            {pastEvents.length}
-          </span>
-        </h2>
+    <section class="space-y-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div class="inline-flex items-center gap-3">
+          <span class="text-xl" aria-hidden="true">📦</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-text-primary">Eventos pasados</h2>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-text-secondary text-xs font-mono">
+          <span>{pastEvents.length}</span>
+          <span>registros</span>
+        </div>
       </div>
 
       {pastEvents.length === 0 ? (
-        <p class="text-sm text-text-secondary">No hay registros de eventos pasados.</p>
+        <div class="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] px-6 py-10 text-sm text-text-secondary text-center">
+          No hay registros de eventos pasados.
+        </div>
       ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {pastEvents.map((ev) => (
             <EventCard
               id={ev.id}
@@ -108,6 +125,5 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
         </div>
       )}
     </section>
-
-  </div>
+  </main>
 </BaseLayout>

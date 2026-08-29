@@ -1,0 +1,25 @@
+{
+  "titulo": "Proyecto educativo: Jammer Bluetooth con ESP32 y NRF24L01",
+  "categoria": "Seguridad y Redes Inalámbricas",
+  "descripcion": "Prototipo académico para estudiar interferencia y análisis de espectro en dispositivos inalámbricos, utilizando ESP32 como plataforma de control y NRF24L01 para experimentación en radiofrecuencia en un entorno de laboratorio controlado.",
+  "imagen": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+  "estado": "Activo",
+  "tags": [
+    "ESP32",
+    "NRF24L01",
+    "Bluetooth",
+    "IoT",
+    "Seguridad",
+    "Educativo"
+  ],
+  "enlace": "https://github.com/ejemplo/esp32-nrf24-bluetooth-lab",
+  "destacado": true,
+  "montoActual": 40,
+  "montoMeta": 40,
+  "recursos": [
+    { "title": "Repositorio del proyecto", "link": "https://github.com/ejemplo/esp32-nrf24-bluetooth-lab", "icon": "💻" },
+    { "title": "Guía de montaje", "link": "https://example.com/guia-montaje-esp32-nrf24", "icon": "📘" },
+    { "title": "Diagrama de conexiones", "link": "https://example.com/diagrama-conexiones-jammer", "icon": "🧭" }
+  ],
+  "resumenTecnico": "Este proyecto se desarrolló con un enfoque pedagógico para comprender el comportamiento de sistemas inalámbricos en entornos de interferencia controlada. El ESP32 gestiona la lógica del prototipo, la adquisición de datos y la visualización del estado del sistema, mientras que el módulo NRF24L01 permite explorar la transmisión sobre la banda de 2.4 GHz y evaluar el impacto de la interferencia sobre dispositivos cercanos. La implementación enfatiza análisis de espectro, protocolos de radio, diseño embebido y buenas prácticas en seguridad informática y cumplimiento regulatorio dentro de un laboratorio académico."
+}

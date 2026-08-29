@@ -18,6 +18,11 @@ interface Props {
 const { evento } = Astro.props;
 const data = evento.data;
 const isPast = data.estado === 'Pasado';
+const eventDetails = data.detalles ?? [
+  { label: 'Organizador', value: data.organizador },
+  { label: 'Tipo', value: data.tipo },
+  { label: 'Ubicación', value: data.lugarNombre },
+];
 
 // Format Date
 const dateObj = new Date(data.fechaInicio);
@@ -34,106 +39,137 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
   description={data.descripcion}
   image={data.imagenPrincipal}
 >
-  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    
-    <!-- Back to events -->
-    <a
-      href="/eventos"
-      class="inline-flex items-center gap-2 text-sm text-accent-cyan hover:text-accent-cyan font-mono mb-8 group"
-    >
-      <span class="group-hover:-translate-x-1 transition-transform">←</span>
-      <span>Volver a eventos</span>
-    </a>
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div class="mb-8 sm:mb-10">
+      <a
+        href="/eventos"
+        class="inline-flex items-center gap-2 text-sm text-accent-cyan hover:text-accent-cyan font-mono group transition-colors"
+      >
+        <span class="group-hover:-translate-x-1 transition-transform">←</span>
+        <span>Volver a eventos</span>
+      </a>
+    </div>
 
-    <!-- Main Hero Card -->
-    <div class="glass-card rounded-3xl overflow-hidden border border-accent-cyan/30 mb-12">
-      <div class="aspect-21/9 w-full relative overflow-hidden bg-slate-950">
+    <div class="glass-card rounded-[28px] overflow-hidden border border-accent-cyan/30 mb-12 shadow-[0_24px_60px_rgba(21,93,252,0.15)]">
+      <div class="aspect-[16/9] sm:aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
         <img
           src={data.imagenPrincipal}
           alt={data.titulo}
           decoding="async"
           class="w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-black/40"></div>
-        
-        <!-- Badges on image -->
-        <div class="absolute top-4 left-4 flex gap-2">
-          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/40 font-mono">
-            {data.tipo}
-          </span>
-          {isPast && (
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-800/80 backdrop-blur-md text-text-secondary border border-gray-700">
-              Finalizado
+        <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-bg-primary/35 to-black/35"></div>
+
+        <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-6">
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/40 font-mono">
+              {data.tipo}
+            </span>
+            {isPast && (
+              <span class="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-slate-900/80 backdrop-blur-md text-text-secondary border border-white/10 font-mono">
+                Finalizado
+              </span>
+            )}
+          </div>
+
+          {!isPast && (
+            <span class="rounded-full border border-accent-cyan/30 bg-bg-primary/65 px-3 py-1.5 text-[10px] sm:text-xs font-semibold text-accent-cyan font-mono backdrop-blur-md">
+              Próximo evento
             </span>
           )}
         </div>
       </div>
 
-      <div class="p-6 sm:p-10 space-y-6">
-        <div class="text-xs font-mono text-accent-cyan">
-          ORGANIZADO POR: {data.organizador}
+      <div class="p-6 sm:p-8 lg:p-10 space-y-6">
+        <div class="space-y-4">
+          <div class="text-[11px] uppercase tracking-[0.18em] text-accent-cyan font-mono">
+            Evento • {data.organizador}
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text-primary leading-tight tracking-[-0.04em]">
+            {data.titulo}
+          </h1>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-text-primary leading-tight">
-          {data.titulo}
-        </h1>
-
-        <!-- Key Meta Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
-          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-text-secondary font-mono">Fecha</div>
-            <div class="text-sm font-semibold text-text-primary mt-1 capitalize">📅 {formattedDate}</div>
+          <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Fecha</div>
+            <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed capitalize">
+              <span aria-hidden="true">📅</span>
+              <span>{formattedDate}</span>
+            </div>
           </div>
 
-          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-text-secondary font-mono">Horario</div>
-            <div class="text-sm font-semibold text-text-primary mt-1">🕒 {data.horaInicio} - {data.horaFin}</div>
+          <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Horario</div>
+            <div class="mt-2 flex items-center gap-2 text-sm font-semibold text-text-primary leading-relaxed">
+              <span aria-hidden="true">🕒</span>
+              <span>{data.horaInicio} - {data.horaFin}</span>
+            </div>
           </div>
 
-          <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-            <div class="text-xs uppercase text-text-secondary font-mono">Lugar</div>
-            <div class="text-sm font-semibold text-text-primary mt-1 truncate" title={data.lugarNombre}>
-              📍 {data.lugarNombre}
+          <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Lugar</div>
+            <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed" title={data.lugarNombre}>
+              <span aria-hidden="true">📍</span>
+              <span class="block min-w-0 break-words">{data.lugarNombre}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Details and Countdown Island Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
       <div class="lg:col-span-8 space-y-8">
-        <div class="glass-card rounded-2xl p-8 border border-white/10">
-          <h2 class="text-xl font-bold text-text-primary mb-4 font-mono">Descripción del Evento</h2>
+        <section class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10">
+          <div class="mb-4 flex items-center justify-between gap-4">
+            <h2 class="text-xl font-bold text-text-primary font-mono">Descripción del Evento</h2>
+            <span class="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-accent-cyan font-mono">
+              Info
+            </span>
+          </div>
+
           <p class="text-text-secondary text-base leading-relaxed font-light whitespace-pre-line">
             {data.descripcion}
           </p>
 
           {data.lugarDireccion && (
-            <div class="mt-6 pt-6 border-t border-white/10 text-xs text-text-secondary font-mono">
-              <span class="text-text-secondary uppercase block mb-1">Dirección del Campus / Ubicación</span>
-              {data.lugarDireccion}
+            <div class="mt-6 pt-6 border-t border-white/10">
+              <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono mb-2">
+                Dirección del campus / ubicación
+              </div>
+              <p class="text-sm text-text-primary leading-relaxed">{data.lugarDireccion}</p>
             </div>
           )}
-        </div>
+        </section>
 
-        <!-- Gallery if available -->
         {data.galeria && data.galeria.length > 0 && (
-          <div class="glass-card rounded-2xl p-8 border border-white/10">
-            <h2 class="text-xl font-bold text-text-primary mb-6 font-mono">Galería &amp; Recursos</h2>
+          <section class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10">
+            <div class="mb-6 flex items-center justify-between gap-4">
+              <h2 class="text-xl font-bold text-text-primary font-mono">Galería &amp; Recursos</h2>
+              <span class="text-[10px] uppercase tracking-[0.18em] text-text-secondary font-mono">
+                {data.galeria.length} fotos
+              </span>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {data.galeria.map((img, idx) => (
-                <div class="rounded-xl overflow-hidden aspect-video bg-slate-900 border border-white/10">
-                  <img src={img} alt={`Foto ${idx + 1}`} loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition duration-300" />
+                <div class="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900 aspect-video">
+                  <img
+                    src={img}
+                    alt={`Foto ${idx + 1}`}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         )}
       </div>
 
-      <!-- Sidebar -->
-      <div class="lg:col-span-4 space-y-6">
+      <aside class="lg:col-span-4 space-y-6">
         {!isPast && (
           <CountdownTimer
             targetDate={`${data.fechaInicio}T${data.horaInicio || '09:00'}:00`}
@@ -141,9 +177,20 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
           />
         )}
 
-        <!-- Share & Action Box -->
+        <div class="glass-card rounded-2xl p-6 border border-white/10">
+          <h3 class="text-base font-bold text-text-primary mb-4 font-mono">Detalles del evento</h3>
+          <dl class="space-y-3 text-sm">
+            {eventDetails.map((detail) => (
+              <div class="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <dt class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">{detail.label}</dt>
+                <dd class="mt-1 text-text-primary font-medium">{detail.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
         <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
-          <h3 class="text-base font-bold text-text-primary">Comparte este evento</h3>
+          <h3 class="text-base font-bold text-text-primary font-mono">Comparte este evento</h3>
           <p class="text-xs text-text-secondary font-light">
             Invita a tus compañeros de carrera a participar en las actividades de IEEE ComSoc.
           </p>
@@ -166,8 +213,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
             </a>
           </div>
         </div>
-      </div>
+      </aside>
     </div>
-
   </article>
 </BaseLayout>

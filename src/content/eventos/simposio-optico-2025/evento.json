@@ -14,5 +14,12 @@
     "/images/event-optical.svg",
     "/images/event-iot.svg"
   ],
-  "estado": "Pasado"
+  "estado": "Pasado",
+  "detalles": [
+    { "label": "Organizador", "value": "IEEE ComSoc & Photonics Society" },
+    { "label": "Tipo", "value": "Conferencia" },
+    { "label": "Ubicación", "value": "Centro de Convenciones & Transmisión Global IEEE.tv" },
+    { "label": "Modalidad", "value": "Híbrida" },
+    { "label": "Nivel", "value": "Profesional" }
+  ]
 }
