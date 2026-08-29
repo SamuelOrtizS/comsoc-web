@@ -3,18 +3,59 @@ name: IEEE ComSoc Univalle
 description: Hub digital del Capítulo Estudiantil IEEE ComSoc — plataforma técnica para IoT, 5G/6G y comunicaciones cuánticas.
 colors:
   primary: "#155dfc"
+  primary-lighter: "#5d8df6"
+  primary-darker: "#0040cf"
   accent-cyan: "#22d3ee"
+  accent-cyan-lighter: "#65dbed"
+  accent-cyan-darker: "#08adc6"
   accent-purple: "#a855f7"
+  accent-purple-lighter: "#c898f6"
+  accent-purple-darker: "#880dfd"
   accent-emerald: "#34d399"
+  accent-emerald-lighter: "#6fdab3"
+  accent-emerald-darker: "#1ea775"
   accent-amber: "#f59e0b"
+  accent-amber-lighter: "#f1b652"
+  accent-amber-darker: "#bd7700"
   accent-red: "#ef4444"
+  accent-red-lighter: "#f08686"
+  accent-red-darker: "#e60b0b"
+  accent-yellow: "#facc15"
+  accent-yellow-lighter: "#f5d65d"
+  accent-yellow-darker: "#cda400"
+  accent-rose: "#f43f5e"
+  accent-rose-lighter: "#f38396"
+  accent-rose-darker: "#ec042c"
   accent-teal: "#2dd4bf"
+  accent-teal-lighter: "#69dacc"
+  accent-teal-darker: "#1ba392"
   neutral-bg: "#050816"
+  neutral-bg-lighter: "#0c1333"
+  neutral-bg-darker: "#03050e"
   neutral-bg-secondary: "#0a0f24"
+  neutral-bg-secondary-lighter: "#121b40"
+  neutral-bg-secondary-darker: "#070a17"
+  neutral-bg-deep-slate: "#0f172a"
+  neutral-bg-deep-slate-lighter: "#182544"
+  neutral-bg-deep-slate-darker: "#0a0f1b"
+  neutral-bg-emerald-dark: "#0a1f1a"
+  neutral-bg-emerald-dark-lighter: "#133a31"
+  neutral-bg-emerald-dark-darker: "#061411"
+  neutral-bg-deep-purple: "#0d0720"
+  neutral-bg-deep-purple-lighter: "#190d3d"
+  neutral-bg-deep-purple-darker: "#080515"
   neutral-text-primary: "#ffffff"
+  neutral-text-primary-lighter: "#ffffff"
+  neutral-text-primary-darker: "#e2e8f0"
   neutral-text-secondary: "#cbd5e0"
+  neutral-text-secondary-lighter: "#dce2e8"
+  neutral-text-secondary-darker: "#a5b6c9"
   glass-bg: "rgba(255, 255, 255, 0.05)"
+  glass-bg-lighter: "rgba(255, 255, 255, 0.08)"
+  glass-bg-darker: "rgba(255, 255, 255, 0.03)"
   glass-border: "rgba(255, 255, 255, 0.1)"
+  glass-border-lighter: "rgba(255, 255, 255, 0.15)"
+  glass-border-darker: "rgba(255, 255, 255, 0.06)"
 typography:
   display:
     fontFamily: "Formata, 'Space Grotesk', system-ui, sans-serif"
@@ -99,31 +140,94 @@ Es un mundo **tech sobrio y preciso**. La densidad es media, la jerarquía es es
 
 ## Colors
 
-Paleta oscura de base profunda con acentos espectrales. El fondo absorbe la luz y los acentos la portan como señal.
+Paleta oscura de base profunda con acentos espectrales. El fondo absorbe la luz y los acentos la portan como señal. Sincronizada 1:1 con `src/styles/global.css:9` (`@theme` Tailwind v4).
+
+### Sistema Auxiliar de Degradados
+
+Cada color base expone dos compañeros para construir degradados sin hardcodear hex fuera del tema: `*-lighter` (highlight superior) y `*-darker` (sombra inferior). Acentos vibrantes: ±13% luminosidad HLS; fondos profundos: +7% / −35% para mantener legibilidad en lienzos casi negros; vidrio: ± opacidad. Uso Tailwind: `bg-gradient-to-br from-accent-blue-lighter to-accent-blue-darker`, `from-bg-primary-lighter to-bg-primary`, `border-glass-border-lighter`, `from-glass-bg-lighter to-glass-bg-darker`. Ver tabla por familia.
 
 ### Primary
 - **Azul Señal** (#155dfc): Acción primaria, enlaces principales y CTAs. Se usa en ≤10% de la superficie; su rareza es el punto.
+  - `primary-lighter` (#5d8df6): Highlight de degradados y hover de botones. `from-primary-lighter`
+  - `primary-darker` (#0040cf): Sombra de degradado y estado pressed/active. `to-primary-darker`
 
 ### Secondary
 - **Cian Espectral** (#22d3ee): Portadora principal — títulos de sección, estados activos, hover de tarjetas y barras de progreso. Es el color de la señal viva.
-- **Púrpura Cuántico** (#a855f7): Investigación y desarrollo, categorías y etiquetas de proyectos. Marca lo experimental.
+  - `accent-cyan-lighter` (#65dbed): Highlight cian, hover de glass-card.
+  - `accent-cyan-darker` (#08adc6): Sombra y progreso profundo.
+- **Púrpura Cuántico** (#a855f7): Investigación y desarrollo, categorías y etiquetas de proyectos. Marca lo experimental. Hero duotono junto a azul.
+  - `accent-purple-lighter` (#c898f6): Highlight púrpura.
+  - `accent-purple-darker` (#880dfd): Sombra CTA púrpura.
 
 ### Tertiary
 - **Esmeralda de Enlace** (#34d399): Éxito, activos y confirmación. Badges `Activo`, métricas de aliados.
+  - `accent-emerald-lighter` (#6fdab3) / `darker` (#1ea775)
 - **Ámbar de Órbita** (#f59e0b): Advertencia no crítica, banner de desarrollo y estados de monitoreo.
+  - `accent-amber-lighter` (#f1b652) / `darker` (#bd7700)
+- **Rojo de Alerta** (#ef4444): Error, peligro y acciones destructivas. Uso puntual, no decorativo.
+  - `accent-red-lighter` (#f08686) / `darker` (#e60b0b)
+- **Amarillo de Atención** (#facc15): Resaltado, badges informativos y gamificación. Alto contraste sobre oscuro.
+  - `accent-yellow-lighter` (#f5d65d) / `darker` (#cda400)
+- **Rosa Cálido** (#f43f5e): Énfasis cálido, etiquetas especiales y CTAs secundarios. Alternativa cálida a púrpura.
+  - `accent-rose-lighter` (#f38396) / `darker` (#ec042c)
 - **Teal de Portadora** (#2dd4bf): Degradados de progreso y acentos secundarios de financiamiento.
+  - `accent-teal-lighter` (#69dacc) / `darker` (#1ba392)
 
-### Neutral
+### Neutral — Fondos
 - **Fondo Órbita** (#050816): Fondo primario de toda la aplicación, base oscura que absorbe.
-- **Fondo Satélite** (#0a0f24): Tarjetas y contenedores secundarios.
-- **Texto Primario** (#ffffff): Títulos H1-H6 y lectura principal.
-- **Texto Secundario** (#cbd5e0): Descripciones, subtítulos y meta.
-- **Vidrio** (rgba(255,255,255,0.05) / borde rgba(255,255,255,0.1)): Capas de glassmorphism.
+  - `neutral-bg-lighter` (#0c1333): Elevación sutil para `from-bg-primary-lighter`.
+  - `neutral-bg-darker` (#03050e): Pozo / sombra inferior.
+- **Fondo Satélite** (#0a0f24): Tarjetas y contenedores secundarios (Unirse, Tienda, glass-card).
+  - `neutral-bg-secondary-lighter` (#121b40) / `darker` (#070a17)
+- **Fondo Profundo Slate** (#0f172a): Tarjetas de alto contraste. `from-bg-deep-slate to-bg-deep-slate-darker`.
+  - `lighter` (#182544) / `darker` (#0a0f1b)
+- **Fondo Esmeralda Oscuro** (#0a1f1a): Secciones de financiamiento y éxito. Alternativa profunda a emerald.
+  - `lighter` (#133a31) / `darker` (#061411)
+- **Fondo Púrpura Profundo** (#0d0720): Banners de donación y secciones especiales. Base hero alternativa.
+  - `lighter` (#190d3d) / `darker` (#080515)
+
+### Neutral — Texto
+- **Texto Primario** (#ffffff): Títulos H1-H6 y lectura principal. Máximo contraste.
+  - `lighter` (#ffffff) — clamp a blanco puro para API consistente.
+  - `darker` (#e2e8f0 / slate-200): Variante atenuada para degradados de texto.
+- **Texto Secundario** (#cbd5e0): Descripciones, subtítulos y meta. [Nota: referencia original #94a3b8, token implementado #cbd5e0].
+  - `lighter` (#dce2e8) — highlight de texto.
+  - `darker` (#a5b6c9) — estado atenuado.
+
+### Neutral — Vidrio
+- **Fondo de Cristal** (rgba(255,255,255,0.05)): Relleno de `glass-panel`. Requiere `backdrop-blur`.
+  - `glass-bg-lighter` (0.08) — highlight / hover.
+  - `glass-bg-darker` (0.03) — sombra / inactivo.
+- **Borde de Cristal** (rgba(255,255,255,0.1)): Borde sutil de glassmorphism.
+  - `glass-border-lighter` (0.15) — hover.
+  - `glass-border-darker` (0.06) — inactivo.
+
+### Tabla rápida — Tokens CSS (`--color-*` en `global.css`)
+| Familia | Base | Lighter | Darker | Degradado sugerido |
+|---|---|---|---|---|
+| `accent-blue` | `#155dfc` | `#5d8df6` | `#0040cf` | `from-accent-blue-lighter to-accent-blue-darker` |
+| `accent-cyan` | `#22d3ee` | `#65dbed` | `#08adc6` | `from-accent-cyan-lighter to-accent-cyan-darker` |
+| `accent-emerald` | `#34d399` | `#6fdab3` | `#1ea775` | `from-accent-emerald-lighter to-accent-emerald-darker` |
+| `accent-purple` | `#a855f7` | `#c898f6` | `#880dfd` | `from-accent-purple-lighter to-accent-purple-darker` |
+| `accent-amber` | `#f59e0b` | `#f1b652` | `#bd7700` | `from-accent-amber-lighter to-accent-amber-darker` |
+| `accent-red` | `#ef4444` | `#f08686` | `#e60b0b` | `from-accent-red-lighter to-accent-red-darker` |
+| `accent-yellow` | `#facc15` | `#f5d65d` | `#cda400` | `from-accent-yellow-lighter to-accent-yellow-darker` |
+| `accent-rose` | `#f43f5e` | `#f38396` | `#ec042c` | `from-accent-rose-lighter to-accent-rose-darker` |
+| `accent-teal` | `#2dd4bf` | `#69dacc` | `#1ba392` | `from-accent-teal-lighter to-accent-teal-darker` |
+| `bg-primary` | `#050816` | `#0c1333` | `#03050e` | `from-bg-primary-lighter to-bg-primary` |
+| `bg-secondary` | `#0a0f24` | `#121b40` | `#070a17` | `from-bg-secondary to-bg-secondary-lighter` |
+| `bg-deep-slate` | `#0f172a` | `#182544` | `#0a0f1b` | `from-bg-deep-slate-lighter to-bg-deep-slate-darker` |
+| `bg-emerald-dark` | `#0a1f1a` | `#133a31` | `#061411` | `from-bg-emerald-dark to-bg-emerald-dark-lighter` |
+| `bg-deep-purple` | `#0d0720` | `#190d3d` | `#080515` | `from-bg-deep-purple to-bg-deep-purple-lighter` |
+| `glass-bg` | `0.05` | `0.08` | `0.03` | `from-glass-bg-lighter to-glass-bg-darker` |
+| `glass-border` | `0.10` | `0.15` | `0.06` | `border-glass-border-lighter` |
 
 ### Named Rules
 **The Orbital Signal Rule.** El cian espectral solo porta señal — estados, enlaces y bordes activos. Nunca como relleno decorativo de grandes superficies.
 
 **The Dark Matter Rule.** El fondo permanece oscuro. No se introduce modo claro; la profundidad se construye por tono y blur, no por inversión.
+
+**The Gradient Companion Rule.** Todo degradado usa compañeros `lighter→darker` del mismo token, nunca hex hardcodeado fuera de `global.css`. Ej.: `bg-gradient-to-br from-accent-blue via-accent-blue to-accent-blue-darker` — mantiene armonía orbital y facilita theming.
 
 ## Typography
 
