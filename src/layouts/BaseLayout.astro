@@ -66,15 +66,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
       gtag('config', 'G-7Q9FC7KE7Y');
     </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-text-primary relative overflow-x-hidden font-sans antialiased">
-    <!-- Background glow ambient effects (optimized GPU layers) -->
-    <div class="fixed top-0 left-1/4 -z-10 w-125 h-87.5 bg-accent-blue/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
-    <div class="fixed bottom-1/4 right-10 -z-10 w-112.5 h-87.5 bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none transform-gpu"></div>
-    <div class="fixed top-1/2 left-10 -z-10 w-87.5 h-62.5 bg-accent-purple/10 rounded-full blur-[90px] pointer-events-none transform-gpu"></div>
-
+  <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-text-primary relative overflow-x-hidden font-sans antialiased bg-dot-grid">
     <Header />
 
-    <main class="grow pt-20">
+    <main class="grow pt-20 ">
       <slot />
     </main>
 
@@ -91,7 +86,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost
     >
       <div class="relative max-w-lg w-full p-1 bg-linear-to-br from-accent-cyan/40 via-accent-purple/40 to-accent-blue/40 rounded-3xl shadow-[0_0_50px_rgba(34,211,238,0.15)]">
         <div class="bg-bg-secondary border border-glass-border rounded-[calc(1.5rem-1px)] p-8 md:p-12 overflow-hidden relative">
-          <div class="absolute inset-0 opacity-10 pointer-events-none bg-grid-pattern bg-wave-pattern"></div>
+          <div class="absolute inset-0 opacity-10 pointer-events-none bg-dot-grid"></div>
 
           <div class="relative z-10 text-center">
             <div class="mb-8 flex justify-center">
