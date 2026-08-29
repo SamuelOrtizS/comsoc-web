@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/imageResolver';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import fs from 'fs';
@@ -9,14 +11,24 @@ const team = rawJunta
   .map((item) => item.data)
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
-let galleryImages: string[] = [];
+let galleryImages: (string | any)[] = [];
 try {
-  const dirPath = path.join(process.cwd(), 'public', 'images', 'galeria');
-  if (fs.existsSync(dirPath)) {
-    const files = fs.readdirSync(dirPath);
+  // Try public galeria first (legacy), then src/assets galeria
+  const publicDir = path.join(process.cwd(), 'public', 'images', 'galeria');
+  const assetsDir = path.join(process.cwd(), 'src', 'assets', 'images', 'galeria');
+  let files: string[] = [];
+  let basePath = '/images/galeria/';
+  if (fs.existsSync(publicDir) && fs.readdirSync(publicDir).length > 0) {
+    files = fs.readdirSync(publicDir);
+    basePath = '/images/galeria/';
+  } else if (fs.existsSync(assetsDir)) {
+    files = fs.readdirSync(assetsDir);
+    basePath = '/images/galeria/';
+  }
+  if (files.length > 0) {
     galleryImages = files
       .filter(file => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(file))
-      .map(file => `/images/galeria/${file}`);
+      .map(file => resolveImage(`${basePath}${file}`));
   }
 } catch (e) {
   console.error("Error reading gallery", e);
@@ -24,10 +36,10 @@ try {
 
 if (galleryImages.length === 0) {
   galleryImages = [
-    '/images/hero-banner.jpg',
-    '/images/event-iot.svg',
-    '/images/event-optical.svg',
-    '/images/event-hackathon.svg'
+    resolveImage('/images/hero-banner.jpg'),
+    resolveImage('/images/event-iot.svg'),
+    resolveImage('/images/event-optical.svg'),
+    resolveImage('/images/event-hackathon.svg')
   ];
 }
 
@@ -98,9 +110,11 @@ const benefits = [
           <div 
             class={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} gallery-slide`}
           >
-            <img 
-              src={img} 
+            <Image 
+              src={img as any} 
               alt={`Imagen de galería ${idx + 1}`} 
+              width={1200}
+              height={675}
               loading={idx === 0 ? 'eager' : 'lazy'}
               decoding="async"
               class="w-full h-full object-cover" 
@@ -230,7 +244,7 @@ const benefits = [
         >
           <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-accent-cyan/40 bg-[linear-gradient(135deg,rgba(21,93,252,0.3),rgba(34,211,238,0.3))] text-4xl transition-all duration-300 group-hover:scale-105 group-hover:border-accent-cyan/80">
             {member.image
-              ? <img src={member.image} alt={member.name} loading="lazy" decoding="async" class="h-full w-full rounded-full object-cover" />
+              ? <Image src={resolveImage(member.image) as any} alt={member.name} width={200} height={200} loading="lazy" decoding="async" class="h-full w-full rounded-full object-cover" />
               : <span>{member.avatar || '👤'}</span>
             }
           </div>

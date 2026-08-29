@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/imageResolver';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
@@ -66,9 +68,11 @@ const tiendaItems = await getCollection('tienda');
             >
               <div class="relative overflow-hidden bg-slate-900">
                 <div class="aspect-square overflow-hidden">
-                  <img
-                    src={prod.image}
+                  <Image
+                    src={resolveImage(prod.image) as any}
                     alt={prod.name}
+                    width={600}
+                    height={600}
                     loading="lazy"
                     decoding="async"
                     class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

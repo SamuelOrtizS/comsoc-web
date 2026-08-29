@@ -1,3 +1,10 @@
+---
+import { Image } from 'astro:assets';
+import cursorStep1 from '../assets/images/Cursor/Cursor/Step1.svg';
+import cursorStep2 from '../assets/images/Cursor/Cursor/Step2.svg';
+import cursorStep3 from '../assets/images/Cursor/Cursor/Step3.svg';
+import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
+---
 <!-- Desktop cursor: SVG icon following exact mouse position -->
 <div
   id="custom-cursor"
@@ -5,10 +12,14 @@
   class="pointer-events-none fixed top-0 left-0 z-[9999] opacity-0 transition-opacity duration-300 origin-top-left"
   style="transform: translate3d(-100px, -100px, 0) rotate(-25deg) scale(1); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: preserve-3d;"
 >
-  <img
+  <Image
     id="custom-cursor-img"
-    src="/images/Cursor/Cursor/Step1.svg"
+    src={cursorStep1}
     alt="Cursor"
+    width={671}
+    height={1035}
+    loading="eager"
+    decoding="sync"
     class="w-8 h-8 block"
   />
 </div>
@@ -33,10 +44,10 @@
   }
 </style>
 
-<script>
+<script define:vars={{ step1Src: cursorStep1.src, step2Src: cursorStep2.src, step3Src: cursorStep3.src, step4Src: cursorStep4.src }}>
   // ── Desktop Cursor ──────────────────────────────────────────────
   const cursor    = document.getElementById('custom-cursor');
-  const cursorImg = document.getElementById('custom-cursor-img') as HTMLImageElement | null;
+  const cursorImg = document.getElementById('custom-cursor-img');
 
   if (cursor && cursorImg && window.matchMedia('(any-pointer: fine)').matches) {
     let visible = false;
@@ -51,10 +62,10 @@
       cursor.style.setProperty('display', 'none', 'important');
     }, { passive: true, once: true });
 
-    const step1 = '/images/Cursor/Cursor/Step1.svg';
-    const step2 = '/images/Cursor/Cursor/Step2.svg';
-    const step3 = '/images/Cursor/Cursor/Step3.svg';
-    const step4 = '/images/Cursor/Cursor/Step4.svg';
+    const step1 = step1Src;
+    const step2 = step2Src;
+    const step3 = step3Src;
+    const step4 = step4Src;
 
     // Scale state tracked separately so we can bake it into the combined transform
     let cursorScale = 1;
@@ -77,7 +88,7 @@
     };
 
     // Move cursor exactly with mouse — batched in rAF for 60/120/144Hz smoothness without main thread blocking
-    window.addEventListener('mousemove', (e: MouseEvent) => {
+    window.addEventListener('mousemove', (e) => {
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -95,7 +106,7 @@
       visible = false;
     });
 
-    document.addEventListener('mouseenter', (e: MouseEvent) => {
+    document.addEventListener('mouseenter', (e) => {
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -120,7 +131,7 @@
     });
 
     // Click wave pulse on desktop
-    let t1: number, t2: number, t3: number;
+    let t1, t2, t3;
     const DELAY = 140;
 
     window.addEventListener('mousedown', () => {

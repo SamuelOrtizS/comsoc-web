@@ -6,6 +6,9 @@ export default defineConfig({
   site: 'https://comsoc.ieeeunivalle.link/',
   base: '/',
   output: 'static',
+  image: {
+    domains: ["images.unsplash.com"],
+  },
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',

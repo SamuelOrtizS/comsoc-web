@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoComsoc from '../assets/images/logo-comsoc.svg';
 const links = [
   { name: 'Inicio', href: '/' },
   { name: 'Nosotros', href: '/nosotros' },
@@ -21,7 +23,7 @@ const currentPath = Astro.url.pathname;
   <div class="flex h-full flex-col justify-between p-5 sm:p-6">
     <div class="flex items-center justify-between border-b border-white/10 pb-4">
       <a href="/" class="flex items-center gap-3 rounded-full p-1 transition-transform duration-300 hover:scale-[1.02]">
-        <img src="/images/logo-comsoc.svg" alt="IEEE ComSoc" class="h-9 w-auto" />
+        <Image src={logoComsoc} alt="IEEE ComSoc" loading="eager" decoding="async" class="h-9 w-auto" />
       </a>
       <button
         id="close-mobile-menu"

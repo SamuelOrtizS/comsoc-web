@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/imageResolver';
+import logoWhite from '../assets/images/logo-comsoc-white.svg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CountdownTimer from '../components/CountdownTimer.astro';
 import { getCollection } from 'astro:content';
@@ -79,7 +82,7 @@ const pillars = [
         </div>
 
         <div class="flex justify-center">
-          <img src="/images/logo-comsoc-white.svg" alt="IEEE ComSoc Logo" class="h-24 w-auto sm:h-32 lg:h-40" />
+          <Image src={logoWhite} alt="IEEE ComSoc Logo" class="h-24 w-auto sm:h-32 lg:h-40" loading="eager" decoding="async" />
         </div>
 
         <p class="mx-auto mt-5 max-w-3xl text-base font-light leading-relaxed text-text-secondary sm:text-xl">
@@ -239,9 +242,11 @@ const pillars = [
       {featuredProjects.map((proj) => (
            <div class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col hover:border-accent-purple/40 transition-all duration-300">
           <div class="aspect-video relative overflow-hidden bg-slate-900">
-            <img
-              src={proj.image}
+            <Image
+              src={resolveImage(proj.image) as any}
               alt={proj.title}
+              width={800}
+              height={450}
               loading="lazy"
               decoding="async"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -310,7 +315,7 @@ const pillars = [
           >
             <div class="flex items-center gap-4">
               {aliado.data.logo
-                ? <img src={aliado.data.logo} alt={aliado.data.nombre} loading="lazy" decoding="async" class="h-10 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition" />
+                ? <Image src={resolveImage(aliado.data.logo) as any} alt={aliado.data.nombre} width={200} height={80} loading="lazy" decoding="async" class="h-10 w-auto object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition" />
                 : <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl">🤝</div>
               }
               <div>

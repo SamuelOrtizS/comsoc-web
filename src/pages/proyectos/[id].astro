@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatUSD, formatCOP, getUsdToCopRate } from '../../utils/currency';
@@ -34,6 +36,7 @@ const montoActual = Number(data.montoActual ?? 0);
 const montoMeta = Number(data.montoMeta ?? 0);
 const fundingProgress = montoMeta > 0 ? Math.min(100, (montoActual / montoMeta) * 100) : 0;
 const fundingRemaining = montoMeta > 0 ? Math.max(0, montoMeta - montoActual) : 0;
+const resolvedImagen = resolveImage(data.imagen);
 ---
 
 <BaseLayout
@@ -55,10 +58,13 @@ const fundingRemaining = montoMeta > 0 ? Math.max(0, montoMeta - montoActual) : 
     <!-- Hero Card -->
     <div class="glass-card rounded-3xl overflow-hidden border border-accent-purple/30 mb-12">
       <div class="aspect-21/9 w-full relative overflow-hidden bg-bg-deep-slate">
-        <img
-          src={data.imagen}
+        <Image
+          src={resolvedImagen as any}
           alt={data.titulo}
+          width={1200}
+          height={600}
           decoding="async"
+          loading="eager"
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-black/40"></div>

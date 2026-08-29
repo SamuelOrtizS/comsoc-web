@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatUSD, formatCOP, getUsdToCopRate } from '../../utils/currency';
@@ -90,9 +92,11 @@ const fundingPercent = (actual?: number, meta?: number) => {
               class="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary/80 shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-accent-emerald/40 hover:shadow-[0_24px_60px_rgba(52,211,153,0.12)]"
             >
               <div class="relative aspect-video overflow-hidden bg-slate-900">
-                <img
-                  src={proyecto.data.imagen}
+                <Image
+                  src={resolveImage(proyecto.data.imagen) as any}
                   alt={proyecto.data.titulo}
+                  width={800}
+                  height={450}
                   loading="lazy"
                   decoding="async"
                   class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -175,9 +179,11 @@ const fundingPercent = (actual?: number, meta?: number) => {
               class="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary/80 shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-accent-blue/40 hover:shadow-[0_24px_60px_rgba(21,93,252,0.12)]"
             >
               <div class="relative aspect-video overflow-hidden bg-slate-900">
-                <img
-                  src={proyecto.data.imagen}
+                <Image
+                  src={resolveImage(proyecto.data.imagen) as any}
                   alt={proyecto.data.titulo}
+                  width={800}
+                  height={450}
                   loading="lazy"
                   decoding="async"
                   class="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105"
@@ -260,9 +266,11 @@ const fundingPercent = (actual?: number, meta?: number) => {
               class="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary/80 opacity-80 shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-accent-yellow/35 hover:opacity-100 hover:shadow-[0_24px_60px_rgba(250,204,21,0.08)]"
             >
               <div class="relative aspect-video overflow-hidden bg-slate-900">
-                <img
-                  src={proyecto.data.imagen}
+                <Image
+                  src={resolveImage(proyecto.data.imagen) as any}
                   alt={proyecto.data.titulo}
+                  width={800}
+                  height={450}
                   loading="lazy"
                   decoding="async"
                   class="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"

@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/imageResolver';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -7,14 +9,17 @@ interface Props {
 
 const { recurso } = Astro.props;
 const { titulo, descripcion, categoria, imagen, links } = recurso.data;
+const resolvedImagen = imagen ? resolveImage(imagen) : null;
 ---
 
 <div class="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary/80 shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_24px_60px_rgba(34,211,238,0.10)]">
   {imagen ? (
     <div class="relative aspect-video w-full overflow-hidden bg-slate-900">
-      <img
-        src={imagen}
+      <Image
+        src={resolvedImagen as any}
         alt={titulo}
+        width={800}
+        height={450}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         decoding="async"
         loading="lazy"
