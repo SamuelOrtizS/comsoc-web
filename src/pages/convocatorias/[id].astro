@@ -24,101 +24,149 @@ const isClosed = data.estado === 'Cerrada';
   title={`${data.titulo} | Convocatoria IEEE ComSoc`}
   description={data.descripcion}
 >
-  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
+    <!-- Ambient Glow Effect -->
+    <div class="absolute inset-0 -z-10 overflow-hidden rounded-[3rem]">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-accent-cyan/5 rounded-full blur-[128px] animate-pulse"></div>
+      <div class="absolute bottom-0 right-1/4 w-[30rem] h-[30rem] bg-accent-purple/5 rounded-full blur-[128px] animate-pulse delay-700"></div>
+    </div>
+
     <!-- Back button -->
-    <a
-      href="/convocatorias"
-      class="inline-flex items-center gap-2 text-sm text-accent-cyan hover:text-accent-cyan hover:bg-accent-cyan/10 font-mono mb-8 group px-3 py-1.5 rounded-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/60"
-    >
-      <span class="group-hover:-translate-x-1 transition-transform" aria-hidden="true">←</span>
-      <span>Volver a convocatorias</span>
-    </a>
+    <nav class="relative">
+      <a
+        href="/convocatorias"
+        class="group inline-flex items-center gap-3 text-sm font-medium text-text-secondary hover:text-accent-cyan transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/60 rounded-lg px-3 py-2 bg-white/[0.02] hover:bg-white/[0.08]"
+      >
+        <span class="relative inline-flex items-center justify-center w-5 h-5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </span>
+        <span class="font-mono tracking-tight">Volver a convocatorias</span>
+      </a>
+    </nav>
 
     <!-- Detail Box -->
-    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-accent-purple/30 relative overflow-hidden transition-all duration-500">
+    <div class="glass-card relative overflow-hidden rounded-[2.5rem] p-10 sm:p-14 lg:p-16 border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-500">
+      <!-- Decorative accent corner -->
+      <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-cyan/10 via-accent-purple/5 to-transparent rounded-bl-full"></div>
 
       <!-- Header details -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 border-b border-white/10 pb-6">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold from-accent-purple-lighter to-accent-purple-darker bg-gradient-to-br text-accent-purple border border-accent-purple/30 font-mono inline-flex w-fit">
+      <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-10 pb-8 border-b border-white/8">
+        <span class="px-4 py-2 rounded-full text-xs font-semibold tracking-wide bg-gradient-to-br from-accent-purple-lighter to-accent-purple-darker text-text-primary border border-accent-purple/30 font-mono inline-flex w-fit shadow-[0_2px_8px_rgba(168,85,247,0.15)]">
           {data.area}
         </span>
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-          <span class={`text-xs font-mono px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 ${isClosed ? 'from-accent-red-lighter to-accent-red-darker bg-gradient-to-br text-accent-red border border-accent-red/20' : 'from-accent-emerald-lighter to-accent-emerald-darker bg-gradient-to-br text-accent-emerald border border-accent-emerald/20'}`}>
-            <span aria-hidden="true">{isClosed ? '●' : '●'}</span>
-            <span>{isClosed ? 'Cerrada' : 'Abierta'}</span>
-          </span>
-          <span class="text-xs font-mono text-text-secondary inline-flex items-center gap-1.5">
-            <span aria-hidden="true">⏱</span>
-            <span>Límite: <time>{data.fechaLimite}</time></span>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-medium border shadow-sm bg-white/[0.03] transition-all duration-300" {
+            isClosed ? `style="border-color: var(--color-accent-red-lighter); box-shadow: 0 0 15px rgba(240,134,134,0.2);"` : `style="border-color: var(--color-accent-emerald-lighter); box-shadow: 0 0 15px rgba(102,192,176,0.15);"`
+          }>
+            <span class="w-1.5 h-1.5 rounded-full transition-all duration-500" {
+              isClosed ? `style="background-color: var(--color-accent-red); box-shadow: 0 0 8px rgba(239,68,68,0.6);"` : `style="background-color: var(--color-accent-emerald); box-shadow: 0 0 8px rgba(52,211,153,0.6);"`
+            } aria-hidden="true"></span>
+            <span {
+              isClosed ? `class="text-accent-red/90"` : `class="text-accent-emerald/90"`
+            }> 
+              {isClosed ? 'Cerrada' : 'Abierta'} 
+            </span>
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono text-text-secondary bg-white/[0.03] border border-white/5">
+              <Icon name="material-symbols:schedule" class="w-4 h-4 opacity-70 text-text-primary" aria-hidden="true"/>
+              <span>
+                Límite: 
+                <time class="text-text-primary font-medium">
+                  {data.fechaLimite}
+                </time>
+              </span>
+            </div>
           </span>
         </div>
-      </div>
+      </header>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text-primary mb-6 leading-tight tracking-tight">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-text-primary mb-8 leading-[1.1] tracking-tight">
         {data.titulo}
       </h1>
 
-      <p class="text-base sm:text-lg text-text-secondary font-light leading-relaxed mb-12 max-w-2xl">
+      <p class="text-lg sm:text-xl text-text-secondary font-light leading-relaxed mb-14 max-w-3xl">
         {data.descripcion}
       </p>
 
       <!-- Requirements & Responsibilities Split -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-14">
         <!-- Requisitos -->
-        <div class="from-bg-secondary-lighter to-bg-secondary bg-gradient-to-br rounded-2xl p-6 border border-accent-cyan/30 hover:border-accent-cyan/50 transition-colors">
-          <h2 class="text-lg font-bold text-accent-cyan mb-4 flex items-center gap-2 font-mono">
-            <Icon name="material-symbols:star-rounded" class="w-5 h-5" aria-hidden="true" />
-            <span>Requisitos</span>
-          </h2>
-          <ul class="space-y-3 text-sm text-text-secondary font-light">
-            {data.requisitos.map((req) => (
-              <li class="flex items-start gap-2.5">
-                <span class="text-accent-cyan font-bold flex-shrink-0 mt-0.5">✓</span>
-                <span class="break-words">{req}</span>
+        <section class="group relative rounded-[1.5rem] p-7 lg:p-8 border border-accent-cyan/20 hover:border-accent-cyan/40 transition-all duration-300 overflow-hidden bg-gradient-to-br from-bg-secondary-lighter via-bg-secondary to-bg-primary">
+          <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-cyan to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <header class="flex items-center gap-3 mb-6">
+            <div class="p-2 rounded-lg bg-accent-cyan/10 group-hover:bg-accent-cyan/15 transition-colors duration-300">
+              <Icon name="material-symbols:verified-user-rounded" class="w-5 h-5 text-accent-cyan" aria-hidden="true"/>
+            </div>
+            <h2 class="text-xl lg:text-2xl font-bold text-text-primary tracking-tight">Requisitos</h2>
+          </header>
+          <ul class="space-y-3.5">
+            {data.requisitos.map((req, idx) => (
+              <li class="group/item relative flex items-start gap-3.5 p-3 rounded-lg hover:bg-white/[0.03] transition-colors duration-200">
+                <span class="relative flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-accent-cyan/10 flex items-center justify-center text-accent-cyan font-bold text-xs border border-accent-cyan/20 group-hover/item:bg-accent-cyan/20 group-hover/item:border-accent-cyan/30 transition-all duration-200">{idx + 1}</span>
+                <span class="flex-1 break-words text-text-secondary font-light leading-relaxed">{req}</span>
               </li>
             ))}
           </ul>
-        </div>
+        </section>
 
         <!-- Responsabilidades -->
-        <div class="from-bg-secondary-lighter to-bg-secondary bg-gradient-to-br rounded-2xl p-6 border border-accent-purple to-border-purple-darker border-gradient-to-br hover:border-accent-purple/50 transition-colors">
-          <h2 class="text-lg font-bold text-accent-purple mb-4 flex items-center gap-2 font-mono">
-            <Icon name="material-symbols:star-rounded" class="w-5 h-5" aria-hidden="true" />
-            <span>Responsabilidades</span>
-          </h2>
-          <ul class="space-y-3 text-sm text-text-secondary font-light">
-            {data.responsabilidades.map((resp) => (
-              <li class="flex items-start gap-2.5">
-                <span class="text-accent-purple font-bold flex-shrink-0 mt-0.5">★</span>
-                <span class="break-words">{resp}</span>
+        <section class="group relative rounded-[1.5rem] p-7 lg:p-8 border border-accent-purple/20 hover:border-accent-purple/40 transition-all duration-300 overflow-hidden bg-gradient-to-br from-bg-secondary-lighter via-bg-secondary to-bg-primary">
+          <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-purple to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <header class="flex items-center gap-3 mb-6">
+            <div class="p-2 rounded-lg bg-accent-purple/10 group-hover:bg-accent-purple/15 transition-colors duration-300">
+              <Icon name="material-symbols:brush-rounded" class="w-5 h-5 text-accent-purple" aria-hidden="true"/>
+            </div>
+            <h2 class="text-xl lg:text-2xl font-bold text-text-primary tracking-tight">Responsabilidades</h2>
+          </header>
+          <ul class="space-y-3.5">
+            {data.responsabilidades.map((resp, idx) => (
+              <li class="group/item relative flex items-start gap-3.5 p-3 rounded-lg hover:bg-white/[0.03] transition-colors duration-200">
+                <span class="relative flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-accent-purple/10 flex items-center justify-center text-accent-purple font-bold text-xs border border-accent-purple/20 group-hover/item:bg-accent-purple/20 group-hover/item:border-accent-purple/30 transition-all duration-200">{idx + 1}</span>
+                <span class="flex-1 break-words text-text-secondary font-light leading-relaxed">{resp}</span>
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       </div>
 
       <!-- Application CTA -->
-      <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <div class="text-sm text-text-secondary font-light leading-relaxed">
-          {isClosed ? (
-            <p>Esta convocatoria ha cerrado sus postulaciones. ¡Gracias por tu interés! Mantente atento a futuras oportunidades.</p>
-          ) : (
-            <p>¿Cumples con los requisitos? Completa el formulario oficial de postulación antes de la fecha límite.</p>
+      <footer class="relative border-t border-white/8 pt-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div class="text-text-secondary font-light leading-relaxed text-base sm:text-lg">
+            {isClosed ? (
+              <p class="mb-4">Esta convocatoria ha cerrado sus postulaciones. ¡Gracias por tu interés!</p>
+            ) : (
+              <p>¿Cumples con los requisitos? Completa el formulario oficial de postulación antes de la fecha límite.</p>
+            )}
+          </div>
+
+          {!isClosed && (
+            <a
+              href={data.formUrl || 'https://forms.gle/sample-comsoc'}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative w-full sm:w-auto overflow-hidden rounded-2xl px-10 py-5 font-semibold text-text-primary bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-purple shadow-lg shadow-accent-cyan/25 hover:shadow-accent-cyan/40 transition-all duration-300 text-center flex items-center justify-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary before:absolute before:inset-0 before:bg-gradient-to-r before:from-accent-blue/0 before:via-accent-cyan/0 before:to-accent-purple/0 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+            >
+              <span class="relative z-10 flex items-center gap-2">
+                <span>Postular Ahora</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-rotate-12">
+                  <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+              </span>
+            </a>
           )}
         </div>
-
-        {!isClosed && (
-          <a
-            href={data.formUrl || 'https://forms.gle/sample-comsoc'}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-text-primary from-accent-blue to-accent-cyan bg-gradient-to-r shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40 hover:from-accent-blue hover:to-accent-cyan hover:brightness-110 active:scale-95 transition-all duration-200 text-center flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-          >
-            <span>Postular Ahora</span>
-            <span aria-hidden="true">↗</span>
-          </a>
-        )}
-      </div>
+      </footer>
 
     </div>
   </article>
