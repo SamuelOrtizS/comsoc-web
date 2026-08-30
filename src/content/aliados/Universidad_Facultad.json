@@ -1,0 +1,12 @@
+{
+  "order": 3,
+  "nombre": "Facultad de Ingenieria",
+  "tipo": "Facultad",
+  "image": "/images/LOGO_UV_Color.png",
+  "descripcion": "La Facultad de Ingeniería de la Universidad del Valle es uno de los pilares académicos e investigativos más destacados de la institución. Es reconocida por su excelencia educativa, su alta rigurosidad técnica y su compromiso con la formación integral de profesionales capaces de liderar los avances tecnológicos e industriales, tanto a nivel nacional como internacional.",
+  "acerca": "A través de sus distintas escuelas y grupos de investigación, la facultad impulsa la creación de proyectos aplicados y estrecha los vínculos entre la academia y el sector productivo. Igualmente, brinda un entorno propicio para el fortalecimiento de organizaciones y capítulos estudiantiles que conectan el conocimiento teórico con las necesidades tecnológicas reales de la sociedad.",
+  "website": "https://ingenieria.univalle.edu.co/",
+  "linkedin": "https://www.linkedin.com/company/facultad-de-ingenier%C3%ADa-univalle/posts/?feedView=all",
+  "email": "decanatura.ingenieria@correounivalle.edu.co",
+  "instagram": "https://www.instagram.com/ingunivalle/",
+}
