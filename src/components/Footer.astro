@@ -55,43 +55,68 @@ const navSections = [
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-gradient-to-br from-bg-secondary to-bg-primary border border-glass-border-lighter flex items-center justify-center text-text-primary hover:text-accent-cyan hover:border-accent-cyan/60 transition-all shadow-sm group"
             aria-label="Instagram"
+            class="group relative min-w-[56px] w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-blue/10 via-bg-secondary to-accent-blue/5 border border-glass-border-lighter hover:border-accent-cyan/70 transition-all duration-500 shadow-lg hover:shadow-accent-blue/20 overflow-hidden flex items-center justify-center"
           >
-            <Icon name="mdi:instagram" class="w-5 h-5 fill-white group-hover:fill-accent-cyan transition-colors" aria-hidden="true" />
+            <!-- Subtle gradient animation -->
+            <div class="absolute inset-0 bg-gradient-to-br from-accent-blue/0 via-transparent to-accent-blue/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <Icon name="mdi:instagram" class="w-6 h-6 text-text-primary relative z-10 group-hover:text-accent-cyan transition-colors duration-300 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]" aria-hidden="true" />
+            <!-- Shine effect -->
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[2000ms] ease-in-out"></div>
           </a>
+          
           <a
             href="https://chat.whatsapp.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-text-primary hover:text-accent-cyan hover:border-accent-cyan/60 hover:bg-white/15 transition-all duration-300 shadow-sm group" aria-label="WhatsApp">
-            <Icon name="mdi:whatsapp" class="w-5 h-5 fill-white group-hover:fill-accent-cyan transition-colors" aria-hidden="true" />
+            aria-label="WhatsApp"
+            class="group relative min-w-[56px] w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/10 via-bg-secondary to-green-500/5 border border-glass-border-lighter hover:border-green-400/70 transition-all duration-500 shadow-lg hover:shadow-green-500/20 overflow-hidden flex items-center justify-center"
+          >
+            <!-- Subtle gradient animation -->
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/0 via-transparent to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <Icon name="mdi:whatsapp" class="w-6 h-6 text-text-primary relative z-10 group-hover:text-green-400 transition-colors duration-300 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(74,222,128,0.7)]" aria-hidden="true" />
+            <!-- Shine effect -->
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[2000ms] ease-in-out"></div>
           </a>
+          
           <a
             href="mailto:contacto@comsoc.ieeeunivalle.link"
-            class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-text-primary hover:text-accent-cyan hover:border-accent-cyan/60 hover:bg-white/15 transition-all duration-300 shadow-sm group" aria-label="Correo electrónico">
-            <Icon name="material-symbols:mail-rounded" class="w-5 h-5" aria-hidden="true" />
+            aria-label="Correo electrónico"
+            class="group relative min-w-[56px] w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-cyan/10 via-bg-secondary to-accent-cyan/5 border border-glass-border-lighter hover:border-accent-cyan/80 transition-all duration-500 shadow-lg hover:shadow-accent-cyan/20 overflow-hidden flex items-center justify-center"
+          >
+            <!-- Subtle gradient animation -->
+            <div class="absolute inset-0 bg-gradient-to-br from-accent-cyan/0 via-transparent to-accent-cyan/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <Icon name="material-symbols:mail-rounded" class="w-6 h-6 text-text-primary relative z-10 group-hover:text-accent-cyan transition-colors duration-300 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]" aria-hidden="true" />
+            <!-- Shine effect -->
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[2000ms] ease-in-out"></div>
           </a>
         </div>
       </div>
 
       <!-- Links Grid -->
       {navSections.map((section, sectionIndex) => (
-        <div class="group">
-          <h3 class="text-sm font-semibold text-text-primary tracking-widest uppercase mb-4 font-mono">
+        <div class="group relative">
+          <!-- Section decorative underline -->
+          <div class="absolute -bottom-6 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-blue/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <h3 class="text-xs font-bold text-text-primary tracking-[0.2em] uppercase mb-5 font-mono relative pl-3 border-l-2 border-accent-cyan/60 group-hover:border-accent-cyan transition-colors duration-300">
             {section.title}
-            <span class="inline-block w-2 h-1 rounded-full bg-accent-cyan ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span class="absolute -right-1 top-1/2 -translate-y-1/2 w-0.5 h-1 rounded-full bg-gradient-to-r from-accent-cyan to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-4px]"></span>
           </h3>
-          <ul class="space-y-2.5 text-sm">
+          <ul class="space-y-3 text-sm font-light">
             {section.links.map((link) => (
               <li>
                 <a
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
-                    class="text-accent-cyan text-sm hover:text-text-primary transition-all duration-300 font-light hover:underline underline-offset-4 group-hover:underline-offset-2">
-                  {link.name}
-                  {link.external && <span class="text-xs opacity-60 ml-1">↗</span>}
+                  class="group/link flex items-center text-accent-cyan/90 text-sm font-light hover:text-white transition-all duration-300 hover:pl-2 -ml-2 relative overflow-hidden">
+                  <span class="relative z-10">{link.name}</span>
+                  {link.external && (
+                    <span class="absolute right-0 top-1/2 -translate-y-1/2 text-xs opacity-70 group-hover/link:opacity-100 transition-opacity duration-300 font-mono">↗</span>
+                  )}
+                  <!-- Underline reveal effect -->
+                  <div class="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-cyan group-hover/link:w-full transition-all duration-300 ease-out"></div>
                 </a>
               </li>
             ))}
@@ -102,9 +127,14 @@ const navSections = [
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-text-secondary gap-4 font-light">
-       <p class="text-text-secondary font-mono text-xs">© {currentYear} IEEE ComSoc Universidad del Valle Student Branch Chapter. Todos los derechos reservados.</p>
-       <p class="text-text-secondary font-mono text-xs">Diseñado por: Samuel Ortiz, Cristhian Moreno</p>
+    <div class="border-t border-white/10 pt-10 pb-8 flex flex-col sm:flex-row items-center justify-between text-xs font-light gap-3">
+      <p class="text-text-secondary/70 font-mono tracking-wide">© {currentYear} IEEE ComSoc Universidad del Valle Student Branch Chapter · Todos los derechos reservados</p>
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <span class="text-text-secondary/50">Diseñado por:</span>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-accent-cyan transition-colors duration-300 font-mono tracking-wide">Samuel Ortiz</a>
+        <span class="text-text-secondary/40">•</span>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-accent-cyan transition-colors duration-300 font-mono tracking-wide">Cristhian Moreno</a>
+      </div>
     </div>
   </div>
 </footer>

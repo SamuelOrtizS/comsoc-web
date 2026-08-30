@@ -47,16 +47,15 @@ const currentPath = Astro.url.pathname;
       </a>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-        {navLinks.map((link) => {
+      <nav class="hidden md:flex items-center gap-1">
+        {navLinks.map((link, index) => {
           const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
-          const hasSublinks = link.subLinks && link.subLinks.length > 0;
 
           return (
-            <div class={`relative group/nav ${hasSublinks ? 'py-2' : ''}`}>
+            <div class={`relative group/nav h-full`}>
               <a
                 href={link.href}
-                class={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group/link ${
+                class={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group/link overflow-hidden w-full flex items-center justify-center ${
                   isActive
                   ? 'text-accent-cyan'
                   : 'text-text-secondary hover:text-text-primary'
@@ -66,22 +65,24 @@ const currentPath = Astro.url.pathname;
                   {link.name}
                 </span>
                 {isActive && (
-                  <span class="absolute inset-0 bg-accent-blue/10 rounded-xl border border-accent-cyan/20 shadow-[inset_0_0_12px_rgba(34,211,238,0.1)]" />
+                  <span class="absolute inset-y-0 left-2 right-2 rounded-xl border border-accent-cyan/20 bg-gradient-to-b from-accent-blue/8 via-accent-blue/6 to-accent-blue/4 shadow-[inset_0_0_15px_rgba(34,211,238,0.15)] backdrop-blur-[2px]" />
                 )}
                 {!isActive && (
                   <span class="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-accent-cyan to-transparent scale-x-0 transition-transform duration-300 group-hover/link:scale-x-100 opacity-0 group-hover/link:opacity-100"></span>
                 )}
               </a>
 
-              {hasSublinks && (
-                <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-300 translate-y-2 group-hover/nav:translate-y-0 z-50">
-                  <div class="bg-bg-primary/90 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl min-w-[220px] p-2 overflow-hidden">
+              {link.subLinks && (
+                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-300 z-50">
+                  <div class="flex flex-col bg-bg-primary/95 backdrop-blur-xl border border-white/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] min-w-[180px] overflow-hidden">
                     {link.subLinks.map((subLink) => (
                       <a
                         href={subLink.href}
-                        class="flex items-center px-4 py-3 rounded-xl text-sm text-text-secondary hover:text-accent-cyan hover:bg-white/5 transition-all duration-200 group/sub"
+                        class="flex items-center px-4 py-3 rounded-xl text-sm text-text-secondary hover:text-accent-cyan hover:bg-white/5 transition-all duration-200 group/sub overflow-hidden border-b border-white/5 last:border-b-0"
                       >
-                        <span class="relative z-10">{subLink.name}</span>
+                        <span class={`relative z-10 ${isActive ? 'text-accent-cyan' : ''}`}>
+                          {subLink.name}
+                        </span>
                       </a>
                     ))}
                   </div>
@@ -93,24 +94,23 @@ const currentPath = Astro.url.pathname;
       </nav>
 
       <!-- CTA Button & Mobile Trigger -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
         <a
           href="/unirse"
-          class="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-extrabold rounded-2xl bg-linear-to-br from-accent-blue-darker via-accent-blue to-accent-cyan-darker bg-size-[200%_200%] text-white shadow-[0_0_20px_rgba(21,93,252,0.6)] transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_0_35px_rgba(34,211,238,0.7)] group relative overflow-hidden active:scale-95"
+          class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-sm font-extrabold rounded-xl bg-linear-to-br from-accent-blue-darker via-accent-blue to-accent-cyan-darker bg-size-[200%_200%] text-white shadow-[0_0_20px_rgba(21,93,252,0.6)] transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_0_35px_rgba(34,211,238,0.7)] group relative overflow-hidden active:scale-95"
         >
           <span class="relative z-10">Unirse</span>
           <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <Icon name="material-symbols:group-add-rounded" class="w-4 h-4 transition-all duration-500 group-hover:translate-x-1.5 relative z-10" aria-hidden="true" />
         </a>
 
         <!-- Hamburger Icon -->
         <button
           id="open-mobile-menu"
           type="button"
-          class="md:hidden min-w-[44px] min-h-[44px] p-3 rounded-xl bg-glass-bg border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all duration-300 flex items-center justify-center"
+          class="md:hidden p-2.5 rounded-xl bg-glass-bg border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/10 transition-all duration-300 flex items-center justify-center"
           aria-label="Abrir menú"
         >
-          <Icon name="material-symbols:menu-rounded" class="w-6 h-6" aria-hidden="true" />
+          <Icon name="material-symbols:menu-rounded" class="w-5 h-5" aria-hidden="true" />
         </button>
       </div>
 
