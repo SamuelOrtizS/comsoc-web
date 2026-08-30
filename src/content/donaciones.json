@@ -7,7 +7,7 @@
       { "label": "Banco / Entidad", "value": "Nu" },
       { "label": "Tipo de Cuenta", "value": "Cuenta de Ahorros" },
       { "label": "Número de Cuenta", "value": "XXXXXXXXXXXX" },
-      { "label": "Titular", "value": "IEEE ComSoc Student Chapter" }
+      { "label": "Titular", "value": "Samuel Ortiz Sarasti" }
     ]
   },
   {
@@ -17,7 +17,7 @@
     "details": [
       { "label": "Plataforma", "value": "Nequi / Bre-B" },
       { "label": "Número Celular / Llave", "value": "+57 300 000 0000" },
-      { "label": "Titular", "value": "Tesorero IEEE ComSoc" },
+      { "label": "Titular", "value": "Samuel Ortiz Sarasti" },
       { "label": "Nota requerida", "value": "Indicar nombre y/o proyecto" }
     ]
   },
@@ -27,8 +27,8 @@
     "badge": "Internacional",
     "details": [
       { "label": "Plataforma", "value": "PayPal" },
-      { "label": "Enlace PayPal", "value": "https://paypal.me/comsocchapter" },
-      { "label": "Correo PayPal", "value": "donaciones.comsoc@ieee.org" },
+      { "label": "Enlace PayPal", "value": "https://paypal.me/" },
+      { "label": "Correo PayPal", "value": "ejemplo@ejemplo.org" },
       { "label": "Monedas aceptadas", "value": "USD, EUR y divisas globales" }
     ]
   }
