@@ -78,7 +78,7 @@ const pillars = [
 
 <BaseLayout title="IEEE ComSoc Univalle | Inicio">
   <div class="relative isolate min-h-[90vh] overflow-hidden bg-transparent">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(101,219,237,0.12),transparent_42%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_42%)]"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-bg-primary-lighter/10 via-bg-primary/24 to-bg-primary-darker/20"></div>
 
     <div class="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl items-center justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8">
@@ -102,7 +102,7 @@ const pillars = [
         <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
             href="/convocatorias"
-            class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent-blue-lighter via-accent-cyan to-accent-cyan-darker px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto"
           >
             <span>Unirse al Equipo</span>
             <Icon name="material-symbols:group-add-rounded" class="h-4 w-4" aria-hidden="true" />
@@ -136,8 +136,8 @@ const pillars = [
   <!-- Featured Event & Live Countdown Spotlight -->
   {featuredEvent && (
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="relative overflow-hidden rounded-[28px] border border-accent-cyan/20 bg-gradient-to-br from-bg-deep-slate-lighter/55 via-bg-deep-slate/60 to-bg-secondary-darker/65 p-6 sm:p-8 lg:p-10 shadow-[0_30px_90px_-45px_rgba(21,93,252,0.45)]">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(101,219,237,0.14),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(93,141,246,0.12),transparent_32%)]"></div>
+      <div class="relative overflow-hidden rounded-[28px] border border-accent-cyan/20 bg-gradient-to-br from-bg-secondary to-bg-secondary-lighter p-6 sm:p-8 lg:p-10 shadow-[0_30px_90px_-45px_rgba(34,211,238,0.45)]">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--color-accent-cyan-lighter)/14,transparent_28%),radial-gradient(circle_at_bottom_left,var(--color-accent-blue)/12,transparent_32%)]"></div>
         <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent"></div>
 
         <div class="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
@@ -170,7 +170,7 @@ const pillars = [
             <div class="flex flex-wrap gap-3 pt-2">
               <a
                 href={`/eventos/${featuredEventSlug}`}
-                class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue-lighter via-accent-cyan to-accent-cyan-darker px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
+                class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
               >
                 Inscribirse al Evento
               </a>
@@ -212,7 +212,7 @@ const pillars = [
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {pillars.map((pillar) => (
-        <article class={`group relative overflow-hidden rounded-[22px] border ${pillar.border} bg-gradient-to-b from-bg-deep-slate-lighter/50 via-bg-deep-slate/50 to-bg-primary-darker/80 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-38px_rgba(34,211,238,0.38)]`}>
+        <article class={`group relative overflow-hidden rounded-[22px] border ${pillar.border} bg-gradient-to-b from-bg-deep-slate-lighter/35 via-bg-deep-slate/40 to-bg-primary-darker/60 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-38px_rgba(34,211,238,0.38)]`}>
           <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_16px_32px_-22px_rgba(34,211,238,0.8)]">
             <Icon name={pillar.icon} class="w-7 h-7" aria-hidden="true" />
           </div>
@@ -354,7 +354,7 @@ const pillars = [
     aria-modal="true"
     aria-labelledby="modal-aliado-name"
   >
-    <div id="aliado-modal" class="relative bg-[#0a0f2d] border border-white/15 rounded-3xl shadow-2xl shadow-blue-900/40 w-full max-w-md p-8 flex flex-col gap-5 translate-y-4 transition-all duration-300">
+    <div id="aliado-modal" class="relative bg-bg-secondary border border-white/15 rounded-[28px] shadow-2xl shadow-accent-cyan/20 w-full max-w-md p-8 flex flex-col gap-5 translate-y-4 transition-all duration-300">
       <button
         id="aliado-modal-close"
         type="button"
@@ -477,7 +477,7 @@ const pillars = [
 
   <!-- Join CTA Banner -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="relative overflow-hidden rounded-[30px] border border-accent-purple/20 bg-gradient-to-br from-accent-blue-lighter/10 via-accent-purple-lighter/10 to-accent-cyan-lighter/8 p-8 sm:p-12 text-center shadow-[0_35px_90px_-48px_rgba(168,85,247,0.5)]">
+    <div class="relative overflow-hidden rounded-[30px] border border-accent-purple/20 bg-gradient-to-br from-bg-deep-slate to-bg-deep-slate-lighter p-8 sm:p-12 text-center shadow-[0_35px_90px_-48px_rgba(34,211,238,0.5)]">
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_45%)]"></div>
       <div class="relative z-10 mx-auto max-w-2xl space-y-6">
         <div class="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
@@ -492,7 +492,7 @@ const pillars = [
         <div class="flex flex-wrap justify-center gap-4 pt-2">
           <a
             href="/convocatorias"
-            class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue via-accent-blue-lighter to-accent-cyan-darker px-8 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
+            class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-8 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
           >
             Ver Convocatorias Abiertas
           </a>

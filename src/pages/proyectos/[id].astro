@@ -70,7 +70,7 @@ const resolvedImagen = resolveImage(data.imagen);
           fetchpriority="high"
           class="w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-bg-deep-slate via-bg-deep-slate/40 to-transparent"></div>
 
         <!-- Badges -->
         <div class="absolute top-4 left-4 flex gap-2">
@@ -131,7 +131,7 @@ const resolvedImagen = resolveImage(data.imagen);
 
         <!-- Funding Progress (Optional) -->
         {data.montoActual !== undefined && data.montoMeta !== undefined && (
-          <div class="glass-card rounded-2xl p-8 border border-accent-emerald/30 bg-linear-to-br from-bg-primary to-bg-emerald-dark">
+          <div class="glass-card rounded-2xl p-8 border border-accent-emerald/30 bg-gradient-to-br from-bg-primary to-bg-emerald-dark">
             <h2 class="text-xl font-bold text-text-primary mb-2 font-mono flex items-center gap-2">
               <Icon name="material-symbols:payments-rounded" class="w-6 h-6 text-accent-emerald" aria-hidden="true" /> Estado de Financiamiento
             </h2>
@@ -158,7 +158,7 @@ const resolvedImagen = resolveImage(data.imagen);
               <div>
                 <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
                   <div
-                    class="h-full bg-linear-to-r from-accent-emerald via-accent-teal to-accent-cyan rounded-full transition-all duration-500"
+                    class="h-full bg-gradient-to-r from-accent-emerald-lighter via-accent-emerald to-accent-emerald-darker rounded-full transition-all duration-500"
                     style={`width: ${montoMeta > 0 ? `${fundingProgress}%` : '0%'}`}
                   ></div>
                 </div>
@@ -289,7 +289,7 @@ const resolvedImagen = resolveImage(data.imagen);
           <div class="pt-4">
             <a
               href="/donaciones"
-              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/25 hover:scale-[1.02]"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-cyan-lighter text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/25 hover:scale-[1.02]"
             >
               Ir a la Página de Donaciones
             </a>

@@ -29,7 +29,7 @@ const currentPath = Astro.url.pathname;
       <button
         id="close-mobile-menu"
         type="button"
-        class="p-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-text-primary hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 transition-all duration-300"
+        class="p-2.5 rounded-xl bg-gradient-to-br from-bg-secondary-darker to-bg-primary border glass-border-lighter text-text-secondary hover:text-text-primary hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 transition-all duration-300"
         aria-label="Cerrar menú"
       >
         <Icon name="material-symbols:close-rounded" class="w-6 h-6" aria-hidden="true" />
@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname;
             aria-current={isActive ? 'page' : undefined}
             class={`group relative flex items-center justify-between rounded-2xl border px-3 py-3 text-lg font-medium tracking-wide transition-all duration-300 ${
               isActive
-                ? 'border-accent-cyan/30 bg-accent-blue/10 text-accent-cyan shadow-[inset_0_0_18px_rgba(34,211,238,0.08)]'
+                ? 'border-accent-cyan/30 bg-gradient-to-br from-bg-secondary to-bg-primary text-accent-cyan shadow-[inset_0_0_18px_rgba(255,255,255,0.03)]'
                 : 'border-transparent text-text-secondary hover:border-white/10 hover:bg-white/5 hover:text-text-primary'
             }`}
           >
@@ -62,7 +62,7 @@ const currentPath = Astro.url.pathname;
     <div class="pt-6 border-t border-white/10 flex flex-col gap-3">
       <a
         href="/unirse"
-        class="w-full py-3.5 text-center font-semibold rounded-2xl bg-linear-to-r from-accent-blue via-accent-cyan to-accent-blue text-text-primary shadow-[0_0_28px_rgba(34,211,238,0.2)] hover:shadow-[0_0_34px_rgba(34,211,238,0.35)] transition-all duration-300 hover:scale-[1.01]"
+        class="w-full py-3.5 text-center font-semibold rounded-2xl bg-gradient-to-r from-accent-blue-lighter to-accent-purple-darker text-text-primary shadow-[0_0_28px_rgba(168,85,247,0.2)] hover:shadow-[0_0_34px_rgba(168,85,247,0.35)] transition-all duration-300 hover:scale-[1.01]"
       >
         ¡Únete al Capítulo!
       </a>

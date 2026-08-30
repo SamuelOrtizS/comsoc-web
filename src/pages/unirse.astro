@@ -65,8 +65,8 @@ const faqs = [
     <div class="absolute inset-x-0 top-0 h-64" aria-hidden="true"></div>
 
     <section class="relative mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(34,211,238,0.12)]">
-        <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.9)]"></span>
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(69,219,237,0.12)]">
+        <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(69,219,237,0.9)]"></span>
         Comunidad y membresías
       </div>
 
@@ -84,7 +84,7 @@ const faqs = [
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Unirse al grupo de WhatsApp de IEEE ComSoc Univalle (abre en una nueva ventana)"
-          class="inline-flex items-center gap-2.5 rounded-xl bg-linear-to-r from-accent-emerald to-accent-cyan px-6 py-3.5 font-bold text-slate-950 shadow-[0_18px_40px_-20px_rgba(52,211,153,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          class="inline-flex items-center gap-2.5 rounded-xl bg-linear-to-r from-accent-emerald to-accent-cyan px-6 py-3.5 font-bold text-slate-950 shadow-[0_18px_40px_-20px_rgba(102,220,171,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
           <Icon name="mdi:whatsapp" class="h-5 w-5 fill-currentColor" aria-hidden="true" />
           Unirse al grupo de WhatsApp
@@ -100,7 +100,7 @@ const faqs = [
     </section>
 
     <section class="mx-auto mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="relative overflow-hidden rounded-[30px] border border-accent-cyan/25 bg-linear-to-br from-accent-blue/20 via-bg-secondary to-accent-cyan/10 p-8 shadow-[0_30px_80px_-40px_rgba(34,211,238,0.7)] sm:p-10">
+      <div class="relative overflow-hidden rounded-[30px] border border-accent-cyan/25 bg-gradient-to-br from-accent-blue via-bg-secondary to-accent-cyan-darker p-8 shadow-[0_30px_80px_-40px_rgba(69,219,237,0.7)] sm:p-10">
         <div class="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent-cyan/20 blur-3xl" aria-hidden="true"></div>
         <div class="absolute -bottom-20 -left-12 h-52 w-52 rounded-full bg-accent-blue/20 blur-3xl" aria-hidden="true"></div>
 
@@ -117,8 +117,8 @@ const faqs = [
             </p>
           </div>
 
-          <div class="rounded-[24px] border border-white/10 bg-white/5 p-6 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.9)]">
-            <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-tr from-accent-blue to-accent-cyan text-2xl shadow-[0_0_30px_rgba(34,211,238,0.2)]">
+          <div class="rounded-[24px] border border-white/10 bg-gradient-to-br from-accent-blue-lighter to-accent-blue-darker p-6 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.9)]">
+            <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-tr from-accent-blue to-accent-cyan text-2xl shadow-[0_0_30px_rgba(69,219,237,0.2)]">
               <Icon name="material-symbols:verified-rounded" class="h-6 w-6 fill-current text-slate-950" aria-hidden="true" />
             </div>
             <h3 class="text-lg font-bold text-text-primary">Primer paso para colaborar</h3>
@@ -141,7 +141,7 @@ const faqs = [
 
     <section id="membresia" class="mx-auto mt-28 max-w-6xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto mb-12 max-w-3xl text-center">
-        <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
+        <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] bg-gradient-to-r from-accent-blue-lighter via-accent-cyan-darker to-accent-purple p-3 rounded-full inline-flex items-center gap-1 text-text-primary">
           Ruta de afiliación oficial
         </div>
         <h2 class="text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
@@ -154,7 +154,7 @@ const faqs = [
 
       <div class="grid gap-6 md:grid-cols-2">
         {steps.map((item) => (
-          <article class="group relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_24px_55px_-35px_rgba(34,211,238,0.7)]">
+          <article class="group relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_24px_55px_-35px_rgba(69,219,237,0.7)]">
             <div class="mb-5 flex items-center justify-between">
               <span class="inline-flex items-center rounded-full border border-accent-cyan/20 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-cyan font-mono">
                 {item.step}
@@ -214,7 +214,7 @@ const faqs = [
     </section>
 
     <section class="mx-auto mt-24 max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-      <div class="rounded-[28px] border border-white/10 bg-linear-to-r from-accent-blue/20 via-accent-cyan/10 to-accent-purple/20 p-8 shadow-[0_25px_70px_-35px_rgba(21,93,252,0.7)] sm:p-12">
+      <div class="rounded-[28px] border border-white/10 bg-gradient-to-r from-accent-blue-lighter via-accent-cyan to-accent-purple-darker p-8 shadow-[0_25px_70px_-35px_rgba(69,219,237,0.7)] sm:p-12">
         <h2 class="text-2xl font-black tracking-[-0.05em] text-text-primary sm:text-3xl">
           ¿Listo para dar el siguiente paso en tu carrera?
         </h2>
@@ -226,7 +226,7 @@ const faqs = [
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Únete a nuestro WhatsApp oficial de IEEE ComSoc Univalle (abre en una nueva ventana)"
-          class="mt-8 inline-flex items-center justify-center rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan px-8 py-4 font-bold text-slate-950 shadow-[0_20px_50px_-20px_rgba(34,211,238,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          class="mt-8 inline-flex items-center justify-center rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan px-8 py-4 font-bold text-slate-950 shadow-[0_20px_50px_-20px_rgba(69,219,237,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
           ¡Únete a nuestro WhatsApp oficial!
         </a>

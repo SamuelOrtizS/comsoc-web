@@ -168,7 +168,7 @@ const benefits = [
     </div>
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-      <div class="group relative overflow-hidden rounded-[28px] border border-accent-blue/30 bg-[linear-gradient(180deg,rgba(15,23,42,0.96),rgba(5,8,22,0.96))] p-8 shadow-[0_20px_65px_-40px_rgba(21,93,252,0.65)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-blue/60">
+      <div class="group relative overflow-hidden rounded-[28px] border border-accent-blue/30 bg-[linear-gradient(180deg,var(--color-bg-deep-slate-lighter),var(--color-bg-primary))] p-8 shadow-[0_20px_65px_-40px_rgba(21,93,252,0.65)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-blue/60">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(21,93,252,0.22),transparent_35%)]" aria-hidden="true"></div>
         <div class="relative">
           <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-blue/30 bg-accent-blue/15 text-accent-blue shadow-[0_0_24px_rgba(21,93,252,0.18)]">
@@ -181,7 +181,7 @@ const benefits = [
         </div>
       </div>
 
-      <div class="group relative overflow-hidden rounded-[28px] border border-accent-cyan/30 bg-[linear-gradient(180deg,rgba(11,18,33,0.96),rgba(5,8,22,0.96))] p-8 shadow-[0_20px_65px_-40px_rgba(34,211,238,0.6)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/60">
+      <div class="group relative overflow-hidden rounded-[28px] border border-accent-cyan/30 bg-[linear-gradient(180deg,var(--color-bg-deep-slate-lighter),var(--color-bg-primary))] p-8 shadow-[0_20px_65px_-40px_rgba(34,211,238,0.6)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/60">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.2),transparent_35%)]" aria-hidden="true"></div>
         <div class="relative">
           <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-cyan/30 bg-accent-cyan/15 text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
@@ -212,7 +212,7 @@ const benefits = [
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {benefits.map((b) => (
-        <article class="group relative overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.9),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)]">
+        <article class="group relative overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,var(--color-bg-deep-slate-lighter),var(--color-bg-primary))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)]">
           <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_18px_30px_-20px_rgba(34,211,238,0.72)]">
             <Icon name={b.icon} class="w-7 h-7" aria-hidden="true" />
           </div>
@@ -241,7 +241,7 @@ const benefits = [
       {team.map((member) => (
         <button
           type="button"
-          class="member-card group w-full rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.8),rgba(5,8,22,0.96))] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          class="member-card group w-full rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,var(--color-bg-deep-slate-lighter),var(--color-bg-primary))] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
           data-member={JSON.stringify(member)}
           aria-label={`Ver perfil de ${member.name}`}
         >
@@ -290,7 +290,7 @@ const benefits = [
 
       <!-- Avatar -->
       <div class="flex flex-col items-center gap-3">
-        <div id="modal-avatar-wrap" class="w-24 h-24 rounded-full bg-linear-to-tr from-accent-blue/40 to-accent-cyan/40 border-2 border-accent-cyan/60 flex items-center justify-center text-5xl overflow-hidden"></div>
+        <div id="modal-avatar-wrap" class="w-24 h-24 rounded-full bg-[linear-gradient(to-tr,var(--color-accent-blue)/40,var(--color-accent-cyan)/40)] border-2 border-accent-cyan/60 flex items-center justify-center text-5xl overflow-hidden"></div>
         <div class="text-center">
           <h2 id="modal-member-name" class="text-xl font-extrabold text-text-primary"></h2>
           <div id="modal-role" class="text-xs font-mono text-accent-cyan font-medium mt-0.5"></div>

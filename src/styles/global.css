@@ -299,28 +299,28 @@ h6 {
 }
 
 .glass-card:hover {
-  border-color: rgba(34, 211, 238, 0.35);
+  border-color: var(--color-accent-cyan);
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px -10px rgba(21, 93, 252, 0.25);
+  box-shadow: 0 12px 30px -10px rgba(21, 93, 252, 0.25), 0 0 20px rgba(34, 211, 238, 0.15);
 }
 
 .glow-text {
-  text-shadow: 0 0 25px var(--color-accent-cyan);
+  text-shadow: 0 0 25px var(--color-accent-cyan), 0 0 10px var(--color-accent-cyan-lighter);
 }
 
 .glow-btn {
-  box-shadow: 0 0 20px var(--color-accent-blue);
+  box-shadow: 0 0 20px var(--color-accent-blue), 0 0 10px var(--color-accent-blue-darker);
   transition: all 0.3s ease;
 }
 
 .glow-btn:hover {
-  box-shadow: 0 0 30px var(--color-accent-cyan);
+  box-shadow: 0 0 30px var(--color-accent-cyan), 0 0 15px var(--color-accent-cyan-lighter);
 }
 
 /* Subtle Dot Grid Background — tono reducido para evitar Moiré en 4K */
 .bg-dot-grid {
   position: relative;
-  background-image: radial-gradient(circle, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 @media (prefers-reduced-motion: reduce) {

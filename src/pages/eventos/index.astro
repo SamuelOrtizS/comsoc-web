@@ -6,9 +6,16 @@ import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('eventos');
 
-const sortedEvents = [...allEvents].sort(
-  (a, b) => new Date(b.data.fechaInicio).getTime() - new Date(a.data.fechaInicio).getTime()
-);
+const sortedEvents = [...allEvents]
+  .map((event, idx) => {
+    const dateObj = new Date(event.data.fechaInicio);
+    if (isNaN(dateObj.getTime())) {
+      console.warn(`[Eventos Page] Invalid date for event "${event.id}": ${event.data.fechaInicio}`);
+      return { ...event, _sortDate: 0 }; // Sort to bottom
+    }
+    return { ...event, _sortDate: dateObj.getTime() };
+  })
+  .sort((a, b) => (b as any)._sortDate - (a as any)._sortDate);
 
 const upcomingEvents = sortedEvents.filter((e) => e.data.estado === 'Publicado');
 const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
@@ -21,7 +28,7 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
   <section class="relative overflow-hidden border-b border-white/10">
     <div class="absolute inset-0 opacity-90" aria-hidden="true"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-[11px] sm:text-xs font-mono tracking-[0.2em] uppercase shadow-[0_0_25px_rgba(34,211,238,0.18)]">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-[11px] sm:text-xs font-mono tracking-[0.2em] uppercase shadow-[0_0_25px_rgba(34,211,238,0.15)]">
         Calendario académico &amp; técnico
       </div>
 
@@ -34,15 +41,15 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm">
-        <div class="glass-card rounded-2xl px-4 py-3 min-w-[120px] border border-white/10">
+        <div class="glass-card rounded-2xl px-4 py-3 min-w-30 border border-white/10">
           <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">Próximos</div>
           <div class="mt-1 text-xl font-bold text-accent-cyan">{upcomingEvents.length}</div>
         </div>
-        <div class="glass-card rounded-2xl px-4 py-3 min-w-[120px] border border-white/10">
+        <div class="glass-card rounded-2xl px-4 py-3 min-w-30 border border-white/10">
           <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">Pasados</div>
           <div class="mt-1 text-xl font-bold text-text-primary">{pastEvents.length}</div>
         </div>
-        <div class="glass-card rounded-2xl px-4 py-3 min-w-[120px] border border-white/10">
+        <div class="glass-card rounded-2xl px-4 py-3 min-w-30 border border-white/10">
           <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">Agenda</div>
           <div class="mt-1 text-xl font-bold text-text-primary">{sortedEvents.length}</div>
         </div>
@@ -54,7 +61,7 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
     <section class="space-y-6">
       <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div class="inline-flex items-center gap-3">
-          <span class="h-3 w-3 rounded-full bg-accent-cyan shadow-[0_0_20px_rgba(34,211,238,0.9)]"></span>
+          <span class="h-3 w-3 rounded-full bg-accent-cyan shadow-[0_0_20px_rgba(34,211,238,0.85)]"></span>
           <h2 class="text-2xl sm:text-3xl font-bold text-text-primary">Próximos eventos</h2>
         </div>
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-mono">
@@ -64,7 +71,7 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
       </div>
 
       {upcomingEvents.length === 0 ? (
-        <div class="glass-card rounded-3xl p-10 sm:p-12 text-center border border-white/10 max-w-2xl mx-auto shadow-[0_20px_60px_rgba(15,23,42,0.4)]">
+        <div class="glass-card rounded-3xl p-10 sm:p-12 text-center border border-white/10 max-w-2xl mx-auto shadow-[0_20px_60px_rgba(15,23,42,0.2)]">
           <div class="flex justify-center mb-4 text-accent-cyan"><Icon name="material-symbols:calendar-today-rounded" class="w-12 h-12" aria-hidden="true" /></div>
           <h3 class="text-xl font-bold text-text-primary mb-2">No hay eventos programados en este momento</h3>
           <p class="text-sm sm:text-base text-text-secondary font-light leading-relaxed">
@@ -104,7 +111,7 @@ const pastEvents = sortedEvents.filter((e) => e.data.estado === 'Pasado');
       </div>
 
       {pastEvents.length === 0 ? (
-        <div class="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] px-6 py-10 text-sm text-text-secondary text-center">
+        <div class="rounded-2xl border border-dashed border-white/15 bg-white/2 px-6 py-10 text-sm text-text-secondary text-center">
           No hay registros de eventos pasados.
         </div>
       ) : (

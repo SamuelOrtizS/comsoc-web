@@ -36,16 +36,14 @@ const isClosed = data.estado === 'Cerrada';
 
     <!-- Detail Box -->
     <div class="glass-card rounded-3xl p-8 sm:p-12 border border-accent-purple/30 relative overflow-hidden transition-all duration-500">
-      <!-- Ambient light -->
-      <div class="absolute top-0 right-0 w-80 h-80 bg-accent-purple/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <!-- Header details -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 border-b border-white/10 pb-6">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-accent-purple/20 text-accent-purple border border-accent-purple/30 font-mono inline-flex w-fit">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold from-accent-purple-lighter to-accent-purple-darker bg-gradient-to-br text-accent-purple border border-accent-purple/30 font-mono inline-flex w-fit">
           {data.area}
         </span>
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-          <span class={`text-xs font-mono px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 ${isClosed ? 'bg-accent-red/10 text-accent-red border border-accent-red/20' : 'bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20'}`}>
+          <span class={`text-xs font-mono px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 ${isClosed ? 'from-accent-red-lighter to-accent-red-darker bg-gradient-to-br text-accent-red border border-accent-red/20' : 'from-accent-emerald-lighter to-accent-emerald-darker bg-gradient-to-br text-accent-emerald border border-accent-emerald/20'}`}>
             <span aria-hidden="true">{isClosed ? '●' : '●'}</span>
             <span>{isClosed ? 'Cerrada' : 'Abierta'}</span>
           </span>
@@ -67,7 +65,7 @@ const isClosed = data.estado === 'Cerrada';
       <!-- Requirements & Responsibilities Split -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         <!-- Requisitos -->
-        <div class="bg-white/5 rounded-2xl p-6 border border-white/10 hover:border-accent-cyan/30 transition-colors">
+        <div class="from-bg-secondary-lighter to-bg-secondary bg-gradient-to-br rounded-2xl p-6 border border-accent-cyan/30 hover:border-accent-cyan/50 transition-colors">
           <h2 class="text-lg font-bold text-accent-cyan mb-4 flex items-center gap-2 font-mono">
             <Icon name="material-symbols:star-rounded" class="w-5 h-5" aria-hidden="true" />
             <span>Requisitos</span>
@@ -83,7 +81,7 @@ const isClosed = data.estado === 'Cerrada';
         </div>
 
         <!-- Responsabilidades -->
-        <div class="bg-white/5 rounded-2xl p-6 border border-white/10 hover:border-accent-purple/30 transition-colors">
+        <div class="from-bg-secondary-lighter to-bg-secondary bg-gradient-to-br rounded-2xl p-6 border border-accent-purple to-border-purple-darker border-gradient-to-br hover:border-accent-purple/50 transition-colors">
           <h2 class="text-lg font-bold text-accent-purple mb-4 flex items-center gap-2 font-mono">
             <Icon name="material-symbols:star-rounded" class="w-5 h-5" aria-hidden="true" />
             <span>Responsabilidades</span>
@@ -114,7 +112,7 @@ const isClosed = data.estado === 'Cerrada';
             href={data.formUrl || 'https://forms.gle/sample-comsoc'}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-text-primary bg-linear-to-r from-accent-blue to-accent-cyan shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40 hover:from-accent-blue hover:to-accent-cyan hover:brightness-110 active:scale-95 transition-all duration-200 text-center flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-text-primary from-accent-blue to-accent-cyan bg-gradient-to-r shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40 hover:from-accent-blue hover:to-accent-cyan hover:brightness-110 active:scale-95 transition-all duration-200 text-center flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
           >
             <span>Postular Ahora</span>
             <span aria-hidden="true">↗</span>

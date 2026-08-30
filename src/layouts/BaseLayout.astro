@@ -79,16 +79,16 @@ const ogImageURL = new URL(image, Astro.site || 'http://localhost:4321').toStrin
       role="status"
       aria-live="polite"
       aria-label="Aviso de versión de desarrollo"
-      class="sticky top-22 z-30 mx-4 sm:mx-6 lg:mx-8 mt-2 hidden border border-accent-amber/30 bg-accent-amber/10 backdrop-blur-md rounded-2xl"
+      class="sticky top-22 z-30 mx-4 sm:mx-6 lg:mx-8 mt-2 hidden border border-accent-amber/30 from-accent-amber-lighter/10 to-accent-amber-darker/5 bg-linear-to-br rounded-2xl backdrop-blur-md"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div class="flex items-center gap-3 min-w-0">
-          <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-accent-amber/15 border border-accent-amber/30 text-accent-amber shrink-0">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl from-accent-amber-lighter to-accent-amber-darker bg-linear-to-br text-accent-amber shrink-0">
             <Icon name="material-symbols:construction-rounded" class="w-5 h-5" aria-hidden="true" />
           </span>
           <div class="min-w-0">
             <p class="text-[11px] font-mono font-semibold tracking-[0.14em] uppercase text-accent-amber flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-accent-amber animate-pulse"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-linear-to-br from-accent-amber-lighter to-accent-amber-darker animate-pulse"></span>
               Versión de desarrollo — Sincronizando infraestructura
             </p>
             <p class="text-xs text-text-secondary font-light leading-tight truncate sm:whitespace-normal">
@@ -101,7 +101,7 @@ const ogImageURL = new URL(image, Astro.site || 'http://localhost:4321').toStrin
             href="https://www.instagram.com/ieee.comsoc.univalle/"
             target="_blank"
             rel="noopener noreferrer"
-            class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-accent-purple/30 bg-white/5 text-accent-purple hover:bg-accent-purple/10 text-xs font-medium transition"
+            class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-accent-purple/30 from-accent-purple-lighter to-accent-purple-darker bg-linear-to-br text-accent-purple hover:from-accent-purple-lighter hover:to-accent-purple hover:bg-linear-to-br hover:border-accent-purple/40 text-xs font-medium transition"
           >
             <Icon name="mdi:instagram" class="w-4 h-4" aria-hidden="true" />
             Síguenos
@@ -109,7 +109,7 @@ const ogImageURL = new URL(image, Astro.site || 'http://localhost:4321').toStrin
           <button
             type="button"
             data-dismiss-banner
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-accent-amber text-bg-primary text-xs font-bold hover:bg-accent-amber/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-amber"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl from-accent-amber to-accent-amber-darker bg-linear-to-br text-bg-primary text-xs font-bold hover:from-accent-amber-lighter hover:to-accent-amber border border-accent-amber/30 hover:border-accent-amber/40 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-amber"
             aria-label="Cerrar aviso"
           >
             <Icon name="material-symbols:close-rounded" class="w-3.5 h-3.5" aria-hidden="true" />

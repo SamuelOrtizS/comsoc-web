@@ -16,7 +16,7 @@ const tiendaItems = await getCollection('tienda');
   <section class="relative overflow-hidden border-b border-white/10 py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent-emerald font-mono shadow-[0_0_18px_rgba(52,211,153,0.15)]">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent-emerald font-mono shadow-[0_0_18px_rgba(34,211,238,0.15)]">
           Merch oficial del capítulo
         </div>
         <h1 class="mb-4 text-4xl font-black tracking-[-0.06em] text-text-primary sm:text-5xl lg:text-6xl">
@@ -31,7 +31,7 @@ const tiendaItems = await getCollection('tienda');
 
   <div class="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="glass-card flex flex-col items-center gap-4 rounded-2xl border border-glass-border/30 bg-bg-secondary/20 p-4 sm:flex-row sm:p-6">
-      <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
+      <div class="flex h-12 w-12 items-center justify-center rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan shadow-[0_0_24px_rgba(69,219,237,0.18)]">
         <Icon name="material-symbols:favorite-rounded" class="h-5 w-5" aria-hidden="true" />
       </div>
       <div class="grow text-sm leading-relaxed text-text-secondary font-light sm:text-base">
@@ -59,7 +59,7 @@ const tiendaItems = await getCollection('tienda');
       {tiendaItems.map((item) => {
         const prod = item.data;
         return (
-          <article class="glass-card group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-bg-secondary/30 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-cyan/40 hover:shadow-[0_30px_70px_-46px_rgba(34,211,238,0.7)]">
+          <article class="glass-card group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-bg-secondary/30 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-cyan/40 hover:shadow-[0_30px_70px_-46px_rgba(69,219,237,0.7)]">
             <button
               type="button"
               class="product-card-btn w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
@@ -139,7 +139,7 @@ const tiendaItems = await getCollection('tienda');
   >
     <div
       id="product-modal"
-      class="relative w-full max-w-2xl translate-y-4 overflow-hidden rounded-[28px] border border-white/10 bg-bg-secondary shadow-[0_32px_80px_-28px_rgba(21,93,252,0.8)] transition-all duration-300"
+      class="relative w-full max-w-2xl translate-y-4 overflow-hidden rounded-[28px] border border-white/10 bg-bg-secondary shadow-[0_32px_80px_-28px_rgba(69,219,237,0.8)] transition-all duration-300"
     >
       <button
         id="product-modal-close"
@@ -258,7 +258,7 @@ const tiendaItems = await getCollection('tienda');
           <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
             ${prod.resources
               .map((resource) => {
-                const color = resource.color ?? '#22d3ee';
+                const color = resource.color ?? '#65dbed';
                 return `
                   <a
                     href="${resource.link}"

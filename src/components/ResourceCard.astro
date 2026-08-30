@@ -26,7 +26,7 @@ const resolvedImagen = imagen ? resolveImage(imagen) : null;
         decoding="async"
         loading="lazy"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-bg-primary/70 via-bg-secondary/20 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-bg-primary-lighter/50 via-bg-secondary-lighter/25 to-transparent"></div>
       <div class="absolute left-3 top-3">
         <span class="inline-flex items-center rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-white backdrop-blur-md">
           {categoria}
@@ -34,7 +34,7 @@ const resolvedImagen = imagen ? resolveImage(imagen) : null;
       </div>
     </div>
   ) : (
-    <div class="h-1 w-full bg-gradient-to-r from-accent-cyan via-accent-blue to-accent-purple opacity-80"></div>
+    <div class="h-1 w-full bg-gradient-to-r from-accent-cyan-lighter to-accent-purple opacity-80"></div>
   )}
 
   <div class="flex flex-grow flex-col p-6">

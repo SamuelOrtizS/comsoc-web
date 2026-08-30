@@ -26,14 +26,14 @@ const {
 const isClosed = estado === 'Cerrada';
 ---
 
-<div class={`glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border transition-all duration-300 ${isClosed ? 'border-white/10 opacity-75 hover:opacity-85' : 'border-accent-cyan/30 shadow-lg shadow-accent-blue/15 hover:shadow-accent-cyan/25 hover:border-accent-cyan/50'}`}>
+<div class={`glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border transition-all duration-300 ${isClosed ? 'border-white/10 opacity-75 hover:opacity-85' : 'from-accent-blue-lighter to-accent-blue-darker bg-gradient-to-br border-accent-cyan/30 shadow-lg shadow-accent-blue/15 hover:shadow-accent-cyan/25 hover:border-accent-cyan/50'}`}>
   <div>
     <!-- Top Area Badge & Status -->
     <div class="flex items-center justify-between gap-2 mb-4">
       <span class="px-3 py-1 rounded-full text-xs font-semibold bg-accent-purple/10 text-accent-purple border border-accent-purple/30 inline-flex w-fit">
         {area}
       </span>
-      <span class={`text-xs font-mono px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 ${isClosed ? 'bg-accent-red/10 text-accent-red border border-accent-red/20' : 'bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20'}`}>
+      <span class={`text-xs font-mono px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 ${isClosed ? 'from-accent-red-lighter to-accent-red-darker bg-gradient-to-br text-accent-red border border-accent-red/20' : 'from-accent-emerald-lighter to-accent-emerald-darker bg-gradient-to-br text-accent-emerald border border-accent-emerald/20'}`}>
         <span aria-hidden="true" class="w-1.5 h-1.5 rounded-full bg-current"></span>
         <span>{isClosed ? 'Cerrada' : 'Abierta'}</span>
       </span>

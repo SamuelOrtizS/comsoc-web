@@ -17,8 +17,8 @@ const colorMap = {
   red:    { bg: 'from-accent-red/20 to-accent-yellow/20', border: 'border-accent-red/30', text: 'text-accent-red', badge: 'bg-accent-red/10 border-accent-red/30 text-accent-red', dot: 'bg-accent-red', glow: 'rgba(239,68,68,0.15)', btn: 'from-accent-red to-accent-yellow', shadow: 'shadow-accent-red/25', grad: 'from-[#ef4444] via-[#f43f5e] to-[#ec4899]' },
   amber:  { bg: 'from-accent-amber/20 to-accent-amber-darker/20', border: 'border-accent-amber/30', text: 'text-accent-amber', badge: 'bg-accent-amber/10 border-accent-amber/30 text-accent-amber', dot: 'bg-accent-amber', glow: 'rgba(245,158,11,0.15)', btn: 'from-accent-amber to-orange-500', shadow: 'shadow-accent-amber/25', grad: 'from-[#f59e0b] via-[#f97316] to-[#ef4444]' },
   purple: { bg: 'from-accent-purple/20 to-accent-blue-darker/20', border: 'border-accent-purple/30', text: 'text-accent-purple', badge: 'bg-accent-purple/10 border-accent-purple/30 text-accent-purple', dot: 'bg-accent-purple', glow: 'rgba(168,85,247,0.15)', btn: 'from-accent-purple to-indigo-500', shadow: 'shadow-accent-purple/25', grad: 'from-[#a855f7] via-[#8b5cf6] to-[#6366f1]' },
-  cyan:   { bg: 'from-accent-cyan/20 to-accent-blue/20', border: 'border-accent-cyan/30', text: 'text-accent-cyan', badge: 'bg-accent-cyan/10 border-accent-cyan/30 text-accent-cyan', dot: 'bg-accent-cyan', glow: 'rgba(34,211,238,0.15)', btn: 'from-accent-cyan to-accent-blue', shadow: 'shadow-accent-cyan/25', grad: 'from-[#22d3ee] via-[#3b82f6] to-[#6366f1]' },
-  green: { bg: 'from-accent-emerald-lighter/20 to-accent-emerald/20', border: 'border-accent-emerald/30', text: 'text-accent-emerald', badge: 'bg-accent-emerald/10 border-accent-emerald/30 text-accent-emerald', dot: 'bg-accent-emerald', glow: 'rgba(34,197,94,0.15)', btn: 'from-accent-emerald to-accent-emerald', shadow: 'shadow-green-500/25', grad: 'from-[#34d399] via-[#10b981] to-[#059669]' },
+  cyan:   { bg: 'from-accent-cyan/20 to-accent-blue/20', border: 'border-accent-cyan/30', text: 'text-accent-cyan', badge: 'bg-accent-cyan/10 border-accent-cyan/30 text-accent-cyan', dot: 'bg-accent-cyan', glow: 'rgba(69,219,237,0.15)', btn: 'from-accent-cyan to-accent-blue', shadow: 'shadow-accent-cyan/25', grad: 'from-[#65dbed] via-[#3b82f6] to-[#6366f1]' },
+  green: { bg: 'from-accent-emerald-lighter/20 to-accent-emerald/20', border: 'border-accent-emerald/30', text: 'text-accent-emerald', badge: 'bg-accent-emerald/10 border-accent-emerald/30 text-accent-emerald', dot: 'bg-accent-emerald', glow: 'rgba(102,220,171,0.15)', btn: 'from-accent-emerald to-accent-emerald', shadow: 'shadow-green-500/25', grad: 'from-[#34d399] via-[#10b981] to-[#059669]' },
   teal: { bg: 'from-accent-teal/20 to-accent-cyan/20', border: 'border-accent-teal/30', text: 'text-accent-teal', badge: 'bg-accent-teal/10 border-accent-teal/30 text-accent-teal', dot: 'bg-accent-teal', glow: 'rgba(6,182,212,0.15)', btn: 'from-accent-teal to-accent-cyan', shadow: 'shadow-accent-teal/25', grad: 'from-[#2dd4bf] via-[#34d399] to-[#0d9488]' },
 };
 
@@ -63,7 +63,7 @@ const resolvedIcon = icon.includes(':') ? icon : (legacyIconMap[icon] ?? `materi
     </div>
 
     <!-- Error number -->
-    <h1 class="text-6xl sm:text-7xl font-black leading-none tracking-[-0.06em] select-none text-white drop-shadow-[0_0_30px_rgba(34,211,238,0.25)]">
+    <h1 class="text-6xl sm:text-7xl font-black leading-none tracking-[-0.06em] select-none text-white drop-shadow-[0_0_30px_rgba(69,219,237,0.25)]">
       {code}
     </h1>
 
@@ -134,7 +134,7 @@ const resolvedIcon = icon.includes(':') ? icon : (legacyIconMap[icon] ?? `materi
 
   @keyframes icon-glow {
     0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-    50% { box-shadow: 0 0 40px 8px rgba(34, 211, 238, 0.18); }
+    50% { box-shadow: 0 0 40px 8px rgba(69, 219, 237, 0.18); }
   }
 
   .ring-pulse {
