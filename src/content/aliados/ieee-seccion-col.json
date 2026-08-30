@@ -2,7 +2,7 @@
   "order": 1,
   "nombre": "IEEE Sección Colombia",
   "tipo": "Organización IEEE",
-  "logo": "public/images/SECTION_COL_IMAGE.svg",
+  "logo": "/images/SECTION_COL_IMAGE.svg",
   "descripcion": "Sección regional de IEEE que agrupa a profesionales e instituciones del área de la ingeniería eléctrica, electrónica y computación en Colombia.",
   "acerca": "La Sección Colombia de IEEE reúne a miles de profesionales, investigadores y estudiantes de ingeniería en todo el territorio colombiano. Es el principal puente entre los capítulos estudiantiles y la organización global, facilitando el acceso a recursos, eventos y oportunidades de networking a nivel nacional e internacional.",
   "website": "https://ieee.org.co/",
