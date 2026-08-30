@@ -1,11 +1,12 @@
 {
   "order": 1,
-  "nombre": "IEEE Sección Perú",
+  "nombre": "IEEE Sección Colombia",
   "tipo": "Organización IEEE",
-  "logo": "/images/logo-comsoc.svg",
-  "descripcion": "Sección regional de IEEE que agrupa a profesionales e instituciones del área de la ingeniería eléctrica, electrónica y computación en Perú.",
-  "acerca": "La Sección Perú de IEEE reúne a miles de profesionales, investigadores y estudiantes de ingeniería en todo el territorio peruano. Es el principal puente entre los capítulos estudiantiles y la organización global, facilitando el acceso a recursos, eventos y oportunidades de networking a nivel nacional e internacional.",
-  "website": "https://ieee.org.pe",
-  "linkedin": "https://linkedin.com",
-  "email": "seccion.peru@ieee.org"
+  "logo": "/images/SECTION_COL_IMAGE.png",
+  "descripcion": "Sección regional de IEEE que agrupa a profesionales e instituciones del área de la ingeniería eléctrica, electrónica y computación en Colombia.",
+  "acerca": "La Sección Colombia de IEEE reúne a miles de profesionales, investigadores y estudiantes de ingeniería en todo el territorio colombiano. Es el principal puente entre los capítulos estudiantiles y la organización global, facilitando el acceso a recursos, eventos y oportunidades de networking a nivel nacional e internacional.",
+  "website": "https://ieee.org.co/",
+  "instagram": "https://www.instagram.com/ieee_colombia/",
+  "linkedin": "https://www.linkedin.com/company/ieee-secci%C3%B3n-colombia/posts/?feedView=all",
+  "email": "colombia@ieee.org"
 }
