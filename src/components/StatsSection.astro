@@ -1,0 +1,31 @@
+---
+import defaultEstadisticas from '../content/estadisticas.json';
+
+interface Stat {
+  valor: string;
+  etiqueta: string;
+  color?: string;
+}
+
+interface Props {
+  stats?: Stat[];
+}
+
+const { stats = defaultEstadisticas as Stat[] } = Astro.props;
+---
+
+<div class="mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+  {stats.map((stat, index) => (
+    <div
+      class="rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center shadow-[0_20px_40px_-32px_rgba(21,93,252,0.8)] backdrop-blur-sm transition-all duration-300 hover:border-accent-cyan/40 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_24px_48px_-36px_rgba(34,211,238,0.6)] group"
+      style={`animation-delay: ${index * 50}ms`}
+    >
+      <div class={`text-2xl font-bold font-mono sm:text-3xl transition-colors duration-300 group-hover:${stat.color || 'text-accent-cyan'} ${stat.color || 'text-text-primary'}`}>
+        {stat.valor}
+      </div>
+      <div class="mt-2 text-[10px] uppercase tracking-[0.16em] text-text-secondary font-light transition-colors duration-300 group-hover:text-accent-cyan/80">
+        {stat.etiqueta}
+      </div>
+    </div>
+  ))}
+</div>

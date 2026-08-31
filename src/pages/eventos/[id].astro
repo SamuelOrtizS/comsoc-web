@@ -1,10 +1,9 @@
 ---
-import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CountdownTimer from '../../components/CountdownTimer.astro';
-import AddToCalendar from '../../components/AddToCalendar.astro';
+import EventHero from '../../components/EventHero.astro';
+import EventGallery from '../../components/EventGallery.astro';
+import EventSidebar from '../../components/EventSidebar.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -60,79 +59,11 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
       </a>
     </div>
 
-    <div class="glass-card rounded-[28px] overflow-hidden border border-accent-cyan/30 mb-12 shadow-[0_24px_60px_rgba(21,93,252,0.15)]">
-      <div class="aspect-[16/9] sm:aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
-        <Image
-          src={resolvedPrincipal as any}
-          alt={data.titulo}
-          width={1200}
-          height={675}
-          sizes="100vw"
-          decoding="async"
-          loading="eager"
-          fetchpriority="high"
-          class="w-full h-full object-cover"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-bg-primary-lighter to-bg-primary/35"></div>
-
-        <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-6">
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/40 font-mono">
-              {data.tipo}
-            </span>
-            {isPast && (
-              <span class="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-bg-secondary/80 backdrop-blur-md text-text-secondary border border-white/10 font-mono">
-                Finalizado
-              </span>
-            )}
-          </div>
-
-          {!isPast && (
-            <span class="rounded-full border border-accent-cyan/30 bg-bg-primary/65 px-3 py-1.5 text-[10px] sm:text-xs font-semibold text-accent-cyan font-mono backdrop-blur-md">
-              Próximo evento
-            </span>
-          )}
-        </div>
-      </div>
-
-      <div class="p-6 sm:p-8 lg:p-10 space-y-6">
-        <div class="space-y-4">
-          <div class="text-xs uppercase tracking-[0.18em] text-accent-cyan font-mono">
-            Evento • {data.organizador}
-          </div>
-
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text-primary leading-tight tracking-[-0.04em]">
-            {data.titulo}
-          </h1>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
-          <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Fecha</div>
-            <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed capitalize">
-              <Icon name="material-symbols:calendar-today-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
-              <span>{formattedDate}</span>
-            </div>
-          </div>
-
-          <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Horario</div>
-            <div class="mt-2 flex items-center gap-2 text-sm font-semibold text-text-primary leading-relaxed">
-              <Icon name="material-symbols:schedule-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
-              <span>{data.horaInicio} - {data.horaFin}</span>
-            </div>
-          </div>
-
-          <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Lugar</div>
-            <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed" title={data.lugarNombre}>
-              <Icon name="material-symbols:location-on-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
-              <span class="block min-w-0 break-words">{data.lugarNombre}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <EventHero
+      data={data}
+      formattedDate={formattedDate}
+      resolvedPrincipal={resolvedPrincipal}
+    />
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
       <div class="lg:col-span-8 space-y-8">
@@ -158,93 +89,14 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
           )}
         </section>
 
-        {data.galeria && data.galeria.length > 0 && (
-          <section class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10">
-            <div class="mb-6 flex items-center justify-between gap-4">
-              <h2 class="text-xl font-bold text-text-primary font-mono">Galería &amp; Recursos</h2>
-              <span class="text-[10px] uppercase tracking-[0.18em] text-text-secondary font-mono">
-                {data.galeria.length} fotos
-              </span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {data.galeria.map((img, idx) => (
-                <div class="group overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary aspect-video">
-                  <Image
-                    src={resolveImage(img) as any}
-                    alt={`Foto ${idx + 1}`}
-                    width={800}
-                    height={450}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    loading="lazy"
-                    decoding="async"
-                    class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        <EventGallery galeria={data.galeria ?? []} />
       </div>
 
-      <aside class="lg:col-span-4 space-y-6">
-        {!isPast && (
-          <div class="space-y-4">
-            <AddToCalendar
-              event={{
-                title: data.titulo,
-                description: data.descripcion,
-                location: `${data.lugarNombre}${data.lugarDireccion ? ` - ${data.lugarDireccion}` : ''}`,
-                startDate: data.fechaInicio,
-                endDate: data.fechaFin || data.fechaInicio,
-                startTime: data.horaInicio,
-                endTime: data.horaFin,
-              }}
-            />
-            <CountdownTimer
-              targetDate={`${data.fechaInicio}T${data.horaInicio || '09:00'}:00`}
-              eventName={data.titulo}
-            />
-          </div>
-        )}
-
-        <div class="glass-card rounded-2xl p-6 border border-white/10">
-          <h3 class="text-base font-bold text-text-primary mb-4 font-mono">Detalles del evento</h3>
-          <dl class="space-y-3 text-sm">
-            {eventDetails.map((detail) => (
-              <div class="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                <dt class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">{detail.label}</dt>
-                <dd class="mt-1 text-text-primary font-medium">{detail.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
-          <h3 class="text-base font-bold text-text-primary font-mono">Comparte este evento</h3>
-          <p class="text-xs text-text-secondary font-light">
-            Invita a tus compañeros de carrera a participar en las actividades de IEEE ComSoc.
-          </p>
-          <div class="flex gap-2 justify-center pt-2">
-            <a
-              href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`¡Te invito a este evento de IEEE ComSoc!: ${data.titulo}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-semibold rounded-xl bg-accent-emerald/30 text-accent-emerald border border-accent-emerald/40 hover:bg-accent-emerald/50 transition flex items-center gap-1.5"
-            >
-              WhatsApp
-            </a>
-            <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://comsoc.org')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-semibold rounded-xl bg-accent-blue/30 text-accent-blue border border-accent-blue/40 hover:bg-accent-blue/50 transition flex items-center gap-1.5"
-            >
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </aside>
+      <EventSidebar
+        data={data}
+        isPast={isPast}
+        eventDetails={eventDetails}
+      />
     </div>
   </article>
 </BaseLayout>

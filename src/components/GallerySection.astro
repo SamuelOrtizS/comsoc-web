@@ -1,0 +1,173 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { resolveImage } from '../utils/imageResolver';
+import fs from 'fs';
+import path from 'path';
+
+interface Props {
+  images?: (string | any)[];
+}
+
+let galleryImages: (string | any)[] = [];
+try {
+  const publicDir = path.join(process.cwd(), 'public', 'images', 'galeria');
+  const assetsDir = path.join(process.cwd(), 'src', 'assets', 'images', 'galeria');
+  let files: string[] = [];
+  let basePath = '/images/galeria/';
+  if (fs.existsSync(publicDir) && fs.readdirSync(publicDir).length > 0) {
+    files = fs.readdirSync(publicDir);
+    basePath = '/images/galeria/';
+  } else if (fs.existsSync(assetsDir)) {
+    files = fs.readdirSync(assetsDir);
+    basePath = '/images/galeria/';
+  }
+  if (files.length > 0) {
+    galleryImages = files
+      .filter((file) => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(file))
+      .map((file) => resolveImage(`${basePath}${file}`));
+  }
+} catch (e) {
+  console.error('Error reading gallery', e);
+}
+
+if (galleryImages.length === 0) {
+  galleryImages = [
+    resolveImage('/images/hero-banner.jpg'),
+    resolveImage('/images/event-iot.svg'),
+    resolveImage('/images/event-optical.svg'),
+    resolveImage('/images/event-hackathon.svg'),
+  ];
+}
+
+const { images = galleryImages } = Astro.props;
+---
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+  <div
+    class="relative rounded-3xl overflow-hidden glass-card border border-glass-border group aspect-21/9"
+    aria-label="Galería de eventos y actividades"
+  >
+    <div class="w-full h-full relative" id="gallery-container">
+      {images.map((img, idx) => (
+        <div
+          class={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} gallery-slide`}
+        >
+          <Image
+            src={img as any}
+            alt={`Imagen de galería ${idx + 1}`}
+            width={1200}
+            height={675}
+            sizes="100vw"
+            loading={idx === 0 ? 'eager' : 'lazy'}
+            fetchpriority={idx === 0 ? 'high' : 'low'}
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-black/30"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button
+      id="gallery-prev"
+      class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-accent-blue/20 border border-accent-blue/30 text-text-primary flex items-center justify-center hover:bg-accent-blue/40 hover:border-accent-blue/50 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+      aria-label="Navegar a la diapositiva anterior"
+    >
+      <Icon name="material-symbols:arrow-back-rounded" class="w-5 h-5" aria-hidden="true" />
+    </button>
+    <button
+      id="gallery-next"
+      class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-accent-blue/20 border border-accent-blue/30 text-text-primary flex items-center justify-center hover:bg-accent-blue/40 hover:border-accent-blue/50 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+      aria-label="Navegar a la diapositiva siguiente"
+    >
+      <Icon name="material-symbols:arrow-forward-rounded" class="w-5 h-5" aria-hidden="true" />
+    </button>
+
+    <!-- Dots Indicators -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {images.map((_, idx) => (
+        <button
+          class={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-accent-cyan scale-125' : 'bg-white/40'}`}
+          data-index={idx}
+          aria-label={`Ver diapositiva ${idx + 1}`}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function setupGallery() {
+    const slides = document.querySelectorAll('.gallery-slide');
+    const dots = document.querySelectorAll('button[data-index]');
+    const prevBtn = document.getElementById('gallery-prev');
+    const nextBtn = document.getElementById('gallery-next');
+    let currentSlide = 0;
+    let autoPlayInterval: ReturnType<typeof setInterval> | undefined;
+
+    function showSlide(index: number) {
+      if (slides.length === 0) return;
+      currentSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, idx) => {
+        if (idx === currentSlide) {
+          slide.classList.remove('opacity-0', 'z-0');
+          slide.classList.add('opacity-100', 'z-10');
+        } else {
+          slide.classList.remove('opacity-100', 'z-10');
+          slide.classList.add('opacity-0', 'z-0');
+        }
+      });
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlide) {
+          dot.classList.remove('bg-white/40');
+          dot.classList.add('bg-accent-cyan', 'scale-125');
+        } else {
+          dot.classList.remove('bg-accent-cyan', 'scale-125');
+          dot.classList.add('bg-white/40');
+        }
+      });
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      if (document.hidden) return;
+      autoPlayInterval = setInterval(() => {
+        if (!document.hidden) showSlide(currentSlide + 1);
+      }, 6000);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoPlay();
+      else startAutoPlay();
+    });
+
+    if (prevBtn && nextBtn && slides.length > 0) {
+      prevBtn.addEventListener('click', () => { showSlide(currentSlide - 1); startAutoPlay(); });
+      nextBtn.addEventListener('click', () => { showSlide(currentSlide + 1); startAutoPlay(); });
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
+          showSlide(idx);
+          startAutoPlay();
+        });
+      });
+      const container = document.getElementById('gallery-container');
+      if (container) {
+        container.addEventListener('mouseenter', stopAutoPlay);
+        container.addEventListener('mouseleave', startAutoPlay);
+      }
+      startAutoPlay();
+    }
+
+    window.addEventListener('beforeunload', stopAutoPlay);
+  }
+
+  setupGallery();
+  document.addEventListener('astro:page-load', setupGallery);
+</script>

@@ -1,0 +1,131 @@
+---
+import { Icon } from 'astro-icon/components';
+import paymentMethodsData from '../content/donaciones.json';
+
+interface PaymentDetail {
+  label: string;
+  value: string;
+}
+
+interface PaymentMethod {
+  type: string;
+  name: string;
+  badge?: string;
+  details: PaymentDetail[];
+}
+
+interface Props {
+  methods?: PaymentMethod[];
+}
+
+const { methods = paymentMethodsData as PaymentMethod[] } = Astro.props;
+---
+
+<section class="border-t border-white/10 pt-16">
+  <div class="mx-auto mb-10 max-w-3xl text-center">
+    <h2 class="mb-3 text-3xl font-bold text-text-primary sm:text-4xl">Métodos de Donación</h2>
+    <p class="text-base text-text-secondary font-light">
+      Elige la opción que más te acomode para realizar tu contribución de forma transparente y segura.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+    {methods.map((method) => {
+      const isPayPal = method.name.toLowerCase().includes('paypal');
+      const paypalLink = method.details.find((d) => d.value.startsWith('http'))?.value;
+      const copyText = method.details.map((d) => `${d.label}: ${d.value}`).join('\n');
+
+      return (
+        <div class="glass-card group flex flex-col justify-between rounded-[24px] border border-white/10 p-6 transition-all duration-300 hover:border-accent-cyan/35">
+          <div>
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <span class="text-xs font-mono uppercase tracking-[0.18em] text-accent-cyan">{method.type}</span>
+              {method.badge && (
+                <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-mono text-text-secondary">
+                  {method.badge}
+                </span>
+              )}
+            </div>
+
+            <h3 class="mb-4 text-xl font-bold text-text-primary">{method.name}</h3>
+
+            <div class="space-y-3">
+              {method.details.map((detail) => (
+                <div class="flex flex-col border-b border-white/5 pb-2 last:border-b-0 last:pb-0">
+                  <span class="text-xs uppercase tracking-[0.18em] text-text-secondary font-mono">{detail.label}</span>
+                  {detail.value.startsWith('http') ? (
+                    <a
+                      href={detail.value}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="mt-1 inline-flex items-center gap-1 break-all text-sm font-semibold text-accent-cyan transition hover:underline"
+                    >
+                      {detail.value}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <span class="mt-1 select-all text-sm font-semibold text-text-primary font-mono">{detail.value}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="pt-6">
+            {isPayPal && paypalLink ? (
+              <a
+                href={paypalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex w-full items-center justify-center gap-1.5 rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan px-4 py-3 text-center text-xs font-semibold text-white shadow-md shadow-[rgba(69,219,237,0.2)] transition hover:opacity-95 cursor-pointer"
+              >
+                <span>Donar vía PayPal</span>
+                <Icon name="material-symbols:open-in-new-rounded" class="w-4 h-4" aria-hidden="true" />
+              </a>
+            ) : (
+              <button
+                type="button"
+                data-copy-text={copyText}
+                class="copy-btn flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 px-4 py-3 text-center text-xs font-semibold text-text-primary transition active:scale-[0.99] cursor-pointer"
+              >
+                <Icon name="material-symbols:content-copy-outline-rounded" class="w-4 h-4 text-accent-cyan" aria-hidden="true" />
+                <span>Copiar Datos de Pago</span>
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<script>
+  function setupCopyButtons() {
+    document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+      // Avoid attaching duplicate listeners
+      if (btn.dataset.copyInitialized) return;
+      btn.dataset.copyInitialized = 'true';
+
+      btn.addEventListener('click', async () => {
+        const textToCopy = btn.getAttribute('data-copy-text');
+        if (textToCopy) {
+          try {
+            await navigator.clipboard.writeText(textToCopy);
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span>✅ ¡Datos Copiados!</span>';
+            btn.classList.add('border-accent-emerald', 'text-accent-emerald');
+            setTimeout(() => {
+              btn.innerHTML = originalContent;
+              btn.classList.remove('border-accent-emerald', 'text-accent-emerald');
+            }, 2000);
+          } catch (err) {
+            console.error('Error al copiar al portapapeles', err);
+          }
+        }
+      });
+    });
+  }
+
+  setupCopyButtons();
+  document.addEventListener('astro:page-load', setupCopyButtons);
+</script>

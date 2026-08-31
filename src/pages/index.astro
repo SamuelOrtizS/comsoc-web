@@ -4,9 +4,12 @@ import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../utils/imageResolver';
 import logoWhite from '../assets/images/logo-comsoc-white.svg';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CountdownTimer from '../components/CountdownTimer.astro';
 import { getCollection } from 'astro:content';
-import estadisticas from '../content/estadisticas.json';
+import HeroPillars from '../components/HeroPillars.astro';
+import FeaturedEventBanner from '../components/FeaturedEventBanner.astro';
+import StatsSection from '../components/StatsSection.astro';
+import AliadosSection from '../components/AliadosSection.astro';
+import CommunityCta from '../components/CommunityCta.astro';
 
 const allEvents = await getCollection('eventos');
 const upcomingEvents = allEvents.filter((ev) => ev.data.estado === 'Publicado');
@@ -22,7 +25,6 @@ if (!featuredEvent) {
   const pool = sortedUpcoming.length > 0 ? sortedUpcoming : [...allEvents].sort((a, b) => new Date(b.data.fechaInicio).getTime() - new Date(a.data.fechaInicio).getTime());
   featuredEvent = pool[0] ?? null;
 }
-const featuredEventSlug = featuredEvent ? featuredEvent.id.replace(/\/evento$/, '') : '';
 
 // Load projects deterministically — destacado=true first (sorted by titulo), then others alphabetically
 const allProyectos = await getCollection('proyectos');
@@ -34,46 +36,13 @@ const featuredProjects = projectPool.slice(0, 2).map((p) => ({
   category: p.data.categoria,
   desc: p.data.descripcion,
   image: p.data.imagen,
-  link: p.data.enlace ?? '/eventos',
+  link: p.data.enlace ?? `/proyectos/${p.id}`,
   estado: p.data.estado,
   tags: p.data.tags ?? [],
 }));
 
 const allAliados = await getCollection('aliados');
 const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
-
-const pillars = [
-  {
-    title: '5G / 6G & Redes Móviles',
-    desc: 'Arquitecturas de telecomunicaciones de última generación, Open RAN, beamforming y virtualización de redes NFV/SDN.',
-    icon: 'material-symbols:cell-tower-rounded',
-     color: 'from-accent-blue-lighter/20 to-accent-cyan-darker/20',
-     border: 'border-accent-cyan/30',
-  },
-  {
-    title: 'IoT & Telemetría Satelital',
-    desc: 'Sensores de bajo consumo, protocolos LPWAN (LoRaWAN, NB-IoT), procesamiento en el borde (Edge Computing) y telemetría MQTT.',
-    icon: 'material-symbols:sensors-rounded',
-     color: 'from-accent-cyan-lighter/20 to-accent-emerald-darker/20',
-     border: 'border-accent-emerald/30',
-  },
-  {
-    title: 'Comunicaciones Ópticas & Cuánticas',
-    desc: 'Sistemas DWDM de alta capacidad, fotónica integrada y protocolos de distribución cuántica de claves (QKD).',
-    icon: 'material-symbols:cable-rounded',
-    color: 'from-accent-purple-lighter/20 to-accent-purple-darker/20',
-    border: 'border-accent-purple/30',
-  },
-  {
-    title: 'IA Aplicada a Redes',
-    desc: 'Optimización predictiva de tráfico espectral, detección de anomalías y automatización inteligente de infraestructura de telecomunicaciones.',
-    icon: 'material-symbols:psychology-rounded',
-    color: 'from-accent-blue-lighter/20 to-accent-blue-darker/20',
-    border: 'border-accent-blue/30',
-  },
-];
-
-
 ---
 
 <BaseLayout title="IEEE ComSoc Univalle | Inicio">
@@ -106,168 +75,78 @@ const pillars = [
       .animation-delay-4000 {
         animation-delay: 4s;
       }
+
+      .group-hover\:gradient\:text-accent-cyan {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #a855f7 0%, #22d3ee 100%);
+      }
+
+      .group-hover\:gradient\:text-accent-cyan:hover {
+        background-image: linear-gradient(to right, #22d3ee 0%, #a855f7 100%);
+      }
     </style>
     <div class="absolute -top-40 -left-40 h-80 w-80 rounded-full bg-accent-cyan/5 blur-[100px] animate-blob"></div>
     <div class="absolute top-1/2 -right-40 h-80 w-80 rounded-full bg-accent-blue/5 blur-[100px] animate-blob animation-delay-2000"></div>
     <div class="absolute -bottom-40 left-1/3 h-80 w-80 rounded-full bg-accent-purple/5 blur-[100px] animate-blob animation-delay-4000"></div>
   </div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_42%)]"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary-lighter/10 via-bg-primary/24 to-bg-primary-darker/20 animate-in fade-in duration-700">
-      <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/30 to-transparent"></div>
-    </div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_42%)]"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-bg-primary-lighter/10 via-bg-primary/24 to-bg-primary-darker/20 animate-in fade-in duration-700">
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/30 to-transparent"></div>
+  </div>
 
-    <div class="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl items-center justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8">
-      <div class="w-full max-w-5xl text-center">
-        <h1 class="sr-only">IEEE ComSoc Univalle — Comunidad de Ingenieros en Telecomunicaciones</h1>
-        <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-accent-cyan/30 bg-white/5 px-4 py-2 shadow-[0_0_30px_rgba(34,211,238,0.12)] backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-[0_0_40px_rgba(34,211,238,0.2)]">
-          <span class="h-2.5 w-2.5 rounded-full bg-accent-cyan shadow-[0_0_16px_rgba(34,211,238,0.9)] animate-pulse"></span>
-          <span class="text-[10px] font-medium uppercase tracking-[0.28em] text-accent-cyan font-mono transition-colors group-hover:text-white">
-            IEEE ComSoc Univalle
-          </span>
-        </div>
-
-        <div class="flex justify-center">
-          <Image src={logoWhite} alt="IEEE ComSoc Logo" class="h-24 w-auto sm:h-32 lg:h-40 drop-shadow-[0_0_35px_rgba(34,211,238,0.3)] animate-in fade-in zoom-in duration-500" loading="eager" decoding="async" fetchpriority="high" width={400} height={140} />
-        </div>
-
-        <p class="mx-auto mt-5 max-w-3xl text-base font-light leading-relaxed text-text-secondary sm:text-xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
-          Liderando la innovación en redes de próxima generación, internet de las cosas (IoT), sistemas inalámbricos 5G/6G y comunicaciones cuánticas.
-        </p>
-
-        <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href="/convocatorias"
-            aria-label="Unirse al equipo IEEE ComSoc Univalle"
-            class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_-20px_rgba(34,211,238,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:-translate-y-0.5 sm:w-auto group"
-          >
-            <span class="group-hover:text-slate-900 transition-colors">Unirse al Equipo</span>
-            <Icon name="material-symbols:group-add-rounded" class="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5" aria-hidden="true" />
-          </a>
-
-          <a
-            href="/eventos"
-            aria-label="Explorar eventos y actividades"
-            class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl px-7 py-3.5 font-medium text-accent-cyan hover:text-white transition-all duration-300 hover:bg-white/5 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto group"
-          >
-            <span>Explorar Eventos</span>
-            <Icon name="material-symbols:arrow-forward-rounded" class="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-0.5" aria-hidden="true" />
-          </a>
-        </div>
-
-        <div class="mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-          {estadisticas.map((stat, index) => (
-            <div
-              class="rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center shadow-[0_20px_40px_-32px_rgba(21,93,252,0.8)] backdrop-blur-sm transition-all duration-300 hover:border-accent-cyan/40 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_24px_48px_-36px_rgba(34,211,238,0.6)] group"
-              style="animation-delay: ${index * 50}ms"
-            >
-              <div class={`text-2xl font-bold font-mono sm:text-3xl transition-colors duration-300 group-hover:${stat.color || 'text-accent-cyan'} ${stat.color || 'text-text-primary'}`}>
-                {stat.valor}
-              </div>
-              <div class="mt-2 text-[10px] uppercase tracking-[0.16em] text-text-secondary font-light transition-colors duration-300 group-hover:text-accent-cyan/80">
-                {stat.etiqueta}
-              </div>
-            </div>
-          ))}
-        </div>
+  <!-- Hero Main -->
+  <div class="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl items-center justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8">
+    <div class="w-full max-w-5xl text-center">
+      <h1 class="sr-only">IEEE ComSoc Univalle — Comunidad de Ingenieros en Telecomunicaciones</h1>
+      <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-accent-cyan/30 bg-white/5 px-4 py-2 shadow-[0_0_30px_rgba(34,211,238,0.12)] backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-[0_0_40px_rgba(34,211,238,0.2)]">
+        <span class="h-2.5 w-2.5 rounded-full bg-accent-cyan shadow-[0_0_16px_rgba(34,211,238,0.9)] animate-pulse"></span>
+        <span class="text-[10px] font-medium uppercase tracking-[0.28em] text-accent-cyan font-mono transition-colors group-hover:text-white">
+          IEEE ComSoc Univalle
+        </span>
       </div>
-    </div>
 
-  <!-- Featured Event & Live Countdown Spotlight -->
+      <div class="flex justify-center">
+        <Image src={logoWhite} alt="IEEE ComSoc Logo" class="h-24 w-auto sm:h-32 lg:h-40 drop-shadow-[0_0_35px_rgba(34,211,238,0.3)] animate-in fade-in zoom-in duration-500" loading="eager" decoding="async" fetchpriority="high" width={400} height={140} />
+      </div>
+
+      <p class="mx-auto mt-5 max-w-3xl text-base font-light leading-relaxed text-text-secondary sm:text-xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+        Liderando la innovación en redes de próxima generación, internet de las cosas (IoT), sistemas inalámbricos 5G/6G y comunicaciones cuánticas.
+      </p>
+
+      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/convocatorias"
+          aria-label="Unirse al equipo IEEE ComSoc Univalle"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_-20px_rgba(34,211,238,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:-translate-y-0.5 sm:w-auto group"
+        >
+          <span class="group-hover:text-slate-900 transition-colors">Unirse al Equipo</span>
+          <Icon name="material-symbols:group-add-rounded" class="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5" aria-hidden="true" />
+        </a>
+
+        <a
+          href="/eventos"
+          aria-label="Explorar eventos y actividades"
+          class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl px-7 py-3.5 font-medium text-accent-cyan hover:text-white transition-all duration-300 hover:bg-white/5 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto group"
+        >
+          <span>Explorar Eventos</span>
+          <Icon name="material-symbols:arrow-forward-rounded" class="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-0.5" aria-hidden="true" />
+        </a>
+      </div>
+
+      <!-- Stats Section Component -->
+      <StatsSection />
+    </div>
+  </div>
+
+  <!-- Featured Event Banner -->
   {featuredEvent && (
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="relative overflow-hidden rounded-[28px] border border-accent-cyan/20 bg-gradient-to-br from-bg-secondary to-bg-secondary-lighter p-6 sm:p-8 lg:p-10 shadow-[0_30px_90px_-45px_rgba(34,211,238,0.45)]">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--color-accent-cyan-lighter)/14,transparent_28%),radial-gradient(circle_at_bottom_left,var(--color-accent-blue)/12,transparent_32%)]"></div>
-        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent"></div>
-
-        <div class="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12 animate-in fade-in duration-500 delay-300">
-          <div class="space-y-5 lg:col-span-7 animate-in fade-in slide-in-from-left-4 duration-500 delay-500">
-            <div class="inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(34,211,238,0.18)] transition-all duration-300 hover:border-accent-cyan/50 hover:bg-accent-cyan/15 hover:shadow-[0_0_24px_rgba(34,211,238,0.25)] group">
-              <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.95)] animate-pulse"></span>
-              Evento Destacado
-            </div>
-
-            <div class="space-y-3">
-              <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl lg:text-5xl">
-                {featuredEvent.data.titulo}
-              </h2>
-              <p class="max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
-                {featuredEvent.data.descripcion}
-              </p>
-            </div>
-
-            <div class="flex flex-wrap gap-3 text-xs font-mono text-text-secondary font-light sm:text-[11px]">
-              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-accent-cyan/10 group/location">
-                <Icon name="material-symbols:location-on-rounded" class="w-4 h-4 text-accent-cyan transition-transform duration-300 group-hover/location:scale-110" aria-hidden="true" />
-                {featuredEvent.data.lugarNombre}
-              </div>
-              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-accent-cyan/10 group/schedule">
-                <Icon name="material-symbols:schedule-rounded" class="w-4 h-4 text-accent-cyan transition-transform duration-300 group-hover/schedule:scale-110" aria-hidden="true" />
-                {featuredEvent.data.horaInicio} - {featuredEvent.data.horaFin}
-              </div>
-            </div>
-
-            <div class="flex flex-wrap gap-3 pt-2">
-              <a
-                href={`/eventos/${featuredEventSlug}`}
-                class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
-              >
-                Inscribirse al Evento
-              </a>
-              <a
-                href="/eventos"
-                class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-text-secondary transition duration-200 hover:-translate-y-0.5 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary"
-              >
-                Ver todos los eventos
-              </a>
-            </div>
-          </div>
-
-          <div class="lg:col-span-5 animate-in fade-in slide-in-from-right-4 duration-500 delay-700">
-            <div class="rounded-[24px] border border-white/10 bg-black/20 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm transition-all duration-300 hover:border-accent-cyan/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)]">
-              <CountdownTimer
-                targetDate={`${featuredEvent.data.fechaInicio}T${featuredEvent.data.horaInicio || '09:00'}:00`}
-                eventName={featuredEvent.data.titulo}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <FeaturedEventBanner event={featuredEvent} />
   )}
 
   <!-- Ecosystem / Technical Pillars -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 content-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-    <div class="mx-auto mb-12 max-w-3xl text-center">
-      <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono transition-colors duration-300 hover:text-accent-cyan group-hover:text-accent-blue-lighter">
-        Áreas de Especialización
-      </div>
-      <h2 class="mb-4 text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
-        Ecosistema Tecnológico de IEEE ComSoc
-      </h2>
-      <p class="text-sm leading-relaxed text-text-secondary sm:text-base font-light transition-colors duration-300 hover:text-text-primary group-hover:text-text-primary">
-        Desarrollamos proyectos, capacitaciones e investigaciones orientadas a las áreas de mayor impacto en la industria moderna de telecomunicaciones.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-      {pillars.map((pillar) => (
-        <article
-          class={`group relative overflow-hidden rounded-[22px] border ${pillar.border} bg-gradient-to-b from-bg-deep-slate-lighter/35 via-bg-deep-slate/40 to-bg-primary-darker/60 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_28px_60px_-38px_rgba(34,211,238,0.38)] hover:border-accent-cyan/40`}
-        >
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_16px_32px_-22px_rgba(34,211,238,0.8)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_20px_40px_-16px_rgba(34,211,238,0.6)]">
-            <Icon name={pillar.icon} class="w-7 h-7 transition-transform duration-500 group-hover:scale-110" aria-hidden="true" />
-          </div>
-          <h3 class="mb-3 text-lg font-bold tracking-[-0.03em] text-text-primary transition-all duration-300 group-hover:text-accent-cyan group-hover:-translate-y-0.5">
-            {pillar.title}
-          </h3>
-          <p class="text-xs leading-relaxed text-text-secondary font-light transition-colors duration-300 group-hover:text-text-primary">
-            {pillar.desc}
-          </p>
-        </article>
-      ))}
-    </div>
-  </section>
+  <HeroPillars />
 
   <!-- Highlighted Projects Preview -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 content-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
@@ -293,9 +172,7 @@ const pillars = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {featuredProjects.map((proj) => (
-           <div
-             class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col transition-all duration-500 hover:border-accent-purple/50 hover:shadow-[0_24px_60px_-30px_rgba(168,85,247,0.25)] hover:-translate-y-1"
-           >
+        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col transition-all duration-500 hover:border-accent-purple/50 hover:shadow-[0_24px_60px_-30px_rgba(168,85,247,0.25)] hover:-translate-y-1">
           <div class="aspect-video relative overflow-hidden bg-bg-secondary group/image">
             <Image
               src={resolveImage(proj.image) as any}
@@ -329,9 +206,7 @@ const pillars = [
               {proj.tags.length > 0 && (
                 <div class="flex flex-wrap gap-1.5 mb-4">
                   {proj.tags.map((tag) => (
-                    <span
-                      class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-secondary border border-white/10 transition-all duration-300 group-hover/gradient:border-accent-purple/30 group-hover/gradient:text-accent-cyan/80"
-                    >
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-secondary border border-white/10 transition-all duration-300 group-hover/gradient:border-accent-purple/30 group-hover/gradient:text-accent-cyan/80">
                       {tag}
                     </span>
                   ))}
@@ -353,253 +228,9 @@ const pillars = [
     </div>
   </section>
 
-  <!-- Nuestros Aliados -->
-  {aliados.length > 0 && (
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10 content-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-700">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="text-xs uppercase font-mono tracking-widest text-accent-cyan mb-2 font-semibold transition-colors duration-300 hover:text-accent-blue-lighter group-hover:text-accent-cyan">
-          Red de Colaboración
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
-          Nuestros Aliados
-        </h2>
-        <p class="text-text-secondary text-sm font-light transition-colors duration-300 hover:text-text-primary group-hover:text-text-primary">
-          Instituciones, empresas y organizaciones que nos acompañan en la misión de impulsar la ingeniería y las telecomunicaciones.
-        </p>
-      </div>
+  <!-- Nuestros Aliados Section -->
+  <AliadosSection aliados={aliados} />
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {aliados.map((aliado) => (
-          <button
-            type="button"
-            id={`aliado-card-${aliado.data.nombre.replace(/\s+/g, '-')}`}
-            class="aliado-card glass-card rounded-2xl p-6 border border-white/10 text-left group cursor-pointer hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10 transition-all duration-500 w-full flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:-translate-x-[2px] focus-visible:-translate-y-[2px]"
-            data-aliado={JSON.stringify(aliado.data)}
-            aria-label={`Conocer más sobre ${aliado.data.nombre}`}
-            aria-haspopup="dialog"
-            aria-expanded="false"
-          >
-            <div class="flex items-center gap-4">
-              {aliado.data.logo
-                ? <Image src={resolveImage(aliado.data.logo) as any} alt={aliado.data.nombre} width={200} height={80} sizes="80px" loading="lazy" decoding="async" class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
-                : <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-cyan transition-all duration-300 group-hover:scale-110 group-hover:border-accent-cyan/40"><Icon name="material-symbols:handshake-rounded" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" /></div>
-              }
-              <div>
-                <span class="text-[10px] font-mono text-accent-cyan uppercase tracking-wider transition-colors duration-300 group-hover:text-accent-blue-lighter">{aliado.data.tipo}</span>
-                <h3 class="text-sm font-bold text-text-primary transition-all duration-300 group-hover:text-accent-cyan group-hover:-translate-y-0.5">{aliado.data.nombre}</h3>
-              </div>
-            </div>
-            <p class="text-xs text-text-secondary font-light leading-relaxed line-clamp-3 grow transition-colors duration-300 group-hover:text-text-primary">{aliado.data.descripcion}</p>
-            <div class="text-[10px] font-mono text-text-secondary border border-white/10 px-3 py-1 rounded-full self-start transition-all duration-300 group-hover:border-accent-cyan/40 group-hover:text-accent-cyan group-hover:scale-105">
-              Conocer más →
-            </div>
-          </button>
-        ))}
-      </div>
-    </section>
-  )}
-
-  <!-- Aliados Modal -->
-  <div
-    id="aliado-modal-overlay"
-    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modal-aliado-name"
-  >
-    <div id="aliado-modal" class="relative bg-bg-secondary border border-white/15 rounded-[28px] shadow-2xl shadow-accent-cyan/20 w-full max-w-md p-8 flex flex-col gap-5 translate-y-8 scale-95 opacity-0 transition-all duration-300 backdrop-blur-sm">
-      <button
-        id="aliado-modal-close"
-        type="button"
-        class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2 rounded-xl hover:bg-white/10 transition"
-        aria-label="Cerrar"
-      >
-        <Icon name="material-symbols:close-rounded" class="w-5 h-5" aria-hidden="true" />
-      </button>
-
-      <div class="flex items-center gap-4">
-        <div id="aliado-modal-logo" class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl overflow-hidden shrink-0"></div>
-        <div>
-          <div id="aliado-modal-tipo" class="text-[10px] font-mono text-accent-cyan uppercase tracking-wider mb-0.5"></div>
-          <h2 id="modal-aliado-name" class="text-lg font-extrabold text-text-primary"></h2>
-        </div>
-      </div>
-
-      <div class="border-t border-white/10"></div>
-
-      <div id="aliado-modal-desc" class="text-sm text-text-secondary font-light leading-relaxed"></div>
-      <div id="aliado-modal-acerca" class="text-xs text-text-secondary font-light leading-relaxed hidden"></div>
-
-      <div id="aliado-modal-contact" class="flex flex-col gap-2"></div>
-      <div id="aliado-modal-links" class="flex flex-wrap gap-2"></div>
-    </div>
-  </div>
-
-  <script>
-    type AliadoData = {
-      nombre: string;
-      tipo: string;
-      logo?: string;
-      descripcion: string;
-      acerca?: string;
-      website?: string;
-      email?: string;
-      phone?: string;
-      linkedin?: string;
-      instagram?: string;
-    };
-
-    const aliadoOverlay = document.getElementById('aliado-modal-overlay') as HTMLElement;
-    const aliadoModal   = document.getElementById('aliado-modal') as HTMLElement;
-    const aliadoClose   = document.getElementById('aliado-modal-close') as HTMLButtonElement;
-
-    function openAliadoModal(a: AliadoData) {
-      const logoWrap = document.getElementById('aliado-modal-logo') as HTMLElement;
-      logoWrap.innerHTML = a.logo
-        ? `<img src="${a.logo}" alt="${a.nombre}" class="w-full h-full object-contain animate-in fade-in zoom-in duration-300" />`
-        : '<span class="text-accent-cyan flex items-center justify-center w-full h-full"><Icon name="material-symbols:handshake-rounded" class="w-6 h-6" aria-hidden="true" /></span>';
-
-      (document.getElementById('aliado-modal-tipo') as HTMLElement).textContent = a.tipo;
-      (document.getElementById('modal-aliado-name') as HTMLElement).textContent = a.nombre;
-      (document.getElementById('aliado-modal-desc') as HTMLElement).textContent = a.descripcion;
-
-      const acercaEl = document.getElementById('aliado-modal-acerca') as HTMLElement;
-      if (a.acerca) {
-        acercaEl.textContent = a.acerca;
-        acercaEl.classList.remove('hidden');
-      } else {
-        acercaEl.classList.add('hidden');
-      }
-
-      const contactEl = document.getElementById('aliado-modal-contact') as HTMLElement;
-      contactEl.innerHTML = '';
-      if (a.email) {
-        contactEl.insertAdjacentHTML('beforeend', `<a href="mailto:${a.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><Icon name="material-symbols:mail-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />${a.email}</a>`);
-      }
-      if (a.phone) {
-        contactEl.insertAdjacentHTML('beforeend', `<a href="tel:${a.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><Icon name="material-symbols:call-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />${a.phone}</a>`);
-      }
-
-      const linksEl = document.getElementById('aliado-modal-links') as HTMLElement;
-      linksEl.innerHTML = '';
-      const socials: { key: keyof AliadoData; label: string; color: string }[] = [
-        { key: 'website',   label: 'Sitio Web',  color: 'bg-accent-emerald/20 text-accent-emerald border-accent-emerald/30 hover:bg-accent-emerald/40' },
-        { key: 'linkedin',  label: 'LinkedIn',   color: 'bg-accent-blue/20 text-accent-blue border-accent-blue/30 hover:bg-accent-blue/40' },
-        { key: 'instagram', label: 'Instagram',  color: 'bg-accent-rose/20 text-accent-rose border-accent-rose/30 hover:bg-accent-rose/40' },
-      ];
-      socials.forEach(({ key, label, color }) => {
-        const url = a[key] as string | undefined;
-        if (url) linksEl.insertAdjacentHTML('beforeend', `<a href="${url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition ${color}">${label} ↗</a>`);
-      });
-      if (linksEl.innerHTML) linksEl.classList.remove('hidden');
-      else linksEl.classList.add('hidden');
-
-      aliadoOverlay.classList.remove('opacity-0', 'pointer-events-none');
-      aliadoOverlay.classList.add('opacity-100', 'pointer-events-auto');
-      aliadoModal.classList.remove('translate-y-8', 'scale-95', 'opacity-0');
-      aliadoModal.classList.add('translate-y-0', 'scale-100', 'opacity-100');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeAliadoModal() {
-      aliadoOverlay.classList.add('opacity-0', 'pointer-events-none');
-      aliadoOverlay.classList.remove('opacity-100', 'pointer-events-auto');
-      aliadoModal.classList.add('translate-y-8', 'scale-95', 'opacity-0');
-      aliadoModal.classList.remove('translate-y-0', 'scale-100', 'opacity-100');
-      document.body.style.overflow = '';
-    }
-
-    let lastAliadoTrigger: HTMLButtonElement | null = null;
-    document.querySelectorAll<HTMLButtonElement>('.aliado-card').forEach((card) => {
-      card.addEventListener('click', () => {
-        lastAliadoTrigger = card;
-        card.setAttribute('aria-expanded', 'true');
-        const raw = card.getAttribute('data-aliado');
-        if (raw) openAliadoModal(JSON.parse(raw) as AliadoData);
-      });
-    });
-    const resetAliadoAria = () => {
-      document.querySelectorAll('.aliado-card[aria-expanded="true"]').forEach(el => el.setAttribute('aria-expanded', 'false'));
-      if (lastAliadoTrigger) { lastAliadoTrigger.focus(); lastAliadoTrigger = null; }
-    };
-    const originalClose = closeAliadoModal;
-    // Wrap close to reset aria
-    const closeWithAria = () => { resetAliadoAria(); originalClose(); };
-    aliadoClose.addEventListener('click', closeWithAria);
-    aliadoOverlay.addEventListener('click', (e) => { if (e.target === aliadoOverlay) closeWithAria(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWithAria(); });
-  </script>
-
-  <style is:export>
-    @keyframes blob {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-      33% {
-        transform: translate(30px, -50px) scale(1.1);
-      }
-      66% {
-        transform: translate(-20px, 20px) scale(0.9);
-      }
-      100% {
-        transform: translate(0, 0) scale(1);
-      }
-    }
-
-    .animate-blob {
-      animation: blob 7s infinite;
-    }
-
-    .animation-delay-2000 {
-      animation-delay: 2s;
-    }
-
-    .animation-delay-4000 {
-      animation-delay: 4s;
-    }
-
-    .group-hover\:gradient\:text-accent-cyan {
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      background-image: linear-gradient(to right, #a855f7 0%, #22d3ee 100%);
-    }
-
-    .group-hover\:gradient\:text-accent-cyan:hover {
-      background-image: linear-gradient(to right, #22d3ee 0%, #a855f7 100%);
-    }
-  </style>
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-900">
-    <div class="relative overflow-hidden rounded-[30px] border border-accent-purple/20 bg-gradient-to-br from-bg-deep-slate to-bg-deep-slate-lighter p-8 sm:p-12 text-center shadow-[0_35px_90px_-48px_rgba(34,211,238,0.5)] group">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_45%)] transition-opacity duration-500 group-hover:opacity-100"></div>
-      <div class="relative z-10 mx-auto max-w-2xl space-y-6">
-        <div class="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono transition-colors duration-300 group-hover:text-accent-blue-lighter">
-          Únete a la comunidad
-        </div>
-        <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
-          ¿Listo para liderar el futuro de las telecomunicaciones?
-        </h2>
-        <p class="text-sm leading-relaxed text-text-secondary sm:text-base font-light transition-colors duration-300 group-hover:text-text-primary">
-          Conéctate con mentores de la industria, accede a recursos globales de IEEE, organiza congresos internacionales y potencia tu carrera profesional.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 pt-2">
-          <a
-            href="/convocatorias"
-            aria-label="Ver convocatorias abiertas para unir al equipo"
-            class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-8 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_-20px_rgba(34,211,238,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan group-hover:-translate-y-0.5"
-          >
-            <span class="transition-transform duration-300 group-hover:scale-105">Ver Convocatorias Abiertas</span>
-            <span class="absolute inset-0 bg-gradient-to-r from-accent-blue/20 to-accent-cyan/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-          </a>
-          <a
-            href="/nosotros"
-            aria-label="Conocer más sobre IEEE ComSoc Univalle"
-            class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-text-secondary transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan group-hover:-translate-y-0.5"
-          >
-            Conoce Más Sobre Nosotros
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Community CTA Section -->
+  <CommunityCta />
 </BaseLayout>

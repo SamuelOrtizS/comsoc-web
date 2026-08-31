@@ -1,0 +1,165 @@
+---
+import { Icon } from 'astro-icon/components';
+import { formatUSD, formatCOP, getUsdToCopRate } from '../utils/currency';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import patrocinadoresData from '../content/patrocinadores.json';
+
+interface Props {
+  /** Lista opcional de proyectos. Si no se pasa, se obtienen automáticamente de la colección */
+  projects?: CollectionEntry<'proyectos'>[];
+  /** Tasa de cambio opcional USD a COP. Si no se pasa, se consulta automáticamente */
+  exchangeRate?: number;
+  /** Cantidad de patrocinadores opcional. Si no se pasa, se toma del JSON de patrocinadores */
+  sponsorsCount?: number;
+  /** Mostrar o no el botón para abrir el modal de agradecimientos */
+  showSponsorsButton?: boolean;
+  /** Título personalizado para la sección */
+  title?: string;
+  /** Subtítulo o descripción breve */
+  subtitle?: string;
+}
+
+const {
+  projects: customProjects,
+  exchangeRate: customRate,
+  sponsorsCount: customSponsorsCount,
+  showSponsorsButton = true,
+  title = 'Metas y Recaudación de Proyectos Activos',
+  subtitle = 'Estado de Financiamiento de Proyectos',
+} = Astro.props;
+
+// Autocarga de datos si no se pasan como props
+const projects = customProjects ?? (await getCollection('proyectos'));
+const exchangeRate = customRate ?? (await getUsdToCopRate());
+const sponsorsCount = customSponsorsCount ?? patrocinadoresData.length;
+
+// Calcular totales de recaudación y meta desde los proyectos
+let totalRecaudadoUSD = 0;
+let totalMetaUSD = 0;
+
+projects.forEach((p) => {
+  if (typeof p.data.montoActual === 'number') {
+    totalRecaudadoUSD += p.data.montoActual;
+  }
+  if (typeof p.data.montoMeta === 'number') {
+    totalMetaUSD += p.data.montoMeta;
+  }
+});
+
+const faltanteUSD = Math.max(0, totalMetaUSD - totalRecaudadoUSD);
+const porcentajeTotal = totalMetaUSD > 0 ? Math.min(100, Math.round((totalRecaudadoUSD / totalMetaUSD) * 100)) : 100;
+---
+
+<section class="glass-card rounded-[28px] border border-accent-cyan/30 bg-[linear-gradient(180deg,rgba(9,13,27,0.7),rgba(3,5,14,0.85))] p-6 sm:p-10 shadow-[0_20px_60px_rgba(21,93,252,0.15)] relative overflow-hidden">
+  <div class="relative z-10 space-y-8">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-white/10 pb-6">
+      <div>
+        <div class="text-xs uppercase tracking-[0.18em] text-accent-cyan font-mono mb-2">
+          {subtitle}
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-[-0.03em]">
+          {title}
+        </h2>
+      </div>
+      {showSponsorsButton && (
+        <button
+          type="button"
+          id="open-sponsors-modal"
+          class="inline-flex items-center gap-2 self-start sm:self-auto px-5 py-2.5 rounded-xl border border-accent-cyan/40 bg-accent-cyan/10 hover:bg-accent-cyan/20 text-accent-cyan text-xs font-mono font-semibold uppercase tracking-[0.14em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan cursor-pointer shadow-[0_0_20px_rgba(34,211,238,0.15)]"
+        >
+          <Icon name="material-symbols:loyalty-rounded" class="w-4 h-4" aria-hidden="true" />
+          <span>Ver Lista de Agradecimientos ({sponsorsCount})</span>
+        </button>
+      )}
+    </div>
+
+    <!-- Métricas Rápidas -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+        <div class="text-xs uppercase tracking-[0.16em] text-text-secondary font-mono">Total Recaudado</div>
+        <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-accent-emerald font-mono">
+          {formatUSD(totalRecaudadoUSD)}
+        </div>
+        <div class="text-xs text-text-muted font-light mt-1 font-mono">
+          ≈ {formatCOP(totalRecaudadoUSD, exchangeRate)}
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+        <div class="text-xs uppercase tracking-[0.16em] text-text-secondary font-mono">Meta Consolidada</div>
+        <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-text-primary font-mono">
+          {formatUSD(totalMetaUSD)}
+        </div>
+        <div class="text-xs text-text-muted font-light mt-1 font-mono">
+          ≈ {formatCOP(totalMetaUSD, exchangeRate)}
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+        <div class="text-xs uppercase tracking-[0.16em] text-text-secondary font-mono">Faltante para Meta</div>
+        <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-accent-cyan font-mono">
+          {faltanteUSD > 0 ? formatUSD(faltanteUSD) : '¡Meta Cumplida! 🎉'}
+        </div>
+        <div class="text-xs text-text-muted font-light mt-1 font-mono">
+          {faltanteUSD > 0 ? `≈ ${formatCOP(faltanteUSD, exchangeRate)}` : '100% Financiado'}
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Progreso Global -->
+    <div class="space-y-3 pt-2">
+      <div class="flex items-center justify-between text-xs font-mono">
+        <span class="text-text-secondary">Progreso general de financiamiento:</span>
+        <span class="font-bold text-accent-cyan">{porcentajeTotal}% completado</span>
+      </div>
+      <div class="h-4 w-full rounded-full bg-white/5 p-1 border border-white/10 overflow-hidden">
+        <div
+          class="h-full rounded-full bg-linear-to-r from-accent-blue via-accent-cyan to-accent-emerald transition-all duration-1000 shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+          style={`width: ${porcentajeTotal}%`}
+        ></div>
+      </div>
+    </div>
+
+    <!-- Desglose por Proyectos -->
+    <div class="pt-4 border-t border-white/10">
+      <div class="text-xs uppercase tracking-[0.16em] text-text-secondary font-mono mb-4">
+        Desglose individual por iniciativas
+      </div>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {projects.map((proj) => {
+          const rec = proj.data.montoActual || 0;
+          const meta = proj.data.montoMeta || 0;
+          const pct = meta > 0 ? Math.min(100, Math.round((rec / meta) * 100)) : 100;
+          return (
+            <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex flex-col justify-between hover:border-accent-cyan/30 transition-colors">
+              <div>
+                <span class="text-xs font-mono uppercase tracking-[0.14em] text-accent-cyan">
+                  {proj.data.categoria}
+                </span>
+                <h3 class="text-sm font-bold text-text-primary mt-1 line-clamp-2" title={proj.data.titulo}>
+                  {proj.data.titulo}
+                </h3>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/5">
+                <div class="flex items-center justify-between text-xs font-mono text-text-secondary mb-1">
+                  <span>{formatUSD(rec)}</span>
+                  <span>{formatUSD(meta)}</span>
+                </div>
+                <div class="h-2 w-full rounded-full bg-white/5 border border-white/10 overflow-hidden">
+                  <div
+                    class="h-full rounded-full bg-accent-cyan transition-all duration-700"
+                    style={`width: ${pct}%`}
+                  ></div>
+                </div>
+                <div class="text-right text-[10px] font-mono text-accent-cyan mt-1 font-semibold">
+                  {pct}%
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+  <div class="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-accent-blue/10 blur-3xl" aria-hidden="true"></div>
+</section>

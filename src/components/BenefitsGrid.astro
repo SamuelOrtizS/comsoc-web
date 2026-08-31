@@ -1,0 +1,74 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Benefit {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+interface Props {
+  benefits?: Benefit[];
+}
+
+const defaultBenefits: Benefit[] = [
+  {
+    title: 'Acceso a IEEE Xplore',
+    desc: 'Publicaciones científicas, papers técnicos de telecomunicaciones y estándares globales al alcance de los miembros.',
+    icon: 'material-symbols:menu-book-rounded',
+  },
+  {
+    title: 'Networking Internacional',
+    desc: 'Conexión con ingenieros, investigadores y capítulos ComSoc de más de 160 países alrededor del mundo.',
+    icon: 'material-symbols:public',
+  },
+  {
+    title: 'Descuentos & Becas',
+    desc: 'Precios especiales en conferencias internacionales de IEEE (Globecom, ICC, WCNC) y becas para estudiantes.',
+    icon: 'material-symbols:school-rounded',
+  },
+  {
+    title: 'Workshops & Certificaciones',
+    desc: 'Talleres prácticos con laboratorios en tiempo real sobre redes 5G, LoRaWAN, microcontroladores y fibra óptica.',
+    icon: 'material-symbols:construction-rounded',
+  },
+  {
+    title: 'Liderazgo & Gestión',
+    desc: 'Experiencia real dirigiendo comités técnicos, organizando congresos y gestionando presupuestos y patrocinadores.',
+    icon: 'material-symbols:trophy-rounded',
+  },
+  {
+    title: 'Mentoria con la Industria',
+    desc: 'Vínculo directo con empresas líderes del sector telecomunicaciones (operadores, vendors y cloud providers).',
+    icon: 'material-symbols:handshake-rounded',
+  },
+];
+
+const { benefits = defaultBenefits } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl border-t border-glass-border px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto mb-14 max-w-3xl text-center">
+    <div class="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono">
+      Valor para estudiantes
+    </div>
+    <h2 class="mb-4 text-headline font-extrabold tracking-[-0.04em] text-text-primary sm:text-4xl">
+      Beneficios de ser miembro IEEE ComSoc
+    </h2>
+    <p class="text-base leading-relaxed text-text-secondary font-light">
+      Ser parte de la red de telecomunicaciones más grande del planeta te brinda ventajas únicas para acelerar tu desarrollo.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {benefits.map((b) => (
+      <article class="group relative overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,var(--color-bg-deep-slate-lighter),var(--color-bg-primary))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_26px_55px_-35px_rgba(34,211,238,0.7)]">
+        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_18px_30px_-20px_rgba(34,211,238,0.72)]">
+          <Icon name={b.icon} class="w-7 h-7" aria-hidden="true" />
+        </div>
+        <h3 class="mb-2 text-lg font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">{b.title}</h3>
+        <p class="text-sm leading-relaxed text-text-secondary font-light">{b.desc}</p>
+      </article>
+    ))}
+  </div>
+</section>

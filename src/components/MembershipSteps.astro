@@ -1,0 +1,98 @@
+---
+interface Step {
+  step: string;
+  title: string;
+  description: string;
+  link: string;
+  linkText: string;
+}
+
+interface Props {
+  steps?: Step[];
+}
+
+const defaultSteps: Step[] = [
+  {
+    step: 'Paso 01',
+    title: 'Crea tu cuenta en IEEE',
+    description:
+      'Ingresa al portal oficial de IEEE.org y regístrate con tu correo universitario o personal para obtener tu identificador global.',
+    link: 'https://www.ieee.org',
+    linkText: 'Ir al portal de IEEE',
+  },
+  {
+    step: 'Paso 02',
+    title: 'Adquiere tu Membresía Estudiantil IEEE',
+    description:
+      'Selecciona la opción "Student Membership". Si eres estudiante de pregrado o posgrado, cuentas con tarifa reducida especial.',
+    link: 'https://www.ieee.org/membership/join/index.html',
+    linkText: 'Ver tarifas de estudiante',
+  },
+  {
+    step: 'Paso 03',
+    title: 'Añade la Sociedad "IEEE ComSoc"',
+    description:
+      'En la sección de Sociedades Técnicas, selecciona "IEEE Communications Society (ComSoc)" para acceder a recursos y publicaciones.',
+    link: 'https://www.comsoc.org/membership',
+    linkText: 'Beneficios ComSoc Global',
+  },
+  {
+    step: 'Paso 04',
+    title: 'Reporta tu membresía al Capítulo',
+    description:
+      'Escríbenos al WhatsApp oficial o contacta a la directiva con tu IEEE Member ID para integrarte al padrón activo y a los grupos de trabajo.',
+    link: 'https://chat.whatsapp.com',
+    linkText: 'Notificar por WhatsApp',
+  },
+];
+
+const { steps = defaultSteps } = Astro.props;
+---
+
+<section id="membresia" class="mx-auto mt-24 max-w-6xl px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto mb-12 max-w-3xl text-center">
+    <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-cyan/20 bg-accent-cyan/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-cyan font-mono">
+      Ruta de afiliación oficial
+    </div>
+    <h2 class="text-3xl font-bold tracking-[-0.03em] text-text-primary sm:text-4xl">
+      Paso a paso para adquirir tu membresía IEEE ComSoc
+    </h2>
+    <p class="mt-3 text-base leading-relaxed text-text-secondary font-light">
+      Sigue esta guía para unirte formalmente a la sociedad técnica de comunicaciones más prestigiosa del mundo.
+    </p>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    {steps.map((item) => (
+      <article class="glass-card group relative flex flex-col justify-between rounded-2xl border border-white/10 p-6 transition-all duration-300">
+        <div>
+          <div class="mb-4 flex items-center justify-between">
+            <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-accent-cyan">
+              {item.step}
+            </span>
+            <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-text-secondary/70">
+              Requerido
+            </span>
+          </div>
+          <h3 class="mb-2 text-xl font-semibold tracking-tight text-text-primary transition-colors group-hover:text-accent-cyan">
+            {item.title}
+          </h3>
+          <p class="text-sm leading-relaxed text-text-secondary font-light">{item.description}</p>
+        </div>
+
+        <div class="mt-6 border-t border-white/10 pt-4">
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${item.linkText} (abre en una nueva ventana)`}
+            class="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-cyan transition-colors hover:text-accent-cyan-lighter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          >
+            <span>{item.linkText}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

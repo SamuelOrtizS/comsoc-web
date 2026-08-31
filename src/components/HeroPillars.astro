@@ -1,0 +1,81 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Pillar {
+  title: string;
+  desc: string;
+  icon: string;
+  color?: string;
+  border?: string;
+}
+
+interface Props {
+  pillars?: Pillar[];
+}
+
+const defaultPillars: Pillar[] = [
+  {
+    title: '5G / 6G & Redes Móviles',
+    desc: 'Arquitecturas de telecomunicaciones de última generación, Open RAN, beamforming y virtualización de redes NFV/SDN.',
+    icon: 'material-symbols:cell-tower-rounded',
+    color: 'from-accent-blue-lighter/20 to-accent-cyan-darker/20',
+    border: 'border-accent-cyan/30',
+  },
+  {
+    title: 'IoT & Telemetría Satelital',
+    desc: 'Sensores de bajo consumo, protocolos LPWAN (LoRaWAN, NB-IoT), procesamiento en el borde (Edge Computing) y telemetría MQTT.',
+    icon: 'material-symbols:sensors-rounded',
+    color: 'from-accent-cyan-lighter/20 to-accent-emerald-darker/20',
+    border: 'border-accent-emerald/30',
+  },
+  {
+    title: 'Comunicaciones Ópticas & Cuánticas',
+    desc: 'Sistemas DWDM de alta capacidad, fotónica integrada y protocolos de distribución cuántica de claves (QKD).',
+    icon: 'material-symbols:cable-rounded',
+    color: 'from-accent-purple-lighter/20 to-accent-purple-darker/20',
+    border: 'border-accent-purple/30',
+  },
+  {
+    title: 'IA Aplicada a Redes',
+    desc: 'Optimización predictiva de tráfico espectral, detección de anomalías y automatización inteligente de infraestructura de telecomunicaciones.',
+    icon: 'material-symbols:psychology-rounded',
+    color: 'from-accent-blue-lighter/20 to-accent-blue-darker/20',
+    border: 'border-accent-blue/30',
+  },
+];
+
+const { pillars = defaultPillars } = Astro.props;
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 content-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
+  <div class="mx-auto mb-12 max-w-3xl text-center">
+    <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono transition-colors duration-300 hover:text-accent-cyan group-hover:text-accent-blue-lighter">
+      Áreas de Especialización
+    </div>
+    <h2 class="mb-4 text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+      Ecosistema Tecnológico de IEEE ComSoc
+    </h2>
+    <p class="text-sm leading-relaxed text-text-secondary sm:text-base font-light transition-colors duration-300 hover:text-text-primary group-hover:text-text-primary">
+      Desarrollamos proyectos, capacitaciones e investigaciones orientadas a las áreas de mayor impacto en la industria moderna de telecomunicaciones.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+    {pillars.map((pillar) => (
+      <article
+        class={`group relative overflow-hidden rounded-[22px] border ${pillar.border || 'border-white/10'} bg-gradient-to-b from-bg-deep-slate-lighter/35 via-bg-deep-slate/40 to-bg-primary-darker/60 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_28px_60px_-38px_rgba(34,211,238,0.38)] hover:border-accent-cyan/40`}
+      >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_16px_32px_-22px_rgba(34,211,238,0.8)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_20px_40px_-16px_rgba(34,211,238,0.6)]">
+          <Icon name={pillar.icon} class="w-7 h-7 transition-transform duration-500 group-hover:scale-110" aria-hidden="true" />
+        </div>
+        <h3 class="mb-3 text-lg font-bold tracking-[-0.03em] text-text-primary transition-all duration-300 group-hover:text-accent-cyan group-hover:-translate-y-0.5">
+          {pillar.title}
+        </h3>
+        <p class="text-xs leading-relaxed text-text-secondary font-light transition-colors duration-300 group-hover:text-text-primary">
+          {pillar.desc}
+        </p>
+      </article>
+    ))}
+  </div>
+</section>

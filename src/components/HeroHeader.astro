@@ -1,0 +1,84 @@
+---
+interface Props {
+  badgeText: string;
+  badgeColor?: 'cyan' | 'purple' | 'emerald';
+  badgeDot?: boolean;
+  title: string;
+  description: string;
+  titleMaxWidth?: 'max-w-3xl' | 'max-w-4xl';
+  paddingY?: string;
+  hasBottomBorder?: boolean;
+}
+
+const {
+  badgeText,
+  badgeColor = 'cyan',
+  badgeDot = false,
+  title,
+  description,
+  titleMaxWidth = 'max-w-4xl',
+  paddingY = 'py-16 sm:py-20',
+  hasBottomBorder = true,
+} = Astro.props;
+
+const colorClasses = {
+  cyan: {
+    badge: 'border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan shadow-[0_0_18px_rgba(34,211,238,0.12)]',
+    dot: 'bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.9)]',
+    radialGlow: 'bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.08),transparent_70%)]',
+  },
+  purple: {
+    badge: 'border-accent-purple/30 bg-accent-purple/10 text-accent-purple shadow-[0_0_18px_rgba(168,85,247,0.12)]',
+    dot: 'bg-accent-purple shadow-[0_0_12px_rgba(168,85,247,0.9)]',
+    radialGlow: 'bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_70%)]',
+  },
+  emerald: {
+    badge: 'border-accent-emerald/30 bg-accent-emerald/10 text-accent-emerald shadow-[0_0_18px_rgba(52,211,153,0.12)]',
+    dot: 'bg-accent-emerald shadow-[0_0_12px_rgba(52,211,153,0.9)]',
+    radialGlow: 'bg-[radial-gradient(ellipse_at_top,rgba(52,211,153,0.08),transparent_70%)]',
+  },
+};
+
+const currentTheme = colorClasses[badgeColor] ?? colorClasses.cyan;
+---
+
+<section class:list={[
+  'relative overflow-hidden',
+  hasBottomBorder && 'border-b border-white/10',
+  paddingY
+]}>
+  <!-- Subtle decorative ambient glow -->
+  <div class:list={['pointer-events-none absolute inset-0', currentTheme.radialGlow]} aria-hidden="true"></div>
+  
+  <!-- Subtle top accent line -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+    <!-- Badge -->
+    <div class:list={[
+      'mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] font-mono',
+      currentTheme.badge
+    ]}>
+      {badgeDot && (
+        <span class:list={['h-2 w-2 rounded-full', currentTheme.dot]} aria-hidden="true"></span>
+      )}
+      {badgeText}
+    </div>
+
+    <!-- Title -->
+    <h1 class:list={[
+      'mx-auto font-black tracking-[-0.05em] text-text-primary text-4xl sm:text-5xl lg:text-6xl',
+      titleMaxWidth
+    ]}>
+      {title}
+    </h1>
+
+    <!-- Description -->
+    <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
+      {description}
+    </p>
+
+    <!-- Optional Slot (Pills, stats, buttons, badges) -->
+    <slot />
+  </div>
+</section>

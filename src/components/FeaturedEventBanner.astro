@@ -1,0 +1,72 @@
+---
+import { Icon } from 'astro-icon/components';
+import CountdownTimer from './CountdownTimer.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  event: CollectionEntry<'eventos'>;
+}
+
+const { event } = Astro.props;
+const featuredEventSlug = event.id.replace(/\/evento$/, '');
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="relative overflow-hidden rounded-[28px] border border-accent-cyan/20 bg-gradient-to-br from-bg-secondary to-bg-secondary-lighter p-6 sm:p-8 lg:p-10 shadow-[0_30px_90px_-45px_rgba(34,211,238,0.45)]">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--color-accent-cyan-lighter)/14,transparent_28%),radial-gradient(circle_at_bottom_left,var(--color-accent-blue)/12,transparent_32%)]"></div>
+    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent"></div>
+
+    <div class="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12 animate-in fade-in duration-500 delay-300">
+      <div class="space-y-5 lg:col-span-7 animate-in fade-in slide-in-from-left-4 duration-500 delay-500">
+        <div class="inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(34,211,238,0.18)] transition-all duration-300 hover:border-accent-cyan/50 hover:bg-accent-cyan/15 hover:shadow-[0_0_24px_rgba(34,211,238,0.25)] group">
+          <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.95)] animate-pulse"></span>
+          Evento Destacado
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl lg:text-5xl">
+            {event.data.titulo}
+          </h2>
+          <p class="max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
+            {event.data.descripcion}
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-3 text-xs font-mono text-text-secondary font-light sm:text-[11px]">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-accent-cyan/10 group/location">
+            <Icon name="material-symbols:location-on-rounded" class="w-4 h-4 text-accent-cyan transition-transform duration-300 group-hover/location:scale-110" aria-hidden="true" />
+            {event.data.lugarNombre}
+          </div>
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-accent-cyan/10 group/schedule">
+            <Icon name="material-symbols:schedule-rounded" class="w-4 h-4 text-accent-cyan transition-transform duration-300 group-hover/schedule:scale-110" aria-hidden="true" />
+            {event.data.horaInicio} - {event.data.horaFin}
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a
+            href={`/eventos/${featuredEventSlug}`}
+            class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-16px_rgba(34,211,238,0.82)]"
+          >
+            Inscribirse al Evento
+          </a>
+          <a
+            href="/eventos"
+            class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-text-secondary transition duration-200 hover:-translate-y-0.5 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary"
+          >
+            Ver todos los eventos
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 animate-in fade-in slide-in-from-right-4 duration-500 delay-700">
+        <div class="rounded-[24px] border border-white/10 bg-black/20 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm transition-all duration-300 hover:border-accent-cyan/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)]">
+          <CountdownTimer
+            targetDate={`${event.data.fechaInicio}T${event.data.horaInicio || '09:00'}:00`}
+            eventName={event.data.titulo}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

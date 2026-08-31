@@ -1,0 +1,36 @@
+---
+interface Props {
+  formUrl?: string;
+  isClosed: boolean;
+}
+
+const { formUrl, isClosed } = Astro.props;
+---
+
+<footer class="relative border-t border-white/8 pt-10">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <div class="text-text-secondary font-light leading-relaxed text-base sm:text-lg">
+      {isClosed ? (
+        <p class="mb-4">Esta convocatoria ha cerrado sus postulaciones. ¡Gracias por tu interés!</p>
+      ) : (
+        <p>¿Cumples con los requisitos? Completa el formulario oficial de postulación antes de la fecha límite.</p>
+      )}
+    </div>
+
+    {!isClosed && (
+      <a
+        href={formUrl || 'https://forms.gle/sample-comsoc'}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group relative w-full sm:w-auto overflow-hidden rounded-2xl px-10 py-5 font-semibold text-text-primary bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-purple shadow-lg shadow-accent-cyan/25 hover:shadow-accent-cyan/40 transition-all duration-300 text-center flex items-center justify-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary before:absolute before:inset-0 before:bg-gradient-to-r before:from-accent-blue/0 before:via-accent-cyan/0 before:to-accent-purple/0 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+      >
+        <span class="relative z-10 flex items-center gap-2">
+          <span>Postular Ahora</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-rotate-12">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </span>
+      </a>
+    )}
+  </div>
+</footer>

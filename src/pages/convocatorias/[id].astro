@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ConvocatoriaDetails from '../../components/ConvocatoriaDetails.astro';
+import ConvocatoriaCta from '../../components/ConvocatoriaCta.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -98,76 +100,15 @@ const isClosed = data.estado === 'Cerrada';
         {data.descripcion}
       </p>
 
-      <!-- Requirements & Responsibilities Split -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mb-14">
-        <!-- Requisitos -->
-        <section class="group relative rounded-[1.5rem] p-7 lg:p-8 border border-accent-cyan/20 hover:border-accent-cyan/40 transition-all duration-300 overflow-hidden bg-gradient-to-br from-bg-secondary-lighter via-bg-secondary to-bg-primary">
-          <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-cyan to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <header class="flex items-center gap-3 mb-6">
-            <div class="p-2 rounded-lg bg-accent-cyan/10 group-hover:bg-accent-cyan/15 transition-colors duration-300">
-              <Icon name="material-symbols:verified-user-rounded" class="w-5 h-5 text-accent-cyan" aria-hidden="true"/>
-            </div>
-            <h2 class="text-xl lg:text-2xl font-bold text-text-primary tracking-tight">Requisitos</h2>
-          </header>
-          <ul class="space-y-3.5">
-            {data.requisitos.map((req, idx) => (
-              <li class="group/item relative flex items-start gap-3.5 p-3 rounded-lg hover:bg-white/[0.03] transition-colors duration-200">
-                <span class="relative flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-accent-cyan/10 flex items-center justify-center text-accent-cyan font-bold text-xs border border-accent-cyan/20 group-hover/item:bg-accent-cyan/20 group-hover/item:border-accent-cyan/30 transition-all duration-200">{idx + 1}</span>
-                <span class="flex-1 break-words text-text-secondary font-light leading-relaxed">{req}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+      <ConvocatoriaDetails
+        requisitos={data.requisitos}
+        responsabilidades={data.responsabilidades}
+      />
 
-        <!-- Responsabilidades -->
-        <section class="group relative rounded-[1.5rem] p-7 lg:p-8 border border-accent-purple/20 hover:border-accent-purple/40 transition-all duration-300 overflow-hidden bg-gradient-to-br from-bg-secondary-lighter via-bg-secondary to-bg-primary">
-          <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-purple to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <header class="flex items-center gap-3 mb-6">
-            <div class="p-2 rounded-lg bg-accent-purple/10 group-hover:bg-accent-purple/15 transition-colors duration-300">
-              <Icon name="material-symbols:brush-rounded" class="w-5 h-5 text-accent-purple" aria-hidden="true"/>
-            </div>
-            <h2 class="text-xl lg:text-2xl font-bold text-text-primary tracking-tight">Responsabilidades</h2>
-          </header>
-          <ul class="space-y-3.5">
-            {data.responsabilidades.map((resp, idx) => (
-              <li class="group/item relative flex items-start gap-3.5 p-3 rounded-lg hover:bg-white/[0.03] transition-colors duration-200">
-                <span class="relative flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-accent-purple/10 flex items-center justify-center text-accent-purple font-bold text-xs border border-accent-purple/20 group-hover/item:bg-accent-purple/20 group-hover/item:border-accent-purple/30 transition-all duration-200">{idx + 1}</span>
-                <span class="flex-1 break-words text-text-secondary font-light leading-relaxed">{resp}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
-      <!-- Application CTA -->
-      <footer class="relative border-t border-white/8 pt-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div class="text-text-secondary font-light leading-relaxed text-base sm:text-lg">
-            {isClosed ? (
-              <p class="mb-4">Esta convocatoria ha cerrado sus postulaciones. ¡Gracias por tu interés!</p>
-            ) : (
-              <p>¿Cumples con los requisitos? Completa el formulario oficial de postulación antes de la fecha límite.</p>
-            )}
-          </div>
-
-          {!isClosed && (
-            <a
-              href={data.formUrl || 'https://forms.gle/sample-comsoc'}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group relative w-full sm:w-auto overflow-hidden rounded-2xl px-10 py-5 font-semibold text-text-primary bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-purple shadow-lg shadow-accent-cyan/25 hover:shadow-accent-cyan/40 transition-all duration-300 text-center flex items-center justify-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary before:absolute before:inset-0 before:bg-gradient-to-r before:from-accent-blue/0 before:via-accent-cyan/0 before:to-accent-purple/0 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
-            >
-              <span class="relative z-10 flex items-center gap-2">
-                <span>Postular Ahora</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-rotate-12">
-                  <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                </svg>
-              </span>
-            </a>
-          )}
-        </div>
-      </footer>
-
+      <ConvocatoriaCta
+        formUrl={data.formUrl}
+        isClosed={isClosed}
+      />
     </div>
   </article>
 </BaseLayout>

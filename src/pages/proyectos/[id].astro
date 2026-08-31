@@ -4,7 +4,8 @@ import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { formatUSD, formatCOP, getUsdToCopRate } from '../../utils/currency';
+import { getUsdToCopRate } from '../../utils/currency';
+import ProjectFundingGoal from '../../components/ProjectFundingGoal.astro';
 
 export async function getStaticPaths() {
   const proyectos = await getCollection('proyectos');
@@ -35,8 +36,6 @@ const technicalSummary = data.resumenTecnico ? `${data.resumenTecnico}` : null;
 const projectShareUrl = encodeURIComponent('https://SamuelOrtizS.github.io/proyectos');
 const montoActual = Number(data.montoActual ?? 0);
 const montoMeta = Number(data.montoMeta ?? 0);
-const fundingProgress = montoMeta > 0 ? Math.min(100, (montoActual / montoMeta) * 100) : 0;
-const fundingRemaining = montoMeta > 0 ? Math.max(0, montoMeta - montoActual) : 0;
 const resolvedImagen = resolveImage(data.imagen);
 ---
 
@@ -129,63 +128,16 @@ const resolvedImagen = resolveImage(data.imagen);
           </p>
         </div>
 
-        <!-- Funding Progress (Optional) -->
+        <!-- Funding Goal Component -->
         {data.montoActual !== undefined && data.montoMeta !== undefined && (
-          <div class="glass-card rounded-2xl p-8 border border-accent-emerald/30 bg-gradient-to-br from-bg-primary to-bg-emerald-dark">
-            <h2 class="text-xl font-bold text-text-primary mb-2 font-mono flex items-center gap-2">
-              <Icon name="material-symbols:payments-rounded" class="w-6 h-6 text-accent-emerald" aria-hidden="true" /> Estado de Financiamiento
-            </h2>
-            <p class="text-xs text-text-secondary font-light mb-6">
-              Este proyecto requiere fondos externos para la adquisición de componentes y licencias. Puedes apoyar directamente su desarrollo.
-            </p>
-
-            <div class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="p-3.5 rounded-xl bg-white/5 border border-glass-border">
-                  <div class="text-[11px] font-mono text-text-secondary">Meta en Dólares (USD)</div>
-                  <div class="text-base font-bold text-accent-cyan font-mono mt-0.5">
-                    {formatUSD(montoActual)} / {formatUSD(montoMeta)}
-                  </div>
-                </div>
-                <div class="p-3.5 rounded-xl bg-white/5 border border-glass-border">
-                  <div class="text-[11px] font-mono text-text-secondary">Meta en Pesos Colombianos (COP)</div>
-                  <div class="text-base font-bold text-accent-emerald font-mono mt-0.5">
-                    {formatCOP(montoActual, currentRate)} / {formatCOP(montoMeta, currentRate)}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
-                  <div
-                    class="h-full bg-gradient-to-r from-accent-emerald-lighter via-accent-emerald to-accent-emerald-darker rounded-full transition-all duration-500"
-                    style={`width: ${montoMeta > 0 ? `${fundingProgress}%` : '0%'}`}
-                  ></div>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-1 text-xs font-mono text-text-secondary pt-2">
-                  <span>{montoMeta > 0 ? `${Math.round(fundingProgress)}% Financiado` : 'Meta no definida'}</span>
-                  <span>
-                    {montoMeta > 0
-                      ? `Faltan: ${formatUSD(fundingRemaining)} (${formatCOP(fundingRemaining, currentRate)})`
-                      : 'Sin objetivo de financiación activo'}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <span class="text-xs text-text-secondary font-light">
-                * Recuerda especificar <strong>"{data.titulo}"</strong> en el concepto de tu donación.
-              </span>
-              <a
-                href="/donaciones"
-                class="px-5 py-2.5 rounded-xl text-center text-xs font-semibold bg-linear-to-r from-accent-blue to-accent-cyan text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/25 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-              >
-                Donar a este proyecto ↗
-              </a>
-            </div>
-          </div>
+          <ProjectFundingGoal
+            titulo={data.titulo}
+            montoActual={montoActual}
+            montoMeta={montoMeta}
+            currentRate={currentRate}
+          />
         )}
+
         <!-- Technical Summary (Optional) -->
         {technicalSummary && (
           <div class="glass-card rounded-2xl p-8 border border-accent-emerald/30 bg-linear-to-br from-bg-primary to-bg-emerald-dark">
@@ -261,6 +213,7 @@ const resolvedImagen = resolveImage(data.imagen);
             </a>
           </div>
         </div>
+
         <!-- Tags -->
         {data.tags && data.tags.length > 0 && (
           <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">

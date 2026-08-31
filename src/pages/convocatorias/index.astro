@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroHeader from '../../components/HeroHeader.astro';
 import ConvocatoriaCard from '../../components/ConvocatoriaCard.astro';
 import { getCollection } from 'astro:content';
 
@@ -10,21 +11,12 @@ const allConvocatorias = await getCollection('convocatorias');
   title="IEEE ComSoc Univalle | Convocatorias Abiertas"
   description="Únete al equipo directivo y comités de trabajo del Capítulo Estudiantil IEEE ComSoc."
 >
-  <section class="relative border-b border-white/10 py-16 sm:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent-purple/30 bg-accent-purple/10 px-3 py-1 text-xs font-mono uppercase tracking-[0.18em] text-accent-purple">
-        Oportunidades de voluntariado
-      </div>
-
-      <h1 class="mb-4 text-4xl font-extrabold tracking-[-0.04em] text-text-primary sm:text-5xl lg:text-6xl">
-        Convocatorias &amp; reclutamiento
-      </h1>
-
-      <p class="mx-auto max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
-        Forma parte de nuestros equipos de proyectos, organización de eventos, marketing e investigación. Potencia tu perfil profesional.
-      </p>
-    </div>
-  </section>
+  <HeroHeader
+    badgeText="Oportunidades de voluntariado"
+    badgeColor="purple"
+    title="Convocatorias & reclutamiento"
+    description="Forma parte de nuestros equipos de proyectos, organización de eventos, marketing e investigación. Potencia tu perfil profesional."
+  />
 
   <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mb-8 flex items-center justify-between">

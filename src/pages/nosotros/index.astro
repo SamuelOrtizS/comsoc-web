@@ -1,0 +1,107 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import HeroHeader from '../../components/HeroHeader.astro';
+import BenefitsGrid from '../../components/BenefitsGrid.astro';
+import GallerySection from '../../components/GallerySection.astro';
+import TeamCard from '../../components/TeamCard.astro';
+import TeamModal from '../../components/TeamModal.astro';
+
+const rawJunta = await getCollection('juntaDirectiva');
+const team = rawJunta
+  .map((item) => item.data)
+  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+---
+
+<BaseLayout
+  title="IEEE ComSoc Univalle | Sobre Nosotros"
+  description="Conoce la misión, visión, directiva y beneficios de pertenecer al Capítulo Estudiantil IEEE ComSoc."
+>
+  <!-- Page Header Banner -->
+  <HeroHeader
+    badgeText="Sobre la Comunidad"
+    badgeColor="cyan"
+    badgeDot={true}
+    title="Conectando al mundo a través de la tecnología"
+    description="El Capítulo Estudiantil IEEE ComSoc es el espacio universitario donde convergen la ciencia, la investigación y la pasión por las redes y telecomunicaciones."
+  >
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-text-secondary">
+      <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Investigación</span>
+      <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Innovación</span>
+      <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">Comunidades</span>
+    </div>
+  </HeroHeader>
+
+  <!-- Gallery Slideshow -->
+  <GallerySection />
+
+  <!-- Mission & Vision Cards -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-10 max-w-3xl text-center mx-auto">
+      <div class="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono">
+        ¿Qué nos mueve?
+      </div>
+      <h2 class="text-headline font-extrabold tracking-[-0.04em] text-text-primary sm:text-4xl">
+        Una comunidad impulsada por la ingeniería aplicada
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <!-- Misión -->
+      <div class="group relative overflow-hidden rounded-[28px] border border-accent-blue/30 bg-[linear-gradient(180deg,var(--color-bg-deep-slate-lighter),var(--color-bg-primary))] p-8 shadow-[0_20px_65px_-40px_rgba(21,93,252,0.65)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-blue/60">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--color-accent-blue)/15%,transparent_35%)]" aria-hidden="true"></div>
+        <div class="relative">
+          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-blue/30 bg-accent-blue/15 text-accent-blue shadow-[0_0_24px_rgba(21,93,252,0.18)]">
+            <Icon name="material-symbols:target" class="w-7 h-7" aria-hidden="true" />
+          </div>
+          <h3 class="mb-4 text-headline font-bold tracking-[-0.04em] text-text-primary">Nuestra Misión</h3>
+          <p class="text-base leading-relaxed text-text-secondary font-light">
+            Fomentar la excelencia académica, técnica y humana de los estudiantes a través de conferencias de primer nivel, talleres prácticos, proyectos interdisciplinarios e investigación en comunicaciones inalámbricas, ópticas, satelitales y ciberseguridad.
+          </p>
+        </div>
+      </div>
+
+      <!-- Visión -->
+      <div class="group relative overflow-hidden rounded-[28px] border border-accent-cyan/30 bg-[linear-gradient(180deg,var(--color-bg-deep-slate-lighter),var(--color-bg-primary))] p-8 shadow-[0_20px_65px_-40px_rgba(34,211,238,0.6)] transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/60">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--color-accent-cyan)/15%,transparent_35%)]" aria-hidden="true"></div>
+        <div class="relative">
+          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-accent-cyan/30 bg-accent-cyan/15 text-accent-cyan shadow-[0_0_24px_rgba(34,211,238,0.18)]">
+            <Icon name="material-symbols:rocket-launch-rounded" class="w-7 h-7" aria-hidden="true" />
+          </div>
+          <h3 class="mb-4 text-headline font-bold tracking-[-0.04em] text-text-primary">Nuestra Visión</h3>
+          <p class="text-base leading-relaxed text-text-secondary font-light">
+            Posicionarnos como el capítulo estudiantil referente en la región, reconocido por la calidad técnica de sus miembros, su capacidad de innovación tecnológica y su compromiso con el cierre de la brecha digital mediante la ingeniería.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Member Benefits Grid -->
+  <BenefitsGrid />
+
+  <!-- Team Leadership Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-glass-border">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-[10px] uppercase font-mono tracking-widest text-accent-purple mb-2 font-semibold">
+        Liderazgo 2026
+      </div>
+      <h2 class="text-headline font-extrabold text-text-primary mb-4">
+        Mesa Directiva &amp; Asesoría
+      </h2>
+      <p class="text-text-secondary font-light">
+        Estudiantes y docentes comprometidos en liderar las iniciativas y proyectos del capítulo. Haz clic en cualquier perfil para ver más información.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {team.map((member) => (
+        <TeamCard member={member} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Member Profile Modal -->
+  <TeamModal />
+</BaseLayout>

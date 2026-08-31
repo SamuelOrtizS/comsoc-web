@@ -1,0 +1,66 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Faq {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  faqs?: Faq[];
+  title?: string;
+  badge?: string;
+}
+
+const defaultFaqs: Faq[] = [
+  {
+    q: '¿Es obligatorio tener membresía de IEEE para participar en ComSoc?',
+    a: '¡No! Puedes participar como colaborador en nuestros proyectos, talleres y grupos de estudio sin necesidad de contar con membresía formal. La membresía oficial de IEEE ComSoc te otorga certificados internacionales, descuentos en conferencias globales y acceso a IEEE Xplore, pero la motivación por aprender y colaborar es lo fundamental para integrarte a la comunidad.',
+  },
+  {
+    q: '¿Qué requisitos necesito para unirme como colaborador?',
+    a: 'Estar matriculado en la universidad o tener interés en áreas afines (telecomunicaciones, electrónica, sistemas, software, etc.), contar con disposición para participar en reuniones y proyectos, y compromiso para aprender de forma colaborativa.',
+  },
+  {
+    q: '¿Qué beneficios obtengo al tener la membresía oficial de IEEE ComSoc?',
+    a: 'Acceso completo a la biblioteca digital IEEE Xplore, membresía en IEEE ComSoc con acceso a IEEE Communications Magazine, tarifas preferenciales en congresos internacionales (IEEE GLOBECOM, IEEE ICC), postulación a becas y premios globales, y alias de correo institucional @ieee.org con Google Workspace.',
+  },
+  {
+    q: '¿Cuánto tiempo a la semana debo dedicar si me uno a un proyecto?',
+    a: 'Generalmente entre 2 a 5 horas semanales, dependiendo del rol asignado y los objetivos del equipo. Mantenemos flexibilidad total entendiendo las responsabilidades y horarios académicos.',
+  },
+  {
+    q: '¿Cómo puedo ponerme en contacto con el equipo?',
+    a: 'La forma más directa es unirte a nuestra comunidad general de WhatsApp a través del enlace en esta página o escribirnos mediante nuestras redes sociales y correo oficial.',
+  },
+];
+
+const { faqs = defaultFaqs, title = 'Preguntas frecuentes', badge = 'Dudas frecuentes' } = Astro.props;
+---
+
+<section class="mx-auto mt-24 max-w-4xl px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto mb-10 max-w-3xl text-center">
+    <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-purple/20 bg-accent-purple/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-purple font-mono">
+      {badge}
+    </div>
+    <h2 class="text-3xl font-bold tracking-[-0.03em] text-text-primary sm:text-4xl">{title}</h2>
+  </div>
+
+  <div class="space-y-4">
+    {faqs.map((faq) => (
+      <details class="glass-card group rounded-2xl border border-white/10 p-5 transition-colors">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-text-primary text-base sm:text-lg">
+          <span>{faq.q}</span>
+          <Icon
+            name="material-symbols:keyboard-arrow-down-rounded"
+            class="h-5 w-5 shrink-0 text-text-secondary transition-transform duration-200 group-open:rotate-180"
+            aria-hidden="true"
+          />
+        </summary>
+        <p class="mt-4 border-t border-white/10 pt-4 text-sm leading-relaxed text-text-secondary font-light sm:text-base">
+          {faq.a}
+        </p>
+      </details>
+    ))}
+  </div>
+</section>

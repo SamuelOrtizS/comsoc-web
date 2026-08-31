@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { resolveImage } from '../utils/imageResolver';
+import type { CollectionEntry } from 'astro:content';
+
+type MemberData = CollectionEntry<'juntaDirectiva'>['data'];
+
+interface Props {
+  member: MemberData;
+}
+
+const { member } = Astro.props;
+---
+
+<button
+  type="button"
+  class="member-card group relative w-full rounded-3xl border border-white/10 bg-linear-to-b from-bg-primary to-bg-deep-slate/90 p-6 text-center transition-all duration-350 ease-[cubic-bezier(0.22,0.6,0.51,1)] hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_30px_70px_-20px_rgba(34,211,238,0.5),inset_0_1px_0_0_rgba(255,255,255,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary before:absolute before:inset-0 before:bg-linear-to-b before:from-transparent before:to-black/2 before:opacity-0 group-hover:before:opacity-100 group-hover:before:transition-opacity group-hover:before:duration-300"
+  data-member={JSON.stringify(member)}
+  aria-label={`Ver perfil de ${member.name}`}
+>
+  <div class="relative z-10">
+    <!-- Avatar -->
+    <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-accent-cyan/40 bg-linear-to-tr from-accent-blue/30 to-accent-cyan/30 text-accent-cyan transition-all duration-500 ease-[cubic-bezier(0.22,0.6,0.51,1)] group-hover:scale-105 group-hover:border-accent-cyan/70 group-hover:shadow-[0_8px_25px_-5px_rgba(34,211,238,0.4)]">
+      {member.image
+        ? <Image
+            src={resolveImage(member.image) as any}
+            alt={member.name}
+            width={200}
+            height={200}
+            sizes="80px"
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full rounded-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+        : <Icon name="material-symbols:person-rounded" class="w-10 h-10 transition-transform duration-500 ease-out group-hover:scale-110" aria-hidden="true" />
+      }
+    </div>
+
+    <!-- Name & Role -->
+    <h3 class="mb-2 text-xl font-black tracking-tight text-text-primary transition-colors duration-200 group-hover:text-accent-cyan">
+      {member.name}
+    </h3>
+    <div class="mb-2 text-xs font-mono font-bold uppercase tracking-wider text-accent-cyan">
+      {member.role}
+    </div>
+    <p class="mb-5 text-xs leading-relaxed text-text-secondary/70 transition-colors duration-200 group-hover:text-white/80">
+      {member.department}
+    </p>
+
+    <!-- CTA pill -->
+    <div class="inline-flex items-center gap-2.5 rounded-full border border-glass-border bg-glass-bg px-3.5 py-1.75 text-[10px] font-mono uppercase tracking-[0.16em] text-text-secondary shadow-[0_4px_12px_-8px_rgba(0,0,0,0.3)] transition-all duration-300 ease-out group-hover:border-accent-cyan/40 group-hover:bg-accent-cyan/10 group-hover:text-accent-cyan group-hover:shadow-[0_6px_16px_-8px_rgba(34,211,238,0.3)]">
+      Ver perfil
+      <span aria-hidden="true" class="transition-transform duration-300 ease-out group-hover:translate-x-0.5">→</span>
+    </div>
+  </div>
+</button>

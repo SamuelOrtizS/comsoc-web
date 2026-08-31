@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/imageResolver';
+
+interface Props {
+  galeria: string[];
+}
+
+const { galeria } = Astro.props;
+---
+
+{galeria && galeria.length > 0 && (
+  <section class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10">
+    <div class="mb-6 flex items-center justify-between gap-4">
+      <h2 class="text-xl font-bold text-text-primary font-mono">Galería &amp; Recursos</h2>
+      <span class="text-[10px] uppercase tracking-[0.18em] text-text-secondary font-mono">
+        {galeria.length} fotos
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {galeria.map((img, idx) => (
+        <div class="group overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary aspect-video">
+          <Image
+            src={resolveImage(img) as any}
+            alt={`Foto ${idx + 1}`}
+            width={800}
+            height={450}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          />
+        </div>
+      ))}
+    </div>
+  </section>
+)}

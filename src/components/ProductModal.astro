@@ -1,0 +1,224 @@
+---
+import { Icon } from 'astro-icon/components';
+import iconMap from '../utils/tiendaIconMap.json';
+---
+
+<!-- Product Detail Modal -->
+<div
+  id="product-modal-overlay"
+  class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 opacity-0 backdrop-blur-xl transition-all duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-product-name"
+>
+  <div
+    id="product-modal"
+    class="relative w-full max-w-2xl translate-y-4 overflow-hidden rounded-[28px] border border-white/10 bg-bg-secondary shadow-[0_32px_80px_-28px_rgba(69,219,237,0.8)] transition-all duration-300"
+  >
+    <button
+      id="product-modal-close"
+      type="button"
+      class="absolute right-4 top-4 z-10 rounded-xl border border-white/10 bg-black/25 p-2 text-text-secondary transition hover:border-white/20 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
+      aria-label="Cerrar"
+    >
+      <Icon name="material-symbols:close-rounded" class="h-5 w-5" aria-hidden="true" />
+    </button>
+
+    <div class="grid gap-0 md:grid-cols-[1.05fr_1fr]">
+      <!-- Image panel -->
+      <div class="relative aspect-[5/4] overflow-hidden bg-bg-secondary md:aspect-auto">
+        <img id="modal-product-image" src="" alt="" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,15,36,0.15),rgba(10,15,36,0.7))]"></div>
+        <span
+          id="modal-product-category"
+          class="absolute left-4 top-4 rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono backdrop-blur-sm"
+        ></span>
+      </div>
+
+      <!-- Content panel -->
+      <div class="flex flex-col p-6 sm:p-7">
+        <div class="mb-3">
+          <div id="modal-product-price" class="mb-2 text-2xl font-bold text-accent-cyan font-mono"></div>
+          <h2 id="modal-product-name" class="text-2xl font-black tracking-[-0.05em] text-text-primary"></h2>
+        </div>
+
+        <div id="modal-availability" class="mb-4 text-sm font-mono"></div>
+        <div id="modal-resources" class="space-y-3"></div>
+        <div id="modal-specifications" class="space-y-3"></div>
+        <p id="modal-product-desc" class="mt-4 text-sm leading-relaxed text-text-secondary font-light"></p>
+
+        <div class="mt-6 pt-4">
+          <a
+            id="modal-whatsapp-btn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex w-full items-center justify-center gap-2 rounded-xl border border-accent-emerald/35 bg-accent-emerald/20 px-4 py-3 text-sm font-semibold text-accent-emerald transition hover:bg-accent-emerald/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-secondary"
+          >
+            <span>Pedir por WhatsApp</span>
+            <Icon name="material-symbols:chat-rounded" class="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ iconMap }}>
+  const overlay = document.getElementById('product-modal-overlay');
+  const modal = document.getElementById('product-modal');
+  const closeBtn = document.getElementById('product-modal-close');
+
+  const iconBodies = iconMap;
+
+  function getIconBody(icon) {
+    if (!icon) return iconBodies['palette'] ?? '';
+    let key = icon.replace('material-symbols:', '');
+    if (iconBodies[key]) return iconBodies[key];
+    const base = key.replace(/-rounded|-outlined|-sharp/g, '');
+    if (iconBodies[base]) return iconBodies[base];
+    if (iconBodies[key + '-rounded']) return iconBodies[key + '-rounded'];
+    const emojiMap = {
+      '🛡️': iconBodies['shield-rounded'] ?? '',
+      '🚀': iconBodies['local-shipping-rounded'] ?? '',
+      '💧': iconBodies['water-drop-rounded'] ?? '',
+      '🌐': iconBodies['palette'] ?? '',
+      '💦': iconBodies['water-drop-rounded'] ?? '',
+      '✨': iconBodies['auto-awesome-rounded'] ?? '',
+      '💡': iconBodies['lightbulb-rounded'] ?? '',
+      '🧵': iconBodies['checkroom-rounded'] ?? '',
+    };
+    return emojiMap[icon] ?? iconBodies['palette'] ?? '';
+  }
+
+  function iconSvg(icon, size = 20) {
+    const body = getIconBody(icon);
+    return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="currentColor" aria-hidden="true">${body}</svg>`;
+  }
+
+  function hexToRgba(hex, alpha) {
+    const clean = hex.startsWith('#') ? hex.slice(1) : hex;
+    const normalized = clean.length === 3 ? clean.split('').map((char) => char + char).join('') : clean;
+    const value = Number.parseInt(normalized, 16);
+    const r = (value >> 16) & 255;
+    const g = (value >> 8) & 255;
+    const b = value & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  function openProductModal(prod) {
+    const modalImage = document.getElementById('modal-product-image');
+    const modalCategory = document.getElementById('modal-product-category');
+    const modalPrice = document.getElementById('modal-product-price');
+    const modalName = document.getElementById('modal-product-name');
+    const modalDesc = document.getElementById('modal-product-desc');
+    const availability = document.getElementById('modal-availability');
+    const resourcesContainer = document.getElementById('modal-resources');
+    const specsContainer = document.getElementById('modal-specifications');
+    const waBtn = document.getElementById('modal-whatsapp-btn');
+
+    modalImage.src = prod.image;
+    modalImage.alt = prod.name;
+    modalCategory.textContent = prod.category;
+    modalPrice.textContent = prod.price;
+    modalName.textContent = prod.name;
+    modalDesc.textContent = prod.description;
+
+    availability.innerHTML = prod.available
+      ? `<span class="inline-flex items-center gap-1.5 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1 text-accent-emerald font-mono text-xs uppercase tracking-[0.12em]">${iconSvg('material-symbols:check-circle-rounded', 16)} En stock</span>`
+      : `<span class="inline-flex items-center gap-1.5 rounded-full border border-accent-red/30 bg-accent-red/10 px-3 py-1 text-accent-red font-mono text-xs uppercase tracking-[0.12em]">${iconSvg('material-symbols:cancel-rounded', 16)} Agotado</span>`;
+
+    if (prod.resources && prod.resources.length > 0) {
+      resourcesContainer.innerHTML = `
+        <div class="space-y-3 border-t border-white/10 pt-4">
+          <h3 class="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-secondary font-mono">Recursos</h3>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            ${prod.resources.map((resource) => {
+              const color = resource.color ?? '#65dbed';
+              return `
+                <a
+                  href="${resource.link}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group rounded-2xl border p-3 transition hover:-translate-y-0.5"
+                  style="border-color: ${color}; background: ${hexToRgba(color, 0.08)};"
+                >
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-black/25" style="color: ${color};">
+                      ${iconSvg(resource.icon, 20)}
+                    </span>
+                    <div>
+                      <p class="text-sm font-semibold text-text-primary">${resource.title}</p>
+                      <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-accent-cyan">Ver más</span>
+                    </div>
+                  </div>
+                </a>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    } else {
+      resourcesContainer.innerHTML = '';
+    }
+
+    if (prod.specifications && prod.specifications.length > 0) {
+      specsContainer.innerHTML = `
+        <div class="space-y-2 border-t border-white/10 pt-4">
+          <h3 class="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-secondary font-mono">Especificaciones</h3>
+          <dl class="space-y-2">
+            ${prod.specifications.map((spec) => `
+              <div class="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-white/3 px-3 py-2">
+                <dt class="text-xs font-medium text-text-secondary font-mono uppercase tracking-[0.12em]">${spec.key}</dt>
+                <dd class="text-right text-sm text-text-primary">${spec.value}</dd>
+              </div>
+            `).join('')}
+          </dl>
+        </div>
+      `;
+    } else {
+      specsContainer.innerHTML = '';
+    }
+
+    waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`;
+    if (!prod.available) {
+      waBtn.classList.add('pointer-events-none', 'opacity-50');
+    } else {
+      waBtn.classList.remove('pointer-events-none', 'opacity-50');
+    }
+
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
+    modal.classList.remove('translate-y-4');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductModal() {
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    modal.classList.add('translate-y-4');
+    document.body.style.overflow = '';
+  }
+
+  function setupProductModal() {
+    document.querySelectorAll('.product-card-btn').forEach((btn) => {
+      if (btn.dataset.modalInitialized) return;
+      btn.dataset.modalInitialized = 'true';
+      btn.addEventListener('click', () => {
+        const raw = btn.getAttribute('data-product');
+        if (raw) openProductModal(JSON.parse(raw));
+      });
+    });
+  }
+
+  setupProductModal();
+  document.addEventListener('astro:page-load', setupProductModal);
+
+  closeBtn.addEventListener('click', closeProductModal);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) closeProductModal();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeProductModal();
+  });
+</script>

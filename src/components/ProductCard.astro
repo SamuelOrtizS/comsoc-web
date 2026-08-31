@@ -1,0 +1,83 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/imageResolver';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  item: CollectionEntry<'tienda'>;
+}
+
+const { item } = Astro.props;
+const prod = item.data;
+---
+
+<article class="glass-card group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-bg-secondary/30 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-cyan/40 hover:shadow-[0_30px_70px_-46px_rgba(69,219,237,0.7)]">
+  <!-- Image + badges trigger -->
+  <button
+    type="button"
+    class="product-card-btn w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+    data-product={JSON.stringify(prod)}
+    aria-label={`Ver detalles de ${prod.name}`}
+  >
+    <div class="relative overflow-hidden bg-bg-secondary">
+      <div class="aspect-square overflow-hidden">
+        <Image
+          src={resolveImage(prod.image) as any}
+          alt={prod.name}
+          width={600}
+          height={600}
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+      <div class="absolute inset-x-3 top-3 flex items-center justify-between gap-2">
+        <span class="rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono backdrop-blur-sm">
+          {prod.category}
+        </span>
+        {prod.available ? (
+          <span class="rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-emerald font-mono">
+            En stock
+          </span>
+        ) : (
+          <span class="rounded-full border border-accent-red/30 bg-accent-red/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-red font-mono">
+            Agotado
+          </span>
+        )}
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="p-5">
+      <div class="mb-2 text-lg font-bold text-accent-cyan font-mono">{prod.price}</div>
+      <h3 class="mb-2 text-base font-bold tracking-[-0.03em] text-text-primary transition-colors group-hover:text-accent-cyan">
+        {prod.name}
+      </h3>
+      <p class="text-sm leading-relaxed text-text-secondary font-light line-clamp-3">
+        {prod.description}
+      </p>
+    </div>
+  </button>
+
+  <!-- Action buttons -->
+  <div class="mt-auto flex items-center gap-2 p-5 pt-0">
+    <button
+      type="button"
+      class="product-card-btn flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-center text-sm font-semibold text-text-secondary transition hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+      data-product={JSON.stringify(prod)}
+    >
+      Ver detalles
+    </button>
+    <a
+      href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Hola, deseo consultar y pedir el producto: ${prod.name} (${prod.price}) de la tienda IEEE ComSoc.`)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex flex-1 items-center justify-center gap-2 rounded-xl border border-accent-emerald/35 bg-accent-emerald/20 px-3 py-2.5 text-sm font-semibold text-accent-emerald transition hover:bg-accent-emerald/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+      aria-label={`Consultar por WhatsApp el producto ${prod.name}`}
+    >
+      <span>WhatsApp</span>
+      <Icon name="material-symbols:chat-rounded" class="h-4 w-4" aria-hidden="true" />
+    </a>
+  </div>
+</article>

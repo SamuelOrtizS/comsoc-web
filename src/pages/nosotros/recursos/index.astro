@@ -4,53 +4,31 @@ const frontmatter = {
   description: "Descarga kits de marca, plantillas y otros materiales útiles de IEEE ComSoc Univalle."
 };
 
-import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import HeroHeader from '../../../components/HeroHeader.astro';
 import ResourceCard from '../../../components/ResourceCard.astro';
+import ResourceStatsBadge from '../../../components/ResourceStatsBadge.astro';
+import EmptyState from '../../../components/EmptyState.astro';
 
 const recursos = await getCollection('recursos');
 const categorias = Array.from(new Set(recursos.map((r) => r.data.categoria)));
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
-  <!-- Header: matches proyectos / eventos / convocatorias rhythm -->
-  <section class="relative overflow-hidden border-b border-white/10 py-16 sm:py-20">
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-      <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-[11px] font-mono tracking-[0.18em] text-accent-cyan uppercase">
-        <span class="h-1.5 w-1.5 rounded-full bg-accent-cyan shadow-[0_0_10px_rgba(34,211,238,0.8)]"></span>
-        Kits &amp; plantillas
-      </div>
-
-      <h1 class="mx-auto max-w-3xl text-4xl font-black tracking-[-0.04em] text-text-primary sm:text-5xl lg:text-6xl leading-[0.95]">
-        {frontmatter.title}
-      </h1>
-
-      <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
-        {frontmatter.description}
-      </p>
-
-      {recursos.length > 0 && (
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-mono text-text-secondary backdrop-blur-md">
-            <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_10px_rgba(34,211,238,0.7)]"></span>
-            <span class="text-text-primary font-semibold">{recursos.length}</span>
-            <span>{recursos.length === 1 ? 'recurso' : 'recursos'}</span>
-          </div>
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-mono text-text-secondary backdrop-blur-md">
-            <span class="h-2 w-2 rounded-full bg-accent-purple shadow-[0_0_10px_rgba(168,85,247,0.7)]"></span>
-            <span class="text-text-primary font-semibold">{categorias.length}</span>
-            <span>{categorias.length === 1 ? 'categoría' : 'categorías'}</span>
-          </div>
-          <div class="hidden sm:inline-flex items-center gap-2 rounded-full border border-accent-blue/20 bg-accent-blue/10 px-3 py-2 text-xs font-mono text-accent-blue backdrop-blur-md">
-            <span>Acceso libre</span>
-            <span class="text-accent-blue/60">•</span>
-            <span class="text-text-secondary">descarga directa</span>
-          </div>
-        </div>
-      )}
-    </div>
-  </section>
+  <HeroHeader
+    badgeText="Kits & plantillas"
+    badgeColor="cyan"
+    badgeDot={true}
+    title={frontmatter.title}
+    description={frontmatter.description}
+    titleMaxWidth="max-w-3xl"
+  >
+    <ResourceStatsBadge
+      totalRecursos={recursos.length}
+      totalCategorias={categorias.length}
+    />
+  </HeroHeader>
 
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     {recursos.length > 0 ? (
@@ -60,15 +38,11 @@ const categorias = Array.from(new Set(recursos.map((r) => r.data.categoria)));
         ))}
       </div>
     ) : (
-      <div class="glass-card mx-auto max-w-xl rounded-2xl border border-white/10 p-10 sm:p-12 text-center shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md">
-        <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-text-secondary">
-          <Icon name="material-symbols:folder-off-rounded" class="w-7 h-7" aria-hidden="true" />
-        </div>
-        <h3 class="mb-2 text-lg font-bold text-text-primary">No hay recursos disponibles</h3>
-        <p class="mx-auto max-w-sm text-sm leading-relaxed text-text-secondary">
-          Aún no hemos publicado materiales descargables. Vuelve pronto — estamos preparando kits de marca y plantillas para la comunidad.
-        </p>
-      </div>
+      <EmptyState
+        icon="material-symbols:folder-off-rounded"
+        title="No hay recursos disponibles"
+        description="Aún no hemos publicado materiales descargables. Vuelve pronto — estamos preparando kits de marca y plantillas para la comunidad."
+      />
     )}
   </div>
 </BaseLayout>

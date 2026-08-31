@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import AddToCalendar from './AddToCalendar.astro';
+import CountdownTimer from './CountdownTimer.astro';
+
+interface Props {
+  data: CollectionEntry<'eventos'>['data'];
+  isPast: boolean;
+  eventDetails: { label: string; value: string }[];
+}
+
+const { data, isPast, eventDetails } = Astro.props;
+---
+
+<aside class="lg:col-span-4 space-y-6">
+  {!isPast && (
+    <div class="space-y-4">
+      <AddToCalendar
+        event={{
+          title: data.titulo,
+          description: data.descripcion,
+          location: `${data.lugarNombre}${data.lugarDireccion ? ` - ${data.lugarDireccion}` : ''}`,
+          startDate: data.fechaInicio,
+          endDate: data.fechaFin || data.fechaInicio,
+          startTime: data.horaInicio,
+          endTime: data.horaFin,
+        }}
+      />
+      <CountdownTimer
+        targetDate={`${data.fechaInicio}T${data.horaInicio || '09:00'}:00`}
+        eventName={data.titulo}
+      />
+    </div>
+  )}
+
+  <div class="glass-card rounded-2xl p-6 border border-white/10">
+    <h3 class="text-base font-bold text-text-primary mb-4 font-mono">Detalles del evento</h3>
+    <dl class="space-y-3 text-sm">
+      {eventDetails.map((detail) => (
+        <div class="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+          <dt class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">{detail.label}</dt>
+          <dd class="mt-1 text-text-primary font-medium">{detail.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+
+  <div class="glass-card rounded-2xl p-6 border border-white/10 text-center space-y-4">
+    <h3 class="text-base font-bold text-text-primary font-mono">Comparte este evento</h3>
+    <p class="text-xs text-text-secondary font-light">
+      Invita a tus compañeros de carrera a participar en las actividades de IEEE ComSoc.
+    </p>
+    <div class="flex gap-2 justify-center pt-2">
+      <a
+        href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`¡Te invito a este evento de IEEE ComSoc!: ${data.titulo}`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-4 py-2 text-xs font-semibold rounded-xl bg-accent-emerald/30 text-accent-emerald border border-accent-emerald/40 hover:bg-accent-emerald/50 transition flex items-center gap-1.5"
+      >
+        WhatsApp
+      </a>
+      <a
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://comsoc.org')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-4 py-2 text-xs font-semibold rounded-xl bg-accent-blue/30 text-accent-blue border border-accent-blue/40 hover:bg-accent-blue/50 transition flex items-center gap-1.5"
+      >
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</aside>
