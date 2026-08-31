@@ -2,10 +2,10 @@
   "order": 2,
   "nombre": "Universidad del Valle",
   "tipo": "Institución Académica",
-  "image": "/images/LOGO_UV_Color.png",
+  "logo": "/images/LOGO_UV_Color.png",
   "descripcion": "La Universidad del Valle es una de las instituciones de educación superior pública más importantes de Colombia y el principal centro académico del suroccidente del país. La institución destaca por su acreditación de alta calidad, su fuerte compromiso con la investigación científica y su papel fundamental en el desarrollo educativo, cultural y tecnológico de la región.",
   "acerca": "A través de su Facultad de Ingeniería y sus diversos grupos de investigación, la institución forma profesionales altamente capacitados y fomenta la innovación constante. Además, su campus funciona como un espacio clave para el desarrollo del liderazgo estudiantil, impulsando el crecimiento de organizaciones científicas que buscan conectar el conocimiento académico con las necesidades reales de la sociedad.",
   "website": "https://www.univalle.edu.co/",
   "instagram": "https://www.instagram.com/univallecol/",
-  "linkedin": "https://www.linkedin.com/school/universidad-del-valle/posts/?feedView=all",
+  "linkedin": "https://www.linkedin.com/school/universidad-del-valle/posts/?feedView=all"
 }
