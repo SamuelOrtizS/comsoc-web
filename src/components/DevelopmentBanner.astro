@@ -1,0 +1,80 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  instagramUrl?: string;
+}
+
+const {
+  instagramUrl = "https://www.instagram.com/ieee.comsoc.univalle/",
+} = Astro.props;
+---
+
+<!-- Development Banner (no bloqueante) -->
+<div
+  id="development-banner"
+  role="status"
+  aria-live="polite"
+  aria-label="Aviso de versión de desarrollo"
+  class="sticky top-22 z-30 mx-4 sm:mx-6 lg:mx-8 mt-2 hidden border border-accent-amber/30 from-accent-amber-lighter/10 to-accent-amber-darker/5 bg-linear-to-br rounded-2xl backdrop-blur-md"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div class="flex items-center gap-3 min-w-0">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl from-accent-amber-lighter to-accent-amber-darker bg-linear-to-br text-text-primary shrink-0">
+        <Icon name="material-symbols:construction-rounded" class="w-5 h-5" aria-hidden="true" />
+      </span>
+      <div class="min-w-0">
+        <p class="text-[11px] font-mono font-semibold tracking-[0.14em] uppercase text-accent-amber flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-linear-to-br from-accent-amber-lighter to-accent-amber-darker animate-pulse"></span>
+          Versión de desarrollo — Sincronizando infraestructura
+        </p>
+        <p class="text-xs text-text-secondary font-light leading-tight truncate sm:whitespace-normal">
+          Propuesta técnica preliminar sujeta a revisión de junta directiva. <span class="hidden sm:inline">Status: System Initializing</span>
+        </p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <a
+        href={instagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-accent-purple/30 from-accent-purple to-accent-purple-darker bg-linear-to-br text-text-primary hover:from-accent-purple-lighter hover:to-accent-purple hover:bg-linear-to-br hover:border-accent-purple/40 text-xs font-medium transition"
+      >
+        <Icon name="mdi:instagram" class="w-4 h-4" aria-hidden="true" />
+        Síguenos
+      </a>
+      <button
+        type="button"
+        data-dismiss-banner
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl from-accent-amber to-accent-amber-darker bg-linear-to-br text-text-primary text-xs font-bold hover:from-accent-amber-lighter hover:to-accent-amber border border-accent-amber/30 hover:border-accent-amber/40 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-amber"
+        aria-label="Cerrar aviso"
+      >
+        <Icon name="material-symbols:close-rounded" class="w-3.5 h-3.5" aria-hidden="true" />
+        Entendido
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const banner = document.getElementById('development-banner');
+    if (!banner) return;
+    const KEY = 'comsoc-development-banner-dismissed';
+    // Solo mostrar si no está en ?preview y no fue descartado
+    const isPreview = new URLSearchParams(window.location.search).has('preview');
+    const shouldShow = !localStorage.getItem(KEY) && !isPreview;
+    if (!shouldShow) {
+      banner.classList.add('hidden');
+      return;
+    }
+    banner.classList.remove('hidden');
+    const dismissBtn = banner.querySelector('[data-dismiss-banner]');
+    const close = () => {
+      banner.classList.add('hidden');
+      localStorage.setItem(KEY, 'true');
+    };
+    dismissBtn?.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  })();
+</script>
