@@ -1,0 +1,195 @@
+---
+import { Icon } from 'astro-icon/components';
+import {
+  getGoogleCalendarUrl,
+  getOutlookCalendarUrl,
+  getIcsDataUri,
+  type CalendarEventData,
+} from '../utils/calendar';
+
+interface Props {
+  event: CalendarEventData;
+}
+
+const { event } = Astro.props;
+
+const googleUrl = getGoogleCalendarUrl(event);
+const outlookUrl = getOutlookCalendarUrl(event);
+const icsUri = getIcsDataUri(event);
+const filename = `${event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30)}.ics`;
+---
+
+<div class="relative w-full" data-add-to-calendar>
+  <button
+    type="button"
+    class="calendar-toggle-btn w-full min-h-[48px] inline-flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-linear-to-br from-accent-blue-darker via-accent-blue to-accent-cyan-darker bg-size-[200%_200%] text-white text-sm font-semibold tracking-[-0.01em] shadow-[0_12px_30px_-10px_rgba(21,93,252,0.5)] hover:shadow-[0_18px_40px_-12px_rgba(34,211,238,0.6)] hover:border-accent-cyan/60 active:scale-[0.98] transition-all duration-300 border border-accent-cyan/35 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary cursor-pointer select-none overflow-hidden"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-label="Añadir este evento a tu calendario personal"
+  >
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/15 border border-white/20 text-accent-cyan shadow-[inset_0_0_10px_rgba(34,211,238,0.2)] transition-transform duration-300 group-hover:scale-110">
+        <Icon name="material-symbols:event-available-rounded" class="w-4 h-4 text-text-primary" aria-hidden="true" />
+      </div>
+      <span class="truncate">Añadir a mi calendario</span>
+    </div>
+    <div class="calendar-arrow flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-black/20 text-white/80 transition-transform duration-300 ease-out group-hover:bg-black/30">
+      <Icon name="material-symbols:keyboard-arrow-down-rounded" class="w-4 h-4" aria-hidden="true" />
+    </div>
+  </button>
+
+  <div
+    class="calendar-menu invisible opacity-0 scale-95 pointer-events-none absolute left-0 right-0 top-full mt-2.5 p-2 rounded-2xl bg-bg-secondary/95 supports-[backdrop-filter]:backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_20px_rgba(34,211,238,0.1)] z-40 flex flex-col gap-1 transition-all duration-200 ease-out origin-top"
+    role="menu"
+    aria-orientation="vertical"
+  >
+    <div class="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-cyan font-mono border-b border-white/10 flex items-center justify-between">
+      <span>Selecciona tu app</span>
+      <span class="text-text-muted">Direct sync</span>
+    </div>
+
+    <a
+      href={googleUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="calendar-menu-item flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-white/10 focus-visible:bg-white/10 focus-visible:text-text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-cyan transition-all duration-150 group/item"
+      role="menuitem"
+    >
+      <div class="flex items-center gap-3">
+        <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#4285F4]/15 border border-[#4285F4]/30 text-accent-cyan transition-transform group-hover/item:scale-105">
+          <Icon name="mdi:google" class="w-3.5 h-3.5 text-accent-cyan" aria-hidden="true" />
+        </div>
+        <div class="flex flex-col">
+          <span class="font-semibold text-text-primary group-hover/item:text-accent-cyan transition-colors">Google Calendar</span>
+          <span class="text-[10px] text-text-muted font-light">Abrir en navegador o app</span>
+        </div>
+      </div>
+      <Icon name="material-symbols:open-in-new-rounded" class="w-3.5 h-3.5 text-text-muted opacity-0 group-hover/item:opacity-100 group-hover/item:text-accent-cyan transition-all" aria-hidden="true" />
+    </a>
+
+    <a
+      href={outlookUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="calendar-menu-item flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-white/10 focus-visible:bg-white/10 focus-visible:text-text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-cyan transition-all duration-150 group/item"
+      role="menuitem"
+    >
+      <div class="flex items-center gap-3">
+        <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#0078D4]/15 border border-[#0078D4]/30 text-accent-blue transition-transform group-hover/item:scale-105">
+          <Icon name="mdi:microsoft-outlook" class="w-3.5 h-3.5 text-accent-blue" aria-hidden="true" />
+        </div>
+        <div class="flex flex-col">
+          <span class="font-semibold text-text-primary group-hover/item:text-accent-blue transition-colors">Outlook / Microsoft 365</span>
+          <span class="text-[10px] text-text-muted font-light">Web & Office</span>
+        </div>
+      </div>
+      <Icon name="material-symbols:open-in-new-rounded" class="w-3.5 h-3.5 text-text-muted opacity-0 group-hover/item:opacity-100 group-hover/item:text-accent-blue transition-all" aria-hidden="true" />
+    </a>
+
+    <a
+      href={icsUri}
+      download={filename}
+      class="calendar-menu-item flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-white/10 focus-visible:bg-white/10 focus-visible:text-text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-cyan transition-all duration-150 border-t border-white/5 group/item"
+      role="menuitem"
+    >
+      <div class="flex items-center gap-3">
+        <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-accent-emerald/15 border border-accent-emerald/30 text-accent-emerald transition-transform group-hover/item:scale-105">
+          <Icon name="material-symbols:download-rounded" class="w-3.5 h-3.5 text-accent-emerald" aria-hidden="true" />
+        </div>
+        <div class="flex flex-col">
+          <span class="font-semibold text-text-primary group-hover/item:text-accent-emerald transition-colors">Archivo iCal / Apple (.ics)</span>
+          <span class="text-[10px] text-text-muted font-light">Para iPhone, Mac u otros</span>
+        </div>
+      </div>
+      <Icon name="material-symbols:arrow-downward-rounded" class="w-3.5 h-3.5 text-text-muted opacity-0 group-hover/item:opacity-100 group-hover/item:text-accent-emerald transition-all" aria-hidden="true" />
+    </a>
+  </div>
+</div>
+
+<script>
+  function setupCalendarDropdowns() {
+    const containers = document.querySelectorAll<HTMLElement>('[data-add-to-calendar]');
+
+    containers.forEach((container) => {
+      const toggleBtn = container.querySelector<HTMLButtonElement>('.calendar-toggle-btn');
+      const menu = container.querySelector<HTMLElement>('.calendar-menu');
+      const arrow = container.querySelector<HTMLElement>('.calendar-arrow');
+      const items = container.querySelectorAll<HTMLElement>('.calendar-menu-item');
+
+      if (!toggleBtn || !menu) return;
+
+      function openMenu() {
+        menu?.classList.remove('invisible', 'opacity-0', 'scale-95', 'pointer-events-none');
+        menu?.classList.add('visible', 'opacity-100', 'scale-100', 'pointer-events-auto');
+        toggleBtn?.setAttribute('aria-expanded', 'true');
+        arrow?.classList.add('rotate-180');
+      }
+
+      function closeMenu() {
+        menu?.classList.add('invisible', 'opacity-0', 'scale-95', 'pointer-events-none');
+        menu?.classList.remove('visible', 'opacity-100', 'scale-100', 'pointer-events-auto');
+        toggleBtn?.setAttribute('aria-expanded', 'false');
+        arrow?.classList.remove('rotate-180');
+      }
+
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          closeMenu();
+        } else {
+          // Close others
+          document.querySelectorAll<HTMLElement>('[data-add-to-calendar] .calendar-menu').forEach((m) => {
+            if (m !== menu) {
+              m.classList.add('invisible', 'opacity-0', 'scale-95', 'pointer-events-none');
+              m.classList.remove('visible', 'opacity-100', 'scale-100', 'pointer-events-auto');
+            }
+          });
+          openMenu();
+        }
+      });
+
+      // Keyboard navigation
+      toggleBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openMenu();
+          items[0]?.focus();
+        }
+      });
+
+      items.forEach((item, index) => {
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const next = items[index + 1] || items[0];
+            next.focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prev = items[index - 1] || items[items.length - 1];
+            prev.focus();
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            closeMenu();
+            toggleBtn.focus();
+          }
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!container.contains(e.target as Node)) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeMenu();
+        }
+      });
+    });
+  }
+
+  setupCalendarDropdowns();
+  document.addEventListener('astro:page-load', setupCalendarDropdowns);
+</script>

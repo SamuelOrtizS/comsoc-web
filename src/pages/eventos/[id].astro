@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components';
 import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CountdownTimer from '../../components/CountdownTimer.astro';
+import AddToCalendar from '../../components/AddToCalendar.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -96,7 +97,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 
       <div class="p-6 sm:p-8 lg:p-10 space-y-6">
         <div class="space-y-4">
-          <div class="text-[11px] uppercase tracking-[0.18em] text-accent-cyan font-mono">
+          <div class="text-xs uppercase tracking-[0.18em] text-accent-cyan font-mono">
             Evento • {data.organizador}
           </div>
 
@@ -188,10 +189,23 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 
       <aside class="lg:col-span-4 space-y-6">
         {!isPast && (
-          <CountdownTimer
-            targetDate={`${data.fechaInicio}T${data.horaInicio || '09:00'}:00`}
-            eventName={data.titulo}
-          />
+          <div class="space-y-4">
+            <AddToCalendar
+              event={{
+                title: data.titulo,
+                description: data.descripcion,
+                location: `${data.lugarNombre}${data.lugarDireccion ? ` - ${data.lugarDireccion}` : ''}`,
+                startDate: data.fechaInicio,
+                endDate: data.fechaFin || data.fechaInicio,
+                startTime: data.horaInicio,
+                endTime: data.horaFin,
+              }}
+            />
+            <CountdownTimer
+              targetDate={`${data.fechaInicio}T${data.horaInicio || '09:00'}:00`}
+              eventName={data.titulo}
+            />
+          </div>
         )}
 
         <div class="glass-card rounded-2xl p-6 border border-white/10">
