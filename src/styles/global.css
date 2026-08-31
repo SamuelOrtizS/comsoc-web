@@ -8,231 +8,147 @@
 
 @theme {
   /* ====================================================================== */
+  /*  PALETA OFICIAL IEEE Y IEEE COMSOC (Brand Identity Guidelines)         */
+  /* ====================================================================== */
+
+  /* Primary & Master Brand */
+  --color-ieee-blue: #00629b; /* IEEE Master Brand Blue (Pantone 3015 C) */
+  --color-ieee-cyan: #00b5e2; /* IEEE Process Cyan C */
+  --color-ieee-white: #ffffff;
+  --color-ieee-black: #000000;
+
+  /* ComSoc Primary Identity */
+  --color-ieee-comsoc-cyan: #00aeef; /* ComSoc Process Cyan C */
+  --color-ieee-comsoc-dark-blue: #005f98; /* ComSoc Dark Blue (Pantone 308 C) */
+  --color-ieee-black-80: #414141; /* ComSoc Black 80% */
+
+  /* IEEE Bright Palette */
+  --color-ieee-orange-bright: #ffa300; /* Pantone 137 C */
+  --color-ieee-yellow-bright: #ffd100; /* Pantone 109 C */
+  --color-ieee-green-bright: #78be20; /* Pantone 368 C */
+  --color-ieee-dark-green-bright: #00843d; /* Pantone 348 C */
+  --color-ieee-red-bright: #ba0c2f; /* Pantone 200 C */
+  --color-ieee-purple-bright: #981d97; /* Pantone 254 C */
+  --color-ieee-teal-bright: #009ca6; /* Pantone 320 C */
+
+  /* IEEE Dark Palette */
+  --color-ieee-orange-dark: #e87722; /* Pantone 158 C */
+  --color-ieee-yellow-dark: #ffc72c; /* Pantone 123 C */
+  --color-ieee-green-dark: #658d1b; /* Pantone 370 C */
+  --color-ieee-dark-green-dark: #006341; /* Pantone 3425 C */
+  --color-ieee-red-dark: #861f41; /* Pantone 208 C */
+  --color-ieee-purple-dark: #772583; /* Pantone 2612 C */
+  --color-ieee-teal-dark: #007377; /* Pantone 322 C */
+  --color-ieee-navy: #002855; /* Pantone 295 C */
+  --color-ieee-gray-cool: #75787b; /* Pantone Cool Gray 9 C */
+
+  /* ====================================================================== */
   /*  GUÍA DE COLORES Y USOS — IEEE ComSoc Univalle                          */
-  /*  Design tokens en Tailwind v4 (@theme). Cada color base genera          */
-  /*  --color-*-lighter y --color-*-darker para degradados sin hardcodear.  */
-  /*  Lógica: acentos ±13% luminosidad / fondos profundos +7% / -35%.        */
-  /*  Uso Tailwind: bg-accent-blue, from-accent-blue-lighter,               */
-  /*  to-accent-blue-darker, border-glass-border-lighter, etc.              */
-  /*  Ver docs/CODEBASE.md para paleta extendida.                           */
+  /*  Design tokens en Tailwind v4 (@theme). Mapeados a tokens --color-ieee-*.*/
+  /*  Cada color base genera --color-*-lighter y --color-*-darker.          */
   /* ====================================================================== */
 
   /* ---------------------------------------------------------------------- */
   /*  1. ACENTOS VIBRANTES — protagonistas de CTAs, degradados y estados    */
   /* ---------------------------------------------------------------------- */
 
-  /* AZUL ACENTO / BRAND BLUE — #155dfc
-   * Base del sistema. Botones primarios ("Unirse ahora", "Donar ahora"),
-   * anillos de foco, enlaces destacados y resplandor de fondo (glow).
-   * Páginas: Nosotros, Unirse, Proyectos, Tienda. Contraste AA sobre
-   * bg-primary. Tailwind: bg-accent-blue / text-accent-blue / border-accent-blue */
-  --color-accent-blue: #155dfc;
-  /* AZUL ACENTO CLARO — #5d8df6 — Variación +13% luminosidad para highlight
-   * superior de degradados. Hover de botones azules, brillos y borde activo.
-   * Degradado: bg-gradient-to-br from-accent-blue-lighter to-accent-blue */
-  --color-accent-blue-lighter: #5d8df6;
-  /* AZUL ACENTO OSCURO — #0040cf — Variación -13% luminosidad para sombra
-   * inferior de degradados. Estado pressed/active y profundidad en glass-card.
-   * Degradado: bg-gradient-to-br from-accent-blue to-accent-blue-darker */
-  --color-accent-blue-darker: #0040cf;
+  /* AZUL ACENTO / IEEE MASTER BRAND BLUE */
+  --color-accent-blue: var(--color-ieee-blue);
+  --color-accent-blue-lighter: var(--color-ieee-comsoc-cyan);
+  --color-accent-blue-darker: var(--color-ieee-navy);
 
-  /* CIAN ACENTO / BRAND CYAN — #22d3ee
-   * Secundario luminoso. Títulos de sección, código/mono, enlaces hover,
-   * barras de progreso, iconos destacados y efectos glow en glass-card.
-   * Páginas: todas. Tailwind: text-accent-cyan / bg-accent-cyan */
-  --color-accent-cyan: #22d3ee;
-  /* CIAN ACENTO CLARO — #65dbed — Highlight de degradados cian y estado hover
-   * de glass-card. Suaviza el cian base hacia celeste para transiciones. */
-  --color-accent-cyan-lighter: #65dbed;
-  /* CIAN ACENTO OSCURO — #08adc6 — Sombra de degradados cian, bordes activos
-   * y variantes de progreso. Más saturado para profundidad. */
-  --color-accent-cyan-darker: #08adc6;
+  /* CIAN ACENTO / COMSOC PROCESS CYAN */
+  --color-accent-cyan: var(--color-ieee-comsoc-cyan);
+  --color-accent-cyan-lighter: var(--color-ieee-cyan);
+  --color-accent-cyan-darker: var(--color-ieee-teal-bright);
 
-  /* VERDE ACENTO / BRAND EMERALD — #34d399 (emerald-400)
-   * Éxito y confirmación. Badges de estado positivo, indicadores de
-   * financiamiento y acentos de validación. Tailwind: bg-accent-emerald */
-  --color-accent-emerald: #34d399;
-  /* VERDE ACENTO CLARO — #6fdab3 — Highlight para degradados de éxito y
-   * fondos de celebración. Hover de badges verdes. */
-  --color-accent-emerald-lighter: #6fdab3;
-  /* VERDE ACENTO OSCURO — #1ea775 — Sombra de degradados emerald, bordes de
-   * tarjetas de éxito y estados de confirmación profundos. */
-  --color-accent-emerald-darker: #1ea775;
+  /* VERDE ACENTO / IEEE GREEN */
+  --color-accent-emerald: var(--color-ieee-dark-green-bright);
+  --color-accent-emerald-lighter: var(--color-ieee-green-bright);
+  --color-accent-emerald-darker: var(--color-ieee-dark-green-dark);
 
-  /* PÚRPURA ACENTO / BRAND PURPLE — #a855f7
-   * Hero y CTA de proyectos. Degradados de fondo, etiquetas de categoría,
-   * badges y títulos secundarios. Páginas: Nosotros, Unirse, Proyectos. */
-  --color-accent-purple: #a855f7;
-  /* PÚRPURA ACENTO CLARO — #c898f6 — Highlight de degradados púrpura.
-   * Mezcla con accent-blue-lighter para hero duotono. */
-  --color-accent-purple-lighter: #c898f6;
-  /* PÚRPURA ACENTO OSCURO — #880dfd — Sombra profunda de degradados púrpura.
-   * Fondos de CTA y bordes de etiquetas en hover. */
-  --color-accent-purple-darker: #880dfd;
+  /* PÚRPURA ACENTO / IEEE PURPLE */
+  --color-accent-purple: var(--color-ieee-purple-bright);
+  --color-accent-purple-lighter: #bc5fbc;
+  --color-accent-purple-darker: var(--color-ieee-purple-dark);
 
-  /* ÁMBAR ACENTO / BRAND AMBER — #f59e0b
-   * Advertencias y precaución no crítica. Alertas, monitoreo y estados
-   * intermedios. No usar como CTA principal. */
-  --color-accent-amber: #f59e0b;
-  /* ÁMBAR ACENTO CLARO — #f1b652 — Highlight de degradados ámbar y fondos
-   * de alerta suave. */
-  --color-accent-amber-lighter: #f1b652;
-  /* ÁMBAR ACENTO OSCURO — #bd7700 — Sombra de degradados ámbar y bordes de
-   * alertas en modo oscuro. */
-  --color-accent-amber-darker: #bd7700;
+  /* ÁMBAR/NARANJA ACENTO / IEEE ORANGE */
+  --color-accent-amber: var(--color-ieee-orange-bright);
+  --color-accent-amber-lighter: var(--color-ieee-yellow-dark);
+  --color-accent-amber-darker: var(--color-ieee-orange-dark);
 
-  /* ROJO ACENTO / BRAND RED — #ef4444
-   * Error, peligro y acciones destructivas. Botones de eliminar, alertas
-   * críticas y validaciones fallidas. Uso puntual, no decorativo. */
-  --color-accent-red: #ef4444;
-  /* ROJO ACENTO CLARO — #f08686 — Highlight de degradados rojos y hover de
-   * estados de error. */
-  --color-accent-red-lighter: #f08686;
-  /* ROJO ACENTO OSCURO — #e60b0b — Sombra de degradados rojos y estado
-   * pressed de acciones peligrosas. */
-  --color-accent-red-darker: #e60b0b;
+  /* ROJO ACENTO / IEEE RED */
+  --color-accent-red: var(--color-ieee-red-bright);
+  --color-accent-red-lighter: #d94060;
+  --color-accent-red-darker: var(--color-ieee-red-dark);
 
-  /* AMARILLO ACENTO / BRAND YELLOW — #facc15
-   * Atención y resaltado. Badges informativos, marcadores y elementos de
-   * gamificación. Alto contraste sobre fondos oscuros. */
-  --color-accent-yellow: #facc15;
-  /* AMARILLO ACENTO CLARO — #f5d65d — Highlight de degradados amarillos y
-   * fondos de resaltado suave. */
-  --color-accent-yellow-lighter: #f5d65d;
-  /* AMARILLO ACENTO OSCURO — #cda400 — Sombra de degradados amarillos y
-   * bordes de badges amarillos. Tono mostaza para profundidad. */
-  --color-accent-yellow-darker: #cda400;
+  /* AMARILLO ACENTO / IEEE YELLOW */
+  --color-accent-yellow: var(--color-ieee-yellow-bright);
+  --color-accent-yellow-lighter: #ffe166;
+  --color-accent-yellow-darker: var(--color-ieee-yellow-dark);
 
-  /* ROSA ACENTO / BRAND ROSE — #f43f5e
-   * Énfasis cálido. Etiquetas especiales, CTAs secundarios y acentos
-   * gráficos. Alternativa a purple para degradados cálidos. */
-  --color-accent-rose: #f43f5e;
-  /* ROSA ACENTO CLARO — #f38396 — Highlight de degradados rosa. Hover de
-   * etiquetas rosadas. */
-  --color-accent-rose-lighter: #f38396;
-  /* ROSA ACENTO OSCURO — #ec042c — Sombra de degradados rosa y estado
-   * pressed de elementos cálidos. */
-  --color-accent-rose-darker: #ec042c;
+  /* ROSA/VINO ACENTO / IEEE RED DARK & BRIGHT */
+  --color-accent-rose: var(--color-ieee-red-dark);
+  --color-accent-rose-lighter: var(--color-ieee-red-bright);
+  --color-accent-rose-darker: #6b1530;
 
-  /* TEAL ACENTO / BRAND TEAL — #2dd4bf
-   * Acento frío complementario. Degradados de progreso, barras y detalles
-   * técnicos. Puente entre cian y emerald. */
-  --color-accent-teal: #2dd4bf;
-  /* TEAL ACENTO CLARO — #69dacc — Highlight de degradados teal y fondos de
-   * progreso en hover. */
-  --color-accent-teal-lighter: #69dacc;
-  /* TEAL ACENTO OSCURO — #1ba392 — Sombra de degradados teal y bordes de
-   * indicadores de progreso completado. */
-  --color-accent-teal-darker: #1ba392;
+  /* TEAL ACENTO / IEEE TEAL */
+  --color-accent-teal: var(--color-ieee-teal-bright);
+  --color-accent-teal-lighter: #00b8c4;
+  --color-accent-teal-darker: var(--color-ieee-teal-dark);
 
   /* ---------------------------------------------------------------------- */
   /*  2. FONDOS — lienzos oscuros que sostienen el sistema                  */
   /* ---------------------------------------------------------------------- */
 
-  /* FONDO PROFUNDO / DEEP SLATE — #0f172a (slate-900)
-   * Tarjetas de alto contraste y secciones destacadas. Base para glass-card
-   * sobre fondos muy oscuros. */
+  /* FONDO PROFUNDO / DEEP SLATE — #0f172a (slate-900) */
   --color-bg-deep-slate: #0f172a;
-  /* FONDO PROFUNDO CLARO — #182544 — Elevación +7% luminosidad para borde
-   * superior de degradado o hover de tarjetas slate. */
   --color-bg-deep-slate-lighter: #182544;
-  /* FONDO PROFUNDO OSCURO — #0a0f1b — Profundidad -35% para sombra inferior
-   * de degradado y fondos hundidos. */
   --color-bg-deep-slate-darker: #0a0f1b;
 
-  /* FONDO ESMERALDA OSCURO / DARK EMERALD — #0a1f1a
-   * Secciones de financiamiento y éxito. Alternativa profunda a accent-emerald
-   * para banners de donación positivos. */
+  /* FONDO ESMERALDA OSCURO / DARK EMERALD — #0a1f1a */
   --color-bg-emerald-dark: #0a1f1a;
-  /* FONDO ESMERALDA OSCURO CLARO — #133a31 — Elevación para highlight de
-   * degradado emerald-dark y hover de banners. */
   --color-bg-emerald-dark-lighter: #133a31;
-  /* FONDO ESMERALDA OSCURO OSCURO — #061411 — Profundidad para sombra de
-   * degradado y bordes inferiores. */
   --color-bg-emerald-dark-darker: #061411;
 
-  /* FONDO PÚRPURA PROFUNDO / DEEP PURPLE — #0d0720
-   * Banners de donación y secciones especiales. Base púrpura casi negra para
-   * degradados hero alternativos. */
+  /* FONDO PÚRPURA PROFUNDO / DEEP PURPLE — #0d0720 */
   --color-bg-deep-purple: #0d0720;
-  /* FONDO PÚRPURA PROFUNDO CLARO — #190d3d — Elevación para highlight de
-   * degradado púrpura y hover de banners. */
   --color-bg-deep-purple-lighter: #190d3d;
-  /* FONDO PÚRPURA PROFUNDO OSCURO — #080515 — Profundidad para sombra de
-   * degradado y fondos de pie púrpura. */
   --color-bg-deep-purple-darker: #080515;
 
-  /* FONDO PRINCIPAL / PRIMARY BACKGROUND — #050816
-   * Lienzo global de la aplicación. Todas las páginas. Casi negro con matiz
-   * azul. Define color-scheme: dark. */
+  /* FONDO PRINCIPAL / PRIMARY BACKGROUND — #050816 */
   --color-bg-primary: #050816;
-  /* FONDO PRINCIPAL CLARO — #0c1333 — Elevación +7% para highlight de
-   * degradado de página y bordes superiores sutiles. Degradado:
-   * bg-gradient-to-b from-bg-primary-lighter to-bg-primary */
   --color-bg-primary-lighter: #0c1333;
-  /* FONDO PRINCIPAL OSCURO — #03050e — Profundidad para sombra inferior y
-   * fondos hundidos / pozos. */
   --color-bg-primary-darker: #03050e;
 
-  /* FONDO SECUNDARIO / SECONDARY BACKGROUND — #0a0f24
-   * Contenedores secundarios. Tarjeta grande de Unirse, modal de Tienda y
-   * glass-card base. Contrasta sutilmente con bg-primary. */
+  /* FONDO SECUNDARIO / SECONDARY BACKGROUND — #0a0f24 */
   --color-bg-secondary: #0a0f24;
-  /* FONDO SECUNDARIO CLARO — #121b40 — Elevación para highlight de degradado
-   * y hover de tarjetas secundarias. */
   --color-bg-secondary-lighter: #121b40;
-  /* FONDO SECUNDARIO OSCURO — #070a17 — Profundidad para sombra de degradado
-   * y estados hundidos. */
   --color-bg-secondary-darker: #070a17;
 
   /* ---------------------------------------------------------------------- */
   /*  3. TEXTO — jerarquía legible sobre fondos oscuros                     */
   /* ---------------------------------------------------------------------- */
 
-  /* TEXTO PRINCIPAL / PRIMARY TEXT — #ffffff
-   * Títulos H1-H6 y cuerpo principal. Máximo contraste. Usar siempre sobre
-   * fondos oscuros. Tailwind: text-text-primary */
-  --color-text-primary: #ffffff;
-  /* TEXTO PRINCIPAL CLARO — #ffffff — Clamp a blanco puro (luminosidad ya
-   * al 100%). Mantiene APIs consistentes para degradados de texto. */
-  --color-text-primary-lighter: #ffffff;
-  /* TEXTO PRINCIPAL OSCURO — #e2e8f0 (slate-200) — Variante atenuada para
-   * texto secundario prominente o degradados de texto sutiles. */
+  /* TEXTO PRINCIPAL / PRIMARY TEXT — #ffffff */
+  --color-text-primary: var(--ieee-white);
+  --color-text-primary-lighter: var(--ieee-white);
   --color-text-primary-darker: #e2e8f0;
 
-  /* TEXTO SECUNDARIO / SECONDARY TEXT — #cbd5e0 (slate-300 aprox.)
-   * Descripciones, subtítulos, pies de página y apoyo. Nota: comentario
-   * original referenciaba #94a3b8 pero el token implementado es #cbd5e0. */
+  /* TEXTO SECUNDARIO / SECONDARY TEXT */
   --color-text-secondary: #cbd5e0;
-  /* TEXTO SECUNDARIO CLARO — #dce2e8 — +5% luminosidad para highlight de
-   * degradados de texto y hover de enlaces secundarios. */
   --color-text-secondary-lighter: #dce2e8;
-  /* TEXTO SECUNDARIO OSCURO — #a5b6c9 — -12% luminosidad para estados
-   * atenuados y bordes de texto secundario. */
   --color-text-secondary-darker: #a5b6c9;
 
   /* ---------------------------------------------------------------------- */
   /*  4. CRISTAL / GLASSMORPHISM — superficies translúcidas                 */
   /* ---------------------------------------------------------------------- */
 
-  /* FONDO DE CRISTAL — rgba(255,255,255,0.05) — Relleno de glass-panel y
-   * tarjetas cibernéticas. Requiere backdrop-blur. */
   --color-glass-bg: rgba(255, 255, 255, 0.05);
-  /* FONDO DE CRISTAL CLARO — rgba(255,255,255,0.08) — +60% opacidad para
-   * highlight de degradado y hover de glass-panel.
-   * Degradado: bg-gradient-to-br from-glass-bg-lighter to-glass-bg */
   --color-glass-bg-lighter: rgba(255, 255, 255, 0.08);
-  /* FONDO DE CRISTAL OSCURO — rgba(255,255,255,0.03) — -40% opacidad para
-   * sombra inferior y estados inactivos. */
   --color-glass-bg-darker: rgba(255, 255, 255, 0.03);
-  /* BORDE DE CRISTAL — rgba(255,255,255,0.1) — Borde sutil de glass-panel.
-   * Visible solo con blur activo. */
   --color-glass-border: rgba(255, 255, 255, 0.1);
-  /* BORDE DE CRISTAL CLARO — rgba(255,255,255,0.15) — Highlight de borde en
-   * hover. Usado en .glass-card:hover (rgba 0.35 cian análogo). */
   --color-glass-border-lighter: rgba(255, 255, 255, 0.15);
-  /* BORDE DE CRISTAL OSCURO — rgba(255,255,255,0.06) — Borde atenuado para
-   * estados inactivos o fondos muy iluminados. */
   --color-glass-border-darker: rgba(255, 255, 255, 0.06);
 
   /* Typography — variables inyectadas por Astro Fonts */
@@ -301,7 +217,7 @@ h6 {
 .glass-card:hover {
   border-color: var(--color-accent-cyan);
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px -10px rgba(21, 93, 252, 0.25), 0 0 20px rgba(34, 211, 238, 0.15);
+  box-shadow: 0 12px 30px -10px rgba(0, 98, 155, 0.25), 0 0 20px rgba(0, 174, 239, 0.15);
 }
 
 .glow-text {
@@ -320,7 +236,7 @@ h6 {
 /* Subtle Dot Grid Background — tono reducido para evitar Moiré en 4K */
 .bg-dot-grid {
   position: relative;
-  background-image: radial-gradient(circle, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0, 174, 239, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 @media (prefers-reduced-motion: reduce) {

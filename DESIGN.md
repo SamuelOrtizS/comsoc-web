@@ -2,33 +2,33 @@
 name: IEEE ComSoc Univalle
 description: Hub digital del Capítulo Estudiantil IEEE ComSoc — plataforma técnica para IoT, 5G/6G y comunicaciones cuánticas.
 colors:
-  primary: "#155dfc"
-  primary-lighter: "#5d8df6"
-  primary-darker: "#0040cf"
-  accent-cyan: "#22d3ee"
-  accent-cyan-lighter: "#65dbed"
-  accent-cyan-darker: "#08adc6"
-  accent-purple: "#a855f7"
-  accent-purple-lighter: "#c898f6"
-  accent-purple-darker: "#880dfd"
-  accent-emerald: "#34d399"
-  accent-emerald-lighter: "#6fdab3"
-  accent-emerald-darker: "#1ea775"
-  accent-amber: "#f59e0b"
-  accent-amber-lighter: "#f1b652"
-  accent-amber-darker: "#bd7700"
-  accent-red: "#ef4444"
-  accent-red-lighter: "#f08686"
-  accent-red-darker: "#e60b0b"
-  accent-yellow: "#facc15"
-  accent-yellow-lighter: "#f5d65d"
-  accent-yellow-darker: "#cda400"
-  accent-rose: "#f43f5e"
-  accent-rose-lighter: "#f38396"
-  accent-rose-darker: "#ec042c"
-  accent-teal: "#2dd4bf"
-  accent-teal-lighter: "#69dacc"
-  accent-teal-darker: "#1ba392"
+  primary: "#00629b"
+  primary-lighter: "#00aeef"
+  primary-darker: "#002855"
+  accent-cyan: "#00aeef"
+  accent-cyan-lighter: "#00b5e2"
+  accent-cyan-darker: "#009ca6"
+  accent-purple: "#981d97"
+  accent-purple-lighter: "#bc5fbc"
+  accent-purple-darker: "#772583"
+  accent-emerald: "#00843d"
+  accent-emerald-lighter: "#78be20"
+  accent-emerald-darker: "#006341"
+  accent-amber: "#ffa300"
+  accent-amber-lighter: "#ffc72c"
+  accent-amber-darker: "#e87722"
+  accent-red: "#ba0c2f"
+  accent-red-lighter: "#d94060"
+  accent-red-darker: "#861f41"
+  accent-yellow: "#ffd100"
+  accent-yellow-lighter: "#ffe166"
+  accent-yellow-darker: "#ffc72c"
+  accent-rose: "#861f41"
+  accent-rose-lighter: "#ba0c2f"
+  accent-rose-darker: "#6b1530"
+  accent-teal: "#009ca6"
+  accent-teal-lighter: "#00b8c4"
+  accent-teal-darker: "#007377"
   neutral-bg: "#050816"
   neutral-bg-lighter: "#0c1333"
   neutral-bg-darker: "#03050e"
@@ -130,104 +130,114 @@ components:
 
 El sistema orbita alrededor de una idea central: una constelación en movimiento. Cada sección es un satélite —hero, eventos, pilares, proyectos, aliados— que gira en torno a un núcleo oscuro y estable, sostenido por gravedad visual (vidrio, blur y luz). La estética no es decorativa sino orbital: profundidad por capas tonales, no por sombras arrojadas; luz que se difunde como señal, no como decoración.
 
-Es un mundo **tech sobrio y preciso**. La densidad es media, la jerarquía es estricta y la voz es académica pero accesible. Se evita el brillo gratuito, el neón saturado y la ilustración genérica de stock tech. La anti-referencia es el “startup oscuro con gradientes agresivos” — aquí el gradiente es atmosférico, contenido y siempre al servicio de la legibilidad.
+Es un mundo **tech sobrio y preciso**, alineado con la guía oficial de marca **IEEE Brand Identity Guidelines** y **IEEE ComSoc Brand Guidelines**. La densidad es media, la jerarquía es estricta y la voz es académica pero accesible.
 
 **Key Characteristics:**
 - Órbitas y capas — profundidad por tono y blur, no por sombra dura
-- Precisión académica — métricas verificables, no vanity
+- Precisión y fidelidad de marca IEEE — colores oficiales Master Brand, ComSoc Cyan, Bright & Dark Palettes
 - Vidrio sobrio — `glass-card` con borde `rgba(255,255,255,0.1)` y desenfoque contenido
 - Señal como luz — cian como portadora, no como decoración
 
 ## Colors
 
-Paleta oscura de base profunda con acentos espectrales. El fondo absorbe la luz y los acentos la portan como señal. Sincronizada 1:1 con `src/styles/global.css:9` (`@theme` Tailwind v4).
+Paleta oficial IEEE/ComSoc adaptada al sistema oscuro orbital. Sincronizada 1:1 con `src/styles/global.css` (`:root` con tokens `--ieee-*` y `@theme` con `--color-accent-*`).
 
-### Sistema Auxiliar de Degradados
+### Paleta Canónica IEEE (`--color-ieee-*` en `@theme`)
 
-Cada color base expone dos compañeros para construir degradados sin hardcodear hex fuera del tema: `*-lighter` (highlight superior) y `*-darker` (sombra inferior). Acentos vibrantes: ±13% luminosidad HLS; fondos profundos: +7% / −35% para mantener legibilidad en lienzos casi negros; vidrio: ± opacidad. Uso Tailwind: `bg-gradient-to-br from-accent-blue-lighter to-accent-blue-darker`, `from-bg-primary-lighter to-bg-primary`, `border-glass-border-lighter`, `from-glass-bg-lighter to-glass-bg-darker`. Ver tabla por familia.
+| Token Base | Nombre / Fuente | Hex |
+|---|---|---|
+| `--color-ieee-blue` | IEEE Master Brand Blue (Pantone 3015 C) | `#00629B` |
+| `--color-ieee-cyan` | IEEE Process Cyan C | `#00B5E2` |
+| `--color-ieee-comsoc-cyan` | ComSoc Process Cyan C | `#00AEEF` |
+| `--color-ieee-comsoc-dark-blue` | ComSoc Dark Blue (Pantone 308 C) | `#005F98` |
+| `--color-ieee-black-80` | ComSoc Black 80% | `#414141` |
+| `--color-ieee-orange-bright` | IEEE Orange Bright (Pantone 137 C) | `#FFA300` |
+| `--color-ieee-yellow-bright` | IEEE Yellow Bright (Pantone 109 C) | `#FFD100` |
+| `--color-ieee-green-bright` | IEEE Green Bright (Pantone 368 C) | `#78BE20` |
+| `--color-ieee-dark-green-bright` | IEEE Dark Green Bright (Pantone 348 C) | `#00843D` |
+| `--color-ieee-red-bright` | IEEE Red Bright (Pantone 200 C) | `#BA0C2F` |
+| `--color-ieee-purple-bright` | IEEE Purple Bright (Pantone 254 C) | `#981D97` |
+| `--color-ieee-teal-bright` | IEEE Teal Bright (Pantone 320 C) | `#009CA6` |
+| `--color-ieee-orange-dark` | IEEE Orange Dark (Pantone 158 C) | `#E87722` |
+| `--color-ieee-yellow-dark` | IEEE Yellow Dark (Pantone 123 C) | `#FFC72C` |
+| `--color-ieee-green-dark` | IEEE Green Dark (Pantone 370 C) | `#658D1B` |
+| `--color-ieee-dark-green-dark` | IEEE Dark Green Dark (Pantone 3425 C) | `#006341` |
+| `--color-ieee-red-dark` | IEEE Red Dark (Pantone 208 C) | `#861F41` |
+| `--color-ieee-purple-dark` | IEEE Purple Dark (Pantone 2612 C) | `#772583` |
+| `--color-ieee-teal-dark` | IEEE Teal Dark (Pantone 322 C) | `#007377` |
+| `--color-ieee-navy` | IEEE Navy (Pantone 295 C) | `#002855` |
+| `--color-ieee-gray-cool` | IEEE Cool Gray 9 C | `#75787B` |
 
 ### Primary
-- **Azul Señal** (#155dfc): Acción primaria, enlaces principales y CTAs. Se usa en ≤10% de la superficie; su rareza es el punto.
-  - `primary-lighter` (#5d8df6): Highlight de degradados y hover de botones. `from-primary-lighter`
-  - `primary-darker` (#0040cf): Sombra de degradado y estado pressed/active. `to-primary-darker`
+- **Azul IEEE Master Brand** (`var(--color-ieee-blue)` / `#00629B`): Acción primaria, identidad global IEEE, enlaces principales y CTAs.
+  - `primary-lighter` (`var(--color-ieee-comsoc-cyan)` / `#00aeef`): Highlight de degradados y hover.
+  - `primary-darker` (`var(--color-ieee-navy)` / `#002855`): Sombra de degradado y estado pressed/active.
 
 ### Secondary
-- **Cian Espectral** (#22d3ee): Portadora principal — títulos de sección, estados activos, hover de tarjetas y barras de progreso. Es el color de la señal viva.
-  - `accent-cyan-lighter` (#65dbed): Highlight cian, hover de glass-card.
-  - `accent-cyan-darker` (#08adc6): Sombra y progreso profundo.
-- **Púrpura Cuántico** (#a855f7): Investigación y desarrollo, categorías y etiquetas de proyectos. Marca lo experimental. Hero duotono junto a azul.
-  - `accent-purple-lighter` (#c898f6): Highlight púrpura.
-  - `accent-purple-darker` (#880dfd): Sombra CTA púrpura.
+- **Cian ComSoc** (`var(--color-ieee-comsoc-cyan)` / `#00aeef`): Portadora principal — títulos de sección, estados activos, hover de tarjetas y barras de progreso.
+  - `accent-cyan-lighter` (`var(--color-ieee-cyan)` / `#00b5e2`): Highlight cian, hover de glass-card.
+  - `accent-cyan-darker` (`var(--color-ieee-teal-bright)` / `#009ca6`): Sombra y progreso profundo.
+- **Púrpura IEEE** (`var(--color-ieee-purple-bright)` / `#981d97`): Investigación y desarrollo, categorías y etiquetas de proyectos.
+  - `accent-purple-lighter` (`#bc5fbc`): Highlight púrpura.
+  - `accent-purple-darker` (`var(--color-ieee-purple-dark)` / `#772583`): Sombra CTA púrpura.
 
 ### Tertiary
-- **Esmeralda de Enlace** (#34d399): Éxito, activos y confirmación. Badges `Activo`, métricas de aliados.
-  - `accent-emerald-lighter` (#6fdab3) / `darker` (#1ea775)
-- **Ámbar de Órbita** (#f59e0b): Advertencia no crítica, banner de desarrollo y estados de monitoreo.
-  - `accent-amber-lighter` (#f1b652) / `darker` (#bd7700)
-- **Rojo de Alerta** (#ef4444): Error, peligro y acciones destructivas. Uso puntual, no decorativo.
-  - `accent-red-lighter` (#f08686) / `darker` (#e60b0b)
-- **Amarillo de Atención** (#facc15): Resaltado, badges informativos y gamificación. Alto contraste sobre oscuro.
-  - `accent-yellow-lighter` (#f5d65d) / `darker` (#cda400)
-- **Rosa Cálido** (#f43f5e): Énfasis cálido, etiquetas especiales y CTAs secundarios. Alternativa cálida a púrpura.
-  - `accent-rose-lighter` (#f38396) / `darker` (#ec042c)
-- **Teal de Portadora** (#2dd4bf): Degradados de progreso y acentos secundarios de financiamiento.
-  - `accent-teal-lighter` (#69dacc) / `darker` (#1ba392)
+- **Verde IEEE** (`var(--color-ieee-dark-green-bright)` / `#00843d`): Éxito, activos y confirmación. Badges `Activo`, métricas.
+  - `accent-emerald-lighter` (`var(--color-ieee-green-bright)` / `#78be20`) / `darker` (`var(--color-ieee-dark-green-dark)` / `#006341`)
+- **Naranja/Ámbar IEEE** (`var(--color-ieee-orange-bright)` / `#ffa300`): Advertencia no crítica, banner de desarrollo y monitoreo.
+  - `accent-amber-lighter` (`var(--color-ieee-yellow-dark)` / `#ffc72c`) / `darker` (`var(--color-ieee-orange-dark)` / `#e87722`)
+- **Rojo IEEE** (`var(--color-ieee-red-bright)` / `#ba0c2f`): Error, peligro y acciones destructivas.
+  - `accent-red-lighter` (`#d94060`) / `darker` (`var(--color-ieee-red-dark)` / `#861f41`)
+- **Amarillo IEEE** (`var(--color-ieee-yellow-bright)` / `#ffd100`): Resaltado, badges informativos y gamificación.
+  - `accent-yellow-lighter` (`#ffe166`) / `darker` (`var(--color-ieee-yellow-dark)` / `#ffc72c`)
+- **Rosa/Vino IEEE** (`var(--color-ieee-red-dark)` / `#861f41`): Énfasis cálido y alternativo.
+  - `accent-rose-lighter` (`var(--color-ieee-red-bright)` / `#ba0c2f`) / `darker` (`#6b1530`)
+- **Teal IEEE** (`var(--color-ieee-teal-bright)` / `#009ca6`): Degradados de progreso y detalles técnicos.
+  - `accent-teal-lighter` (`#00b8c4`) / `darker` (`var(--color-ieee-teal-dark)` / `#007377`)
 
 ### Neutral — Fondos
 - **Fondo Órbita** (#050816): Fondo primario de toda la aplicación, base oscura que absorbe.
-  - `neutral-bg-lighter` (#0c1333): Elevación sutil para `from-bg-primary-lighter`.
-  - `neutral-bg-darker` (#03050e): Pozo / sombra inferior.
+  - `neutral-bg-lighter` (#0c1333) / `neutral-bg-darker` (#03050e)
 - **Fondo Satélite** (#0a0f24): Tarjetas y contenedores secundarios (Unirse, Tienda, glass-card).
   - `neutral-bg-secondary-lighter` (#121b40) / `darker` (#070a17)
-- **Fondo Profundo Slate** (#0f172a): Tarjetas de alto contraste. `from-bg-deep-slate to-bg-deep-slate-darker`.
+- **Fondo Profundo Slate** (#0f172a): Tarjetas de alto contraste.
   - `lighter` (#182544) / `darker` (#0a0f1b)
-- **Fondo Esmeralda Oscuro** (#0a1f1a): Secciones de financiamiento y éxito. Alternativa profunda a emerald.
+- **Fondo Esmeralda Oscuro** (#0a1f1a): Secciones de financiamiento y éxito.
   - `lighter` (#133a31) / `darker` (#061411)
-- **Fondo Púrpura Profundo** (#0d0720): Banners de donación y secciones especiales. Base hero alternativa.
+- **Fondo Púrpura Profundo** (#0d0720): Banners de donación y secciones especiales.
   - `lighter` (#190d3d) / `darker` (#080515)
 
 ### Neutral — Texto
-- **Texto Primario** (#ffffff): Títulos H1-H6 y lectura principal. Máximo contraste.
-  - `lighter` (#ffffff) — clamp a blanco puro para API consistente.
-  - `darker` (#e2e8f0 / slate-200): Variante atenuada para degradados de texto.
-- **Texto Secundario** (#cbd5e0): Descripciones, subtítulos y meta. [Nota: referencia original #94a3b8, token implementado #cbd5e0].
-  - `lighter` (#dce2e8) — highlight de texto.
-  - `darker` (#a5b6c9) — estado atenuado.
+- **Texto Primario** (#ffffff): Títulos H1-H6 y lectura principal.
+- **Texto Secundario** (#cbd5e0): Descripciones, subtítulos y meta.
 
 ### Neutral — Vidrio
 - **Fondo de Cristal** (rgba(255,255,255,0.05)): Relleno de `glass-panel`. Requiere `backdrop-blur`.
-  - `glass-bg-lighter` (0.08) — highlight / hover.
-  - `glass-bg-darker` (0.03) — sombra / inactivo.
 - **Borde de Cristal** (rgba(255,255,255,0.1)): Borde sutil de glassmorphism.
-  - `glass-border-lighter` (0.15) — hover.
-  - `glass-border-darker` (0.06) — inactivo.
 
 ### Tabla rápida — Tokens CSS (`--color-*` en `global.css`)
-| Familia | Base | Lighter | Darker | Degradado sugerido |
+| Familia | Base | Lighter | Darker | Token IEEE Referenciado |
 |---|---|---|---|---|
-| `accent-blue` | `#155dfc` | `#5d8df6` | `#0040cf` | `from-accent-blue-lighter to-accent-blue-darker` |
-| `accent-cyan` | `#22d3ee` | `#65dbed` | `#08adc6` | `from-accent-cyan-lighter to-accent-cyan-darker` |
-| `accent-emerald` | `#34d399` | `#6fdab3` | `#1ea775` | `from-accent-emerald-lighter to-accent-emerald-darker` |
-| `accent-purple` | `#a855f7` | `#c898f6` | `#880dfd` | `from-accent-purple-lighter to-accent-purple-darker` |
-| `accent-amber` | `#f59e0b` | `#f1b652` | `#bd7700` | `from-accent-amber-lighter to-accent-amber-darker` |
-| `accent-red` | `#ef4444` | `#f08686` | `#e60b0b` | `from-accent-red-lighter to-accent-red-darker` |
-| `accent-yellow` | `#facc15` | `#f5d65d` | `#cda400` | `from-accent-yellow-lighter to-accent-yellow-darker` |
-| `accent-rose` | `#f43f5e` | `#f38396` | `#ec042c` | `from-accent-rose-lighter to-accent-rose-darker` |
-| `accent-teal` | `#2dd4bf` | `#69dacc` | `#1ba392` | `from-accent-teal-lighter to-accent-teal-darker` |
+| `accent-blue` | `#00629b` | `#00aeef` | `#002855` | `var(--color-ieee-blue)` |
+| `accent-cyan` | `#00aeef` | `#00b5e2` | `#009ca6` | `var(--color-ieee-comsoc-cyan)` |
+| `accent-emerald` | `#00843d` | `#78be20` | `#006341` | `var(--color-ieee-dark-green-bright)` |
+| `accent-purple` | `#981d97` | `#bc5fbc` | `#772583` | `var(--color-ieee-purple-bright)` |
+| `accent-amber` | `#ffa300` | `#ffc72c` | `#e87722` | `var(--color-ieee-orange-bright)` |
+| `accent-red` | `#ba0c2f` | `#d94060` | `#861f41` | `var(--color-ieee-red-bright)` |
+| `accent-yellow` | `#ffd100` | `#ffe166` | `#ffc72c` | `var(--color-ieee-yellow-bright)` |
+| `accent-rose` | `#861f41` | `#ba0c2f` | `#6b1530` | `var(--color-ieee-red-dark)` |
+| `accent-teal` | `#009ca6` | `#00b8c4` | `#007377` | `var(--color-ieee-teal-bright)` |
 | `bg-primary` | `#050816` | `#0c1333` | `#03050e` | `from-bg-primary-lighter to-bg-primary` |
 | `bg-secondary` | `#0a0f24` | `#121b40` | `#070a17` | `from-bg-secondary to-bg-secondary-lighter` |
-| `bg-deep-slate` | `#0f172a` | `#182544` | `#0a0f1b` | `from-bg-deep-slate-lighter to-bg-deep-slate-darker` |
-| `bg-emerald-dark` | `#0a1f1a` | `#133a31` | `#061411` | `from-bg-emerald-dark to-bg-emerald-dark-lighter` |
-| `bg-deep-purple` | `#0d0720` | `#190d3d` | `#080515` | `from-bg-deep-purple to-bg-deep-purple-lighter` |
 | `glass-bg` | `0.05` | `0.08` | `0.03` | `from-glass-bg-lighter to-glass-bg-darker` |
 | `glass-border` | `0.10` | `0.15` | `0.06` | `border-glass-border-lighter` |
 
 ### Named Rules
-**The Orbital Signal Rule.** El cian espectral solo porta señal — estados, enlaces y bordes activos. Nunca como relleno decorativo de grandes superficies.
+**The Orbital Signal Rule.** El cian ComSoc solo porta señal — estados, enlaces y bordes activos. Nunca como relleno decorativo de grandes superficies.
 
 **The Dark Matter Rule.** El fondo permanece oscuro. No se introduce modo claro; la profundidad se construye por tono y blur, no por inversión.
 
-**The Gradient Companion Rule.** Todo degradado usa compañeros `lighter→darker` del mismo token, nunca hex hardcodeado fuera de `global.css`. Ej.: `bg-gradient-to-br from-accent-blue via-accent-blue to-accent-blue-darker` — mantiene armonía orbital y facilita theming.
+**The Gradient Companion Rule.** Todo degradado usa compañeros `lighter→darker` del mismo token, nunca hex hardcodeado fuera de `global.css`.
 
 ## Typography
 
@@ -235,53 +245,45 @@ Cada color base expone dos compañeros para construir degradados sin hardcodear 
 **Body Font:** Nunito Sans (con system-ui)
 **Label/Mono Font:** Share Tech Mono, monospace
 
-**Character:** Formata aporta autoridad técnica y geometría orbital para titulares; Nunito Sans aporta legibilidad humana y ritmo para cuerpo; Share Tech Mono aporta precisión de telemetría para etiquetas, estados y código.
-
 ### Hierarchy
-- **Display** (700, clamp(2.5rem,7vw,4.5rem), 1, -0.04em): Hero y números de métricas. Solo en hero y estadísticas.
-- **Headline** (700, clamp(1.875rem,4vw,3rem), 1.1, -0.03em): Títulos de sección (Ecosistema, Proyectos Destacados). Hasta H2.
-- **Title** (600, 1.25rem, 1.3): Títulos de tarjeta y H3. Siempre acompañado de descripción en body.
-- **Body** (400, 1rem/1.6): Párrafos y descripciones. Longitud óptima 65–75ch, `font-light` en hero.
-- **Label** (400, 0.625rem, 1.4, 0.14em, uppercase): Pills, badges, estados, deadlines. Siempre mono, tracking amplio.
-
-### Named Rules
-**The Telemetry Label Rule.** Todo meta (estado, fecha límite, categoría) es mono `Share Tech Mono` 10px uppercase. No se usa sans para meta.
+- **Display** (700, clamp(2.5rem,7vw,4.5rem), 1, -0.04em): Hero y números de métricas.
+- **Headline** (700, clamp(1.875rem,4vw,3rem), 1.1, -0.03em): Títulos de sección.
+- **Title** (600, 1.25rem, 1.3): Títulos de tarjeta y H3.
+- **Body** (400, 1rem/1.6): Párrafos y descripciones.
+- **Label** (400, 0.625rem, 1.4, 0.14em, uppercase): Pills, badges, estados, deadlines.
 
 ## Layout
 
-Modelo orbital y en rejilla, con densidad media y ritmo de 8px. Contenedor `max-w-7xl` centrado con `px-4 sm:px-6 lg:px-8`, secciones con `py-16 sm:py-20`, hero `min-h-[90vh]` aislado. Grillas: `1 col → 2 cols (md) → 4 cols (lg)` para pilares y aliados; `1 → 2 → 3` para proyectos/recursos. Espaciado interno de tarjetas `p-6` (24px), gap `gap-6` (24px) / `gap-8` (32px) para secciones. En móvil, CTAs en columna `flex-col sm:flex-row`, navegación colapsa a hamburger `44×44` mínimo. Sin `content-visibility` en secciones críticas sobre el pliegue; `content-auto` solo bajo el pliegue con `contain-intrinsic-size: auto 600px`.
+Modelo orbital y en rejilla, con densidad media y ritmo de 8px. Contenedor `max-w-7xl` centrado con `px-4 sm:px-6 lg:px-8`, secciones con `py-16 sm:py-20`, hero `min-h-[90vh]` aislado.
 
 ## Elevation & Depth
 
 Sistema por **capas tonales**, no por sombras. La profundidad se construye con desenfoque y tono, no con elevación arrojada.
 
-Fondo `#050816` → capa satélite `#0a0f24` con `backdrop-blur 16px` y borde `rgba(255,255,255,0.1)` → capa activa con `border-accent-cyan/35` y `translateY(-4px)`. Las sombras solo aparecen como respuesta a hover, nunca en reposo.
+Fondo `#050816` → capa satélite `#0a0f24` con `backdrop-blur 16px` y borde `rgba(255,255,255,0.1)` → capa activa con `border-accent-cyan/35` y `translateY(-4px)`.
 
 ### Shadow Vocabulary
-- **Card Hover** (`box-shadow: 0 12px 30px -10px rgba(21, 93, 252, 0.25)`): Elevación sutil al interactuar con `glass-card`.
-- **Glow CTA** (`box-shadow: 0 18px 40px -18px rgba(21,93,252,0.9)`): Resplandor difuso bajo CTAs primarios, no sombra dura.
-- **Dot Grid Glow** (`radial-gradient` + `0_0_30px rgba(34,211,238,0.12)`): Atmósfera, no elevación.
-
-### Named Rules
-**The Tonal Orbit Rule.** Las superficies son planas en reposo; la profundidad aparece solo como respuesta (hover, focus, active) mediante blur y traslación, nunca como sombra permanente.
+- **Card Hover** (`box-shadow: 0 12px 30px -10px rgba(0, 98, 155, 0.25)`): Elevación sutil al interactuar con `glass-card`.
+- **Glow CTA** (`box-shadow: 0 18px 40px -18px rgba(0, 98, 155, 0.9)`): Resplandor difuso bajo CTAs primarios.
+- **Dot Grid Glow** (`radial-gradient` + `0_0_30px rgba(0, 174, 239, 0.12)`): Atmósfera, no elevación.
 
 ## Shapes
 
-Lenguaje de forma suavemente orbital — esquinas redondeadas generosas y bordes difusos, sin recortes duros ni geometrías agresivas. Radio base `16px` (lg) para botones y `22px` (xl) para tarjetas, `24px` (2xl) para modales y `28px` (3xl) para secciones destacadas. Bordes siempre `1px solid rgba(255,255,255,0.1)` en reposo, `rgba(34,211,238,0.35)` en hover. Clipping solo para imágenes `aspect-video`/`aspect-square` con `object-cover` y `rounded-2xl` overflow. El banner de desarrollo usa `rounded-2xl` (16px) para no competir con el hero.
+Lenguaje de forma suavemente orbital — esquinas redondeadas generosas y bordes difusos. Radio base `16px` (lg) para botones y `22px` (xl) para tarjetas, `24px` (2xl) para modales y `28px` (3xl) para secciones destacadas.
 
 ## Components
 
 ### Buttons
 - **Shape:** Redondeado medio (16px lg)
-- **Primary:** `background: #155dfc` → hover `#22d3ee`, `color: #ffffff`, `padding: 14px 28px`, `shadow: 0 18px 40px -18px rgba(21,93,252,0.9)`, `transition: all 0.3s`
+- **Primary:** `background: #00629b` (`var(--ieee-blue)`) → hover `#00aeef` (`var(--ieee-comsoc-cyan)`), `color: #ffffff`, `padding: 14px 28px`, `shadow: 0 18px 40px -18px rgba(0, 98, 155, 0.9)`, `transition: all 0.3s`
 - **Hover / Focus:** `translateY(-2px)` + `shadow` + `focus-visible:ring-2 ring-accent-cyan`
 - **Secondary / Ghost:** `background: rgba(255,255,255,0.05)`, `color: #cbd5e0`, `border: 1px solid rgba(255,255,255,0.1)`, hover `border-accent-cyan/40` + `bg-white/10`
 
 ### Cards / Containers
 - **Corner Style:** `22px` (xl) para tarjetas, `28px` (3xl) para destacados
 - **Background:** `bg-bg-secondary #0a0f24` con `backdrop-blur 16px`
-- **Shadow Strategy:** Solo en hover (`0 12px 30px -10px rgba(21,93,252,0.25)`), tono según Elevation
-- **Border:** `1px solid rgba(255,255,255,0.1)` → hover `rgba(34,211,238,0.35)`
+- **Shadow Strategy:** Solo en hover (`0 12px 30px -10px rgba(0, 98, 155, 0.25)`)
+- **Border:** `1px solid rgba(255,255,255,0.1)` → hover `rgba(0, 174, 239, 0.35)`
 - **Internal Padding:** `24px` (`p-6`), `32px` en modales
 
 ### Chips
