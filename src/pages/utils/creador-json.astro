@@ -1,0 +1,1101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroHeader from '../../components/HeroHeader.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<BaseLayout
+  title="Generador de Contenido JSON | Utilidades IEEE ComSoc Univalle"
+  description="Herramienta interactiva para crear, validar, copiar, importar y descargar archivos .json para las colecciones de contenido de Astro en IEEE ComSoc Univalle."
+>
+  <HeroHeader
+    badgeText="Herramienta para Administradores y Desarrolladores"
+    badgeColor="cyan"
+    badgeDot={true}
+    title="Generador de Contenido JSON"
+    description="Crea, valida, copia y descarga estructuras .json perfectamente formateadas y listas para las colecciones de Astro en src/content/."
+  />
+
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <!-- Quick Repository Path Banner -->
+    <div class="mb-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-glass-border/40 bg-bg-secondary/40 p-4 sm:flex-row sm:items-center sm:p-5 backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan shadow-[0_0_18px_rgba(0,174,239,0.2)]">
+          <Icon name="material-symbols:folder-zip-rounded" class="h-5 w-5" aria-hidden="true" />
+        </div>
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-[0.14em] text-accent-cyan font-mono">Ubicación Destino</div>
+          <div id="target-path-display" class="text-sm font-mono text-text-primary font-medium">
+            src/content/convocatorias/<span class="text-accent-cyan">mi-convocatoria.json</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button
+          type="button"
+          id="btn-copy-path"
+          class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-medium text-text-secondary transition hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan"
+          title="Copiar ruta de destino"
+        >
+          <Icon name="material-symbols:content-copy-rounded" class="h-4 w-4" aria-hidden="true" />
+          <span>Copiar ruta</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Collection Selection Tabs -->
+    <div class="mb-8">
+      <label class="mb-3 block text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary font-mono">
+        Selecciona la Colección
+      </label>
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7" id="collection-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          data-collection="convocatorias"
+          aria-selected="true"
+          class="tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-accent-cyan/40 bg-accent-cyan/15 p-3 text-center transition hover:border-accent-cyan text-accent-cyan shadow-[0_0_15px_rgba(0,174,239,0.15)]"
+        >
+          <Icon name="material-symbols:campaign-rounded" class="h-5 w-5" aria-hidden="true" />
+          <span class="text-xs font-semibold tracking-tight">Convocatorias</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          data-collection="eventos"
+          aria-selected="false"
+          class="tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-bg-secondary/40 p-3 text-center text-text-secondary transition hover:border-white/20 hover:text-text-primary"
+        >
+          <Icon name="material-symbols:calendar-month-rounded" class="h-5 w-5" aria-hidden="true" />
+          <span class="text-xs font-semibold tracking-tight">Eventos</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          data-collection="tienda"
+          aria-selected="false"
+          class="tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-bg-secondary/40 p-3 text-center text-text-secondary transition hover:border-white/20 hover:text-text-primary"
+        >
+          <Icon name="material-symbols:storefront-rounded" class="h-5 w-5" aria-hidden="true" />
+          <span class="text-xs font-semibold tracking-tight">Tienda</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          data-collection="juntaDirectiva"
+          aria-selected="false"
+          class="tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-bg-secondary/40 p-3 text-center text-text-secondary transition hover:border-white/20 hover:text-text-primary"
+        >
+          <Icon name="material-symbols:badge-rounded" class="h-5 w-5" aria-hidden="true" />
+          <span class="text-xs font-semibold tracking-tight">Junta Directiva</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          data-collection="proyectos"
+          aria-selected="false"
+          class="tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-bg-secondary/40 p-3 text-center text-text-secondary transition hover:border-white/20 hover:text-text-primary"
+        >
+          <Icon name="material-symbols:rocket-launch-rounded" class="h-5 w-5" aria-hidden="true" />
+          <span class="text-xs font-semibold tracking-tight">Proyectos</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          data-collection="aliados"
+          aria-selected="false"
+          class="tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-bg-secondary/40 p-3 text-center text-text-secondary transition hover:border-white/20 hover:text-text-primary"
+        >
+          <Icon name="material-symbols:handshake-rounded" class="h-5 w-5" aria-hidden="true" />
+          <span class="text-xs font-semibold tracking-tight">Aliados</span>
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          data-collection="recursos"
+          aria-selected="false"
+          class="tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-bg-secondary/40 p-3 text-center text-text-secondary transition hover:border-white/20 hover:text-text-primary"
+        >
+          <Icon name="material-symbols:library-books-rounded" class="h-5 w-5" aria-hidden="true" />
+          <span class="text-xs font-semibold tracking-tight">Recursos</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Workspace: Vertical Stack Flow -->
+    <div class="mx-auto max-w-5xl flex flex-col gap-10">
+      <!-- Section 1: Form Builder -->
+      <section aria-labelledby="form-builder-heading" class="flex flex-col gap-6">
+        <!-- Form Header Card -->
+        <div class="glass-card rounded-2xl border border-white/10 bg-bg-secondary/40 p-5 backdrop-blur-md">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 id="current-collection-title" class="text-xl font-black tracking-tight text-text-primary">
+                Convocatoria
+              </h2>
+              <p id="current-collection-desc" class="text-xs text-text-secondary mt-0.5 font-light">
+                Esquema validado para ofertas de voluntariado y roles del capítulo.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                id="btn-load-sample"
+                class="inline-flex items-center gap-1.5 rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-xs font-semibold text-accent-cyan transition hover:bg-accent-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan"
+              >
+                <Icon name="material-symbols:auto-awesome-rounded" class="h-4 w-4" aria-hidden="true" />
+                <span>Cargar Ejemplo</span>
+              </button>
+              <button
+                type="button"
+                id="btn-reset-form"
+                class="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-text-secondary transition hover:bg-white/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+              >
+                <Icon name="material-symbols:restart-alt-rounded" class="h-4 w-4" aria-hidden="true" />
+                <span>Limpiar</span>
+              </button>
+              <label
+                class="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-text-secondary transition hover:bg-white/10 hover:text-text-primary focus-within:ring-2 focus-within:ring-white/30"
+                title="Cargar archivo JSON existente"
+              >
+                <Icon name="material-symbols:upload-file-rounded" class="h-4 w-4" aria-hidden="true" />
+                <span>Importar .json</span>
+                <input type="file" id="file-import-input" accept=".json,application/json" class="sr-only" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Form Fields Container -->
+        <form id="content-form" class="flex flex-col gap-6" onsubmit="return false;">
+          <div id="dynamic-form-fields" class="flex flex-col gap-6">
+            <!-- Injected via JavaScript based on collection schema -->
+          </div>
+        </form>
+      </section>
+
+      <!-- Section 2: JSON Preview & Actions (Underneath the form) -->
+      <section aria-labelledby="json-preview-heading" class="flex flex-col gap-6 pt-4 border-t border-white/10">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div>
+            <h2 id="json-preview-heading" class="text-xl font-black tracking-tight text-text-primary">
+              Vista Previa y Exportación JSON
+            </h2>
+            <p class="text-xs text-text-secondary mt-0.5 font-light">
+              El contenido se formatea y valida automáticamente en tiempo real según el esquema de la colección.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1.5 text-xs font-mono text-accent-emerald font-semibold" id="json-status">
+              <span class="h-1.5 w-1.5 rounded-full bg-accent-emerald animate-pulse"></span>
+              Estructura válida
+            </div>
+          </div>
+        </div>
+
+        <!-- JSON Output Panel Card -->
+        <div class="glass-card rounded-2xl border border-white/10 bg-bg-secondary/60 p-5 backdrop-blur-xl shadow-2xl flex flex-col gap-4">
+          <!-- Output Card Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+            <div class="flex items-center gap-2.5">
+              <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-accent-cyan">
+                <Icon name="material-symbols:data-object-rounded" class="h-4 w-4" aria-hidden="true" />
+              </div>
+              <span class="text-xs font-bold uppercase tracking-wider text-text-primary font-mono">Código JSON Generado</span>
+            </div>
+
+            <!-- Filename Input -->
+            <div class="flex items-center gap-2 bg-black/40 border border-white/10 rounded-xl px-3 py-1.5">
+              <span class="text-xs text-text-secondary font-mono">Archivo:</span>
+              <input
+                type="text"
+                id="custom-filename-input"
+                value="nueva-convocatoria.json"
+                class="w-48 sm:w-64 bg-transparent text-xs font-mono text-accent-cyan focus:outline-none border-b border-transparent focus:border-accent-cyan"
+                title="Nombre del archivo para descargar"
+              />
+            </div>
+          </div>
+
+          <!-- Code View Area -->
+          <div class="relative group">
+            <pre class="max-h-[550px] min-h-[300px] overflow-auto rounded-xl border border-white/5 bg-[#030612] p-4 text-xs font-mono text-text-secondary leading-relaxed custom-scrollbar selection:bg-accent-blue selection:text-white" tabindex="0"><code id="json-code-output" class="text-text-primary"></code></pre>
+          </div>
+
+          <!-- Primary Actions Toolbar -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <button
+              type="button"
+              id="btn-copy-json"
+              class="relative inline-flex items-center justify-center gap-2 rounded-xl border border-accent-cyan/40 bg-linear-to-r from-accent-blue to-accent-blue-lighter px-5 py-3.5 text-xs font-bold text-white shadow-[0_12px_24px_-10px_rgba(0,98,155,0.8)] transition duration-200 hover:scale-[1.01] hover:shadow-[0_16px_30px_-10px_rgba(0,174,239,0.9)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan cursor-pointer"
+            >
+              <Icon name="material-symbols:content-copy-rounded" class="h-4 w-4" aria-hidden="true" />
+              <span>Copiar JSON al Portapapeles</span>
+            </button>
+
+            <button
+              type="button"
+              id="btn-download-json"
+              class="inline-flex items-center justify-center gap-2 rounded-xl border border-accent-emerald/40 bg-accent-emerald/15 px-5 py-3.5 text-xs font-bold text-accent-emerald transition duration-200 hover:scale-[1.01] hover:bg-accent-emerald/25 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-emerald cursor-pointer"
+            >
+              <Icon name="material-symbols:download-rounded" class="h-4 w-4" aria-hidden="true" />
+              <span>Descargar Archivo .json</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Guide & Instructions Box -->
+        <div class="rounded-2xl border border-white/10 bg-bg-secondary/30 p-5 text-xs text-text-secondary leading-relaxed backdrop-blur-sm">
+          <div class="flex items-center gap-2 font-bold text-text-primary mb-2">
+            <Icon name="material-symbols:info-rounded" class="h-4 w-4 text-accent-cyan" aria-hidden="true" />
+            <span>Guía de incorporación al repositorio</span>
+          </div>
+          <ol class="list-decimal list-inside space-y-1.5 font-light text-text-secondary/90">
+            <li>Completa o ajusta los campos requeridos en el formulario superior.</li>
+            <li>Revisa la vista previa del código JSON y haz clic en <strong>Copiar JSON</strong> o <strong>Descargar .json</strong>.</li>
+            <li>Guarda el archivo en la ruta indicada en el banner superior dentro de <code class="text-accent-cyan font-mono">src/content/</code>.</li>
+            <li>Astro sincronizará y recargará automáticamente los datos de la colección en caliente.</li>
+          </ol>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" role="alert" aria-live="assertive" class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5 rounded-xl border border-accent-cyan/40 bg-bg-secondary/95 px-4 py-3 text-xs font-semibold text-text-primary shadow-[0_10px_30px_rgba(0,174,239,0.3)] backdrop-blur-lg">
+    <Icon name="material-symbols:check-circle-rounded" class="h-4 w-4 text-accent-cyan" aria-hidden="true" />
+    <span id="toast-message">Copiado al portapapeles</span>
+  </div>
+</BaseLayout>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 174, 239, 0.5);
+  }
+</style>
+
+<script is:inline>
+  // Collection Schema Definitions & Samples
+  const SCHEMAS = {
+    convocatorias: {
+      title: 'Convocatoria',
+      description: 'Esquema validado para ofertas de voluntariado y roles del capítulo.',
+      targetFolder: 'src/content/convocatorias',
+      defaultFilename: 'coordinador-proyectos.json',
+      sample: {
+        titulo: 'Coordinador de Proyectos de Telecomunicaciones',
+        area: 'Proyectos & Desarrollo',
+        fechaLimite: new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0],
+        descripcion: 'Buscamos un estudiante motivado para liderar iniciativas de redes y conectividad en el capítulo IEEE ComSoc Univalle.',
+        requisitos: [
+          'Estudiante activo de ingeniería electrónica, telecomunicaciones o afines.',
+          'Interés en tecnologías 5G, IoT y redes de datos.',
+          'Capacidad de trabajo en equipo y liderazgo.'
+        ],
+        responsabilidades: [
+          'Coordinar las reuniones del equipo técnico.',
+          'Gestionar cronogramas y entregables de proyectos.',
+          'Presentar avances mensuales a la junta directiva.'
+        ],
+        estado: 'Publicada',
+        formUrl: 'https://forms.gle/ejemploConvocatoria'
+      },
+      fields: [
+        { name: 'titulo', label: 'Título del Cargo / Convocatoria', type: 'text', required: true },
+        { name: 'area', label: 'Área o Comité', type: 'text', required: true, placeholder: 'Ej: Proyectos & Desarrollo, Comunicaciones' },
+        { name: 'fechaLimite', label: 'Fecha Límite de Postulación', type: 'date', required: true },
+        { name: 'descripcion', label: 'Descripción General', type: 'textarea', required: true },
+        { name: 'estado', label: 'Estado', type: 'select', options: ['Publicada', 'Cerrada'], required: true },
+        { name: 'formUrl', label: 'Enlace al Formulario de Postulación (Google Forms, etc.)', type: 'url', required: false },
+        { name: 'requisitos', label: 'Requisitos', type: 'array-string', required: true },
+        { name: 'responsabilidades', label: 'Responsabilidades', type: 'array-string', required: true }
+      ]
+    },
+
+    eventos: {
+      title: 'Evento',
+      description: 'Esquema para talleres, webinars, hackathones y reuniones del capítulo.',
+      targetFolder: 'src/content/eventos/<slug>',
+      defaultFilename: 'evento.json',
+      sample: {
+        titulo: 'Taller Práctico: Despliegue de Redes 5G y Computación en el Borde',
+        tipo: 'Taller',
+        organizador: 'Comité Técnico ComSoc Univalle',
+        fechaInicio: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
+        fechaFin: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
+        horaInicio: '14:00',
+        horaFin: '17:30',
+        lugarNombre: 'Laboratorio de Telecomunicaciones 301, Edificio 354',
+        lugarDireccion: 'Campus Meléndez, Universidad del Valle',
+        descripcion: 'Aprende los fundamentos prácticos de arquitectura 5G Standalone, virtualización de funciones de red (NFV) y Open Radio Access Network (O-RAN).',
+        imagenPrincipal: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80',
+        galeria: [
+          'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80'
+        ],
+        estado: 'Publicado',
+        detalles: [
+          { label: 'Modalidad', value: 'Presencial con transmisión online' },
+          { label: 'Certificación', value: 'Certificado de asistencia IEEE ComSoc' },
+          { label: 'Prerrequisitos', value: 'Conocimientos básicos de redes TCP/IP' }
+        ]
+      },
+      fields: [
+        { name: 'titulo', label: 'Título del Evento', type: 'text', required: true },
+        { name: 'tipo', label: 'Tipo de Evento', type: 'text', required: true, placeholder: 'Ej: Taller, Conferencia, Hackathon, Webinar, Reunión' },
+        { name: 'organizador', label: 'Organizador', type: 'text', required: true, placeholder: 'Ej: Junta Directiva ComSoc Univalle' },
+        { name: 'fechaInicio', label: 'Fecha de Inicio', type: 'date', required: true },
+        { name: 'fechaFin', label: 'Fecha de Finalización (Opcional)', type: 'date', required: false },
+        { name: 'horaInicio', label: 'Hora de Inicio (HH:mm)', type: 'time', required: true },
+        { name: 'horaFin', label: 'Hora de Fin (HH:mm)', type: 'time', required: true },
+        { name: 'lugarNombre', label: 'Lugar / Plataforma', type: 'text', required: true, placeholder: 'Ej: Auditorio 1 / Google Meet' },
+        { name: 'lugarDireccion', label: 'Dirección o Enlace de Ubicación (Opcional)', type: 'text', required: false },
+        { name: 'descripcion', label: 'Descripción Detallada', type: 'textarea', required: true },
+        { name: 'imagenPrincipal', label: 'URL de Imagen Principal', type: 'text', required: true },
+        { name: 'estado', label: 'Estado', type: 'select', options: ['Publicado', 'Pasado'], required: true },
+        { name: 'galeria', label: 'Galería de Fotos (URLs)', type: 'array-string', required: false },
+        {
+          name: 'detalles',
+          label: 'Detalles y Características Adicionales',
+          type: 'array-object',
+          subfields: [
+            { key: 'label', label: 'Etiqueta (Ej: Modalidad)', type: 'text' },
+            { key: 'value', label: 'Valor (Ej: Híbrido)', type: 'text' }
+          ],
+          required: false
+        }
+      ]
+    },
+
+    tienda: {
+      title: 'Producto de Tienda',
+      description: 'Esquema para indumentaria, accesorios y merchandising del capítulo.',
+      targetFolder: 'src/content/tienda',
+      defaultFilename: 'camiseta-oficial-comsoc.json',
+      sample: {
+        name: 'Camiseta Oficial IEEE ComSoc Univalle',
+        category: 'Indumentaria',
+        price: '45000',
+        description: 'Camiseta de alta calidad 100% algodón peinado con el logo bordado de IEEE ComSoc y diseño conmemorativo en la espalda.',
+        image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+        available: true,
+        resources: [
+          { title: 'Guía de Tallas (PDF)', link: 'https://ejemplo.com/tallas.pdf', icon: 'material-symbols:straighten', color: '#00aeef' }
+        ],
+        specifications: [
+          { key: 'Material', value: '100% Algodón Peinado 200g' },
+          { key: 'Tallas Disponibles', value: 'S, M, L, XL' },
+          { key: 'Color Base', value: 'Azul Marino Oscuro / Deep Slate' }
+        ]
+      },
+      fields: [
+        { name: 'name', label: 'Nombre del Producto', type: 'text', required: true },
+        { name: 'category', label: 'Categoría', type: 'text', required: true, placeholder: 'Ej: Indumentaria, Accesorios, Stickers, Pines' },
+        { name: 'price', label: 'Precio (COP o USD)', type: 'text', required: true, placeholder: 'Ej: 45000 o $ 45.000 COP' },
+        { name: 'description', label: 'Descripción del Producto', type: 'textarea', required: true },
+        { name: 'image', label: 'URL de Imagen del Producto', type: 'text', required: true },
+        { name: 'available', label: '¿Producto Disponible para Pedidos?', type: 'boolean', default: true, required: true },
+        {
+          name: 'specifications',
+          label: 'Ficha Técnica / Especificaciones',
+          type: 'array-object',
+          subfields: [
+            { key: 'key', label: 'Característica (Ej: Material)', type: 'text' },
+            { key: 'value', label: 'Detalle (Ej: Algodón)', type: 'text' }
+          ],
+          required: false
+        },
+        {
+          name: 'resources',
+          label: 'Recursos / Enlaces de Interés',
+          type: 'array-object',
+          subfields: [
+            { key: 'title', label: 'Título del Recurso', type: 'text' },
+            { key: 'link', label: 'URL Enlace', type: 'text' },
+            { key: 'icon', label: 'Icono (Ej: material-symbols:download)', type: 'text' },
+            { key: 'color', label: 'Color Hex (Ej: #00aeef)', type: 'text' }
+          ],
+          required: false
+        }
+      ]
+    },
+
+    juntaDirectiva: {
+      title: 'Miembro de Junta Directiva',
+      description: 'Esquema para líderes, comités y directivos de IEEE ComSoc Univalle.',
+      targetFolder: 'src/content/juntaDirectiva',
+      defaultFilename: 'presidente.json',
+      sample: {
+        order: 1,
+        name: 'Carlos Andrés Rodríguez',
+        role: 'Presidente',
+        department: 'Mesa Directiva',
+        avatar: '👨‍💼',
+        image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+        bio: 'Estudiante de Ingeniería Electrónica apasionado por las telecomunicaciones cuánticas y el procesamiento de señales.',
+        email: 'carlos.rodriguez@correounivalle.edu.co',
+        phone: '+57 300 123 4567',
+        linkedin: 'https://linkedin.com/in/carlos-rodriguez',
+        github: 'https://github.com/carlos-rodriguez',
+        website: 'https://carlosrodriguez.dev'
+      },
+      fields: [
+        { name: 'order', label: 'Orden Jerárquico de Visualización', type: 'number', default: 1, required: true },
+        { name: 'name', label: 'Nombre Completo', type: 'text', required: true },
+        { name: 'role', label: 'Cargo o Rol', type: 'text', required: true, placeholder: 'Ej: Presidente, Secretario, Líder Técnico' },
+        { name: 'department', label: 'Comité / Departamento', type: 'text', required: true, placeholder: 'Ej: Mesa Directiva, Comité Técnico, Comunicaciones' },
+        { name: 'avatar', label: 'Emoji Avatar de Respaldo', type: 'text', default: '👤', required: true },
+        { name: 'image', label: 'URL de Fotografía Oficial (Opcional)', type: 'text', required: false },
+        { name: 'bio', label: 'Biografía / Perfil Corto', type: 'textarea', required: false },
+        { name: 'email', label: 'Correo Electrónico Institucional', type: 'text', required: false },
+        { name: 'phone', label: 'Teléfono / WhatsApp de Contacto', type: 'text', required: false },
+        { name: 'linkedin', label: 'Perfil de LinkedIn', type: 'url', required: false },
+        { name: 'github', label: 'Perfil de GitHub', type: 'url', required: false },
+        { name: 'instagram', label: 'Perfil de Instagram', type: 'url', required: false },
+        { name: 'facebook', label: 'Perfil de Facebook', type: 'url', required: false },
+        { name: 'website', label: 'Sitio Web Personal', type: 'url', required: false }
+      ]
+    },
+
+    proyectos: {
+      title: 'Proyecto Técnico',
+      description: 'Esquema para iniciativas de investigación, desarrollo y prototipos.',
+      targetFolder: 'src/content/proyectos',
+      defaultFilename: 'lorawan-smart-campus.json',
+      sample: {
+        titulo: 'Red de Sensores LoRaWAN para Smart Campus Univalle',
+        categoria: 'IoT & Telecomunicaciones',
+        descripcion: 'Diseño y despliegue de una red inalámbrica de bajo consumo y largo alcance para monitoreo ambiental y calidad del aire en la sede Meléndez.',
+        imagen: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80',
+        estado: 'Activo',
+        tags: ['LoRaWAN', 'IoT', 'Redes Inalámbricas', 'Sensores Ambientales', 'ESP32'],
+        enlace: 'https://github.com/comsoc-univalle/lorawan-campus',
+        destacado: true,
+        montoActual: 1200000,
+        montoMeta: 2500000,
+        recursos: [
+          { title: 'Repositorio Firmware', link: 'https://github.com/comsoc-univalle/lorawan-campus', icon: 'material-symbols:code' },
+          { title: 'Dashboard en Tiempo Real', link: 'https://lora.comsoc-univalle.org', icon: 'material-symbols:monitoring' }
+        ],
+        resumenTecnico: 'El sistema integra pasarelas LoRaWAN de 8 canales operando en la banda US915 MHz, nodos sensores basados en microcontroladores ESP32 con sensores BME280 y PM2.5, y servidor de red The Things Stack.'
+      },
+      fields: [
+        { name: 'titulo', label: 'Título del Proyecto', type: 'text', required: true },
+        { name: 'categoria', label: 'Categoría', type: 'text', required: true, placeholder: 'Ej: IoT, 5G / 6G, Software de Redes, IA' },
+        { name: 'descripcion', label: 'Descripción General', type: 'textarea', required: true },
+        { name: 'imagen', label: 'URL de Imagen Representativa', type: 'text', required: true },
+        { name: 'estado', label: 'Estado del Proyecto', type: 'select', options: ['Activo', 'Completado', 'En Pausa'], default: 'Activo', required: true },
+        { name: 'destacado', label: '¿Proyecto Destacado en Portada?', type: 'boolean', default: false, required: true },
+        { name: 'tags', label: 'Etiquetas / Tecnologías (Tags)', type: 'array-string', required: false },
+        { name: 'enlace', label: 'Enlace Principal (GitHub / Demo / Paper)', type: 'url', required: false },
+        { name: 'montoActual', label: 'Fondos Recaudados / Ejecutados (COP Opcional)', type: 'number', required: false },
+        { name: 'montoMeta', label: 'Meta de Financiamiento (COP Opcional)', type: 'number', required: false },
+        { name: 'resumenTecnico', label: 'Resumen Técnico Detallado (Arquitectura, Componentes)', type: 'textarea', required: false },
+        {
+          name: 'recursos',
+          label: 'Recursos Adicionales',
+          type: 'array-object',
+          subfields: [
+            { key: 'title', label: 'Título del Recurso', type: 'text' },
+            { key: 'link', label: 'Enlace URL', type: 'text' },
+            { key: 'icon', label: 'Icono Opcional', type: 'text' }
+          ],
+          required: false
+        }
+      ]
+    },
+
+    aliados: {
+      title: 'Aliado o Patrocinador',
+      description: 'Esquema para empresas, comunidades y patrocinadores oficiales.',
+      targetFolder: 'src/content/aliados',
+      defaultFilename: 'aliado-estrategico.json',
+      sample: {
+        order: 1,
+        nombre: 'Cisco Systems Colombia',
+        tipo: 'Patrocinador Platino',
+        logo: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg',
+        descripcion: 'Líder global en redes, seguridad cibernética y soluciones de conectividad para el futuro digital.',
+        acerca: 'Cisco colabora activamente con IEEE ComSoc Univalle facilitando licencias formativas en Packet Tracer, talleres especializados y mentorías técnicas.',
+        website: 'https://www.cisco.com',
+        email: 'contacto@cisco.com',
+        phone: '+57 1 600 0000',
+        linkedin: 'https://linkedin.com/company/cisco',
+        instagram: 'https://instagram.com/ciscocolombia'
+      },
+      fields: [
+        { name: 'order', label: 'Orden de Prioridad', type: 'number', default: 1, required: true },
+        { name: 'nombre', label: 'Nombre de la Empresa o Comunidad', type: 'text', required: true },
+        { name: 'tipo', label: 'Tipo de Alianza / Categoría', type: 'text', required: true, placeholder: 'Ej: Patrocinador Platino, Aliado Académico, Comunidad' },
+        { name: 'logo', label: 'URL del Logo Vectorial / Imagen', type: 'text', required: false },
+        { name: 'descripcion', label: 'Descripción Resumida', type: 'textarea', required: true },
+        { name: 'acerca', label: 'Detalle de la Colaboración (Opcional)', type: 'textarea', required: false },
+        { name: 'website', label: 'Sitio Web Oficial', type: 'url', required: false },
+        { name: 'email', label: 'Correo Electrónico de Contacto', type: 'text', required: false },
+        { name: 'phone', label: 'Teléfono', type: 'text', required: false },
+        { name: 'linkedin', label: 'Perfil de LinkedIn', type: 'url', required: false },
+        { name: 'instagram', label: 'Perfil de Instagram', type: 'url', required: false }
+      ]
+    },
+
+    recursos: {
+      title: 'Recurso Académico / Plantilla',
+      description: 'Esquema para guías, tutoriales, plantillas y material didáctico.',
+      targetFolder: 'src/content/recursos',
+      defaultFilename: 'guia-iniciacion-redes.json',
+      sample: {
+        titulo: 'Guía Integral de Iniciación a Redes de Datos y Subnetting IPv4/IPv6',
+        descripcion: 'Material didáctico paso a paso para estudiantes que inician en el diseño de topologías de red, cálculo de subredes VLSM y enrutamiento estático.',
+        categoria: 'Guías y Tutoriales',
+        imagen: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
+        links: [
+          { label: 'Descargar Guía en PDF', url: 'https://ejemplo.com/guia-redes.pdf', tipo: 'Download' },
+          { label: 'Plantilla de Topología en Cisco Packet Tracer', url: 'https://ejemplo.com/topologia.pkt', tipo: 'External' }
+        ]
+      },
+      fields: [
+        { name: 'titulo', label: 'Título del Recurso', type: 'text', required: true },
+        { name: 'categoria', label: 'Categoría', type: 'text', required: true, placeholder: 'Ej: Guías, Plantillas, Talleres, Software' },
+        { name: 'descripcion', label: 'Descripción del Contenido', type: 'textarea', required: true },
+        { name: 'imagen', label: 'URL de Imagen de Portada (Opcional)', type: 'text', required: false },
+        {
+          name: 'links',
+          label: 'Enlaces de Descarga y Acceso',
+          type: 'array-object',
+          subfields: [
+            { key: 'label', label: 'Texto del Enlace (Ej: Descargar PDF)', type: 'text' },
+            { key: 'url', label: 'URL de Destino', type: 'text' },
+            { key: 'tipo', label: 'Tipo de Enlace (Ej: Download, Canva, External)', type: 'text' }
+          ],
+          required: true
+        }
+      ]
+    }
+  };
+
+  // State Management
+  let currentCollectionKey = 'convocatorias';
+  let formData = JSON.parse(JSON.stringify(SCHEMAS.convocatorias.sample));
+
+  // DOM Elements
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const dynamicFormFieldsContainer = document.getElementById('dynamic-form-fields');
+  const jsonCodeOutput = document.getElementById('json-code-output');
+  const targetPathDisplay = document.getElementById('target-path-display');
+  const customFilenameInput = document.getElementById('custom-filename-input');
+  const currentCollectionTitle = document.getElementById('current-collection-title');
+  const currentCollectionDesc = document.getElementById('current-collection-desc');
+  const jsonStatus = document.getElementById('json-status');
+  const btnCopyJson = document.getElementById('btn-copy-json');
+  const btnDownloadJson = document.getElementById('btn-download-json');
+  const btnCopyPath = document.getElementById('btn-copy-path');
+  const btnLoadSample = document.getElementById('btn-load-sample');
+  const btnResetForm = document.getElementById('btn-reset-form');
+  const fileImportInput = document.getElementById('file-import-input');
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toast-message');
+
+  function showToast(msg) {
+    if (!toast) return;
+    toastMessage.textContent = msg;
+    toast.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+    }, 2400);
+  }
+
+  function slugify(text) {
+    return text
+      .toString()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]+/g, '')
+      .replace(/--+/g, '-');
+  }
+
+  function updateTargetPathAndFilename() {
+    let slug = '';
+    const mainTitle = formData.titulo || formData.name || formData.nombre || 'nuevo-elemento';
+    slug = slugify(mainTitle) || 'item';
+
+    if (currentCollectionKey === 'eventos') {
+      customFilenameInput.value = 'evento.json';
+      targetPathDisplay.innerHTML = `src/content/eventos/<span class="text-accent-cyan">${slug}</span>/evento.json`;
+    } else {
+      const filename = `${slug}.json`;
+      customFilenameInput.value = filename;
+      targetPathDisplay.innerHTML = `src/content/${currentCollectionKey}/<span class="text-accent-cyan">${filename}</span>`;
+    }
+  }
+
+  function renderJSON() {
+    // Clean null / undefined / empty string values if optional
+    const cleanObject = {};
+    const schema = SCHEMAS[currentCollectionKey];
+
+    for (const field of schema.fields) {
+      const val = formData[field.name];
+      if (val !== undefined && val !== null) {
+        if (field.type === 'number') {
+          cleanObject[field.name] = Number(val);
+        } else if (field.type === 'boolean') {
+          cleanObject[field.name] = Boolean(val);
+        } else if (typeof val === 'string') {
+          if (val.trim() !== '' || field.required) {
+            cleanObject[field.name] = val.trim();
+          }
+        } else if (Array.isArray(val)) {
+          if (val.length > 0 || field.required) {
+            cleanObject[field.name] = val;
+          }
+        } else {
+          cleanObject[field.name] = val;
+        }
+      }
+    }
+
+    const formatted = JSON.stringify(cleanObject, null, 2);
+    jsonCodeOutput.textContent = formatted;
+
+    // Validate required fields
+    let missing = [];
+    for (const field of schema.fields) {
+      if (field.required) {
+        const val = cleanObject[field.name];
+        if (val === undefined || val === null || (typeof val === 'string' && val.trim() === '') || (Array.isArray(val) && val.length === 0)) {
+          missing.push(field.label);
+        }
+      }
+    }
+
+    if (missing.length === 0) {
+      jsonStatus.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-accent-emerald animate-pulse"></span> Estructura válida';
+      jsonStatus.className = 'flex items-center gap-1.5 text-xs font-mono text-accent-emerald font-semibold';
+    } else {
+      jsonStatus.innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-accent-amber animate-pulse"></span> Falta: ${missing[0]}`;
+      jsonStatus.className = 'flex items-center gap-1.5 text-xs font-mono text-accent-amber font-semibold';
+    }
+  }
+
+  function renderForm() {
+    const schema = SCHEMAS[currentCollectionKey];
+    currentCollectionTitle.textContent = schema.title;
+    currentCollectionDesc.textContent = schema.description;
+    dynamicFormFieldsContainer.innerHTML = '';
+
+    schema.fields.forEach((field) => {
+      const fieldWrapper = document.createElement('div');
+      fieldWrapper.className = 'glass-card rounded-2xl border border-white/10 bg-bg-secondary/30 p-4 sm:p-5 flex flex-col gap-2.5 backdrop-blur-md';
+
+      const labelRow = document.createElement('div');
+      labelRow.className = 'flex items-center justify-between';
+
+      const label = document.createElement('label');
+      label.className = 'text-xs font-bold uppercase tracking-wider text-text-primary font-mono flex items-center gap-1.5';
+      label.setAttribute('for', `field-${field.name}`);
+      label.innerHTML = `${field.label} ${field.required ? '<span class="text-accent-cyan font-normal" title="Campo requerido">*</span>' : '<span class="text-text-secondary/60 text-[10px] font-normal tracking-normal uppercase">(Opcional)</span>'}`;
+      labelRow.appendChild(label);
+      fieldWrapper.appendChild(labelRow);
+
+      const val = formData[field.name];
+
+      if (field.type === 'text' || field.type === 'url') {
+        const input = document.createElement('input');
+        input.type = field.type === 'url' ? 'url' : 'text';
+        input.id = `field-${field.name}`;
+        input.className = 'w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-text-primary placeholder:text-text-secondary/40 focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan font-sans transition';
+        input.placeholder = field.placeholder || '';
+        input.value = val !== undefined ? val : '';
+        input.addEventListener('input', (e) => {
+          formData[field.name] = e.target.value;
+          updateTargetPathAndFilename();
+          renderJSON();
+        });
+        fieldWrapper.appendChild(input);
+      } else if (field.type === 'number') {
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.id = `field-${field.name}`;
+        input.className = 'w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-text-primary placeholder:text-text-secondary/40 focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan font-mono transition';
+        input.value = val !== undefined ? val : (field.default ?? 0);
+        input.addEventListener('input', (e) => {
+          formData[field.name] = e.target.value === '' ? undefined : Number(e.target.value);
+          renderJSON();
+        });
+        fieldWrapper.appendChild(input);
+      } else if (field.type === 'date') {
+        const input = document.createElement('input');
+        input.type = 'date';
+        input.id = `field-${field.name}`;
+        input.className = 'w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-text-primary placeholder:text-text-secondary/40 focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan font-mono transition';
+        input.value = val || '';
+        input.addEventListener('input', (e) => {
+          formData[field.name] = e.target.value;
+          renderJSON();
+        });
+        fieldWrapper.appendChild(input);
+      } else if (field.type === 'time') {
+        const input = document.createElement('input');
+        input.type = 'time';
+        input.id = `field-${field.name}`;
+        input.className = 'w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-text-primary placeholder:text-text-secondary/40 focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan font-mono transition';
+        input.value = val || '';
+        input.addEventListener('input', (e) => {
+          formData[field.name] = e.target.value;
+          renderJSON();
+        });
+        fieldWrapper.appendChild(input);
+      } else if (field.type === 'textarea') {
+        const textarea = document.createElement('textarea');
+        textarea.id = `field-${field.name}`;
+        textarea.rows = 3;
+        textarea.className = 'w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-text-primary placeholder:text-text-secondary/40 focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan font-sans transition resize-y leading-relaxed';
+        textarea.placeholder = field.placeholder || 'Escribe la descripción...';
+        textarea.value = val || '';
+        textarea.addEventListener('input', (e) => {
+          formData[field.name] = e.target.value;
+          renderJSON();
+        });
+        fieldWrapper.appendChild(textarea);
+      } else if (field.type === 'select') {
+        const select = document.createElement('select');
+        select.id = `field-${field.name}`;
+        select.className = 'w-full rounded-xl border border-white/10 bg-[#0a0f24] px-3.5 py-2.5 text-sm text-text-primary focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan font-sans transition';
+        field.options.forEach((opt) => {
+          const option = document.createElement('option');
+          option.value = opt;
+          option.textContent = opt;
+          if (val === opt || (!val && field.default === opt)) option.selected = true;
+          select.appendChild(option);
+        });
+        select.addEventListener('change', (e) => {
+          formData[field.name] = e.target.value;
+          renderJSON();
+        });
+        fieldWrapper.appendChild(select);
+      } else if (field.type === 'boolean') {
+        const boolContainer = document.createElement('div');
+        boolContainer.className = 'flex items-center gap-3 pt-1';
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.id = `field-${field.name}`;
+        const isChecked = Boolean(val !== undefined ? val : field.default);
+        toggleBtn.className = `relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan ${isChecked ? 'bg-accent-cyan' : 'bg-white/20'}`;
+        
+        const toggleThumb = document.createElement('span');
+        toggleThumb.className = `pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${isChecked ? 'translate-x-5' : 'translate-x-0'}`;
+        toggleBtn.appendChild(toggleThumb);
+
+        const statusLabel = document.createElement('span');
+        statusLabel.className = 'text-xs text-text-secondary font-mono';
+        statusLabel.textContent = isChecked ? 'Activado (true)' : 'Desactivado (false)';
+
+        toggleBtn.addEventListener('click', () => {
+          const current = Boolean(formData[field.name] !== undefined ? formData[field.name] : field.default);
+          const next = !current;
+          formData[field.name] = next;
+          toggleBtn.className = `relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan ${next ? 'bg-accent-cyan' : 'bg-white/20'}`;
+          toggleThumb.className = `pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${next ? 'translate-x-5' : 'translate-x-0'}`;
+          statusLabel.textContent = next ? 'Activado (true)' : 'Desactivado (false)';
+          renderJSON();
+        });
+
+        boolContainer.appendChild(toggleBtn);
+        boolContainer.appendChild(statusLabel);
+        fieldWrapper.appendChild(boolContainer);
+      } else if (field.type === 'array-string') {
+        const arrayContainer = document.createElement('div');
+        arrayContainer.className = 'flex flex-col gap-2';
+
+        const itemsList = document.createElement('div');
+        itemsList.className = 'flex flex-col gap-2';
+
+        const currentItems = Array.isArray(val) ? [...val] : [];
+
+        function renderStringItems() {
+          itemsList.innerHTML = '';
+          currentItems.forEach((itemText, idx) => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center gap-2';
+
+            const itemInput = document.createElement('input');
+            itemInput.type = 'text';
+            itemInput.className = 'grow rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-xs text-text-primary placeholder:text-text-secondary/40 focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition';
+            itemInput.value = itemText;
+            itemInput.placeholder = `Elemento ${idx + 1}`;
+            itemInput.addEventListener('input', (e) => {
+              currentItems[idx] = e.target.value;
+              formData[field.name] = currentItems;
+              renderJSON();
+            });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-accent-red/30 bg-accent-red/10 text-accent-red hover:bg-accent-red/20 transition';
+            deleteBtn.innerHTML = '✕';
+            deleteBtn.title = 'Eliminar elemento';
+            deleteBtn.addEventListener('click', () => {
+              currentItems.splice(idx, 1);
+              formData[field.name] = currentItems;
+              renderStringItems();
+              renderJSON();
+            });
+
+            row.appendChild(itemInput);
+            row.appendChild(deleteBtn);
+            itemsList.appendChild(row);
+          });
+        }
+
+        const addItemBtn = document.createElement('button');
+        addItemBtn.type = 'button';
+        addItemBtn.className = 'inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-2 text-xs font-semibold text-accent-cyan hover:bg-white/10 hover:border-accent-cyan/40 transition mt-1';
+        addItemBtn.innerHTML = '+ Añadir elemento';
+        addItemBtn.addEventListener('click', () => {
+          currentItems.push('');
+          formData[field.name] = currentItems;
+          renderStringItems();
+          renderJSON();
+        });
+
+        renderStringItems();
+        arrayContainer.appendChild(itemsList);
+        arrayContainer.appendChild(addItemBtn);
+        fieldWrapper.appendChild(arrayContainer);
+      } else if (field.type === 'array-object') {
+        const arrayContainer = document.createElement('div');
+        arrayContainer.className = 'flex flex-col gap-2.5';
+
+        const itemsList = document.createElement('div');
+        itemsList.className = 'flex flex-col gap-2.5';
+
+        const currentObjects = Array.isArray(val) ? [...val] : [];
+
+        function renderObjectItems() {
+          itemsList.innerHTML = '';
+          currentObjects.forEach((obj, idx) => {
+            const card = document.createElement('div');
+            card.className = 'rounded-xl border border-white/10 bg-black/50 p-3 flex flex-col gap-2 relative';
+
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'flex items-center justify-between text-xs font-mono text-text-secondary border-b border-white/5 pb-1.5';
+            cardHeader.innerHTML = `<span>#${idx + 1}</span>`;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'text-accent-red hover:text-accent-red-lighter text-xs font-bold px-1.5 py-0.5 rounded transition';
+            deleteBtn.innerHTML = '✕ Eliminar';
+            deleteBtn.addEventListener('click', () => {
+              currentObjects.splice(idx, 1);
+              formData[field.name] = currentObjects;
+              renderObjectItems();
+              renderJSON();
+            });
+            cardHeader.appendChild(deleteBtn);
+            card.appendChild(cardHeader);
+
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1';
+
+            field.subfields.forEach((sf) => {
+              const subCol = document.createElement('div');
+              subCol.className = 'flex flex-col gap-1';
+
+              const sfLabel = document.createElement('label');
+              sfLabel.className = 'text-[10px] uppercase font-mono text-text-secondary';
+              sfLabel.textContent = sf.label;
+
+              const sfInput = document.createElement('input');
+              sfInput.type = 'text';
+              sfInput.className = 'rounded-lg border border-white/10 bg-black/60 px-2.5 py-1.5 text-xs text-text-primary focus:border-accent-cyan focus:outline-none transition';
+              sfInput.value = obj[sf.key] || '';
+              sfInput.placeholder = sf.label;
+              sfInput.addEventListener('input', (e) => {
+                obj[sf.key] = e.target.value;
+                formData[field.name] = currentObjects;
+                renderJSON();
+              });
+
+              subCol.appendChild(sfLabel);
+              subCol.appendChild(sfInput);
+              grid.appendChild(subCol);
+            });
+
+            card.appendChild(grid);
+            itemsList.appendChild(card);
+          });
+        }
+
+        const addItemBtn = document.createElement('button');
+        addItemBtn.type = 'button';
+        addItemBtn.className = 'inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-2 text-xs font-semibold text-accent-cyan hover:bg-white/10 hover:border-accent-cyan/40 transition mt-1';
+        addItemBtn.innerHTML = '+ Añadir nuevo registro';
+        addItemBtn.addEventListener('click', () => {
+          const newObj = {};
+          field.subfields.forEach((sf) => {
+            newObj[sf.key] = '';
+          });
+          currentObjects.push(newObj);
+          formData[field.name] = currentObjects;
+          renderObjectItems();
+          renderJSON();
+        });
+
+        renderObjectItems();
+        arrayContainer.appendChild(itemsList);
+        arrayContainer.appendChild(addItemBtn);
+        fieldWrapper.appendChild(arrayContainer);
+      }
+
+      dynamicFormFieldsContainer.appendChild(fieldWrapper);
+    });
+
+    updateTargetPathAndFilename();
+    renderJSON();
+  }
+
+  // Switch Collection
+  function switchCollection(key) {
+    currentCollectionKey = key;
+    formData = JSON.parse(JSON.stringify(SCHEMAS[key].sample));
+
+    tabButtons.forEach((btn) => {
+      const isTarget = btn.getAttribute('data-collection') === key;
+      btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      if (isTarget) {
+        btn.className = 'tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-accent-cyan/40 bg-accent-cyan/15 p-3 text-center transition hover:border-accent-cyan text-accent-cyan shadow-[0_0_15px_rgba(0,174,239,0.15)]';
+      } else {
+        btn.className = 'tab-btn flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-bg-secondary/40 p-3 text-center text-text-secondary transition hover:border-white/20 hover:text-text-primary';
+      }
+    });
+
+    renderForm();
+  }
+
+  // Event Listeners for Tabs
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const coll = btn.getAttribute('data-collection');
+      if (coll && SCHEMAS[coll]) {
+        switchCollection(coll);
+      }
+    });
+  });
+
+  // Copy JSON Button
+  btnCopyJson?.addEventListener('click', async () => {
+    const jsonStr = jsonCodeOutput.textContent || '';
+    try {
+      await navigator.clipboard.writeText(jsonStr);
+      showToast('¡JSON copiado al portapapeles!');
+    } catch (err) {
+      console.error('Error al copiar:', err);
+      showToast('Error al copiar al portapapeles');
+    }
+  });
+
+  // Download JSON Button
+  btnDownloadJson?.addEventListener('click', () => {
+    const jsonStr = jsonCodeOutput.textContent || '';
+    const filename = (customFilenameInput.value || 'contenido.json').trim();
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename.endsWith('.json') ? filename : `${filename}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(`Archivo "${a.download}" descargado`);
+  });
+
+  // Copy Destination Path Button
+  btnCopyPath?.addEventListener('click', async () => {
+    let slug = '';
+    const mainTitle = formData.titulo || formData.name || formData.nombre || 'nuevo-elemento';
+    slug = slugify(mainTitle) || 'item';
+    const path = currentCollectionKey === 'eventos' 
+      ? `src/content/eventos/${slug}/evento.json`
+      : `src/content/${currentCollectionKey}/${slug}.json`;
+
+    try {
+      await navigator.clipboard.writeText(path);
+      showToast(`Ruta copiada: ${path}`);
+    } catch (err) {
+      console.error('Error al copiar:', err);
+    }
+  });
+
+  // Reset Form
+  btnResetForm?.addEventListener('click', () => {
+    formData = {};
+    const schema = SCHEMAS[currentCollectionKey];
+    schema.fields.forEach(f => {
+      if (f.type === 'number') formData[f.name] = f.default ?? 0;
+      else if (f.type === 'boolean') formData[f.name] = f.default ?? true;
+      else if (f.type === 'array-string' || f.type === 'array-object') formData[f.name] = [];
+      else formData[f.name] = '';
+    });
+    renderForm();
+    showToast('Formulario restablecido a valores vacíos');
+  });
+
+  // Load Sample
+  btnLoadSample?.addEventListener('click', () => {
+    formData = JSON.parse(JSON.stringify(SCHEMAS[currentCollectionKey].sample));
+    renderForm();
+    showToast('Plantilla de ejemplo cargada');
+  });
+
+  // File Import
+  fileImportInput?.addEventListener('change', (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const parsed = JSON.parse(evt.target?.result);
+        if (typeof parsed === 'object' && parsed !== null) {
+          formData = parsed;
+          renderForm();
+          showToast(`Archivo "${file.name}" importado con éxito`);
+        } else {
+          showToast('El archivo JSON no contiene un objeto válido');
+        }
+      } catch (err) {
+        showToast('Error al parsear el archivo JSON');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  // Initialize
+  renderForm();
+</script>

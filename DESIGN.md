@@ -144,13 +144,20 @@ Paleta oficial IEEE/ComSoc adaptada al sistema oscuro orbital. Sincronizada 1:1 
 
 ### Paleta Canónica IEEE (`--color-ieee-*` en `@theme`)
 
-| Token Base | Nombre / Fuente | Hex |
+#### Master Brand & Identidad ComSoc
+| Token Base | Nombre / Especificación Oficial | Hex |
 |---|---|---|
 | `--color-ieee-blue` | IEEE Master Brand Blue (Pantone 3015 C) | `#00629B` |
 | `--color-ieee-cyan` | IEEE Process Cyan C | `#00B5E2` |
 | `--color-ieee-comsoc-cyan` | ComSoc Process Cyan C | `#00AEEF` |
 | `--color-ieee-comsoc-dark-blue` | ComSoc Dark Blue (Pantone 308 C) | `#005F98` |
 | `--color-ieee-black-80` | ComSoc Black 80% | `#414141` |
+| `--color-ieee-white` | IEEE Pure White | `#FFFFFF` |
+| `--color-ieee-black` | IEEE Pure Black | `#000000` |
+
+#### IEEE Bright Palette
+| Token Base | Nombre / Especificación Oficial | Hex |
+|---|---|---|
 | `--color-ieee-orange-bright` | IEEE Orange Bright (Pantone 137 C) | `#FFA300` |
 | `--color-ieee-yellow-bright` | IEEE Yellow Bright (Pantone 109 C) | `#FFD100` |
 | `--color-ieee-green-bright` | IEEE Green Bright (Pantone 368 C) | `#78BE20` |
@@ -158,6 +165,10 @@ Paleta oficial IEEE/ComSoc adaptada al sistema oscuro orbital. Sincronizada 1:1 
 | `--color-ieee-red-bright` | IEEE Red Bright (Pantone 200 C) | `#BA0C2F` |
 | `--color-ieee-purple-bright` | IEEE Purple Bright (Pantone 254 C) | `#981D97` |
 | `--color-ieee-teal-bright` | IEEE Teal Bright (Pantone 320 C) | `#009CA6` |
+
+#### IEEE Dark Palette
+| Token Base | Nombre / Especificación Oficial | Hex |
+|---|---|---|
 | `--color-ieee-orange-dark` | IEEE Orange Dark (Pantone 158 C) | `#E87722` |
 | `--color-ieee-yellow-dark` | IEEE Yellow Dark (Pantone 123 C) | `#FFC72C` |
 | `--color-ieee-green-dark` | IEEE Green Dark (Pantone 370 C) | `#658D1B` |
@@ -216,6 +227,8 @@ Paleta oficial IEEE/ComSoc adaptada al sistema oscuro orbital. Sincronizada 1:1 
 - **Borde de Cristal** (rgba(255,255,255,0.1)): Borde sutil de glassmorphism.
 
 ### Tabla rápida — Tokens CSS (`--color-*` en `global.css`)
+
+#### Acentos
 | Familia | Base | Lighter | Darker | Token IEEE Referenciado |
 |---|---|---|---|---|
 | `accent-blue` | `#00629b` | `#00aeef` | `#002855` | `var(--color-ieee-blue)` |
@@ -227,10 +240,27 @@ Paleta oficial IEEE/ComSoc adaptada al sistema oscuro orbital. Sincronizada 1:1 
 | `accent-yellow` | `#ffd100` | `#ffe166` | `#ffc72c` | `var(--color-ieee-yellow-bright)` |
 | `accent-rose` | `#861f41` | `#ba0c2f` | `#6b1530` | `var(--color-ieee-red-dark)` |
 | `accent-teal` | `#009ca6` | `#00b8c4` | `#007377` | `var(--color-ieee-teal-bright)` |
-| `bg-primary` | `#050816` | `#0c1333` | `#03050e` | `from-bg-primary-lighter to-bg-primary` |
-| `bg-secondary` | `#0a0f24` | `#121b40` | `#070a17` | `from-bg-secondary to-bg-secondary-lighter` |
-| `glass-bg` | `0.05` | `0.08` | `0.03` | `from-glass-bg-lighter to-glass-bg-darker` |
-| `glass-border` | `0.10` | `0.15` | `0.06` | `border-glass-border-lighter` |
+
+#### Fondos y Superficies
+| Token | Base | Lighter | Darker | Uso Principal |
+|---|---|---|---|---|
+| `bg-primary` | `#050816` | `#0c1333` | `#03050e` | Lienzo principal orbital (`body`) |
+| `bg-secondary` | `#0a0f24` | `#121b40` | `#070a17` | Tarjetas satélite y contenedores (`glass-card`) |
+| `bg-deep-slate` | `#0f172a` | `#182544` | `#0a0f1b` | Tarjetas y paneles de alto contraste |
+| `bg-emerald-dark` | `#0a1f1a` | `#133a31` | `#061411` | Secciones temáticas de éxito / proyectos |
+| `bg-deep-purple` | `#0d0720` | `#190d3d` | `#080515` | Banners especiales de donación y tecnología |
+
+#### Jerarquía de Texto
+| Token | Base | Lighter | Darker | Token IEEE Referenciado |
+|---|---|---|---|---|
+| `text-primary` | `#ffffff` | `#ffffff` | `#e2e8f0` | `var(--ieee-white)` |
+| `text-secondary` | `#cbd5e0` | `#dce2e8` | `#a5b6c9` | Directo (gris neutro azulado) |
+
+#### Cristal / Glassmorphism
+| Token | Base | Lighter | Darker | Uso |
+|---|---|---|---|---|
+| `glass-bg` | `rgba(255, 255, 255, 0.05)` | `rgba(255, 255, 255, 0.08)` | `rgba(255, 255, 255, 0.03)` | Relleno `glass-panel` con blur |
+| `glass-border` | `rgba(255, 255, 255, 0.10)` | `rgba(255, 255, 255, 0.15)` | `rgba(255, 255, 255, 0.06)` | Borde de vidrio y separadores |
 
 ### Named Rules
 **The Orbital Signal Rule.** El cian ComSoc solo porta señal — estados, enlaces y bordes activos. Nunca como relleno decorativo de grandes superficies.

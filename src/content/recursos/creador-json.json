@@ -1,0 +1,12 @@
+{
+  "titulo": "Creador de Contenido JSON para Colecciones",
+  "descripcion": "Herramienta interactiva para estructurar, validar, copiar y descargar archivos .json para las 7 colecciones de contenido de Astro en el sitio web de IEEE ComSoc Univalle.",
+  "categoria": "Herramientas",
+  "links": [
+    {
+      "label": "Abrir Creador JSON",
+      "url": "/utils/creador-json",
+      "tipo": "Herramienta"
+    }
+  ]
+}
