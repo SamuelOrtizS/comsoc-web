@@ -1,0 +1,25 @@
+{
+  "titulo": "Reunión Virtual de la Junta Directiva de ComSoc Univalle y ComSoc ICESI",
+  "tipo": "Reunion",
+  "organizador": "Junta Directiva ComSoc Univalle",
+  "fechaInicio": "2026-08-31",
+  "fechaFin": "2026-08-31",
+  "horaInicio": "17:00",
+  "horaFin": "18:00",
+  "lugarNombre": "Google Meet (Virtual)",
+  "lugarDireccion": "Enlace de reunión enviado por correo electrónico",
+  "descripcion": "Reunión virtual entre la Junta Directiva de ComSoc Univalle y ComSoc ICESI para explorar oportunidades de colaboración.",
+  "imagenPrincipal": "https://i.pcmag.com/imagery/reviews/02y6SQ4hhnWGi8zjE2FlYqi-8..v1615070874.jpg",
+  "galeria": [],
+  "estado": "Publicado",
+  "detalles": [
+    {
+      "label": "Modalidad",
+      "value": "Virtual"
+    },
+    {
+      "label": "Acceso",
+      "value": "Restringido a la Junta Directiva"
+    }
+  ]
+}
