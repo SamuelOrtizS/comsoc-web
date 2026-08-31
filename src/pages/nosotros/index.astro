@@ -7,6 +7,7 @@ import BenefitsGrid from '../../components/BenefitsGrid.astro';
 import GallerySection from '../../components/GallerySection.astro';
 import TeamCard from '../../components/TeamCard.astro';
 import TeamModal from '../../components/TeamModal.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
 
 const rawJunta = await getCollection('juntaDirectiva');
 const team = rawJunta
@@ -101,6 +102,9 @@ const team = rawJunta
       ))}
     </div>
   </section>
+
+  <!-- Preguntas Frecuentes -->
+  <FaqAccordion />
 
   <!-- Member Profile Modal -->
   <TeamModal />
