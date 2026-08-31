@@ -4,30 +4,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const steps = [
   {
-    step: 'Paso 1',
+    step: 'Paso 01',
     title: 'Crea tu cuenta en IEEE',
-    description: 'Ingresa al portal oficial de IEEE.org y regístrate con tu correo universitario o personal.',
+    description: 'Ingresa al portal oficial de IEEE.org y regístrate con tu correo universitario o personal para obtener tu identificador global.',
     link: 'https://www.ieee.org',
     linkText: 'Ir al portal de IEEE',
   },
   {
-    step: 'Paso 2',
+    step: 'Paso 02',
     title: 'Adquiere tu Membresía Estudiantil IEEE',
-    description: 'Selecciona la opción "Student Membership". Si estás en Perú u otra región elegible, cuentas con tarifa reducida especial de estudiante.',
+    description: 'Selecciona la opción "Student Membership". Si eres estudiante de pregrado o posgrado, cuentas con tarifa reducida especial.',
     link: 'https://www.ieee.org/membership/join/index.html',
     linkText: 'Ver tarifas de estudiante',
   },
   {
-    step: 'Paso 3',
+    step: 'Paso 03',
     title: 'Añade la Sociedad "IEEE ComSoc"',
-    description: 'En la sección de Sociedades Técnicas, selecciona "IEEE Communications Society (ComSoc)". Tendrás acceso inmediato a webinars, revistas técnicas y recursos globales.',
+    description: 'En la sección de Sociedades Técnicas, selecciona "IEEE Communications Society (ComSoc)" para acceder a recursos y publicaciones.',
     link: 'https://www.comsoc.org/membership',
     linkText: 'Beneficios ComSoc Global',
   },
   {
-    step: 'Paso 4',
-    title: 'Reporta tu número de membresía al Capítulo',
-    description: 'Escríbenos al WhatsApp oficial o llena el formulario del capítulo con tu IEEE Member ID para agregarte al padrón activo y a los grupos de trabajo oficiales.',
+    step: 'Paso 04',
+    title: 'Reporta tu membresía al Capítulo',
+    description: 'Escríbenos al WhatsApp oficial o contacta a la directiva con tu IEEE Member ID para integrarte al padrón activo y a los grupos de trabajo.',
     link: 'https://chat.whatsapp.com',
     linkText: 'Notificar por WhatsApp',
   },
@@ -36,23 +36,23 @@ const steps = [
 const faqs = [
   {
     q: '¿Es obligatorio tener membresía de IEEE para participar en ComSoc?',
-    a: '¡No! Puedes participar como colaborador en nuestros proyectos, talleres y grupos de estudio sin necesidad de contar con membresía. La membresía oficial de IEEE ComSoc te otorga certificados internacionales, descuentos en conferencias globales y acceso a IEEE Xplore, pero las ganas de aprender y colaborar son lo fundamental para ser parte de la comunidad.',
+    a: '¡No! Puedes participar como colaborador en nuestros proyectos, talleres y grupos de estudio sin necesidad de contar con membresía formal. La membresía oficial de IEEE ComSoc te otorga certificados internacionales, descuentos en conferencias globales y acceso a IEEE Xplore, pero la motivación por aprender y colaborar es lo fundamental para integrarte a la comunidad.',
   },
   {
     q: '¿Qué requisitos necesito para unirme como colaborador?',
-    a: 'Estar matriculado en la universidad o tener interés en áreas de ingeniería (telecomunicaciones, electrónica, sistemas, software, etc.), tener disposición para participar en reuniones y proyectos, y muchas ganas de aprender de forma autodidacta y colaborativa.',
+    a: 'Estar matriculado en la universidad o tener interés en áreas afines (telecomunicaciones, electrónica, sistemas, software, etc.), contar con disposición para participar en reuniones y proyectos, y compromiso para aprender de forma colaborativa.',
   },
   {
     q: '¿Qué beneficios obtengo al tener la membresía oficial de IEEE ComSoc?',
-    a: 'Acceso a la biblioteca digital IEEE Xplore, membresía en IEEE ComSoc con acceso a IEEE Communications Magazine, descuentos para certificaciones y congresos (como IEEE GLOBECOM e IEEE ICC), postulación a becas y premios internacionales, y correo institucional @ieee.org con Google Workspace.',
+    a: 'Acceso completo a la biblioteca digital IEEE Xplore, membresía en IEEE ComSoc con acceso a IEEE Communications Magazine, tarifas preferenciales en congresos internacionales (IEEE GLOBECOM, IEEE ICC), postulación a becas y premios globales, y alias de correo institucional @ieee.org con Google Workspace.',
   },
   {
     q: '¿Cuánto tiempo a la semana debo dedicar si me uno a un proyecto?',
-    a: 'Generalmente entre 2 a 5 horas semanales, dependiendo del rol que elijas en el equipo y las metas de cada sprint. Somos flexibles y entendemos los horarios académicos.',
+    a: 'Generalmente entre 2 a 5 horas semanales, dependiendo del rol asignado y los objetivos del equipo. Mantenemos flexibilidad total entendiendo las responsabilidades y horarios académicos.',
   },
   {
     q: '¿Cómo puedo ponerme en contacto con el equipo?',
-    a: 'La forma más rápida es unirte a nuestra comunidad general de WhatsApp a través del enlace de esta página o escribirnos por nuestras redes sociales oficiales.',
+    a: 'La forma más directa es unirte a nuestra comunidad general de WhatsApp a través del enlace en esta página o escribirnos mediante nuestras redes sociales y correo oficial.',
   },
 ];
 ---
@@ -62,114 +62,123 @@ const faqs = [
   description="Descubre cómo unirte al Capítulo Estudiantil IEEE ComSoc, adquirir tu membresía oficial o participar como colaborador en proyectos de telecomunicaciones y redes."
 >
   <div class="relative overflow-hidden pb-24 pt-12">
-    <div class="absolute inset-x-0 top-0 h-64" aria-hidden="true"></div>
-
+    <!-- Hero Section -->
     <section class="relative mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(69,219,237,0.12)]">
-        <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(69,219,237,0.9)]"></span>
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-cyan font-mono shadow-[0_0_18px_rgba(34,211,238,0.12)]">
+        <span class="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(34,211,238,0.9)]" aria-hidden="true"></span>
         Comunidad y membresías
       </div>
 
-      <h1 class="mx-auto max-w-4xl text-4xl font-black tracking-[-0.06em] text-text-primary sm:text-5xl lg:text-6xl">
+      <h1 class="mx-auto max-w-4xl text-4xl font-bold tracking-[-0.04em] text-text-primary sm:text-5xl lg:text-6xl">
         Forma parte de <span class="text-accent-cyan">IEEE ComSoc</span>
       </h1>
 
-      <p class="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-text-secondary font-light sm:text-xl">
-        Aprende, construye proyectos reales e impulsa tu futuro profesional en comunicaciones digitales, IoT, 5G/6G y ciberseguridad.
+      <p class="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-text-secondary font-light sm:text-lg lg:text-xl">
+        Aprende, construye proyectos reales e impulsa tu futuro profesional en comunicaciones digitales, IoT, 5G/6G, redes ópticas y tecnologías satelitales.
       </p>
 
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
           href="https://chat.whatsapp.com"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Unirse al grupo de WhatsApp de IEEE ComSoc Univalle (abre en una nueva ventana)"
-          class="inline-flex items-center gap-2.5 rounded-xl bg-linear-to-r from-accent-emerald to-accent-cyan px-6 py-3.5 font-bold text-slate-950 shadow-[0_18px_40px_-20px_rgba(102,220,171,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-accent-blue hover:bg-accent-cyan px-7 py-3.5 font-bold text-white transition-all duration-300 hover:-translate-y-0.5 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
-          <Icon name="mdi:whatsapp" class="h-5 w-5 fill-currentColor" aria-hidden="true" />
-          Unirse al grupo de WhatsApp
+          <Icon name="mdi:whatsapp" class="h-5 w-5 fill-current" aria-hidden="true" />
+          <span>Unirse al grupo de WhatsApp</span>
         </a>
 
         <a
           href="#membresia"
-          class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 font-medium text-text-primary transition-colors hover:border-accent-cyan/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-6 py-3.5 font-medium text-text-secondary transition-all duration-200 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
         >
-          Ver guía de membresía
+          <span>Ver ruta de membresía</span>
+          <span aria-hidden="true">↓</span>
         </a>
       </div>
     </section>
 
+    <!-- Highlight Banner: Colaborador sin membresía -->
     <section class="mx-auto mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="relative overflow-hidden rounded-[30px] border border-accent-cyan/25 bg-gradient-to-br from-accent-blue via-bg-secondary to-accent-cyan-darker p-8 shadow-[0_30px_80px_-40px_rgba(69,219,237,0.7)] sm:p-10">
-        <div class="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent-cyan/20 blur-3xl" aria-hidden="true"></div>
-        <div class="absolute -bottom-20 -left-12 h-52 w-52 rounded-full bg-accent-blue/20 blur-3xl" aria-hidden="true"></div>
+      <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-bg-secondary p-8 backdrop-blur-md transition-all duration-300 sm:p-10">
+        <div class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent-blue/15 blur-3xl" aria-hidden="true"></div>
+        <div class="pointer-events-none absolute -bottom-20 -left-12 h-64 w-64 rounded-full bg-accent-cyan/10 blur-3xl" aria-hidden="true"></div>
 
         <div class="relative z-10 grid items-center gap-8 lg:grid-cols-[1.6fr_0.9fr]">
-          <div class="space-y-5">
-            <h2 class="text-2xl font-bold tracking-[-0.05em] text-text-primary sm:text-3xl">
+          <div class="space-y-4">
+            <div class="inline-flex items-center gap-2 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-accent-emerald">
+              <Icon name="material-symbols:check-circle-outline-rounded" class="h-3.5 w-3.5" aria-hidden="true" />
+              Acceso abierto para todos
+            </div>
+            <h2 class="text-2xl font-bold tracking-[-0.03em] text-text-primary sm:text-3xl">
               ¿No cuentas con membresía IEEE? ¡No te preocupes!
             </h2>
-            <p class="max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
-              En nuestro capítulo creemos que el talento y las ganas de superarse no dependen de un pago. <span class="font-semibold text-text-primary">Puedes participar activamente como colaborador</span> en proyectos, talleres y actividades técnicas.
+            <p class="max-w-2xl text-base leading-relaxed text-text-secondary font-light">
+              En nuestro capítulo creemos que el talento y las ganas de superarse no dependen de un pago. <strong class="font-semibold text-text-primary">Puedes participar activamente como colaborador</strong> en proyectos, talleres prácticos y actividades técnicas sin costo.
             </p>
-            <p class="text-text-secondary text-sm sm:text-base">
-              <span class="font-semibold text-text-primary">Lo más importante:</span> tener curiosidad técnica, ganas de aprender y compromiso con el trabajo en equipo.
+            <p class="text-sm text-text-secondary font-light">
+              <span class="font-semibold text-text-primary">Lo más importante:</span> curiosidad técnica, motivación por aprender y compromiso con el trabajo en equipo.
             </p>
           </div>
 
-          <div class="rounded-[24px] border border-white/10 bg-gradient-to-br from-accent-blue-lighter to-accent-blue-darker p-6 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.9)]">
-            <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-tr from-accent-blue to-accent-cyan text-2xl shadow-[0_0_30px_rgba(69,219,237,0.2)]">
-              <Icon name="material-symbols:verified-rounded" class="h-6 w-6 fill-current text-slate-950" aria-hidden="true" />
+          <div class="glass-card rounded-2xl border border-white/10 bg-bg-primary/60 p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent-blue/20 text-accent-cyan border border-accent-cyan/20">
+              <Icon name="material-symbols:verified-rounded" class="h-6 w-6" aria-hidden="true" />
             </div>
             <h3 class="text-lg font-bold text-text-primary">Primer paso para colaborar</h3>
-            <p class="mt-2 text-sm leading-relaxed text-text-secondary">
-              Entra a nuestra comunidad de mensajería y preséntate para comenzar a participar.
+            <p class="mt-2 text-sm leading-relaxed text-text-secondary font-light">
+              Entra a nuestra comunidad de mensajería, preséntate con tus intereses y únete a las reuniones abiertas.
             </p>
             <a
               href="https://chat.whatsapp.com"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Conectarme al WhatsApp de IEEE ComSoc Univalle (abre en una nueva ventana)"
-              class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-text-primary transition-colors hover:border-accent-cyan/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+              class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent-cyan/40 hover:bg-white/10 hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
             >
-              Conectarme al WhatsApp
+              <span>Conectarme al WhatsApp</span>
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="membresia" class="mx-auto mt-28 max-w-6xl px-4 sm:px-6 lg:px-8">
+    <!-- Ruta de Membresía Oficial -->
+    <section id="membresia" class="mx-auto mt-24 max-w-6xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto mb-12 max-w-3xl text-center">
-        <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] bg-gradient-to-r from-accent-blue-lighter via-accent-cyan-darker to-accent-purple p-3 rounded-full inline-flex items-center gap-1 text-text-primary">
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-cyan/20 bg-accent-cyan/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-cyan font-mono">
           Ruta de afiliación oficial
         </div>
-        <h2 class="text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-[-0.03em] text-text-primary sm:text-4xl">
           Paso a paso para adquirir tu membresía IEEE ComSoc
         </h2>
         <p class="mt-3 text-base leading-relaxed text-text-secondary font-light">
-          Sigue esta guía para unirte formalmente a la sociedad de comunicaciones más grande del mundo.
+          Sigue esta guía para unirte formalmente a la sociedad técnica de comunicaciones más prestigiosa del mundo.
         </p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-2">
         {steps.map((item) => (
-          <article class="group relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(5,8,22,0.96))] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_24px_55px_-35px_rgba(69,219,237,0.7)]">
-            <div class="mb-5 flex items-center justify-between">
-              <span class="inline-flex items-center rounded-full border border-accent-cyan/20 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-cyan font-mono">
-                {item.step}
-              </span>
-              <span class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">
-                Requerido
-              </span>
-            </div>
+          <article class="glass-card group relative flex flex-col justify-between rounded-2xl border border-white/10 p-6 transition-all duration-300">
+            <div>
+              <div class="mb-4 flex items-center justify-between">
+                <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-accent-cyan">
+                  {item.step}
+                </span>
+                <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-text-secondary/70">
+                  Requerido
+                </span>
+              </div>
 
-            <h3 class="mb-3 text-xl font-bold tracking-[-0.04em] text-text-primary transition-colors group-hover:text-accent-cyan">
-              {item.title}
-            </h3>
-            <p class="text-sm leading-relaxed text-text-secondary font-light">
-              {item.description}
-            </p>
+              <h3 class="mb-2 text-xl font-semibold tracking-tight text-text-primary transition-colors group-hover:text-accent-cyan">
+                {item.title}
+              </h3>
+              <p class="text-sm leading-relaxed text-text-secondary font-light">
+                {item.description}
+              </p>
+            </div>
 
             <div class="mt-6 border-t border-white/10 pt-4">
               <a
@@ -177,7 +186,7 @@ const faqs = [
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${item.linkText} (abre en una nueva ventana)`}
-                class="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-cyan transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                class="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-cyan transition-colors hover:text-accent-cyan-lighter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
               >
                 <span>{item.linkText}</span>
                 <span aria-hidden="true">↗</span>
@@ -188,22 +197,46 @@ const faqs = [
       </div>
     </section>
 
-    <section class="mx-auto mt-28 max-w-4xl px-4 sm:px-6 lg:px-8">
+    <!-- Convocatorias Teaser Banner -->
+    <section class="mx-auto mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+        <div class="space-y-1 text-center sm:text-left">
+          <div class="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-accent-purple">
+            <Icon name="material-symbols:group-add-rounded" class="h-4 w-4" aria-hidden="true" />
+            Liderazgo & Equipos
+          </div>
+          <h3 class="text-xl font-bold text-text-primary">¿Te interesa asumir un rol directivo o técnico?</h3>
+          <p class="text-sm text-text-secondary font-light">
+            Revisa las convocatorias de voluntariado abiertas para comités de proyectos, marketing, logística e investigación.
+          </p>
+        </div>
+        <a
+          href="/convocatorias"
+          class="shrink-0 inline-flex items-center gap-2 rounded-xl border border-accent-purple/30 bg-accent-purple/10 px-5 py-2.5 text-sm font-semibold text-accent-purple transition-all duration-200 hover:border-accent-purple hover:bg-accent-purple/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-purple focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+        >
+          <span>Ver convocatorias</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Preguntas Frecuentes -->
+    <section class="mx-auto mt-24 max-w-4xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto mb-10 max-w-3xl text-center">
-        <div class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-purple font-mono">
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-purple/20 bg-accent-purple/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-purple font-mono">
           Dudas frecuentes
         </div>
-        <h2 class="text-3xl font-black tracking-[-0.05em] text-text-primary sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-[-0.03em] text-text-primary sm:text-4xl">
           Preguntas frecuentes
         </h2>
       </div>
 
       <div class="space-y-4">
         {faqs.map((faq) => (
-          <details class="group rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.9),rgba(5,8,22,0.96))] p-5 transition-colors hover:border-accent-cyan/30">
+          <details class="glass-card group rounded-2xl border border-white/10 p-5 transition-colors">
             <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-text-primary text-base sm:text-lg">
               <span>{faq.q}</span>
-              <span class="ml-4 text-lg text-text-secondary transition-transform duration-200 group-open:rotate-180" aria-hidden="true">▾</span>
+              <Icon name="material-symbols:keyboard-arrow-down-rounded" class="h-5 w-5 shrink-0 text-text-secondary transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
             </summary>
             <p class="mt-4 border-t border-white/10 pt-4 text-sm leading-relaxed text-text-secondary font-light sm:text-base">
               {faq.a}
@@ -213,24 +246,30 @@ const faqs = [
       </div>
     </section>
 
+    <!-- CTA Final -->
     <section class="mx-auto mt-24 max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-      <div class="rounded-[28px] border border-white/10 bg-gradient-to-r from-accent-blue-lighter via-accent-cyan to-accent-purple-darker p-8 shadow-[0_25px_70px_-35px_rgba(69,219,237,0.7)] sm:p-12">
-        <h2 class="text-2xl font-black tracking-[-0.05em] text-text-primary sm:text-3xl">
-          ¿Listo para dar el siguiente paso en tu carrera?
-        </h2>
-        <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-secondary font-light">
-          Únete hoy a nuestra comunidad universitaria y colabora en proyectos que impulsan el futuro de las telecomunicaciones.
-        </p>
-        <a
-          href="https://chat.whatsapp.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Únete a nuestro WhatsApp oficial de IEEE ComSoc Univalle (abre en una nueva ventana)"
-          class="mt-8 inline-flex items-center justify-center rounded-xl bg-linear-to-r from-accent-blue to-accent-cyan px-8 py-4 font-bold text-slate-950 shadow-[0_20px_50px_-20px_rgba(69,219,237,0.8)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-        >
-          ¡Únete a nuestro WhatsApp oficial!
-        </a>
+      <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-bg-secondary p-8 shadow-[0_24px_55px_-30px_rgba(21,93,252,0.4)] sm:p-12">
+        <div class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-48 w-96 rounded-full bg-accent-blue/20 blur-3xl" aria-hidden="true"></div>
+        <div class="relative z-10">
+          <h2 class="text-2xl font-bold tracking-[-0.03em] text-text-primary sm:text-3xl">
+            ¿Listo para dar el siguiente paso en tu carrera?
+          </h2>
+          <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-secondary font-light">
+            Únete hoy a nuestra comunidad universitaria y colabora en iniciativas que transforman el aprendizaje en ingeniería.
+          </p>
+          <a
+            href="https://chat.whatsapp.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Únete a nuestro WhatsApp oficial de IEEE ComSoc Univalle (abre en una nueva ventana)"
+            class="mt-8 inline-flex items-center justify-center gap-2.5 rounded-2xl bg-accent-blue hover:bg-accent-cyan px-8 py-4 font-bold text-white shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          >
+            <Icon name="mdi:whatsapp" class="h-5 w-5 fill-current" aria-hidden="true" />
+            <span>¡Únete a nuestro WhatsApp oficial!</span>
+          </a>
+        </div>
       </div>
     </section>
   </div>
 </BaseLayout>
+

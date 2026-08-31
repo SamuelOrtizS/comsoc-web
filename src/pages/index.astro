@@ -381,7 +381,7 @@ const pillars = [
           >
             <div class="flex items-center gap-4">
               {aliado.data.logo
-                ? <Image src={resolveImage(aliado.data.logo) as any} alt={aliado.data.nombre} width={200} height={80} sizes="80px" loading="lazy" decoding="async" class="h-10 w-auto object-contain brightness-0 invert opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+                ? <Image src={resolveImage(aliado.data.logo) as any} alt={aliado.data.nombre} width={200} height={80} sizes="80px" loading="lazy" decoding="async" class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
                 : <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-cyan transition-all duration-300 group-hover:scale-110 group-hover:border-accent-cyan/40"><Icon name="material-symbols:handshake-rounded" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" /></div>
               }
               <div>
@@ -456,7 +456,7 @@ const pillars = [
     function openAliadoModal(a: AliadoData) {
       const logoWrap = document.getElementById('aliado-modal-logo') as HTMLElement;
       logoWrap.innerHTML = a.logo
-        ? `<img src="${a.logo}" alt="${a.nombre}" class="w-full h-full object-contain brightness-0 invert animate-in fade-in zoom-in duration-300" />`
+        ? `<img src="${a.logo}" alt="${a.nombre}" class="w-full h-full object-contain animate-in fade-in zoom-in duration-300" />`
         : '<span class="text-accent-cyan flex items-center justify-center w-full h-full"><Icon name="material-symbols:handshake-rounded" class="w-6 h-6" aria-hidden="true" /></span>';
 
       (document.getElementById('aliado-modal-tipo') as HTMLElement).textContent = a.tipo;
