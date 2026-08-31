@@ -1,35 +1,9 @@
 [
   {
-    "nombre": "IEEE ComSoc Colombia",
-    "monto": 250,
-    "proyecto": "Demostrador de comunicación cableada entre microcontroladores ESP32",
-    "fecha": "2026-08-15",
-    "mensaje": "Apoyo al fortalecimiento técnico y formativo de la rama estudiantil Univalle."
-  },
-  {
-    "nombre": "Red de Egresados EIEE Univalle",
-    "monto": 180,
-    "proyecto": "Demostrador de protocolos inalámbricos con ESP32",
-    "fecha": "2026-08-20",
-    "mensaje": "Iniciativa de egresados para impulsar el laboratorio de telecomunicaciones."
-  },
-  {
-    "nombre": "Donante Anónimo",
-    "monto": 100,
+    "nombre": "Samuel Ortiz Sarasti",
+    "monto": 70,
+    "proyecto": "Fundación del Capítulo ComSoc Univalle",
     "fecha": "2026-08-24",
-    "mensaje": "Para equipamiento y componentes de prácticas de laboratorio."
-  },
-  {
-    "nombre": "Capítulo Técnico IEEE VTS Colombia",
-    "monto": 150,
-    "proyecto": "Proyecto educativo: Jammer Bluetooth con ESP32 y NRF24L01",
-    "fecha": "2026-08-28",
-    "mensaje": "Fondo semilla para proyectos de experimentación en radiofrecuencia y seguridad."
-  },
-  {
-    "nombre": "Comunidad Estudiantil ComSoc",
-    "monto": 80,
-    "fecha": "2026-08-29",
-    "mensaje": "Recaudación colectiva y donaciones voluntarias de miembros activos."
+    "mensaje": "Fondos iniciales aportados para iniciar operaciones del capítulo."
   }
 ]

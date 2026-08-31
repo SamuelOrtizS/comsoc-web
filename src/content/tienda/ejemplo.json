@@ -1,0 +1,30 @@
+{
+    "name": "Camiseta Oficial IEEE ComSoc Univalle (ejemplo)",
+    "category": "Indumentaria",
+    "price": "45000",
+    "description": "Camiseta de alta calidad 100% algodón peinado con el logo bordado de IEEE ComSoc y diseño conmemorativo en la espalda. (ejemplo)",
+    "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80 (ejemplo)",
+    "available": true,
+    "specifications": [
+        {
+            "key": "Material",
+            "value": "100% Algodón Peinado 200g"
+        },
+        {
+            "key": "Tallas Disponibles",
+            "value": "S, M, L, XL"
+        },
+        {
+            "key": "Color Base",
+            "value": "Azul Marino Oscuro / Deep Slate"
+        }
+    ],
+    "resources": [
+        {
+            "title": "Guía de Tallas (PDF)",
+            "link": "https://ejemplo.com/tallas.pdf",
+            "icon": "material-symbols:straighten",
+            "color": "#00aeef"
+        }
+    ]
+}
