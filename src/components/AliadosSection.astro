@@ -38,7 +38,16 @@ const { aliados } = Astro.props;
         >
           <div class="flex items-center gap-4">
             {aliado.data.logo
-              ? <Image src={resolveImage(aliado.data.logo) as any} alt={aliado.data.nombre} width={200} height={80} sizes="80px" loading="lazy" decoding="async" class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+              ? <Image 
+                  src={aliado.data.logo as any} 
+                  alt={aliado.data.nombre} 
+                  width={200} 
+                  height={80} 
+                  sizes="80px" 
+                  loading="lazy" 
+                  decoding="async" 
+                  class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+                />
               : <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-cyan transition-all duration-300 group-hover:scale-110 group-hover:border-accent-cyan/40"><Icon name="material-symbols:handshake-rounded" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" /></div>
             }
             <div>

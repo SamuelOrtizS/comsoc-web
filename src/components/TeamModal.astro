@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 ---
 
@@ -89,8 +90,8 @@ import { Icon } from 'astro-icon/components';
     function openModal(member: MemberData) {
       const avatarWrap = document.getElementById('modal-avatar-wrap') as HTMLElement;
       avatarWrap.innerHTML = member.image
-        ? `<img src="${member.image}" alt="${member.name}" class="w-full h-full object-cover rounded-full transition-transform duration-500 ease-out" />`
-        : `<span class="text-accent-cyan flex items-center justify-center w-full h-full"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>`;
+        ? `<Image src="${member.image}" alt="${member.name}" class="w-full h-full object-cover rounded-full transition-transform duration-500 ease-out" />`
+        : `<Icon name="material-symbols:person-outline" class="text-accent-cyan w-6 h-6 flex-shrink-0" aria-hidden="true" />`;
 
       (document.getElementById('modal-member-name') as HTMLElement).textContent = member.name;
       (document.getElementById('modal-role') as HTMLElement).textContent = member.role;
