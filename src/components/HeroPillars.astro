@@ -66,13 +66,19 @@ const { pillars = defaultPillars } = Astro.props;
         class={`group relative overflow-hidden rounded-[22px] border ${pillar.border || 'border-white/10'} bg-gradient-to-b from-bg-deep-slate-lighter/35 via-bg-deep-slate/40 to-bg-primary-darker/60 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_28px_60px_-38px_rgba(34,211,238,0.38)] hover:border-accent-cyan/40`}
       >
         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_16px_32px_-22px_rgba(34,211,238,0.8)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_20px_40px_-16px_rgba(34,211,238,0.6)]">
+        <div class="mb-5 mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-accent-cyan shadow-[0_16px_32px_-22px_rgba(34,211,238,0.8)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_20px_40px_-16px_rgba(34,211,238,0.6)]">
           <Icon name={pillar.icon} class="w-7 h-7 transition-transform duration-500 group-hover:scale-110" aria-hidden="true" />
         </div>
-        <h3 class="mb-3 text-lg font-bold tracking-[-0.03em] text-text-primary transition-all duration-300 group-hover:text-accent-cyan group-hover:-translate-y-0.5">
+        <h3 
+          class="mb-3 text-center text-lg font-bold tracking-[-0.03em] text-text-primary transition-all duration-300 group-hover:text-accent-cyan group-hover:-translate-y-0.5"
+          style="text-align: center"
+        >
           {pillar.title}
         </h3>
-        <p class="text-xs leading-relaxed text-text-secondary font-light transition-colors duration-300 group-hover:text-text-primary">
+        <p 
+          class="text-xs leading-relaxed text-center text-text-secondary font-light transition-colors duration-300 group-hover:text-text-primary"
+          style="text-align: justify;"
+        >
           {pillar.desc}
         </p>
       </article>

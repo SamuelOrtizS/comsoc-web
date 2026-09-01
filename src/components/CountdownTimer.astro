@@ -22,26 +22,26 @@ const { targetDate, eventName = "Próximo Evento" } = Astro.props;
   </div>
 
   <div
-    class="countdown-container grid grid-cols-4 gap-2 text-center sm:gap-3"
+    class="countdown-container grid grid-cols-4 gap-3 text-center sm:gap-4 md:gap-5"
     data-target={targetDate}
     role="timer"
     aria-live="off"
     aria-atomic="true"
     aria-label={`Cuenta regresiva para ${eventName}`}
   >
-    <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
+    <div class="text-center mx-auto rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
       <div class="days-val font-mono text-2xl font-bold text-text-primary sm:text-4xl">00</div>
       <div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary sm:text-xs">Días</div>
     </div>
-    <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
+    <div class="text-center mx-auto rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
       <div class="hours-val font-mono text-2xl font-bold text-accent-cyan sm:text-4xl">00</div>
       <div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary sm:text-xs">Horas</div>
     </div>
-    <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
+    <div class="text-center mx-auto rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
       <div class="mins-val font-mono text-2xl font-bold text-text-primary sm:text-4xl">00</div>
       <div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary sm:text-xs">Min</div>
     </div>
-    <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
+    <div class="text-center mx-auto rounded-xl border border-white/10 bg-white/5 px-2 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-3 sm:py-4">
       <div class="secs-val font-mono text-2xl font-bold text-accent-purple sm:text-4xl">00</div>
       <div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary sm:text-xs">Seg</div>
     </div>

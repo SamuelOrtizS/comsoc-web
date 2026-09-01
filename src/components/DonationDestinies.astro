@@ -47,7 +47,7 @@ const { destinies = defaultDestinies } = Astro.props;
 >
   <div class="mb-7 text-center">
     <h2 class="mb-3 text-2xl font-bold text-text-primary sm:text-3xl">¿A qué se destinan los fondos?</h2>
-    <p class="mx-auto max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base font-light">
+    <p class="mx-auto max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base font-light text-justify">
       Como capítulo estudiantil de la Sociedad de Comunicaciones de IEEE, dependemos del apoyo de la comunidad,
       patrocinadores y egresados para continuar brindando educación extracurricular de alto nivel y desarrollar
       proyectos que impacten a la sociedad.
@@ -61,7 +61,7 @@ const { destinies = defaultDestinies } = Astro.props;
           <Icon name={dest.icon} class="w-6 h-6" aria-hidden="true" />
         </div>
         <h3 class="mb-2 text-base font-semibold text-text-primary">{dest.title}</h3>
-        <p class="text-sm leading-relaxed text-text-secondary font-light">{dest.desc}</p>
+        <p class="text-sm leading-relaxed text-text-secondary font-light text-justify">{dest.desc}</p>
       </div>
     ))}
   </div>

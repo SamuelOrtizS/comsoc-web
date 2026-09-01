@@ -115,7 +115,12 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
               <h3 class="text-sm font-bold text-text-primary transition-all duration-300 group-hover:text-accent-cyan group-hover:-translate-y-0.5">{aliado.data.nombre}</h3>
             </div>
           </div>
-          <p class="text-xs text-text-secondary font-light leading-relaxed line-clamp-3 grow transition-colors duration-300 group-hover:text-text-primary">{aliado.data.descripcion}</p>
+          <p 
+            class="text-xs text-text-secondary font-light leading-relaxed line-clamp-3 grow transition-colors duration-300 group-hover:text-text-primary"
+            style="text-align: justify;"
+          >
+            {aliado.data.descripcion}
+          </p>
           <div class="text-[10px] font-mono text-text-secondary border border-white/10 px-3 py-1 rounded-full self-start transition-all duration-300 group-hover:border-accent-cyan/40 group-hover:text-accent-cyan group-hover:scale-105">
             Conocer más →
           </div>
@@ -178,9 +183,19 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
 
       <div class="border-t border-white/10"></div>
 
-      <div class="text-sm text-text-secondary font-light leading-relaxed">{aliado.data.descripcion}</div>
+      <div 
+        class="text-sm text-text-secondary font-light leading-relaxed"
+        style="text-align: justify;"
+      >
+        {aliado.data.descripcion}
+      </div>
       {aliado.data.acerca && (
-        <div class="text-xs text-text-secondary font-light leading-relaxed">{aliado.data.acerca}</div>
+        <div 
+          class="text-xs text-text-secondary font-light leading-relaxed"
+          style="text-align: justify;"
+        >
+          {aliado.data.acerca}
+        </div>
       )}
 
       <div class="flex flex-col gap-2">
