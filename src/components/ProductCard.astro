@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getImageModule } from '../utils/imageImports';
 
 interface Props {
   item: CollectionEntry<'tienda'>;
@@ -8,6 +10,13 @@ interface Props {
 
 const { item } = Astro.props;
 const prod = item.data;
+const isRemoteProductImage = typeof prod.image === 'string' && (prod.image.startsWith('http://') || prod.image.startsWith('https://'));
+const resolvedProductImage = typeof prod.image === 'string' ? getImageModule(prod.image) : prod.image;
+const serializedProduct = {
+  ...prod,
+  id: item.id,
+  image: prod.image ? (typeof prod.image === 'string' ? prod.image : prod.image.src) : '',
+};
 ---
 
 <article class="glass-card group flex h-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-bg-secondary/30 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-cyan/40 hover:shadow-[0_30px_70px_-46px_rgba(69,219,237,0.7)]">
@@ -15,20 +24,35 @@ const prod = item.data;
   <button
     type="button"
     class="product-card-btn w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-    data-product={JSON.stringify(prod)}
+    data-product-id={item.id}
+    data-product={JSON.stringify(serializedProduct)}
     aria-label={`Ver detalles de ${prod.name}`}
   >
     <div class="relative overflow-hidden bg-bg-secondary">
       <div class="aspect-square overflow-hidden">
-        <Image
-          src={prod.image || ''}
-          alt={prod.name}
-          width={600}
-          height={600}
-          loading="lazy"
-          decoding="async"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        {isRemoteProductImage ? (
+          <img
+            src={prod.image}
+            alt={prod.name}
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : resolvedProductImage ? (
+          <Image
+            src={resolvedProductImage}
+            alt={prod.name}
+            width={600}
+            height={600}
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent-purple/15 via-bg-secondary to-accent-blue/15 text-xs font-mono uppercase tracking-[0.2em] text-text-secondary">
+            Producto
+          </div>
+        )}
       </div>
       <div class="absolute inset-x-3 top-3 flex items-center justify-between gap-2">
         <span class="rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono backdrop-blur-sm">
@@ -63,7 +87,8 @@ const prod = item.data;
     <button
       type="button"
       class="product-card-btn flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-center text-sm font-semibold text-text-secondary transition hover:border-accent-cyan/40 hover:bg-white/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-      data-product={JSON.stringify(prod)}
+      data-product-id={item.id}
+      data-product={JSON.stringify(serializedProduct)}
     >
       Ver detalles
     </button>

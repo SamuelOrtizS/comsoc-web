@@ -2,7 +2,7 @@
   "order": 1,
   "nombre": "IEEE Sección Colombia",
   "tipo": "Organización IEEE",
-  "logo": "/images/SECTION_COL_IMAGE.svg",
+  "logo": "../../assets/images/SECTION_COL_IMAGE.svg",
   "descripcion": "La Sección Colombia de IEEE es la representación a nivel nacional del Instituto de Ingenieros Eléctricos y Electrónicos (IEEE), la organización técnica y profesional más grande del mundo. Su propósito central es promover la innovación, la excelencia tecnológica y el desarrollo científico, adaptando la misión global de IEEE a los retos, realidades y oportunidades del entorno colombiano, siempre enfocados en el beneficio de la sociedad.",
   "acerca": "Esta sección funciona como el ecosistema de encuentro definitivo para el crecimiento de la ingeniería en el territorio nacional. Su gestión se enfoca en conectar a estudiantes, académicos y profesionales de la industria para fomentar el desarrollo técnico y la investigación continua. Asimismo, respalda activamente el liderazgo de las Ramas Estudiantiles en las diferentes universidades, buscando generar un impacto real en las comunidades colombianas mediante soluciones tecnológicas.",
   "website": "https://ieee.org.co/",

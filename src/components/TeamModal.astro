@@ -1,194 +1,278 @@
 ---
-import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { getImageModule } from '../utils/imageImports';
+import type { CollectionEntry } from 'astro:content';
+
+type MemberData = CollectionEntry<'juntaDirectiva'>['data'];
+
+interface Props {
+  team: Array<MemberData & { id: string; imageModule?: any }>;
+}
+
+const { team } = Astro.props;
+
+// Extract filename from image path
+const extractFilename = (path: string): string => {
+  if (path.includes('/')) {
+    return path.split('/').pop() || path;
+  }
+  return path;
+};
+
+// Pre-resolve images for the modal
+const resolvedTeam = team.map(member => {
+  let imageModule = undefined;
+  let imagePath = '';
+  
+  if (member.image) {
+    const imgStr = typeof member.image === 'string' 
+      ? member.image 
+      : (member.image as any)?.src || '';
+    
+    if (imgStr) {
+      const filename = extractFilename(imgStr);
+      imageModule = getImageModule(filename);
+      imagePath = imgStr;
+    }
+  }
+  
+  return {
+    ...member,
+    imageModule,
+    imagePath,
+  };
+});
 ---
 
-<!-- Member Detail Modal -->
-<div
-  id="member-modal-overlay"
-  class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,0.6,0.51,1)]"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="modal-member-name"
->
+{resolvedTeam.map((member) => (
   <div
-    id="member-modal"
-    class="relative bg-linear-to-b from-bg-primary to-bg-deep-slate border border-accent-cyan/20 rounded-4xl shadow-[0_35px_85px_-25px_rgba(34,211,238,0.35),0_0_120px_rgba(34,211,238,0.15)] w-full max-w-lg p-6 sm:p-9 flex flex-col gap-6 sm:gap-7 translate-y-6 scale-95 opacity-0 transition-all duration-350 ease-[cubic-bezier(0.22,0.6,0.51,1)]"
+    id={`member-modal-overlay-${member.id}`}
+    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,0.6,0.51,1)] member-modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={`modal-member-name-${member.id}`}
+    data-member-id={member.id}
   >
-    <!-- Close button -->
-    <button
-      id="modal-close"
-      type="button"
-      class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2.5 rounded-2xl hover:bg-white/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 group active:scale-95"
-      aria-label="Cerrar modal de perfil de miembro"
-      data-modal-action="close"
-    >
-      <span class="sr-only" aria-live="polite">Cerrando modal</span>
-      <Icon
-        name="material-symbols:close-rounded"
-        class="w-5 h-5 transition-transform duration-200 ease-out group-hover:scale-110 group-hover:-rotate-90 active:scale-90"
-        aria-hidden="true"
-      />
-    </button>
+    <div class="relative bg-linear-to-b from-bg-primary to-bg-deep-slate border border-accent-cyan/20 rounded-4xl shadow-[0_35px_85px_-25px_rgba(34,211,238,0.35),0_0_120px_rgba(34,211,238,0.15)] w-full max-w-lg p-6 sm:p-9 flex flex-col gap-6 sm:gap-7 translate-y-6 scale-95 opacity-0 transition-all duration-350 ease-[cubic-bezier(0.22,0.6,0.51,1)] member-modal">
+      <!-- Close button -->
+      <button
+        type="button"
+        class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2.5 rounded-2xl hover:bg-white/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 group active:scale-95 member-modal-close"
+        aria-label="Cerrar modal de perfil de miembro"
+      >
+        <span class="sr-only" aria-live="polite">Cerrando modal</span>
+        <Icon
+          name="material-symbols:close-rounded"
+          class="w-5 h-5 transition-transform duration-200 ease-out group-hover:scale-110 group-hover:-rotate-90 active:scale-90"
+          aria-hidden="true"
+        />
+      </button>
 
-    <!-- Avatar -->
-    <div class="flex flex-col items-center gap-3">
-      <div
-        id="modal-avatar-wrap"
-        class="w-24 h-24 rounded-full bg-linear-to-tr from-accent-blue/30 to-accent-cyan/30 border-2 border-accent-cyan/50 flex items-center justify-center text-5xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(21,93,252,0.4)] ring-4 ring-black/20"
-      ></div>
-      <div class="text-center">
-        <h2
-          id="modal-member-name"
-          class="text-xl font-extrabold tracking-tight text-text-primary"
-        ></h2>
-        <div id="modal-role" class="text-xs font-mono text-accent-cyan font-semibold mt-1 uppercase tracking-wider"></div>
-        <div id="modal-dept" class="text-xs text-text-secondary/70 mt-0.5"></div>
+      <!-- Avatar -->
+      <div class="flex flex-col items-center gap-3">
+        <div class="w-24 h-24 rounded-full bg-linear-to-tr from-accent-blue/30 to-accent-cyan/30 border-2 border-accent-cyan/50 flex items-center justify-center text-5xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(21,93,252,0.4)] ring-4 ring-black/20">
+          {member.imageModule ? (
+            <Image
+              src={member.imageModule}
+              alt={member.name}
+              width={96}
+              height={96}
+              loading="eager"
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          ) : (
+            <Icon name="material-symbols:person-rounded" class="w-12 h-12 text-accent-cyan" aria-hidden="true" />
+          )}
+        </div>
+        <div class="text-center">
+          <h2
+            id={`modal-member-name-${member.id}`}
+            class="text-xl font-extrabold tracking-tight text-text-primary"
+          >
+            {member.name}
+          </h2>
+          <div class="text-xs font-mono text-accent-cyan font-semibold mt-1 uppercase tracking-wider">
+            {member.role}
+          </div>
+          <div class="text-xs text-text-secondary/70 mt-0.5">
+            {member.department}
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Divider -->
-    <div class="border-t border-white/10"></div>
+      <!-- Divider -->
+      <div class="border-t border-white/10"></div>
 
-    <!-- Bio -->
-    <div id="modal-bio-wrap" class="hidden transition-all duration-300 ease-out">
-      <p id="modal-bio" class="text-sm text-text-secondary/80 font-light leading-relaxed max-w-md"></p>
-    </div>
+      <!-- Bio -->
+      {member.bio && (
+        <p class="text-sm text-text-secondary/80 font-light leading-relaxed max-w-md">
+          {member.bio}
+        </p>
+      )}
 
-    <!-- Contact info -->
-    <div id="modal-contact" class="flex flex-col gap-2.5 transition-opacity duration-300 ease-out"></div>
-
-    <!-- Social links -->
-    <div id="modal-socials" class="flex flex-wrap gap-2 transition-all duration-300 ease-out translate-y-0 opacity-100"></div>
-  </div>
-</div>
-
-<script>
-  type MemberData = {
-    name: string;
-    role: string;
-    department: string;
-    avatar?: string;
-    image?: string;
-    bio?: string;
-    email?: string;
-    phone?: string;
-    linkedin?: string;
-    instagram?: string;
-    facebook?: string;
-    github?: string;
-    website?: string;
-  };
-
-  function setupTeamModal() {
-    const overlay = document.getElementById('member-modal-overlay') as HTMLElement;
-    const modal = document.getElementById('member-modal') as HTMLElement;
-    const closeBtn = document.getElementById('modal-close') as HTMLButtonElement;
-
-    if (!overlay || !modal || !closeBtn) return;
-
-    function openModal(member: MemberData) {
-      const avatarWrap = document.getElementById('modal-avatar-wrap') as HTMLElement;
-      avatarWrap.innerHTML = member.image
-        ? `<Image src="${member.image}" alt="${member.name}" class="w-full h-full object-cover rounded-full transition-transform duration-500 ease-out" />`
-        : `<Icon name="material-symbols:person-outline" class="text-accent-cyan w-6 h-6 flex-shrink-0" aria-hidden="true" />`;
-
-      (document.getElementById('modal-member-name') as HTMLElement).textContent = member.name;
-      (document.getElementById('modal-role') as HTMLElement).textContent = member.role;
-      (document.getElementById('modal-dept') as HTMLElement).textContent = member.department;
-
-      const bioWrap = document.getElementById('modal-bio-wrap') as HTMLElement;
-      const bioEl = document.getElementById('modal-bio') as HTMLElement;
-      if (member.bio) {
-        bioEl.textContent = member.bio;
-        bioWrap.classList.remove('hidden', 'opacity-0', 'translate-y-2');
-        bioWrap.classList.add('opacity-100', 'translate-y-0');
-      } else {
-        bioWrap.classList.add('hidden');
-      }
-
-      const contactEl = document.getElementById('modal-contact') as HTMLElement;
-      contactEl.innerHTML = '';
-      if (member.email) {
-        contactEl.insertAdjacentHTML('beforeend', `
-          <a href="mailto:${member.email}" title="${member.email}" class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-white/5 to-transparent border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition-all duration-300 min-w-0">
+      <!-- Contact info -->
+      <div class="flex flex-col gap-2.5 transition-opacity duration-300 ease-out">
+        {member.email && (
+          <a 
+            href={`mailto:${member.email}`} 
+            title={member.email}
+            class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-white/5 to-transparent border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition-all duration-300 min-w-0"
+          >
             <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-accent-cyan/10 border border-accent-cyan/20 flex items-center justify-center text-accent-cyan group-hover:bg-accent-cyan/20 group-hover:border-accent-cyan/40 transition-colors duration-200">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             </span>
-            <span class="text-xs sm:text-sm font-mono truncate break-all sm:break-normal min-w-0 flex-1">${member.email}</span>
-          </a>`);
-      }
-      if (member.phone) {
-        contactEl.insertAdjacentHTML('beforeend', `
-          <a href="tel:${member.phone}" title="${member.phone}" class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-white/5 to-transparent border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition-all duration-300 min-w-0">
+            <span class="text-xs sm:text-sm font-mono truncate break-all sm:break-normal min-w-0 flex-1">{member.email}</span>
+          </a>
+        )}
+        {member.phone && (
+          <a 
+            href={`tel:${member.phone}`} 
+            title={member.phone}
+            class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-white/5 to-transparent border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition-all duration-300 min-w-0"
+          >
             <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-accent-cyan/10 border border-accent-cyan/20 flex items-center justify-center text-accent-cyan transition-colors duration-200">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
             </span>
-            <span class="text-xs sm:text-sm font-mono truncate min-w-0 flex-1">${member.phone}</span>
-          </a>`);
-      }
+            <span class="text-xs sm:text-sm font-mono truncate min-w-0 flex-1">{member.phone}</span>
+          </a>
+        )}
+      </div>
 
-      const socialsEl = document.getElementById('modal-socials') as HTMLElement;
-      socialsEl.innerHTML = '';
-      let socialCount = 0;
-      const socialLinks: { key: keyof MemberData; label: string; color: string }[] = [
-        { key: 'linkedin', label: 'LinkedIn', color: 'bg-accent-blue/20 text-accent-blue border-accent-blue/30 hover:bg-accent-blue/40 hover:scale-105' },
-        { key: 'instagram', label: 'Instagram', color: 'bg-gradient-to-r from-pink-600/20 to-rose-600/20 text-rose-400 border-rose-400/30 hover:bg-pink-600/40 hover:scale-105' },
-        { key: 'facebook', label: 'Facebook', color: 'bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-400 border-indigo-400/30 hover:bg-indigo-600/40 hover:scale-105' },
-        { key: 'github', label: 'GitHub', color: 'bg-white/5 text-text-secondary border-white/10 hover:bg-gray-700/50 hover:text-white hover:scale-105' },
-        { key: 'website', label: 'Sitio Web', color: 'bg-accent-emerald/20 text-accent-emerald border-accent-emerald/30 hover:bg-accent-emerald/40 hover:scale-105' },
-      ];
-      socialLinks.forEach(({ key, label, color }) => {
-        const url = member[key] as string | undefined;
-        if (url) {
-          socialCount++;
-          socialsEl.insertAdjacentHTML('beforeend', `
-            <a href="${url}" target="_blank" rel="noopener noreferrer"
-               class="px-3.5 py-1.75 rounded-lg border text-xs font-semibold transition-all duration-300 ${color} hover:-translate-y-0.5">
-              ${label}
-            </a>`);
+      <!-- Social links -->
+      <div class="flex flex-wrap gap-2 transition-all duration-300 ease-out translate-y-0 opacity-100">
+        {member.linkedin && (
+          <a 
+            href={member.linkedin} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="px-3.5 py-1.75 rounded-lg border text-xs font-semibold transition-all duration-300 bg-accent-blue/20 text-accent-blue border-accent-blue/30 hover:bg-accent-blue/40 hover:-translate-y-0.5"
+          >
+            LinkedIn
+          </a>
+        )}
+        {member.instagram && (
+          <a 
+            href={member.instagram} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="px-3.5 py-1.75 rounded-lg border text-xs font-semibold transition-all duration-300 bg-accent-rose/20 text-accent-rose border-accent-rose/30 hover:bg-accent-rose/40 hover:-translate-y-0.5"
+          >
+            Instagram
+          </a>
+        )}
+        {member.facebook && (
+          <a 
+            href={member.facebook} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="px-3.5 py-1.75 rounded-lg border text-xs font-semibold transition-all duration-300 bg-accent-purple/20 text-accent-purple border-accent-purple/30 hover:bg-accent-purple/40 hover:-translate-y-0.5"
+          >
+            Facebook
+          </a>
+        )}
+        {member.github && (
+          <a 
+            href={member.github} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="px-3.5 py-1.75 rounded-lg border text-xs font-semibold transition-all duration-300 bg-white/5 text-text-secondary border-white/10 hover:bg-gray-700/50 hover:text-white hover:-translate-y-0.5"
+          >
+            GitHub
+          </a>
+        )}
+        {member.website && (
+          <a 
+            href={member.website} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="px-3.5 py-1.75 rounded-lg border text-xs font-semibold transition-all duration-300 bg-accent-emerald/20 text-accent-emerald border-accent-emerald/30 hover:bg-accent-emerald/40 hover:-translate-y-0.5"
+          >
+            Sitio Web
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+))}
+
+<script>
+  function setupMemberModals() {
+    // Map of member ID to modal elements
+    const modals = new Map<string, { overlay: HTMLElement; modal: HTMLElement; closeBtn: HTMLElement }>();
+    
+    // Find all modals and store references
+    document.querySelectorAll('.member-modal-overlay').forEach((overlay) => {
+      const memberId = overlay.getAttribute('data-member-id');
+      if (!memberId) return;
+      
+      const modal = overlay.querySelector('.member-modal') as HTMLElement;
+      const closeBtn = overlay.querySelector('.member-modal-close') as HTMLElement;
+      
+      if (modal && closeBtn) {
+        modals.set(memberId, { overlay: overlay as HTMLElement, modal, closeBtn });
+      }
+    });
+
+    // Setup card click handlers
+    let lastMemberTrigger: HTMLButtonElement | null = null;
+    document.querySelectorAll<HTMLButtonElement>('.member-card').forEach((card) => {
+      if (card.dataset.cardInitialized) return;
+      card.dataset.cardInitialized = 'true';
+      
+      card.addEventListener('click', () => {
+        const memberId = card.getAttribute('data-member-id');
+        if (!memberId) return;
+        
+        const modalSet = modals.get(memberId);
+        if (!modalSet) return;
+        
+        lastMemberTrigger = card;
+        card.setAttribute('aria-expanded', 'true');
+        
+        // Open the modal
+        modalSet.overlay.classList.remove('opacity-0', 'pointer-events-none');
+        modalSet.overlay.classList.add('opacity-100', 'pointer-events-auto');
+        modalSet.modal.classList.remove('translate-y-6', 'scale-95', 'opacity-0');
+        modalSet.modal.classList.add('translate-y-0', 'scale-100', 'opacity-100');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // Setup modal close handlers for all modals
+    modals.forEach(({ overlay, modal, closeBtn }) => {
+      const close = () => {
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        modal.classList.add('translate-y-6', 'scale-95', 'opacity-0');
+        modal.classList.remove('translate-y-0', 'scale-100', 'opacity-100');
+        document.body.style.overflow = '';
+        
+        // Reset aria
+        document.querySelectorAll('.member-card[aria-expanded="true"]').forEach((el) => {
+          el.setAttribute('aria-expanded', 'false');
+        });
+        if (lastMemberTrigger) {
+          lastMemberTrigger.focus();
+          lastMemberTrigger = null;
+        }
+      };
+      
+      closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) close();
+      });
+      
+      // Handle Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('opacity-100')) {
+          close();
         }
       });
-      if (socialCount === 0) socialsEl.classList.add('hidden');
-      else socialsEl.classList.remove('hidden');
-
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      overlay.classList.add('opacity-100', 'pointer-events-auto');
-      modal.classList.remove('translate-y-6', 'scale-95', 'opacity-0');
-      modal.classList.add('translate-y-0', 'scale-100', 'opacity-100');
-      document.body.style.overflow = 'hidden';
-
-      setTimeout(() => {
-        const closeBtnEl = document.getElementById('modal-close');
-        if (closeBtnEl) closeBtnEl.focus();
-      }, 350);
-    }
-
-    function closeModal() {
-      overlay.classList.remove('opacity-100', 'pointer-events-auto');
-      overlay.classList.add('opacity-0', 'pointer-events-none');
-      modal.classList.remove('translate-y-0', 'scale-100', 'opacity-100');
-      modal.classList.add('translate-y-6', 'scale-95', 'opacity-0');
-      document.body.style.overflow = '';
-    }
-
-    // Attach to all member cards
-    document.querySelectorAll<HTMLButtonElement>('.member-card').forEach((card) => {
-      if (card.dataset.modalInitialized) return;
-      card.dataset.modalInitialized = 'true';
-      const member = JSON.parse(card.getAttribute('data-member')!) as MemberData;
-      card.addEventListener('click', () => openModal(member));
-    });
-
-    closeBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('opacity-100')) closeModal();
     });
   }
 
-  setupTeamModal();
-  document.addEventListener('astro:page-load', setupTeamModal);
+  setupMemberModals();
+  document.addEventListener('astro:page-load', setupMemberModals);
 </script>

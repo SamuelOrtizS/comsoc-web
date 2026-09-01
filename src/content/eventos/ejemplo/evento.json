@@ -9,9 +9,10 @@
   "lugarNombre": "Laboratorio de Telecomunicaciones",
   "lugarDireccion": "Pabellón B, Aula 204",
   "descripcion": "Taller enfocado en empalmes de fibra óptica y modulación en redes ópticas pasivas (PON).",
-  "imagenPrincipal": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
+  "imagenPrincipal": "src/assets/images/event-hackathon.svg",
   "galeria": [
-    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
+    "src/assets/images/event-hackathon.svg"
   ],
   "estado": "Publicado",
   "detalles": [

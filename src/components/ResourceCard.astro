@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import { getImageModule } from '../utils/imageImports';
 
 interface Props {
   recurso: CollectionEntry<'recursos'>;
@@ -8,7 +9,21 @@ interface Props {
 
 const { recurso } = Astro.props;
 const { titulo, descripcion, categoria, imagen, links } = recurso.data;
-const resolvedImagen = imagen || null;
+let resolvedImagen: any = undefined;
+if (imagen) {
+  if (typeof imagen === 'string') {
+    if (imagen.startsWith('http://') || imagen.startsWith('https://')) {
+      // Remote URL - render as regular img
+      resolvedImagen = imagen;
+    } else {
+      // Try to resolve as imported module
+      const importedImage = getImageModule(imagen);
+      if (importedImage) {
+        resolvedImagen = importedImage;
+      }
+    }
+  }
+}
 ---
 
 <div class="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary/80 shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_24px_60px_rgba(34,211,238,0.10)]">

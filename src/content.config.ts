@@ -113,7 +113,7 @@ const aliados = defineCollection({
         order: z.number().default(99),
         nombre: z.string(),
         tipo: z.string(),
-        logo: z.string().optional(),
+        logo: z.string(),
         descripcion: z.string(),
         acerca: z.string().optional(),
         website: z.string().optional(),
@@ -123,6 +123,7 @@ const aliados = defineCollection({
         instagram: z.string().optional(),
     }),
 });
+
 
 const recursos = defineCollection({
     loader: glob({ pattern: isDev ? ['**/*.json', '!**/_*.json'] : ['**/*.json', '!**/ejemplo.json', '!**/_*.json'], base: './src/content/recursos' }),

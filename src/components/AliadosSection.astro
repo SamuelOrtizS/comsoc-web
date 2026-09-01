@@ -1,6 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { getImageModule } from '../utils/imageImports';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -8,6 +9,52 @@ interface Props {
 }
 
 const { aliados } = Astro.props;
+
+// Helper to extract filename from relative path
+const extractFilename = (path: string): string => {
+  // Handle relative paths like "../../assets/images/SECTION_COL_IMAGE.svg"
+  if (path.includes('/')) {
+    return path.split('/').pop() || path;
+  }
+  return path;
+};
+
+// Helper to check if string is a remote URL
+const isRemoteUrl = (path: string): boolean => {
+  return path.startsWith('http://') || path.startsWith('https://');
+};
+
+// Resolve ally logos for use in both cards and modals
+const resolvedAliados = aliados.map(aliado => {
+  let logoModule = undefined;
+  let logoPath = '';
+  
+  if (aliado.data.logo) {
+    const logoStr = typeof aliado.data.logo === 'string' 
+      ? aliado.data.logo 
+      : (aliado.data.logo as any)?.src || '';
+    
+    if (!isRemoteUrl(logoStr)) {
+      const filename = extractFilename(logoStr);
+      logoModule = getImageModule(filename);
+    }
+    logoPath = logoStr;
+  }
+  
+  return {
+    ...aliado,
+    logoPath,
+    logoModule,
+  };
+});
+
+const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
+  return {
+    ...aliado.data,
+    logo: aliado.logoPath,
+  };
+};
+
 ---
 
 {aliados.length > 0 && (
@@ -25,30 +72,44 @@ const { aliados } = Astro.props;
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {aliados.map((aliado) => (
+      {resolvedAliados.map((aliado) => (
         <button
           type="button"
           id={`aliado-card-${aliado.data.nombre.replace(/\s+/g, '-')}`}
           class="aliado-card glass-card rounded-2xl p-6 border border-white/10 text-left group cursor-pointer hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10 transition-all duration-500 w-full flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:-translate-x-[2px] focus-visible:-translate-y-[2px]"
-          data-aliado={JSON.stringify(aliado.data)}
+          data-aliado={JSON.stringify(serializeAliado(aliado))}
+          data-aliado-id={aliado.data.nombre.replace(/\s+/g, '-')}
           aria-label={`Conocer más sobre ${aliado.data.nombre}`}
           aria-haspopup="dialog"
           aria-expanded="false"
         >
           <div class="flex items-center gap-4">
-            {aliado.data.logo
-              ? <Image 
-                  src={aliado.data.logo as any} 
-                  alt={aliado.data.nombre} 
-                  width={200} 
-                  height={80} 
-                  sizes="80px" 
-                  loading="lazy" 
-                  decoding="async" 
-                  class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
-                />
-              : <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-cyan transition-all duration-300 group-hover:scale-110 group-hover:border-accent-cyan/40"><Icon name="material-symbols:handshake-rounded" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" /></div>
-            }
+            {aliado.logoModule ? (
+              // Optimized local image
+              <Image
+                src={aliado.logoModule}
+                alt={aliado.data.nombre}
+                width={40}
+                height={40}
+                loading="lazy"
+                decoding="async"
+                class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : aliado.logoPath ? (
+              // Remote URL or public fallback
+              <img
+                src={aliado.logoPath.startsWith('http') ? aliado.logoPath : `/images/${extractFilename(aliado.logoPath)}`}
+                alt={aliado.data.nombre}
+                loading="lazy"
+                decoding="async"
+                class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : (
+              // Placeholder
+              <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-cyan transition-all duration-300 group-hover:scale-110 group-hover:border-accent-cyan/40">
+                <Icon name="material-symbols:handshake-rounded" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
+              </div>
+            )}
             <div>
               <span class="text-[10px] font-mono text-accent-cyan uppercase tracking-wider transition-colors duration-300 group-hover:text-accent-blue-lighter">{aliado.data.tipo}</span>
               <h3 class="text-sm font-bold text-text-primary transition-all duration-300 group-hover:text-accent-cyan group-hover:-translate-y-0.5">{aliado.data.nombre}</h3>
@@ -64,142 +125,176 @@ const { aliados } = Astro.props;
   </section>
 )}
 
-<!-- Aliados Modal -->
-<div
-  id="aliado-modal-overlay"
-  class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="modal-aliado-name"
->
-  <div id="aliado-modal" class="relative bg-bg-secondary border border-white/15 rounded-[28px] shadow-2xl shadow-accent-cyan/20 w-full max-w-md p-8 flex flex-col gap-5 translate-y-8 scale-95 opacity-0 transition-all duration-300 backdrop-blur-sm">
-    <button
-      id="aliado-modal-close"
-      type="button"
-      class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2 rounded-xl hover:bg-white/10 transition"
-      aria-label="Cerrar"
-    >
-      <Icon name="material-symbols:close-rounded" class="w-5 h-5" aria-hidden="true" />
-    </button>
+<!-- Aliados Modals - one for each ally with optimized images -->
+{resolvedAliados.map((aliado) => (
+  <div
+    id={`aliado-modal-overlay-${aliado.data.nombre.replace(/\s+/g, '-')}`}
+    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 aliado-modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={`modal-aliado-name-${aliado.data.nombre.replace(/\s+/g, '-')}`}
+    data-aliado-id={aliado.data.nombre.replace(/\s+/g, '-')}
+  >
+    <div class="relative bg-bg-secondary border border-white/15 rounded-[28px] shadow-2xl shadow-accent-cyan/20 w-full max-w-md p-8 flex flex-col gap-5 translate-y-8 scale-95 opacity-0 transition-all duration-300 backdrop-blur-sm aliado-modal">
+      <button
+        type="button"
+        class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2 rounded-xl hover:bg-white/10 transition aliado-modal-close"
+        aria-label="Cerrar"
+      >
+        <Icon name="material-symbols:close-rounded" class="w-5 h-5" aria-hidden="true" />
+      </button>
 
-    <div class="flex items-center gap-4">
-      <div id="aliado-modal-logo" class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl overflow-hidden shrink-0"></div>
-      <div>
-        <div id="aliado-modal-tipo" class="text-[10px] font-mono text-accent-cyan uppercase tracking-wider mb-0.5"></div>
-        <h2 id="modal-aliado-name" class="text-lg font-extrabold text-text-primary"></h2>
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0">
+          {aliado.logoModule ? (
+            <Image
+              src={aliado.logoModule}
+              alt={aliado.data.nombre}
+              width={56}
+              height={56}
+              loading="eager"
+              decoding="async"
+              class="w-full h-full object-contain"
+            />
+          ) : aliado.logoPath ? (
+            <img
+              src={aliado.logoPath.startsWith('http') ? aliado.logoPath : `/images/${extractFilename(aliado.logoPath)}`}
+              alt={aliado.data.nombre}
+              loading="eager"
+              decoding="async"
+              class="w-full h-full object-contain"
+            />
+          ) : (
+            <span class="text-accent-cyan text-3xl flex items-center justify-center">
+              <Icon name="material-symbols:handshake-rounded" class="w-8 h-8" aria-hidden="true" />
+            </span>
+          )}
+        </div>
+        <div>
+          <div class="text-[10px] font-mono text-accent-cyan uppercase tracking-wider mb-0.5">{aliado.data.tipo}</div>
+          <h2 id={`modal-aliado-name-${aliado.data.nombre.replace(/\s+/g, '-')}`} class="text-lg font-extrabold text-text-primary">{aliado.data.nombre}</h2>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10"></div>
+
+      <div class="text-sm text-text-secondary font-light leading-relaxed">{aliado.data.descripcion}</div>
+      {aliado.data.acerca && (
+        <div class="text-xs text-text-secondary font-light leading-relaxed">{aliado.data.acerca}</div>
+      )}
+
+      <div class="flex flex-col gap-2">
+        {aliado.data.email && (
+          <a href={`mailto:${aliado.data.email}`} class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            {aliado.data.email}
+          </a>
+        )}
+        {aliado.data.phone && (
+          <a href={`tel:${aliado.data.phone}`} class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            {aliado.data.phone}
+          </a>
+        )}
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        {aliado.data.website && (
+          <a href={aliado.data.website} target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition bg-accent-emerald/20 text-accent-emerald border-accent-emerald/30 hover:bg-accent-emerald/40">
+            Sitio Web ↗
+          </a>
+        )}
+        {aliado.data.linkedin && (
+          <a href={aliado.data.linkedin} target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition bg-accent-blue/20 text-accent-blue border-accent-blue/30 hover:bg-accent-blue/40">
+            LinkedIn ↗
+          </a>
+        )}
+        {aliado.data.instagram && (
+          <a href={aliado.data.instagram} target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition bg-accent-rose/20 text-accent-rose border-accent-rose/30 hover:bg-accent-rose/40">
+            Instagram ↗
+          </a>
+        )}
       </div>
     </div>
-
-    <div class="border-t border-white/10"></div>
-
-    <div id="aliado-modal-desc" class="text-sm text-text-secondary font-light leading-relaxed"></div>
-    <div id="aliado-modal-acerca" class="text-xs text-text-secondary font-light leading-relaxed hidden"></div>
-
-    <div id="aliado-modal-contact" class="flex flex-col gap-2"></div>
-    <div id="aliado-modal-links" class="flex flex-wrap gap-2"></div>
   </div>
-</div>
+))}
 
 <script>
-  type AliadoData = {
-    nombre: string;
-    tipo: string;
-    logo?: string;
-    descripcion: string;
-    acerca?: string;
-    website?: string;
-    email?: string;
-    phone?: string;
-    linkedin?: string;
-    instagram?: string;
-  };
-
-  function setupAliadosModal() {
-    const aliadoOverlay = document.getElementById('aliado-modal-overlay') as HTMLElement;
-    const aliadoModal   = document.getElementById('aliado-modal') as HTMLElement;
-    const aliadoClose   = document.getElementById('aliado-modal-close') as HTMLButtonElement;
-
-    if (!aliadoOverlay || !aliadoModal || !aliadoClose) return;
-
-    function openAliadoModal(a: AliadoData) {
-      const logoWrap = document.getElementById('aliado-modal-logo') as HTMLElement;
-      logoWrap.innerHTML = a.logo
-        ? `<img src="${a.logo}" alt="${a.nombre}" class="w-full h-full object-contain animate-in fade-in zoom-in duration-300" />`
-        : '<span class="text-accent-cyan flex items-center justify-center w-full h-full"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>';
-
-      (document.getElementById('aliado-modal-tipo') as HTMLElement).textContent = a.tipo;
-      (document.getElementById('modal-aliado-name') as HTMLElement).textContent = a.nombre;
-      (document.getElementById('aliado-modal-desc') as HTMLElement).textContent = a.descripcion;
-
-      const acercaEl = document.getElementById('aliado-modal-acerca') as HTMLElement;
-      if (a.acerca) {
-        acercaEl.textContent = a.acerca;
-        acercaEl.classList.remove('hidden');
-      } else {
-        acercaEl.classList.add('hidden');
+  function setupAliadosModals() {
+    // Map of ally ID to modal elements
+    const modals = new Map<string, { overlay: HTMLElement; modal: HTMLElement; closeBtn: HTMLElement }>();
+    
+    // Find all modals and store references
+    document.querySelectorAll('.aliado-modal-overlay').forEach((overlay) => {
+      const aliadoId = overlay.getAttribute('data-aliado-id');
+      if (!aliadoId) return;
+      
+      const modal = overlay.querySelector('.aliado-modal') as HTMLElement;
+      const closeBtn = overlay.querySelector('.aliado-modal-close') as HTMLElement;
+      
+      if (modal && closeBtn) {
+        modals.set(aliadoId, { overlay: overlay as HTMLElement, modal, closeBtn });
       }
+    });
 
-      const contactEl = document.getElementById('aliado-modal-contact') as HTMLElement;
-      contactEl.innerHTML = '';
-      if (a.email) {
-        contactEl.insertAdjacentHTML('beforeend', `<a href="mailto:${a.email}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>${a.email}</a>`);
-      }
-      if (a.phone) {
-        contactEl.insertAdjacentHTML('beforeend', `<a href="tel:${a.phone}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-text-secondary hover:text-accent-cyan hover:border-accent-cyan/40 transition text-xs font-mono"><svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>${a.phone}</a>`);
-      }
-
-      const linksEl = document.getElementById('aliado-modal-links') as HTMLElement;
-      linksEl.innerHTML = '';
-      const socials: { key: keyof AliadoData; label: string; color: string }[] = [
-        { key: 'website',   label: 'Sitio Web',  color: 'bg-accent-emerald/20 text-accent-emerald border-accent-emerald/30 hover:bg-accent-emerald/40' },
-        { key: 'linkedin',  label: 'LinkedIn',   color: 'bg-accent-blue/20 text-accent-blue border-accent-blue/30 hover:bg-accent-blue/40' },
-        { key: 'instagram', label: 'Instagram',  color: 'bg-accent-rose/20 text-accent-rose border-accent-rose/30 hover:bg-accent-rose/40' },
-      ];
-      socials.forEach(({ key, label, color }) => {
-        const url = a[key] as string | undefined;
-        if (url) linksEl.insertAdjacentHTML('beforeend', `<a href="${url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition ${color}">${label} ↗</a>`);
-      });
-      if (linksEl.innerHTML) linksEl.classList.remove('hidden');
-      else linksEl.classList.add('hidden');
-
-      aliadoOverlay.classList.remove('opacity-0', 'pointer-events-none');
-      aliadoOverlay.classList.add('opacity-100', 'pointer-events-auto');
-      aliadoModal.classList.remove('translate-y-8', 'scale-95', 'opacity-0');
-      aliadoModal.classList.add('translate-y-0', 'scale-100', 'opacity-100');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeAliadoModal() {
-      aliadoOverlay.classList.add('opacity-0', 'pointer-events-none');
-      aliadoOverlay.classList.remove('opacity-100', 'pointer-events-auto');
-      aliadoModal.classList.add('translate-y-8', 'scale-95', 'opacity-0');
-      aliadoModal.classList.remove('translate-y-0', 'scale-100', 'opacity-100');
-      document.body.style.overflow = '';
-    }
-
+    // Setup card click handlers
     let lastAliadoTrigger: HTMLButtonElement | null = null;
     document.querySelectorAll<HTMLButtonElement>('.aliado-card').forEach((card) => {
-      if (card.dataset.aliadoInitialized) return;
-      card.dataset.aliadoInitialized = 'true';
+      if (card.dataset.cardInitialized) return;
+      card.dataset.cardInitialized = 'true';
+      
       card.addEventListener('click', () => {
+        const aliadoId = card.getAttribute('data-aliado-id');
+        if (!aliadoId) return;
+        
+        const modalSet = modals.get(aliadoId);
+        if (!modalSet) return;
+        
         lastAliadoTrigger = card;
         card.setAttribute('aria-expanded', 'true');
-        const raw = card.getAttribute('data-aliado');
-        if (raw) openAliadoModal(JSON.parse(raw) as AliadoData);
+        
+        // Open the modal
+        modalSet.overlay.classList.remove('opacity-0', 'pointer-events-none');
+        modalSet.overlay.classList.add('opacity-100', 'pointer-events-auto');
+        modalSet.modal.classList.remove('translate-y-8', 'scale-95', 'opacity-0');
+        modalSet.modal.classList.add('translate-y-0', 'scale-100', 'opacity-100');
+        document.body.style.overflow = 'hidden';
       });
     });
 
-    const resetAliadoAria = () => {
-      document.querySelectorAll('.aliado-card[aria-expanded="true"]').forEach((el) => el.setAttribute('aria-expanded', 'false'));
-      if (lastAliadoTrigger) { lastAliadoTrigger.focus(); lastAliadoTrigger = null; }
-    };
-    const closeWithAria = () => { resetAliadoAria(); closeAliadoModal(); };
-
-    aliadoClose.addEventListener('click', closeWithAria);
-    aliadoOverlay.addEventListener('click', (e) => { if (e.target === aliadoOverlay) closeWithAria(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWithAria(); });
+    // Setup modal close handlers for all modals
+    modals.forEach(({ overlay, modal, closeBtn }) => {
+      const close = () => {
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        modal.classList.add('translate-y-8', 'scale-95', 'opacity-0');
+        modal.classList.remove('translate-y-0', 'scale-100', 'opacity-100');
+        document.body.style.overflow = '';
+        
+        // Reset aria
+        document.querySelectorAll('.aliado-card[aria-expanded="true"]').forEach((el) => {
+          el.setAttribute('aria-expanded', 'false');
+        });
+        if (lastAliadoTrigger) {
+          lastAliadoTrigger.focus();
+          lastAliadoTrigger = null;
+        }
+      };
+      
+      closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) close();
+      });
+      
+      // Handle Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('opacity-100')) {
+          close();
+        }
+      });
+    });
   }
 
-  setupAliadosModal();
-  document.addEventListener('astro:page-load', setupAliadosModal);
+  setupAliadosModals();
+  document.addEventListener('astro:page-load', setupAliadosModals);
 </script>

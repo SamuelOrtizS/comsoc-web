@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { formatUSD, formatCOP } from '../utils/currency';
+import { getImageModule } from '../utils/imageImports';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
 
 const { proyecto, currentRate = 4000 } = Astro.props;
 const data = proyecto.data;
+const isRemoteProjectImage = typeof data.imagen === 'string' && (data.imagen.startsWith('http://') || data.imagen.startsWith('https://'));
+const resolvedProjectImage = getImageModule(data.imagen);
 
 const estadoStyle: Record<string, { badge: string; icon: string; hoverBorder: string; hoverShadow: string }> = {
   Activo: {
@@ -46,15 +49,29 @@ const fundingPercent = (actual?: number, meta?: number) => {
   class={`group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary/80 shadow-[0_18px_45px_rgba(15,23,42,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 ${style.hoverBorder} ${style.hoverShadow}`}
 >
   <div class="relative aspect-video overflow-hidden bg-bg-secondary">
-    <Image
-      src={data.imagen || ''}
-      alt={data.titulo}
-      width={800}
-      height={450}
-      loading="lazy"
-      decoding="async"
-      class={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${data.estado === 'Completado' ? 'opacity-80' : ''} ${data.estado === 'En Pausa' ? 'opacity-60 grayscale-[30%]' : ''}`}
-    />
+    {isRemoteProjectImage ? (
+      <img
+        src={data.imagen}
+        alt={data.titulo}
+        loading="lazy"
+        decoding="async"
+        class={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${data.estado === 'Completado' ? 'opacity-80' : ''} ${data.estado === 'En Pausa' ? 'opacity-60 grayscale-[30%]' : ''}`}
+      />
+    ) : resolvedProjectImage ? (
+      <Image
+        src={resolvedProjectImage}
+        alt={data.titulo}
+        width={800}
+        height={450}
+        loading="lazy"
+        decoding="async"
+        class={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${data.estado === 'Completado' ? 'opacity-80' : ''} ${data.estado === 'En Pausa' ? 'opacity-60 grayscale-[30%]' : ''}`}
+      />
+    ) : (
+      <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent-purple/15 via-bg-secondary to-accent-blue/15 text-xs font-mono uppercase tracking-[0.2em] text-text-secondary">
+        Proyecto
+      </div>
+    )}
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/25 to-transparent"></div>
     <div class="absolute left-3 top-3 flex flex-wrap gap-2">
       <span class="rounded-full border border-accent-purple/30 bg-black/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-accent-purple backdrop-blur-md">

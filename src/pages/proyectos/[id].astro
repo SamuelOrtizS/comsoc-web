@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { getUsdToCopRate } from '../../utils/currency';
+import { getImageModule } from '../../utils/imageImports';
 import ProjectFundingGoal from '../../components/ProjectFundingGoal.astro';
 
 export async function getStaticPaths() {
@@ -20,6 +21,8 @@ interface Props {
 
 const { proyecto } = Astro.props;
 const data = proyecto.data;
+const isRemoteProjectImage = typeof data.imagen === 'string' && (data.imagen.startsWith('http://') || data.imagen.startsWith('https://'));
+const resolvedProjectImage = getImageModule(data.imagen);
 
 const currentRate = await getUsdToCopRate();
 
@@ -40,7 +43,7 @@ const estadoBadge = {
 <BaseLayout
   title={`${data.titulo} | Proyecto IEEE ComSoc Univalle`}
   description={data.descripcion}
-  image={data.imagen}
+  image={resolvedProjectImage ?? data.imagen}
 >
   <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
@@ -56,17 +59,32 @@ const estadoBadge = {
     <!-- Hero Card -->
     <div class="glass-card rounded-3xl overflow-hidden border border-accent-purple/30 mb-12">
       <div class="aspect-21/9 w-full relative overflow-hidden bg-bg-deep-slate">
-        <Image
-          src={data.imagen || ''}
-          alt={data.titulo}
-          width={1200}
-          height={600}
-          sizes="100vw"
-          decoding="async"
-          loading="eager"
-          fetchpriority="high"
-          class="w-full h-full object-cover"
-        />
+        {isRemoteProjectImage ? (
+          <img
+            src={data.imagen}
+            alt={data.titulo}
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            class="w-full h-full object-cover"
+          />
+        ) : resolvedProjectImage ? (
+          <Image
+            src={resolvedProjectImage}
+            alt={data.titulo}
+            width={1200}
+            height={600}
+            sizes="100vw"
+            decoding="async"
+            loading="eager"
+            fetchpriority="high"
+            class="w-full h-full object-cover"
+          />
+        ) : (
+          <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent-purple/15 via-bg-secondary to-accent-blue/15 text-xs font-mono uppercase tracking-[0.2em] text-text-secondary">
+            Proyecto
+          </div>
+        )}
         <div class="absolute inset-0 bg-gradient-to-t from-bg-deep-slate via-bg-deep-slate/40 to-transparent"></div>
 
         <!-- Badges -->

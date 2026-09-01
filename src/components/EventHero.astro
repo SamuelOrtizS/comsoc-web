@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import type { CollectionEntry } from 'astro:content';
+import { getImageModule } from '../utils/imageImports';
 
 interface Props {
   data: CollectionEntry<'eventos'>['data'];
@@ -11,21 +12,53 @@ interface Props {
 
 const { data, formattedDate, resolvedPrincipal } = Astro.props;
 const isPast = data.estado === 'Pasado';
----
 
+// Handle both imported images and string paths (remote URLs or local imports)
+let eventHeroImage: any = undefined;
+let isRemoteImage = false;
+
+if (resolvedPrincipal) {
+  if (typeof resolvedPrincipal === 'string') {
+    if (resolvedPrincipal.startsWith('http://') || resolvedPrincipal.startsWith('https://')) {
+      // Remote URL - use <img> tag
+      eventHeroImage = resolvedPrincipal;
+      isRemoteImage = true;
+    } else {
+      // Try to resolve as imported module using getImageModule
+      const importedImage = await getImageModule(resolvedPrincipal);
+      if (importedImage) {
+        eventHeroImage = importedImage;
+      }
+    }
+  } else {
+    // Already an imported image
+    eventHeroImage = resolvedPrincipal;
+  }
+}
+---
 <div class="glass-card rounded-[28px] overflow-hidden border border-accent-cyan/30 mb-12 shadow-[0_24px_60px_rgba(21,93,252,0.15)]">
   <div class="aspect-[16/9] sm:aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
-    <Image
-      src={resolvedPrincipal}
-      alt={data.titulo}
-      width={1200}
-      height={675}
-      sizes="100vw"
-      decoding="async"
-      loading="eager"
-      fetchpriority="high"
-      class="w-full h-full object-cover"
-    />
+    {eventHeroImage ? (
+      isRemoteImage ? (
+        <img 
+          src={eventHeroImage} 
+          alt={data.titulo} 
+          class="absolute inset-0 w-full h-full object-cover" 
+        />
+      ) : (
+        <Image
+          src={eventHeroImage}
+          alt={data.titulo}
+          width={1200}
+          height={675}
+          sizes="100vw"
+          decoding="async"
+          loading="eager"
+          fetchpriority="high"
+          class="w-full h-full object-cover"
+        />
+      )
+    ) : null}
     <div class="absolute inset-0 bg-gradient-to-t from-bg-primary-lighter to-bg-primary/35"></div>
 
     <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-6">

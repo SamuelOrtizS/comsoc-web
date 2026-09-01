@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { getImageModule } from '../../utils/imageImports';
 import HeroHeader from '../../components/HeroHeader.astro';
 import BenefitsGrid from '../../components/BenefitsGrid.astro';
 import GallerySection from '../../components/GallerySection.astro';
@@ -10,8 +11,40 @@ import TeamModal from '../../components/TeamModal.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 
 const rawJunta = await getCollection('juntaDirectiva');
+
+// Extract filename from image path
+const extractFilename = (path: string): string => {
+  if (path.includes('/')) {
+    return path.split('/').pop() || path;
+  }
+  return path;
+};
+
+// Pre-resolve member images for optimization
 const team = rawJunta
-  .map((item) => item.data)
+  .map((item) => {
+    let imageModule = undefined;
+    let imagePath = '';
+    
+    if (item.data.image) {
+      const imgStr = typeof item.data.image === 'string' 
+        ? item.data.image 
+        : (item.data.image as any)?.src || '';
+      
+      if (imgStr) {
+        const filename = extractFilename(imgStr);
+        imageModule = getImageModule(filename);
+        imagePath = imgStr;
+      }
+    }
+    
+    return {
+      ...item.data,
+      imageModule,
+      imagePath,
+      id: item.data.name.replace(/\s+/g, '-'),
+    };
+  })
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 ---
 
@@ -98,7 +131,7 @@ const team = rawJunta
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {team.map((member) => (
-        <TeamCard member={member} />
+        <TeamCard member={member} memberId={member.id} />
       ))}
     </div>
   </section>
@@ -106,6 +139,6 @@ const team = rawJunta
   <!-- Preguntas Frecuentes -->
   <FaqAccordion />
 
-  <!-- Member Profile Modal -->
-  <TeamModal />
+  <!-- Member Profile Modals -->
+  <TeamModal team={team} />
 </BaseLayout>

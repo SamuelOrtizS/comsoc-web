@@ -1,45 +1,42 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import fs from 'fs';
-import path from 'path';
+import { getImageModule } from '../utils/imageImports';
 
 interface Props {
   images?: (string | any)[];
 }
 
-let galleryImages: (string | any)[] = [];
-try {
-  const publicDir = path.join(process.cwd(), 'public', 'images', 'galeria');
-  const assetsDir = path.join(process.cwd(), 'src', 'assets', 'images', 'galeria');
-  let files: string[] = [];
-  let basePath = '/images/galeria/';
-  if (fs.existsSync(publicDir) && fs.readdirSync(publicDir).length > 0) {
-    files = fs.readdirSync(publicDir);
-    basePath = '/images/galeria/';
-  } else if (fs.existsSync(assetsDir)) {
-    files = fs.readdirSync(assetsDir);
-    basePath = '/images/galeria/';
-  }
-  if (files.length > 0) {
-    galleryImages = files
-      .filter((file) => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(file))
-      .map((file) => `${basePath}${file}`);
-  }
-} catch (e) {
-  console.error('Error reading gallery', e);
-}
+const galleryDirImages = import.meta.glob('/src/assets/images/galeria/*.{jpg,jpeg,png,webp,gif,svg,jpeg}', { eager: true });
+const galleryFiles = Object.values(galleryDirImages)
+  .map((entry: any) => entry.default)
+  .filter(Boolean);
 
-if (galleryImages.length === 0) {
-  galleryImages = [
-    '/images/hero-banner.jpg',
-    '/images/event-iot.svg',
-    '/images/event-optical.svg',
-    '/images/event-hackathon.svg',
-  ];
-}
+const fallbackImages = [
+  'hero-banner.jpg',
+  'event-iot.svg',
+  'event-optical.svg',
+  'event-hackathon.svg',
+].map((path) => getImageModule(path)).filter(Boolean);
 
-const { images = galleryImages } = Astro.props;
+const { images = galleryFiles.length ? galleryFiles : fallbackImages } = Astro.props;
+
+const gallerySlides = (images ?? []).map((img) => {
+  if (typeof img === 'string') {
+    if (img.startsWith('http://') || img.startsWith('https://')) {
+      return { type: 'remote' as const, src: img };
+    }
+
+    const localImage = getImageModule(img);
+    if (localImage) {
+      return { type: 'local' as const, src: localImage };
+    }
+
+    return { type: 'public' as const, src: img.startsWith('/') ? img : `/images/${img}` };
+  }
+
+  return { type: 'local' as const, src: img };
+});
 ---
 
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
@@ -48,21 +45,31 @@ const { images = galleryImages } = Astro.props;
     aria-label="Galería de eventos y actividades"
   >
     <div class="w-full h-full relative" id="gallery-container">
-      {images.map((img, idx) => (
+      {gallerySlides.map((slide, idx) => (
         <div
           class={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} gallery-slide`}
         >
-          <Image
-            src={img as any}
-            alt={`Imagen de galería ${idx + 1}`}
-            width={1200}
-            height={675}
-            sizes="100vw"
-            loading={idx === 0 ? 'eager' : 'lazy'}
-            fetchpriority={idx === 0 ? 'high' : 'low'}
-            decoding="async"
-            class="w-full h-full object-cover"
-          />
+          {slide.type === 'remote' ? (
+            <img
+              src={slide.src}
+              alt={`Imagen de galería ${idx + 1}`}
+              class="w-full h-full object-cover"
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+          ) : (
+            <Image
+              src={slide.src as any}
+              alt={`Imagen de galería ${idx + 1}`}
+              width={1200}
+              height={675}
+              sizes="100vw"
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              fetchpriority={idx === 0 ? 'high' : 'low'}
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          )}
           <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-black/30"></div>
         </div>
       ))}
@@ -86,7 +93,7 @@ const { images = galleryImages } = Astro.props;
 
     <!-- Dots Indicators -->
     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-      {images.map((_, idx) => (
+      {gallerySlides.map((_, idx) => (
         <button
           class={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-accent-cyan scale-125' : 'bg-white/40'}`}
           data-index={idx}

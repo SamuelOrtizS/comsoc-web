@@ -9,6 +9,7 @@ import FeaturedEventBanner from '../components/FeaturedEventBanner.astro';
 import StatsSection from '../components/StatsSection.astro';
 import AliadosSection from '../components/AliadosSection.astro';
 import CommunityCta from '../components/CommunityCta.astro';
+import { getImageModule } from '../utils/imageImports';
 
 const allEvents = await getCollection('eventos');
 const upcomingEvents = allEvents.filter((ev) => ev.data.estado === 'Publicado');
@@ -30,15 +31,22 @@ const allProyectos = await getCollection('proyectos');
 const destacados = [...allProyectos.filter((p) => p.data.destacado)].sort((a, b) => a.data.titulo.localeCompare(b.data.titulo));
 const noDestacados = [...allProyectos.filter((p) => !p.data.destacado)].sort((a, b) => a.data.titulo.localeCompare(b.data.titulo));
 const projectPool = [...destacados, ...noDestacados];
-const featuredProjects = projectPool.slice(0, 2).map((p) => ({
-  title: p.data.titulo,
-  category: p.data.categoria,
-  desc: p.data.descripcion,
-  image: p.data.imagen,
-  link: p.data.enlace ?? `/proyectos/${p.id}`,
-  estado: p.data.estado,
-  tags: p.data.tags ?? [],
-}));
+const featuredProjects = projectPool.slice(0, 2).map((p) => {
+  const isRemoteProjectImage = typeof p.data.imagen === 'string' && (p.data.imagen.startsWith('http://') || p.data.imagen.startsWith('https://'));
+  const resolvedProjectImage = getImageModule(p.data.imagen);
+  return {
+    ...p,
+    remoteImage: isRemoteProjectImage ? p.data.imagen : undefined,
+    title: p.data.titulo,
+    category: p.data.categoria,
+    desc: p.data.descripcion,
+    link: p.data.enlace ?? `/proyectos/${p.id}`,
+    estado: p.data.estado,
+    tags: p.data.tags ?? [],
+    isRemoteProjectImage,
+    resolvedProjectImage,
+  };
+});
 
 const allAliados = await getCollection('aliados');
 const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
@@ -173,26 +181,40 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
       {featuredProjects.map((proj) => (
         <div class="glass-card rounded-2xl overflow-hidden border border-white/10 group flex flex-col transition-all duration-500 hover:border-accent-purple/50 hover:shadow-[0_24px_60px_-30px_rgba(168,85,247,0.25)] hover:-translate-y-1">
           <div class="aspect-video relative overflow-hidden bg-bg-secondary group/image">
-            <Image
-              src={proj.image || ''}
-              alt={proj.title}
-              width={800}
-              height={450}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              loading="lazy"
-              decoding="async"
-              class="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110 group-hover/image:opacity-95"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover/image:opacity-30"></div>
-            <div class="absolute top-3 left-3 flex gap-2">
-              <span class="px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/30 transition-all duration-300 group-hover/image:scale-105 group-hover/image:border-accent-cyan/50">
-                {proj.category}
-              </span>
-              <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md border transition-all duration-300 group-hover/image:scale-105 group-hover/image:border-white/20 ${proj.estado === 'Activo' ? 'text-accent-emerald border-accent-emerald/30' : proj.estado === 'Completado' ? 'text-accent-blue border-accent-blue/30' : 'text-accent-yellow border-accent-yellow/30'}`}>
-                <Icon name={proj.estado === 'Activo' ? 'material-symbols:check-circle-rounded' : proj.estado === 'Completado' ? 'material-symbols:verified-rounded' : 'material-symbols:pause-circle-rounded'} class="w-3.5 h-3.5 transition-transform duration-300 group-hover/image:scale-110" aria-hidden="true" />
-                {proj.estado}
-              </span>
-            </div>
+            {proj.isRemoteProjectImage ? (
+              <img
+                src={proj.remoteImage ?? ''}
+                alt={proj.title}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110 group-hover/image:opacity-95"
+              />
+            ) : proj.resolvedProjectImage ? (
+              <Image
+                src={proj.resolvedProjectImage}
+                alt={proj.title}
+                width={800}
+                height={450}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110 group-hover/image:opacity-95"
+              />
+            ) : (
+              <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent-purple/15 via-bg-secondary to-accent-blue/15 text-xs font-mono uppercase tracking-[0.2em] text-text-secondary">
+                Proyecto
+              </div>
+            )}
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover/image:opacity-30"></div>
+          <div class="absolute top-3 left-3 flex gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/30 transition-all duration-300 group-hover/image:scale-105 group-hover/image:border-accent-cyan/50">
+              {proj.category}
+            </span>
+            <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md border transition-all duration-300 group-hover/image:scale-105 group-hover/image:border-white/20 ${proj.estado === 'Activo' ? 'text-accent-emerald border-accent-emerald/30' : proj.estado === 'Completado' ? 'text-accent-blue border-accent-blue/30' : 'text-accent-yellow border-accent-yellow/30'}`}>
+              <Icon name={proj.estado === 'Activo' ? 'material-symbols:check-circle-rounded' : proj.estado === 'Completado' ? 'material-symbols:verified-rounded' : 'material-symbols:pause-circle-rounded'} class="w-3.5 h-3.5 transition-transform duration-300 group-hover/image:scale-110" aria-hidden="true" />
+              {proj.estado}
+            </span>
           </div>
           <div class="p-6 flex flex-col justify-between grow group/gradient">
             <div>
