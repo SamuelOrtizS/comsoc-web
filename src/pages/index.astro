@@ -179,7 +179,7 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {featuredProjects.map((proj, idx) => (
-        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 project-card-${idx} flex flex-col transition-all duration-500 hover:border-accent-purple/50 hover:shadow-[0_24px_60px_-30px_rgba(168,85,247,0.25)] hover:-translate-y-1">
+        <div class="glass-card rounded-2xl overflow-hidden relative border border-white/10 project-card-${idx} flex flex-col transition-all duration-500 hover:border-accent-purple/50 hover:shadow-[0_24px_60px_-30px_rgba(168,85,247,0.25)] hover:-translate-y-1">
           <div class="aspect-video relative overflow-hidden bg-bg-secondary project-image-${idx}">
             {proj.isRemoteProjectImage ? (
               <img
@@ -207,7 +207,7 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
             )}
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-0 transition-opacity duration-500 project-image-${idx}:hover:opacity-30"></div>
-          <div class="relative p-4 flex gap-2">
+          <div class="p-4 flex gap-2">
             <span class="px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/30 transition-all duration-300 project-image-${idx}:hover:scale-105 project-image-${idx}:hover:border-accent-cyan/50">
               {proj.category}
             </span>
