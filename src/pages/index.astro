@@ -207,7 +207,7 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
             )}
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-0 transition-opacity duration-500 project-image-${idx}:hover:opacity-30"></div>
-          <div class="absolute top-3 left-3 flex gap-2">
+          <div class="relative p-4 flex gap-2">
             <span class="px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/30 transition-all duration-300 project-image-${idx}:hover:scale-105 project-image-${idx}:hover:border-accent-cyan/50">
               {proj.category}
             </span>
