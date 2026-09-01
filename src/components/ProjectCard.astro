@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { resolveImage } from '../utils/imageResolver';
 import { formatUSD, formatCOP } from '../utils/currency';
 import type { CollectionEntry } from 'astro:content';
 
@@ -48,7 +47,7 @@ const fundingPercent = (actual?: number, meta?: number) => {
 >
   <div class="relative aspect-video overflow-hidden bg-bg-secondary">
     <Image
-      src={resolveImage(data.imagen) as any}
+      src={data.imagen || ''}
       alt={data.titulo}
       width={800}
       height={450}

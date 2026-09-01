@@ -42,13 +42,13 @@ Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Uni
 
 ### 3. Localización de Recursos
 - **Estilos Globales:** `src/styles/global.css:1` (tokens + `.glass-card`, `.bg-dot-grid` con `0.04` opacidad y `prefers-reduced-motion`).
-- **Utilidades:** `src/utils/currency.ts:1`, `src/utils/imageResolver.ts:33` (con `lowerMap` O(1)), `src/utils/tiendaIconMap.json:1`, `src/utils/markdownIntegration.ts:1`.
+- **Utilidades:** `src/utils/currency.ts:1`, `src/utils/tiendaIconMap.json:1`, `src/utils/markdownIntegration.ts:1`.
 - **Layout Base:** `src/layouts/BaseLayout.astro:1` (SEO, `Font` preload, `Header`, `Footer`, banner de desarrollo `development-banner` no bloqueante).
 - **Configuración:** `src/content.config.ts:1`, `astro.config.mjs:1`, `public/robots.txt:1`, `public/_headers` (si Cloudflare Pages).
 
 ## Gestión de Contenidos (src/content/)
 
-**Reglas Generales:** `ejemplo.json` o `_*` ignorados; imágenes vía `resolveImage`; iconos via `material-symbols:xxx-rounded` validados contra `@iconify-json/material-symbols`.
+**Reglas Generales:** `ejemplo.json` o `_*` ignorados; imágenes pasadas directamente al componente `<Image>` de `astro:assets`; iconos vía `material-symbols:xxx-rounded` validados contra `@iconify-json/material-symbols`.
 
 **Colecciones (esquemas en `src/content.config.ts:1`):**
 1. **Convocatorias:** `titulo`, `area`, `fechaLimite` (YYYY-MM-DD), `descripcion`, `requisitos[]`, `responsabilidades[]`, `estado` (Publicada/Cerrada), `formUrl?`.

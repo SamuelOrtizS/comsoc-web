@@ -6,9 +6,10 @@ interface Props {
   montoActual: number;
   montoMeta: number;
   currentRate: number;
+  imagen?: string;
 }
 
-const { titulo, montoActual, montoMeta, currentRate } = Astro.props;
+const { titulo, montoActual, montoMeta, currentRate, imagen } = Astro.props;
 
 const fundingProgress = montoMeta > 0 ? Math.min(100, (montoActual / montoMeta) * 100) : 0;
 const fundingRemaining = montoMeta > 0 ? Math.max(0, montoMeta - montoActual) : 0;

@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { getUsdToCopRate } from '../../utils/currency';
@@ -24,19 +23,18 @@ const data = proyecto.data;
 
 const currentRate = await getUsdToCopRate();
 
-const estadoBadge = {
-  Activo:     { text: 'Activo',     icon: 'material-symbols:check-circle-rounded', cls: 'text-accent-emerald border-accent-emerald/40 bg-accent-emerald/10' },
-  Completado: { text: 'Completado', icon: 'material-symbols:verified-rounded', cls: 'text-accent-blue border-accent-blue/40 bg-accent-blue/10' },
-  'En Pausa': { text: 'En Pausa',   icon: 'material-symbols:pause-circle-rounded', cls: 'text-accent-yellow border-accent-yellow/40 bg-accent-yellow/10' },
-}[data.estado] ?? { text: data.estado, icon: 'material-symbols:circle', cls: 'text-text-secondary border-glass-border bg-glass-bg' };
-
 // --- OPTIONAL FIELDS & SAFE CALCULATIONS ---
 const hasResources = Array.isArray(data.recursos) && data.recursos.length > 0;
 const technicalSummary = data.resumenTecnico ? `${data.resumenTecnico}` : null;
 const projectShareUrl = encodeURIComponent('https://SamuelOrtizS.github.io/proyectos');
 const montoActual = Number(data.montoActual ?? 0);
 const montoMeta = Number(data.montoMeta ?? 0);
-const resolvedImagen = resolveImage(data.imagen);
+
+const estadoBadge = {
+  Activo:     { text: 'Activo',     icon: 'material-symbols:check-circle-rounded', cls: 'text-accent-emerald border-accent-emerald/40 bg-accent-emerald/10' },
+  Completado: { text: 'Completado', icon: 'material-symbols:verified-rounded', cls: 'text-accent-blue border-accent-blue/40 bg-accent-blue/10' },
+  'En Pausa': { text: 'En Pausa',   icon: 'material-symbols:pause-circle-rounded', cls: 'text-accent-yellow border-accent-yellow/40 bg-accent-yellow/10' },
+}[data.estado] ?? { text: data.estado, icon: 'material-symbols:circle', cls: 'text-text-secondary border-glass-border bg-glass-bg' };
 ---
 
 <BaseLayout
@@ -59,7 +57,7 @@ const resolvedImagen = resolveImage(data.imagen);
     <div class="glass-card rounded-3xl overflow-hidden border border-accent-purple/30 mb-12">
       <div class="aspect-21/9 w-full relative overflow-hidden bg-bg-deep-slate">
         <Image
-          src={resolvedImagen as any}
+          src={data.imagen || ''}
           alt={data.titulo}
           width={1200}
           height={600}

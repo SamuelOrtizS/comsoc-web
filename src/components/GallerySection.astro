@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { resolveImage } from '../utils/imageResolver';
 import fs from 'fs';
 import path from 'path';
 
@@ -25,7 +24,7 @@ try {
   if (files.length > 0) {
     galleryImages = files
       .filter((file) => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(file))
-      .map((file) => resolveImage(`${basePath}${file}`));
+      .map((file) => `${basePath}${file}`);
   }
 } catch (e) {
   console.error('Error reading gallery', e);
@@ -33,10 +32,10 @@ try {
 
 if (galleryImages.length === 0) {
   galleryImages = [
-    resolveImage('/images/hero-banner.jpg'),
-    resolveImage('/images/event-iot.svg'),
-    resolveImage('/images/event-optical.svg'),
-    resolveImage('/images/event-hackathon.svg'),
+    '/images/hero-banner.jpg',
+    '/images/event-iot.svg',
+    '/images/event-optical.svg',
+    '/images/event-hackathon.svg',
   ];
 }
 

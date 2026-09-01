@@ -1,8 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
-import { resolveImage } from '../utils/imageResolver';
-import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   item: CollectionEntry<'tienda'>;
@@ -23,7 +21,7 @@ const prod = item.data;
     <div class="relative overflow-hidden bg-bg-secondary">
       <div class="aspect-square overflow-hidden">
         <Image
-          src={resolveImage(prod.image) as any}
+          src={prod.image || ''}
           alt={prod.name}
           width={600}
           height={600}

@@ -1,5 +1,4 @@
 ---
-import { resolveImage } from '../../utils/imageResolver';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EventHero from '../../components/EventHero.astro';
 import EventGallery from '../../components/EventGallery.astro';
@@ -20,7 +19,7 @@ interface Props {
 
 const { evento } = Astro.props;
 const data = evento.data;
-const resolvedPrincipal = resolveImage(data.imagenPrincipal);
+const resolvedPrincipal = data.imagenPrincipal || '';
 const isPast = data.estado === 'Pasado';
 const canonicalDetailLabels = new Set(['organizador', 'tipo', 'ubicación', 'ubicacion']);
 const eventDetails = [

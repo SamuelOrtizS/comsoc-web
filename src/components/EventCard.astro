@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { resolveImage } from '../utils/imageResolver';
 interface Props {
   id: string;
   titulo: string;
@@ -30,7 +29,6 @@ const {
 
 const isPast = estado === 'Pasado';
 const cleanId = id.replace(/\/evento$/, '');
-const resolvedPrincipal = resolveImage(imagenPrincipal);
 
 // Format readable date
 const dateObj = new Date(fechaInicio);
@@ -45,7 +43,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
   <!-- Image banner thumbnail -->
   <div class="relative aspect-video w-full overflow-hidden bg-bg-secondary">
     <Image
-      src={resolvedPrincipal as any}
+      src={imagenPrincipal}
       alt={titulo}
       width={800}
       height={450}

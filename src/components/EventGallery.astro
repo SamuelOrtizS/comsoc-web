@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { resolveImage } from '../utils/imageResolver';
 
 interface Props {
   galeria: string[];
@@ -22,7 +21,7 @@ const { galeria } = Astro.props;
       {galeria.map((img, idx) => (
         <div class="group overflow-hidden rounded-2xl border border-white/10 bg-bg-secondary aspect-video">
           <Image
-            src={resolveImage(img) as any}
+            src={img as any}
             alt={`Foto ${idx + 1}`}
             width={800}
             height={450}
