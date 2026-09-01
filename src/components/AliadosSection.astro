@@ -89,8 +89,8 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
               <Image
                 src={aliado.logoModule}
                 alt={aliado.data.nombre}
-                width={aliado.data.logoY}
-                height={aliado.data.logoX}
+                width={parseInt(aliado.data.logoX)}
+                height={parseInt(aliado.data.logoY)}
                 loading="lazy"
                 decoding="async"
                 class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
