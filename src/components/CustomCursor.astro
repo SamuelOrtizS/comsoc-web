@@ -26,6 +26,16 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
 </div>
 
 <style is:global>
+  /* Hide default cursor when custom cursor is visible (desktop only) */
+  @media (pointer: fine),
+         (any-pointer: fine) {
+    #custom-cursor[aria-hidden="true"] ~ * [cursor="default"],
+    #custom-cursor[aria-hidden="true"] ~ *,
+    html[data-has-custom-cursor="true"] body {
+      cursor: none !important;
+    }
+  }
+
   /* Custom cursor is decorative only — never hide native cursor (a11y) */
   @media (prefers-reduced-motion: reduce) {
     #custom-cursor {
@@ -42,6 +52,11 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
       opacity: 0 !important;
       visibility: hidden !important;
     }
+  }
+
+  /* Hide default cursor on desktop when custom cursor is visible */
+  html[data-has-custom-cursor="true"] body {
+    cursor: none !important;
   }
 </style>
 
@@ -77,7 +92,7 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
     const HOTSPOT_Y = 0;
 
     let pendingUpdate = false;
-    let willChangeTimeout: number | undefined;
+    let willChangeTimeout;
 
     const requestTransformUpdate = () => {
       if (pendingUpdate) return;
@@ -103,6 +118,7 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
         cursor.classList.remove('opacity-0');
         cursor.classList.add('opacity-100');
         visible = true;
+        document.documentElement.setAttribute('data-has-custom-cursor', 'true');
       }
     }, { passive: true });
 
@@ -110,6 +126,7 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
       cursor.classList.remove('opacity-100');
       cursor.classList.add('opacity-0');
       visible = false;
+      document.documentElement.removeAttribute('data-has-custom-cursor');
     });
 
     document.addEventListener('mouseenter', (e) => {
@@ -120,6 +137,7 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
       cursor.classList.remove('opacity-0');
       cursor.classList.add('opacity-100');
       visible = true;
+      document.documentElement.setAttribute('data-has-custom-cursor', 'true');
     });
 
     // Shrink on press, restore on release
