@@ -26,14 +26,15 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
 </div>
 
 <style is:global>
-  /* Hide default cursor when custom cursor is visible (desktop only) */
-  @media (pointer: fine),
-         (any-pointer: fine) {
-    #custom-cursor[aria-hidden="true"] ~ * [cursor="default"],
-    #custom-cursor[aria-hidden="true"] ~ *,
-    html[data-has-custom-cursor="true"] body {
-      cursor: none !important;
-    }
+  /* Hide default cursor on desktop when custom cursor is visible */
+  :root[data-cursor-hidden="true"] {
+    cursor: none !important;
+  }
+
+  /* Smooth transition for cursor change */
+  :root[data-cursor-hidden="true"] * {
+    cursor: none !important;
+    transition: cursor 0.15s ease-out;
   }
 
   /* Custom cursor is decorative only — never hide native cursor (a11y) */
@@ -52,11 +53,6 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
       opacity: 0 !important;
       visibility: hidden !important;
     }
-  }
-
-  /* Hide default cursor on desktop when custom cursor is visible */
-  html[data-has-custom-cursor="true"] body {
-    cursor: none !important;
   }
 </style>
 
@@ -118,26 +114,31 @@ import cursorStep4 from '../assets/images/Cursor/Cursor/Step4.svg';
         cursor.classList.remove('opacity-0');
         cursor.classList.add('opacity-100');
         visible = true;
-        document.documentElement.setAttribute('data-has-custom-cursor', 'true');
+        // Hide the default native cursor when custom cursor is shown
+        document.documentElement.setAttribute('data-cursor-hidden', 'true');
       }
     }, { passive: true });
 
     document.addEventListener('mouseleave', () => {
+      // Show the default native cursor when custom cursor is hidden
+      document.documentElement.removeAttribute('data-cursor-hidden');
       cursor.classList.remove('opacity-100');
       cursor.classList.add('opacity-0');
       visible = false;
-      document.documentElement.removeAttribute('data-has-custom-cursor');
     });
 
     document.addEventListener('mouseenter', (e) => {
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
+      // Hide the default native cursor immediately on mouseenter (before any visual change)
+      document.documentElement.setAttribute('data-cursor-hidden', 'true');
       requestTransformUpdate();
       cursor.classList.remove('opacity-0');
       cursor.classList.add('opacity-100');
       visible = true;
-      document.documentElement.setAttribute('data-has-custom-cursor', 'true');
+      // Hide the default native cursor when custom cursor is shown
+      document.documentElement.setAttribute('data-cursor-hidden', 'true');
     });
 
     // Shrink on press, restore on release

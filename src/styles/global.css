@@ -257,3 +257,36 @@ h6 {
     animation: none !important;
   }
 }
+
+/* Override all cursor styles when custom cursor is visible */
+[data-cursor-hidden="true"] *:not([class*="cursor-"]) {
+  cursor: none !important;
+}
+
+/* Ensure buttons and interactive elements don't show default cursor */
+button, a, input, textarea, [role="button"], [tabindex], [onclick] {
+  
+  cursor: none !important;
+  
+}
+
+/* Allow specific cursor classes to still work if needed */
+.cursor-pointers {
+  cursor: pointer !important;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.cursor-text {
+  cursor: text !important;
+}
+
+.cursor-move {
+  cursor: move !important;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}

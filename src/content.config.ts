@@ -114,6 +114,8 @@ const aliados = defineCollection({
         nombre: z.string(),
         tipo: z.string(),
         logo: z.string(),
+        logoX: z.string().default('80'),
+        logoY: z.string().default('80'),
         descripcion: z.string(),
         acerca: z.string().optional(),
         website: z.string().optional(),
