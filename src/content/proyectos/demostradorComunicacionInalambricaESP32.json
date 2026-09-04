@@ -2,7 +2,7 @@
   "titulo": "Demostrador de protocolos inalámbricos con ESP32",
   "categoria": "IoT & Comunicaciones",
   "descripcion": "Plataforma educativa para comparar y demostrar el comportamiento de diferentes protocolos de comunicación inalámbrica en ESP32, incluyendo Wi‑Fi, Bluetooth, BLE, ESP‑Now y LoRa para aplicaciones de monitoreo, control y transmisión de datos en tiempo real.",
-  "imagen": "src/assets/images/event-hackathon.svg",
+  "imagen": "src/assets/images/demostradorcomunicacioninalambricaesp32.jpg",
   "estado": "Activo",
   "tags": [
     "ESP32",
