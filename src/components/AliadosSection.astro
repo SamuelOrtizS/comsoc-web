@@ -134,13 +134,13 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
 {resolvedAliados.map((aliado) => (
   <div
     id={`aliado-modal-overlay-${aliado.data.nombre.replace(/\s+/g, '-')}`}
-    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 aliado-modal-overlay"
+    class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity] aliado-modal-overlay"
     role="dialog"
     aria-modal="true"
     aria-labelledby={`modal-aliado-name-${aliado.data.nombre.replace(/\s+/g, '-')}`}
     data-aliado-id={aliado.data.nombre.replace(/\s+/g, '-')}
   >
-    <div class="relative bg-bg-secondary border border-white/15 rounded-[28px] shadow-2xl shadow-accent-cyan/20 w-full max-w-md p-8 flex flex-col gap-5 translate-y-8 scale-95 opacity-0 transition-all duration-300 backdrop-blur-sm aliado-modal">
+    <div class="relative bg-bg-secondary border border-white/15 rounded-[28px] shadow-2xl shadow-accent-cyan/20 w-full max-w-md p-8 flex flex-col gap-5 translate-y-8 scale-95 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] backdrop-blur-sm aliado-modal">
       <button
         type="button"
         class="absolute top-4 right-4 text-text-secondary hover:text-text-primary p-2 rounded-xl hover:bg-white/10 transition aliado-modal-close"

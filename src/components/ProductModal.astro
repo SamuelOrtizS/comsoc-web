@@ -47,7 +47,7 @@ function hexToRgba(hex, alpha) {
 {modalProducts.map((product) => (
   <div
     id={`product-modal-overlay-${product.id}`}
-    class="product-modal-overlay pointer-events-none fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-4 opacity-0 backdrop-blur-xl transition-all duration-300"
+    class="product-modal-overlay pointer-events-none fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-4 opacity-0 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity]"
     role="dialog"
     aria-modal="true"
     aria-labelledby={`modal-product-name-${product.id}`}
@@ -55,16 +55,23 @@ function hexToRgba(hex, alpha) {
   >
     <div
       id={`product-modal-${product.id}`}
-      class="product-modal relative w-full max-w-2xl translate-y-4 overflow-hidden rounded-[28px] border border-white/10 bg-bg-secondary shadow-[0_32px_80px_-28px_rgba(69,219,237,0.8)] transition-all duration-300"
+      class="product-modal relative w-full max-w-[calc(100vw-2rem)] max-h-[calc(100dvh-2rem)] translate-y-4 scale-95 opacity-0 overflow-y-auto overscroll-contain rounded-[28px] border border-white/10 bg-bg-secondary shadow-[0_32px_80px_-28px_rgba(69,219,237,0.8)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] sm:max-w-2xl"
     >
-      <button
-        type="button"
-        class="product-modal-close absolute right-4 top-4 z-10 rounded-xl border border-white/10 bg-black/25 p-2 text-text-secondary transition hover:border-white/20 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
-        aria-label="Cerrar"
-        data-close-id={product.id}
-      >
-        <Icon name="material-symbols:close-rounded" class="h-5 w-5" aria-hidden="true" />
-      </button>
+      <div class="sticky top-0 z-20 h-0 pointer-events-none">
+        <span
+          class="pointer-events-auto absolute left-4 top-4 rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono"
+        >
+          {product.category}
+        </span>
+        <button
+          type="button"
+          class="product-modal-close pointer-events-auto absolute right-4 top-4 rounded-xl border border-white/10 bg-black/25 p-2 text-text-secondary transition hover:border-white/20 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
+          aria-label="Cerrar"
+          data-close-id={product.id}
+        >
+          <Icon name="material-symbols:close-rounded" class="h-5 w-5" aria-hidden="true" />
+        </button>
+      </div>
 
       <div class="grid gap-0 md:grid-cols-[1.05fr_1fr]">
         <div class="relative aspect-[5/4] overflow-hidden bg-bg-secondary md:aspect-auto">
@@ -86,11 +93,6 @@ function hexToRgba(hex, alpha) {
             </div>
           )}
           <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,15,36,0.15),rgba(10,15,36,0.7))]"></div>
-          <span
-            class="absolute left-4 top-4 rounded-full border border-accent-cyan/30 bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan font-mono backdrop-blur-sm"
-          >
-            {product.category}
-          </span>
         </div>
 
         <div class="flex flex-col p-6 sm:p-7">
@@ -222,19 +224,39 @@ function hexToRgba(hex, alpha) {
       if (modal) modal.classList.add('translate-y-4');
     });
 
-    target.classList.remove('hidden', 'pointer-events-none', 'opacity-0');
-    target.classList.add('flex', 'opacity-100', 'pointer-events-auto');
+    target.classList.remove('hidden', 'pointer-events-none');
+    target.classList.add('flex', 'pointer-events-auto');
     const modal = target.querySelector('.product-modal');
-    if (modal) modal.classList.remove('translate-y-4');
+    requestAnimationFrame(() => {
+      target.classList.remove('opacity-0');
+      target.classList.add('opacity-100');
+      if (modal) {
+        modal.classList.remove('translate-y-4', 'scale-95', 'opacity-0');
+        modal.classList.add('translate-y-0', 'scale-100', 'opacity-100');
+      }
+    });
     document.body.style.overflow = 'hidden';
   }
 
   function closeProductModal() {
     overlays.forEach((overlay) => {
-      overlay.classList.add('hidden', 'pointer-events-none', 'opacity-0');
-      overlay.classList.remove('flex', 'opacity-100', 'pointer-events-auto');
       const modal = overlay.querySelector('.product-modal');
-      if (modal) modal.classList.add('translate-y-4');
+      if (overlay.classList.contains('hidden')) return;
+
+      const hideOverlay = (event) => {
+        if (event.target !== overlay || event.propertyName !== 'opacity') return;
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        overlay.removeEventListener('transitionend', hideOverlay);
+      };
+
+      overlay.addEventListener('transitionend', hideOverlay);
+      overlay.classList.add('pointer-events-none', 'opacity-0');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      if (modal) {
+        modal.classList.add('translate-y-4', 'scale-95', 'opacity-0');
+        modal.classList.remove('translate-y-0', 'scale-100', 'opacity-100');
+      }
     });
     document.body.style.overflow = '';
   }

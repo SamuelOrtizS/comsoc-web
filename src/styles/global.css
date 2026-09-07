@@ -4,6 +4,8 @@
 
 :root {
   color-scheme: dark;
+  --motion-hover-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-hover-duration: 500ms;
 }
 
 @theme {
@@ -166,6 +168,17 @@ html {
   font-family: var(--font-body, 'Nunito Sans', sans-serif);
 }
 
+@media (hover: hover) {
+  :where(a, button, [role='button'], [class*='hover:']) {
+    transition-timing-function: var(--motion-hover-ease) !important;
+  }
+
+  :where(a, button, [role='button'], [class*='hover:'])[class*='duration-200'],
+  :where(a, button, [role='button'], [class*='hover:'])[class*='duration-300'] {
+    transition-duration: var(--motion-hover-duration) !important;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -211,7 +224,7 @@ h6 {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--color-glass-border);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--motion-hover-duration) var(--motion-hover-ease);
 }
 
 .glass-card:hover {
@@ -226,7 +239,7 @@ h6 {
 
 .glow-btn {
   box-shadow: 0 0 20px var(--color-accent-blue), 0 0 10px var(--color-accent-blue-darker);
-  transition: all 0.3s ease;
+  transition: all var(--motion-hover-duration) var(--motion-hover-ease);
 }
 
 .glow-btn:hover {
@@ -252,6 +265,16 @@ h6 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
   .animate-ping,
   .animate-pulse {
     animation: none !important;

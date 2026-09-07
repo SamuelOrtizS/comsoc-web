@@ -131,19 +131,19 @@ const porcentajeTotal = totalMetaUSD > 0 ? Math.min(100, Math.round((totalRecaud
           const meta = proj.data.montoMeta || 0;
           const pct = meta > 0 ? Math.min(100, Math.round((rec / meta) * 100)) : 100;
           return (
-            <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex flex-col justify-between hover:border-accent-cyan/30 transition-colors">
+            <div class="min-w-0 rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex flex-col justify-between hover:border-accent-cyan/30 transition-colors">
               <div>
                 <span class="text-xs font-mono uppercase tracking-[0.14em] text-accent-cyan">
                   {proj.data.categoria}
                 </span>
-                <h3 class="text-sm font-bold text-text-primary mt-1 line-clamp-2" title={proj.data.titulo}>
+                <h3 class="mt-1 min-w-0 text-sm font-bold text-text-primary line-clamp-2 wrap-break-word" title={proj.data.titulo}>
                   {proj.data.titulo}
                 </h3>
               </div>
               <div class="mt-4 pt-3 border-t border-white/5">
-                <div class="flex items-center justify-between text-xs font-mono text-text-secondary mb-1">
-                  <span>{formatUSD(rec)}</span>
-                  <span>{formatUSD(meta)}</span>
+                <div class="mb-1 grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-2 text-xs font-mono text-text-secondary">
+                  <span class="min-w-0 break-words">{formatUSD(rec)}</span>
+                  <span class="min-w-0 break-words text-right">{formatUSD(meta)}</span>
                 </div>
                 <div class="h-2 w-full rounded-full bg-white/5 border border-white/10 overflow-hidden">
                   <div
