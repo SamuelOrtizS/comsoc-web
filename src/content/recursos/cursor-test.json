@@ -1,0 +1,12 @@
+{
+  "titulo": "Cursor Test — Verificación Interactiva",
+  "descripcion": "Página interactiva para probar y validar el comportamiento del cursor personalizado: alineación exacta, estados interactivos, hover en tarjetas, precisión de clic y escalado en diferentes tamaños.",
+  "categoria": "Herramientas",
+  "links": [
+    {
+      "label": "Abrir Cursor Test",
+      "url": "/utils/cursor-test",
+      "tipo": "Herramienta"
+    }
+  ]
+}

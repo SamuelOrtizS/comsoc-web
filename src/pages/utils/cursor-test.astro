@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroHeader from '../../components/HeroHeader.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<BaseLayout
+  title="Prueba de Cursor Personalizado | Utilidades IEEE ComSoc Univalle"
+  description="Página interactiva para verificar el comportamiento, alineación y estado visual del cursor personalizado de IEEE ComSoc Univalle."
+>
+  <HeroHeader
+    badgeText="Herramienta de Desarrollo"
+    badgeColor="cyan"
+    badgeDot={true}
+    title="Cursor Test"
+    description="Verifica la alineación, estados y responsividad del cursor personalizado en diferentes contextos."
+  />
+
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
+    <!-- Alignment Crosshair -->
+    <section>
+      <div class="mb-4">
+        <div class="text-xs font-semibold uppercase tracking-[0.18em] text-accent-cyan font-mono mb-1">
+          Alineación Exacta
+        </div>
+        <p class="text-sm text-text-secondary">
+          Mueve el cursor sobre la cruz central — la punta del cursor personalizado debe coincidir con el punto exacto de intersección.
+        </p>
+      </div>
+      <div class="relative h-96 w-full rounded-2xl border border-glass-border/40 bg-bg-secondary/40 backdrop-blur-md flex items-center justify-center overflow-hidden" id="alignment-area">
+        <!-- Real cursor crosshair overlay -->
+        <div id="cursor-crosshair" class="absolute pointer-events-none opacity-0 transition-opacity duration-150" style="width: 24px; height: 24px; margin-left: -12px; margin-top: -12px;">
+          <div class="absolute top-1/2 left-0 w-full h-px bg-accent-cyan/80"></div>
+          <div class="absolute left-1/2 top-0 h-full w-px bg-accent-cyan/80"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-accent-cyan"></div>
+        </div>
+        <!-- Crosshair -->
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-px h-full bg-accent-cyan/30"></div>
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="h-px w-full bg-accent-cyan/30"></div>
+          </div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent-cyan/60 border border-accent-cyan/80"></div>
+          <!-- Corner guides -->
+          <div class="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-accent-cyan/20 rounded-tl-sm"></div>
+          <div class="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-accent-cyan/20 rounded-tr-sm"></div>
+          <div class="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-accent-cyan/20 rounded-bl-sm"></div>
+          <div class="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-accent-cyan/20 rounded-br-sm"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card Hover Targets -->
+    <section>
+      <div class="mb-6">
+        <div class="text-xs font-semibold uppercase tracking-[0.18em] text-accent-cyan font-mono mb-1">
+          Hover en Tarjetas
+        </div>
+        <p class="text-sm text-text-secondary">
+          Verifica que el hover en glass-cards se visualiza correctamente.
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="group rounded-2xl border border-glass-border/40 bg-bg-secondary/40 p-5 backdrop-blur-md transition hover:border-accent-cyan/40 hover:bg-bg-secondary cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan">
+              <Icon name="material-symbols:devices-rounded" class="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div class="text-xs font-semibold uppercase tracking-[0.14em] text-accent-cyan font-mono">IoT</div>
+          </div>
+          <div class="text-sm text-text-secondary">Proyecto de sensores IoT en tiempo real.</div>
+        </div>
+        <div class="group rounded-2xl border border-glass-border/40 bg-bg-secondary/40 p-5 backdrop-blur-md transition hover:border-accent-purple/40 hover:bg-bg-secondary cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-accent-purple/30 bg-accent-purple/10 text-accent-purple">
+              <Icon name="material-symbols:wifi-tethering-rounded" class="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div class="text-xs font-semibold uppercase tracking-[0.14em] text-accent-purple font-mono">5G/6G</div>
+          </div>
+          <div class="text-sm text-text-secondary">Investigación en comunicaciones inalámbricas.</div>
+        </div>
+        <div class="group rounded-2xl border border-glass-border/40 bg-bg-secondary/40 p-5 backdrop-blur-md transition hover:border-accent-emerald/40 hover:bg-bg-secondary cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-accent-emerald/30 bg-accent-emerald/10 text-accent-emerald">
+              <Icon name="material-symbols:memory-rounded" class="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div class="text-xs font-semibold uppercase tracking-[0.14em] text-accent-emerald font-mono">Cuántico</div>
+          </div>
+          <div class="text-sm text-text-secondary">Criptografía y redes cuánticas.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll Area -->
+    <section>
+      <div class="mb-6">
+        <div class="text-xs font-semibold uppercase tracking-[0.18em] text-accent-cyan font-mono mb-1">
+          Scroll con Cursor
+        </div>
+        <p class="text-sm text-text-secondary">
+          Verifica que el cursor se comporta correctamente mientras haces scroll en contenido denso.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-glass-border/40 bg-bg-secondary/40 p-6 backdrop-blur-md overflow-y-auto max-h-96 space-y-4">
+        {Array.from({ length: 20 }, (_, i) => (
+          <div class="flex items-center gap-3 p-3 rounded-xl border border-glass-border/20 bg-bg-primary/30">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-cyan/10 text-accent-cyan">
+              <Icon name="material-symbols:check-rounded" class="h-4 w-4" aria-hidden="true" />
+            </div>
+            <div>
+              <div class="text-sm font-medium text-text-primary">Estado {i + 1} verificado</div>
+              <div class="text-xs text-text-secondary">Cursor se mueve suavemente sin retraso detectable.</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const area = document.getElementById('alignment-area');
+    const crosshair = document.getElementById('cursor-crosshair');
+
+    if (area && crosshair) {
+      area.addEventListener('mouseenter', () => {
+        crosshair.style.opacity = '1';
+      });
+      area.addEventListener('mouseleave', () => {
+        crosshair.style.opacity = '0';
+      });
+      area.addEventListener('mousemove', (e) => {
+        const rect = area.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        crosshair.style.left = `${x}px`;
+        crosshair.style.top = `${y}px`;
+      });
+    }
+  </script>
+</BaseLayout>
