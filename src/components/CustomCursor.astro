@@ -84,8 +84,8 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
 
     // Hotspot: nudge the cursor so its visual tip aligns with the real pointer.
     // Negative X = shift cursor left, negative Y = shift cursor up.
-    const HOTSPOT_X = -11;
-    const HOTSPOT_Y = -3;
+    const HOTSPOT_X = -8;
+    const HOTSPOT_Y = -8;
 
     let pendingUpdate = false;
     let willChangeTimeout;
@@ -99,13 +99,13 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
       willChangeTimeout = window.setTimeout(() => { cursor.style.willChange = 'auto'; }, 200);
       requestAnimationFrame(() => {
         cursor.style.transform =
-          `translate3d(${mouseX + HOTSPOT_X}px, ${mouseY + HOTSPOT_Y}px, 0) rotate(-25deg) scale(${cursorScale})`;
+          `translate3d(${mouseX + HOTSPOT_X}px, ${mouseY + HOTSPOT_Y}px, 0) scale(${cursorScale})`;
         pendingUpdate = false;
       });
     };
 
     // Move cursor exactly with mouse — batched in rAF for 60/120/144Hz smoothness without main thread blocking
-    window.addEventListener('mousemove', (e) => {
+    const handlePointerMove = (e) => {
       if (touchDevice) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -117,7 +117,13 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
         // Hide the default native cursor when custom cursor is shown
         document.documentElement.setAttribute('data-cursor-hidden', 'true');
       }
-    }, { passive: true });
+    };
+
+    document.addEventListener('pointermove', handlePointerMove, { capture: true, passive: true });
+    document.addEventListener('pointerrawupdate', handlePointerMove, { capture: true, passive: true });
+    document.addEventListener('mousemove', handlePointerMove, { capture: true, passive: true });
+    window.addEventListener('pointermove', handlePointerMove, { capture: true, passive: true });
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
 
     document.addEventListener('mouseleave', () => {
       // Show the default native cursor when custom cursor is hidden
@@ -155,21 +161,27 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
       requestTransformUpdate();
     });
 
-    // Click wave pulse on desktop
-    let t1, t2, t3;
+    let t1, t2;
     const DELAY = 140;
 
     window.addEventListener('mousedown', () => {
       if (touchDevice) return;
-      window.clearTimeout(t1); window.clearTimeout(t2); window.clearTimeout(t3);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
       cursorImg.src = step2;
       t1 = window.setTimeout(() => {
         cursorImg.src = step3;
         t2 = window.setTimeout(() => {
           cursorImg.src = step4;
-          t3 = window.setTimeout(() => { cursorImg.src = step1; }, DELAY);
         }, DELAY);
       }, DELAY);
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (touchDevice) return;
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      cursorImg.src = step1;
     });
   }
 </script>
