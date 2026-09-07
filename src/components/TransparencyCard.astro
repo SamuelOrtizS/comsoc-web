@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface InfoRow {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+const infoRows: InfoRow[] = [
+  {
+    title: 'Manejo Directo de Fondos',
+    desc: 'Todos los fondos recibidos son administrados directamente por el Comité del Capítulo Estudiantil IEEE ComSoc Univalle, sin intermediarios externos.',
+    icon: 'material-symbols:admin-panel-settings-outline-rounded',
+  },
+  {
+    title: 'Destino de los Fondos',
+    desc: 'Los recursos se destinarán exclusivamente a los fines indicados en esta página o a propósitos específicos señalados por el donante en el momento de la contribución.',
+    icon: 'material-symbols:target-outline-rounded',
+  },
+  {
+    title: 'Estado Fiscal',
+    desc: 'IEEE ComSoc Univalve es un capítulo estudiantil sin fines de lucro que no posee exención tributaria. Las donaciones no son deducibles de impuestos y no otorgan ningún beneficio fiscal al donante.',
+    icon: 'material-symbols:gavel-outline-rounded',
+  },
+  {
+    title: 'Naturaleza de la Organización',
+    desc: 'No somos una entidad legal ni un comercio. Somos una comunidad abierta de estudiantes, profesores y egresados comprometidos con el avance de la tecnología y la educación en la región.',
+    icon: 'material-symbols:groups-2-outline-rounded',
+  },
+];
+---
+
+<section
+  class="glass-card relative overflow-hidden rounded-[28px] border border-accent-amber/25 bg-[linear-gradient(180deg,rgba(41,30,5,0.6),rgba(15,10,2,0.8))] p-6 sm:p-10 shadow-[0_20px_60px_rgba(255,163,0,0.08)]"
+>
+  <!-- Acento decorativo superior -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent-amber/40 to-transparent" />
+
+  <div class="relative z-10 space-y-8">
+    <!-- Encabezado -->
+    <div class="flex items-start gap-4">
+      <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-accent-amber/30 bg-accent-amber/10 shadow-[0_0_20px_rgba(255,163,0,0.12)]">
+        <Icon name="material-symbols:verified-user-outline-rounded" class="w-6 h-6 text-accent-amber" aria-hidden="true" />
+      </div>
+      <div>
+        <div class="mb-1 text-xs uppercase tracking-[0.18em] text-accent-amber font-mono">
+          Transparencia &amp; Información Legal
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-[-0.03em]">
+          Compromiso de Transparencia
+        </h2>
+        <p class="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary font-light text-justify">
+          Nos comprometemos a manejar cada contribución con total responsabilidad y claridad.
+          A continuación, compartimos la información que necesitas conocer sobre cómo operamos.
+        </p>
+      </div>
+    </div>
+
+    <!-- Filas de información -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {infoRows.map((row) => (
+        <div class="group rounded-2xl border border-white/10 bg-white/2 p-5 transition duration-300 hover:border-accent-amber/25 hover:bg-white/4">
+          <div class="mb-3 flex items-center gap-3">
+            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition duration-300 group-hover:border-accent-amber/20 group-hover:bg-accent-amber/5">
+              <Icon name={row.icon} class="w-5 h-5 text-text-secondary transition duration-300 group-hover:text-accent-amber" aria-hidden="true" />
+            </div>
+            <h3 class="text-sm font-semibold text-text-primary tracking-wide">{row.title}</h3>
+          </div>
+      <p class="ml-13 text-sm leading-relaxed text-text-secondary font-light text-justify">{row.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Aviso legal destacado -->
+    <div class="rounded-2xl border border-accent-red/20 bg-accent-red/6 p-5 flex items-start gap-3">
+      <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-accent-red/25 bg-accent-red/10">
+        <Icon name="material-symbols:warning-outline-rounded" class="w-4 h-4 text-accent-red" aria-hidden="true" />
+      </div>
+      <p class="text-sm leading-relaxed text-text-secondary font-light">
+        <span class="font-semibold text-text-primary">Aviso importante:</span>
+        Las donaciones realizadas a IEEE ComSoc Univalle no son deducibles de impuestos.
+        No emitimos recibos deducibles y esta organización no constituye una entidad legal
+        registrada ni una institución de carácter comercial.
+      </p>
+    </div>
+  </div>
+</section>

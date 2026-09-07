@@ -6,6 +6,7 @@ import DonationDestinies from '../components/DonationDestinies.astro';
 import ProjectSupportCard from '../components/ProjectSupportCard.astro';
 import PaymentMethods from '../components/PaymentMethods.astro';
 import SponsorsModal from '../components/SponsorsModal.astro';
+import TransparencyCard from '../components/TransparencyCard.astro';
 ---
 
 <BaseLayout
@@ -32,6 +33,9 @@ import SponsorsModal from '../components/SponsorsModal.astro';
 
     <!-- Métodos de Donación -->
     <PaymentMethods />
+
+    <!-- Compromiso de Transparencia -->
+    <TransparencyCard />
   </div>
 
   <!-- Modal de Patrocinadores (activado por #open-sponsors-modal en DonationGoals) -->

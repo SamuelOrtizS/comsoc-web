@@ -130,13 +130,17 @@ const porcentajeTotal = totalMetaUSD > 0 ? Math.min(100, Math.round((totalRecaud
           const rec = proj.data.montoActual || 0;
           const meta = proj.data.montoMeta || 0;
           const pct = meta > 0 ? Math.min(100, Math.round((rec / meta) * 100)) : 100;
+          const projLink = `/proyectos/${proj.id}`;
           return (
-            <div class="min-w-0 rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex flex-col justify-between hover:border-accent-cyan/30 transition-colors">
+            <a
+              href={projLink}
+              class="min-w-0 rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex flex-col justify-between hover:border-accent-cyan/30 transition-colors group cursor-pointer"
+            >
               <div>
                 <span class="text-xs font-mono uppercase tracking-[0.14em] text-accent-cyan">
                   {proj.data.categoria}
                 </span>
-                <h3 class="mt-1 min-w-0 text-sm font-bold text-text-primary line-clamp-2 wrap-break-word" title={proj.data.titulo}>
+                <h3 class="mt-1 min-w-0 text-sm font-bold text-text-primary line-clamp-2 wrap-break-word group-hover:text-accent-cyan transition-colors" title={proj.data.titulo}>
                   {proj.data.titulo}
                 </h3>
               </div>
@@ -155,7 +159,7 @@ const porcentajeTotal = totalMetaUSD > 0 ? Math.min(100, Math.round((totalRecaud
                   {pct}%
                 </div>
               </div>
-            </div>
+            </a>
           );
         })}
       </div>
