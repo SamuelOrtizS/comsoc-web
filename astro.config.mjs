@@ -106,8 +106,8 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
+      minify: 'lightningcss',
       cssCodeSplit: true,
-      minify: 'esbuild',
       rollupOptions: {
         output: {
           manualChunks: undefined,
