@@ -187,6 +187,8 @@ Crea un archivo `.json` por entidad (ejemplo: `huawei.json`):
   "nombre": "Huawei ICT Academy",
   "tipo": "Partner Académico",
   "logo": "/images/logo-comsoc.svg",
+  "logoX": "80",
+  "logoY": "80",
   "descripcion": "Convenio para certificaciones gratuitas en 5G y Cloud.",
   "acerca": "Capacitaciones y acceso a plataformas de laboratorio.",
   "website": "https://www.huawei.com",
@@ -195,7 +197,7 @@ Crea un archivo `.json` por entidad (ejemplo: `huawei.json`):
 }
 ```
 
-Campos: `order`, `nombre`, `tipo`, `descripcion` (obligatorios); `logo` (`/images/...` 200×80px), `acerca`, `website`, `email`, `phone`, `linkedin`, `instagram` (opcionales).
+Campos: `order`, `nombre`, `tipo`, `logo` (obligatorios); `logoX` (default `'80'`), `logoY` (default `'80'`), `descripcion`, `acerca`, `website`, `email`, `phone`, `linkedin`, `instagram` (opcionales).
 
 ---
 

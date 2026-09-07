@@ -56,7 +56,6 @@ The website is "Content-First". Most pages are generated from data in `src/conte
 
 - [Project Codebase Guide](docs/CODEBASE.md)
 - [Admin Guide](docs/GUIA_ADMINISTRACION.md)
-- [Developer Notes](notas/)
 
 ## 🤖 Agentic Workflow
 
@@ -66,18 +65,19 @@ This project uses a specialized structure to manage AI agent behavior, specializ
 
 Contains specialized agent configurations. These define specific personas and behaviors for complex tasks.
 
-- **Example**: `.agents/technical-reviewer/` contains logic for code and architecture reviews.
+- **`.agents/technical-reviewer/`** — `technical-reviewer.agent.md`: Code and architecture review logic.
+- **`.agents/skills/impeccable/`** — Impeccable skill module for code quality enforcement.
 
 ### 2. Specialized Instructions (`instructions/`)
 
-Modular instruction sets that can be referenced by agents to perform domain-specific tasks without cluttering the main agent definition.
+Modular instruction sets that can be referenced by agents to perform domain-specific tasks without cluttering the main agent definition. Each subdirectory contains an `INSTRUCTIONS.md` file.
 
-- **Content Management**: `instructions/content-management/`
-- **Technical Review**: `instructions/technical-review/`
+- **`instructions/content-management/`** — Content creation, validation, and collection management guidelines.
+- **`instructions/technical-review/`** — Technical review standards and code quality checks.
 
 ### 3. Reusable Skills (`skills/`)
 
-Domain-specific knowledge modules that agents can invoke to automate common patterns or enforce technical standards.
+Domain-specific knowledge modules that agents can invoke to automate common patterns or enforce technical standards. Each subdirectory contains a `SKILL.md` file.
 
-- **API Integration**: `skills/api-integration/`
-- **Frontend UI**: `skills/frontend-ui/`
+- **`skills/api-integration/`** — API integration patterns and best practices.
+- **`skills/frontend-ui/`** — Frontend UI component patterns and design system standards.

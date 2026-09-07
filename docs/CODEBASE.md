@@ -5,6 +5,7 @@
 Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Universidad del Valle. Construido con **Astro 7.2.9**, **Tailwind CSS v4**, **TypeScript** y optimizado para GitHub Pages (`https://comsoc.ieeeunivalle.link/`).
 
 **Funciones principales:**
+
 - Convocatorias de voluntariado (`/convocatorias`)
 - Eventos y talleres con detalle (`/eventos`, `/eventos/[id]`)
 - Proyectos de investigación con financiamiento USD→COP (`/proyectos`, `/proyectos/[id]`)
@@ -31,16 +32,19 @@ Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Uni
 ## 🛠 Guía para Agentes (Contexto de Automatización)
 
 ### 1. Flujo de Trabajo de Contenido
+
 - **Validación:** Antes de commit, los JSON en `src/content/` deben coincidir con `src/content.config.ts:1`. Archivos `ejemplo.json` o `_*` son ignorados (`glob` patterns).
 - **Imágenes:** URLs externas o `/images/...` en `public/images/` o `src/assets/images/` (optimizadas a WebP).
 
 ### 2. Patrones de Desarrollo
+
 - **Componentes:** `.astro` con Tailwind, `PascalCase` (`EventCard.astro`), `Icon` de `astro-icon/components`.
 - **Tipado:** Interfaces `Props` para cada componente.
 - **Idioma:** Español (`es-ES`), `lang="es"` en `BaseLayout.astro:26`.
 - **Performance:** `decoding="async"`, `loading="lazy"` + `sizes`, `fetchpriority="high"` para LCP, `transform-gpu` para animaciones.
 
 ### 3. Localización de Recursos
+
 - **Estilos Globales:** `src/styles/global.css:1` (tokens + `.glass-card`, `.bg-dot-grid` con `0.04` opacidad y `prefers-reduced-motion`).
 - **Utilidades:** `src/utils/currency.ts:1`, `src/utils/tiendaIconMap.json:1`, `src/utils/markdownIntegration.ts:1`.
 - **Layout Base:** `src/layouts/BaseLayout.astro:1` (SEO, `Font` preload, `Header`, `Footer`, banner de desarrollo `development-banner` no bloqueante).
@@ -51,18 +55,19 @@ Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Uni
 **Reglas Generales:** `ejemplo.json` o `_*` ignorados; imágenes pasadas directamente al componente `<Image>` de `astro:assets`; iconos vía `material-symbols:xxx-rounded` validados contra `@iconify-json/material-symbols`.
 
 **Colecciones (esquemas en `src/content.config.ts:1`):**
+
 1. **Convocatorias:** `titulo`, `area`, `fechaLimite` (YYYY-MM-DD), `descripcion`, `requisitos[]`, `responsabilidades[]`, `estado` (Publicada/Cerrada), `formUrl?`.
 2. **Eventos:** `titulo`, `tipo`, `organizador`, `fechaInicio`, `fechaFin?`, `horaInicio`, `horaFin`, `lugarNombre`, `lugarDireccion?`, `descripcion`, `imagenPrincipal`, `galeria?`, `estado` (Publicado/Pasado), `detalles?` (`{label,value}[]`). Destacado determinístico por `fechaInicio` más próxima (`src/pages/index.astro:14`).
 3. **Tienda:** `name`, `category`, `price`, `description`, `image`, `available` (boolean), `resources?` (`{title,link,icon,color}[]` con `icon: material-symbols:*`), `specifications?` (`{key,value}[]`).
 4. **Junta Directiva:** `order`, `name`, `role`, `department`, `avatar` (emoji fallback → `Icon:person`), `image?` (`/images/...` 200×200), `bio?`, `email?`, `phone?`, `linkedin?`, `instagram?`, `facebook?`, `github?`, `website?`.
 5. **Proyectos:** `titulo`, `categoria`, `descripcion`, `imagen`, `estado` (Activo/Completado/En Pausa), `tags?`, `enlace?`, `destacado` (boolean, orden alfabético en home), `montoActual?`, `montoMeta?` (USD, conversión a COP vía `currency.ts`), `recursos?` (`{title,link,icon?}[]`), `resumenTecnico?`.
-6. **Aliados:** `order`, `nombre`, `tipo`, `logo?` (200×80), `descripcion`, `acerca?`, `website?`, `email?`, `phone?`, `linkedin?`, `instagram?`.
+6. **Aliados:** `order`, `nombre`, `tipo`, `logo` (200×80), `logoX?` (default `'80'`), `logoY?` (default `'80'`), `descripcion`, `acerca?`, `website?`, `email?`, `phone?`, `linkedin?`, `instagram?`.
 7. **Recursos:** `titulo`, `descripcion`, `categoria`, `imagen?`, `links[]` (`{label,url,tipo?}` donde `tipo: "Canva"` → `palette`, `"Download"` → `download-rounded` en `ResourceCard.astro:64`).
 
 ## Mapa del Sitio
 
 | Ruta | Archivo | Descripción |
-|------|---------|-------------|
+| ------ | --------- | ------------- |
 | `/` | `src/pages/index.astro:71` | Hero (H1 sr-only + CTA jerárquico), evento destacado determinístico, pilares (cell-tower/sensors/cable/psychology), proyectos destacados, aliados (modal con `aria-expanded`), CTA Únete |
 | `/nosotros` | `src/pages/nosotros.astro:1` | Misión/Visión (target/construction), beneficios (6 cards), galería (gallery-slider con `visibilitychange`), mesa directiva (modal person) |
 | `/nosotros/recursos` | `src/pages/nosotros/recursos/index.astro:1` | Grilla `ResourceCard` por categoría, estado vacío con `folder-off` |
@@ -79,13 +84,14 @@ Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Uni
 ## Construcción y Ejecución
 
 | Comando | Descripción |
-|----------|-------------|
-| `npm run dev` | Servidor local Astro (http://localhost:4321) |
+| ---------- | ------------- |
+| `npm run dev` | Servidor local Astro (<http://localhost:4321>) |
 | `npm run build` | Genera producción en `dist/` (valida Content Collections, genera sitemap.xml + .md) |
 | `npm run preview` | Previsualiza `dist/` |
 | `npm install` | Instala dependencias |
 
 **Salida `dist/`:**
+
 - `sitemap.xml` (copia de `sitemap-0.xml`, 20 URLs) + `sitemap-index.xml` + `robots.txt` con `Sitemap: https://.../sitemap.xml`
 - `_astro/fonts/` (7 ficheros woff2/woff con fallback optimizado) + `_astro/*.webp/*.svg` (sharp)
 - `**/*.html` + `**/*.md` (markdown estático)
