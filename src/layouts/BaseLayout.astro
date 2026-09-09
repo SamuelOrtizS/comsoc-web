@@ -74,35 +74,10 @@ const ogImageURL = new URL(normalizedImage, Astro.site || 'http://localhost:4321
       gtag('js', new Date());
       gtag('config', 'G-7Q9FC7KE7Y');
     </script>
+    <script>
+      import { initWebVitals } from '../utils/analytics';
 
-    <!-- Real User Monitoring: Web Vitals (LCP, INP, CLS) -->
-    <script is:inline>
-      if (typeof window !== 'undefined' && window.gtag) {
-        function send(name, value) {
-          window.gtag('event', name, {
-            value: Math.round(value),
-            event_category: 'Web Vitals',
-            event_label: window.location.pathname,
-            non_interaction: true,
-          });
-        }
-        new PerformanceObserver(function(list) {
-          for (const entry of list.getEntries()) send('largest-contentful-paint', entry.startTime);
-        }).observe({ type: 'largest-contentful-paint', buffered: true });
-        new PerformanceObserver(function(list) {
-          for (const entry of list.getEntries()) send('interaction-to-next-paint', entry.processingEnd - entry.startTime);
-        }).observe({ type: 'first-input', buffered: true });
-        new PerformanceObserver(function(list) {
-          var cls = 0;
-          for (const entry of list.getEntries()) {
-            if (!entry.sources) continue;
-            for (const source of entry.sources) {
-              if (source.node && source.node.nodeType === 1) cls += entry.value;
-            }
-          }
-          send('cumulative-layout-shift', cls);
-        }).observe({ type: 'layout-shift', buffered: true });
-      }
+      initWebVitals();
     </script>
   </head>
   <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-text-primary relative overflow-x-hidden font-sans antialiased bg-dot-grid">

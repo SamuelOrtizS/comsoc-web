@@ -65,7 +65,11 @@ const gallerySlides = (images ?? []).map((img) => {
               src={slide.fullSrc}
               alt={`Imagen de galería ${idx + 1}`}
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              width="1200"
+              height="675"
+              sizes="100vw"
               loading={idx === 0 ? 'eager' : 'lazy'}
+              fetchpriority={idx === 0 ? 'high' : 'low'}
               decoding="async"
             />
           ) : (
@@ -240,8 +244,12 @@ const gallerySlides = (images ?? []).map((img) => {
 
 <script>
   function setupGallery() {
+    const galleryRoot = document.querySelector('.gallery-section');
+    if (!galleryRoot || galleryRoot.getAttribute('data-gallery-initialized') === 'true') return;
+    galleryRoot.setAttribute('data-gallery-initialized', 'true');
+
     const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
-    const card = document.querySelector('.gallery-card');
+    const card = galleryRoot.querySelector('.gallery-card');
 
     if (card) {
       if (!motionOK) {
@@ -259,24 +267,25 @@ const gallerySlides = (images ?? []).map((img) => {
       }
     }
 
-    const slides = document.querySelectorAll('.gallery-slide');
-    const dots = document.querySelectorAll('button[data-index]');
-    const prevBtn = document.getElementById('gallery-prev');
-    const nextBtn = document.getElementById('gallery-next');
-    const container = document.getElementById('gallery-container');
+    const slides = galleryRoot.querySelectorAll('.gallery-slide');
+    const dots = galleryRoot.querySelectorAll('button[data-index]');
+    const prevBtn = galleryRoot.querySelector('#gallery-prev');
+    const nextBtn = galleryRoot.querySelector('#gallery-next');
+    const container = galleryRoot.querySelector('#gallery-container');
 
     // Lightbox Elements
-    const lightbox = document.getElementById('gallery-lightbox') as HTMLDialogElement | null;
-    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
-    const lightboxCounter = document.getElementById('lightbox-counter');
-    const lightboxDownload = document.getElementById('lightbox-download') as HTMLAnchorElement | null;
-    const lightboxClose = document.getElementById('lightbox-close');
-    const lightboxPrev = document.getElementById('lightbox-prev');
-    const lightboxNext = document.getElementById('lightbox-next');
+    const lightbox = galleryRoot.querySelector('#gallery-lightbox') as HTMLDialogElement | null;
+    const lightboxImg = galleryRoot.querySelector('#lightbox-img') as HTMLImageElement | null;
+    const lightboxCounter = galleryRoot.querySelector('#lightbox-counter');
+    const lightboxDownload = galleryRoot.querySelector('#lightbox-download') as HTMLAnchorElement | null;
+    const lightboxClose = galleryRoot.querySelector('#lightbox-close');
+    const lightboxPrev = galleryRoot.querySelector('#lightbox-prev');
+    const lightboxNext = galleryRoot.querySelector('#lightbox-next');
     const customCursor = document.getElementById('custom-cursor');
 
     let currentSlide = 0;
     let autoPlayInterval: ReturnType<typeof setInterval> | undefined;
+    let isGalleryVisible = false;
 
     function showSlide(index: number) {
       if (slides.length === 0) return;
@@ -308,7 +317,7 @@ const gallerySlides = (images ?? []).map((img) => {
 
     function startAutoPlay() {
       stopAutoPlay();
-      if (document.hidden || (lightbox && lightbox.open)) return;
+      if (!isGalleryVisible || document.hidden || (lightbox && lightbox.open)) return;
       autoPlayInterval = setInterval(() => {
         if (!document.hidden && (!lightbox || !lightbox.open)) showSlide(currentSlide + 1);
       }, 6000);
@@ -316,6 +325,7 @@ const gallerySlides = (images ?? []).map((img) => {
 
     function stopAutoPlay() {
       if (autoPlayInterval) clearInterval(autoPlayInterval);
+      autoPlayInterval = undefined;
     }
 
     // Lightbox Logic
@@ -418,6 +428,15 @@ const gallerySlides = (images ?? []).map((img) => {
       else startAutoPlay();
     });
 
+    if (container) {
+      const visibilityObserver = new IntersectionObserver(([entry]) => {
+        isGalleryVisible = entry.isIntersecting;
+        if (isGalleryVisible) startAutoPlay();
+        else stopAutoPlay();
+      }, { threshold: 0.1 });
+      visibilityObserver.observe(container);
+    }
+
     if (prevBtn && nextBtn && slides.length > 0) {
       prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showSlide(currentSlide - 1); startAutoPlay(); });
       nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showSlide(currentSlide + 1); startAutoPlay(); });
@@ -466,7 +485,6 @@ const gallerySlides = (images ?? []).map((img) => {
     window.addEventListener('beforeunload', stopAutoPlay);
   }
 
-  setupGallery();
   document.addEventListener('astro:page-load', setupGallery);
 </script>
 

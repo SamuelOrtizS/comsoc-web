@@ -7,6 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
+    "lighthouse": "lhci autorun",
     "astro": "astro"
   },
   "dependencies": {

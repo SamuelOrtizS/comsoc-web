@@ -1,9 +1,5 @@
 import { onLCP, onINP, onCLS } from 'web-vitals';
 
-/**
- * Envía Web Vitals a Google Analytics 4.
- * Se llama desde BaseLayout.astro como script is:inline.
- */
 function sendToGA4(metric: { name: string; value: number }) {
   if (typeof window === 'undefined') return;
   if (!(window as any).gtag) return;
@@ -16,10 +12,6 @@ function sendToGA4(metric: { name: string; value: number }) {
   });
 }
 
-/**
- * Inicia el monitoreo de Web Vitals en tiempo real.
- * Se ejecuta al cargar la página para medir experiencia real de usuarios.
- */
 export function initWebVitals() {
   onLCP(sendToGA4);
   onINP(sendToGA4);
