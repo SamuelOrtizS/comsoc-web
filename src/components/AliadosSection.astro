@@ -58,12 +58,12 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
 ---
 
 {aliados.length > 0 && (
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10 content-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-700">
-    <div class="text-center max-w-3xl mx-auto mb-12">
+  <section class="aliados-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-white/10 content-auto">
+    <div class="aliados-header text-center max-w-3xl mx-auto mb-12">
       <div class="text-xs uppercase font-mono tracking-widest text-accent-cyan mb-2 font-semibold transition-colors duration-300 hover:text-accent-blue-lighter group-hover:text-accent-cyan">
         Red de Colaboración
       </div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
         Nuestros Aliados
       </h2>
       <p class="text-text-secondary text-sm font-light transition-colors duration-300 hover:text-text-primary group-hover:text-text-primary">
@@ -72,11 +72,12 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {resolvedAliados.map((aliado) => (
+      {resolvedAliados.map((aliado, index) => (
         <button
           type="button"
           id={`aliado-card-${aliado.data.nombre.replace(/\s+/g, '-')}`}
           class="aliado-card glass-card rounded-2xl p-6 border border-white/10 text-left group cursor-pointer hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10 transition-all duration-500 w-full flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:-translate-x-[2px] focus-visible:-translate-y-[2px]"
+          style={`--aliado-index: ${index};`}
           data-aliado={JSON.stringify(serializeAliado(aliado))}
           data-aliado-id={aliado.data.nombre.replace(/\s+/g, '-')}
           aria-label={`Conocer más sobre ${aliado.data.nombre}`}
@@ -234,8 +235,83 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
   </div>
 ))}
 
+<style>
+  .aliados-header,
+  .aliado-card {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .aliados-header.is-visible {
+      animation: aliadoHeaderIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .aliado-card.is-visible {
+      animation: aliadoCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--aliado-index, 0) * 80ms + 100ms);
+    }
+
+    @keyframes aliadoHeaderIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes aliadoCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aliados-header,
+    .aliado-card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
 <script>
+  function setupAliadosObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const elements = document.querySelectorAll('.aliados-section .aliados-header, .aliados-section .aliado-card');
+
+    if (!motionOK) {
+      elements.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    elements.forEach(el => observer.observe(el));
+  }
+
   function setupAliadosModals() {
+    setupAliadosObserver();
     // Map of ally ID to modal elements
     const modals = new Map<string, { overlay: HTMLElement; modal: HTMLElement; closeBtn: HTMLElement }>();
     
@@ -313,3 +389,4 @@ const serializeAliado = (aliado: (typeof resolvedAliados)[0]) => {
   setupAliadosModals();
   document.addEventListener('astro:page-load', setupAliadosModals);
 </script>
+

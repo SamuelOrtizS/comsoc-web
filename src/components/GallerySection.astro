@@ -22,38 +22,49 @@ const fallbackImages = [
 const { images = galleryFiles.length ? galleryFiles : fallbackImages } = Astro.props;
 
 const gallerySlides = (images ?? []).map((img) => {
+  let resolvedSrc = '';
+  let slideType: 'remote' | 'local' | 'public' = 'local';
+
   if (typeof img === 'string') {
     if (img.startsWith('http://') || img.startsWith('https://')) {
-      return { type: 'remote' as const, src: img };
+      slideType = 'remote';
+      resolvedSrc = img;
+    } else {
+      const localImage = getImageModule(img);
+      if (localImage) {
+        slideType = 'local';
+        resolvedSrc = typeof localImage === 'string' ? localImage : localImage.src;
+      } else {
+        slideType = 'public';
+        resolvedSrc = img.startsWith('/') ? img : `/images/${img}`;
+      }
     }
-
-    const localImage = getImageModule(img);
-    if (localImage) {
-      return { type: 'local' as const, src: localImage };
-    }
-
-    return { type: 'public' as const, src: img.startsWith('/') ? img : `/images/${img}` };
+  } else {
+    slideType = 'local';
+    resolvedSrc = img?.src || img;
   }
 
-  return { type: 'local' as const, src: img };
+  return { type: slideType, src: img, fullSrc: resolvedSrc };
 });
 ---
 
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+<section class="gallery-section max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
   <div
-    class="relative rounded-3xl overflow-hidden glass-card border border-glass-border group aspect-21/9"
+    class="gallery-card relative rounded-3xl overflow-hidden glass-card border border-white/10 shadow-[0_24px_60px_rgba(15,23,42,0.45)] group aspect-21/9"
     aria-label="Galería de eventos y actividades"
   >
-    <div class="w-full h-full relative" id="gallery-container">
+    <div class="w-full h-full relative overflow-hidden cursor-pointer" id="gallery-container" title="Haz clic para ver en pantalla completa">
       {gallerySlides.map((slide, idx) => (
         <div
-          class={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} gallery-slide`}
+          class={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${idx === 0 ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'} gallery-slide`}
+          data-slide-index={idx}
+          data-full-src={slide.fullSrc}
         >
           {slide.type === 'remote' ? (
             <img
-              src={slide.src}
+              src={slide.fullSrc}
               alt={`Imagen de galería ${idx + 1}`}
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading={idx === 0 ? 'eager' : 'lazy'}
               decoding="async"
             />
@@ -67,10 +78,16 @@ const gallerySlides = (images ?? []).map((img) => {
               loading={idx === 0 ? 'eager' : 'lazy'}
               fetchpriority={idx === 0 ? 'high' : 'low'}
               decoding="async"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           )}
-          <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-black/30"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/20 to-black/30"></div>
+          
+          <!-- Zoom Hint Pill -->
+          <div class="absolute top-4 right-4 z-20 hidden group-hover:flex items-center gap-1.5 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs font-medium text-text-primary backdrop-blur-md transition-all duration-300">
+            <Icon name="material-symbols:zoom-in-rounded" class="w-4 h-4 text-accent-cyan" />
+            <span>Pantalla completa</span>
+          </div>
         </div>
       ))}
     </div>
@@ -78,38 +95,186 @@ const gallerySlides = (images ?? []).map((img) => {
     <!-- Navigation Arrows -->
     <button
       id="gallery-prev"
-      class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-accent-blue/20 border border-accent-blue/30 text-text-primary flex items-center justify-center hover:bg-accent-blue/40 hover:border-accent-blue/50 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+      class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-2xl bg-black/40 border border-white/15 text-text-primary flex items-center justify-center backdrop-blur-md hover:bg-accent-cyan/20 hover:border-accent-cyan/50 hover:text-accent-cyan transition-all duration-300 cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
       aria-label="Navegar a la diapositiva anterior"
     >
-      <Icon name="material-symbols:arrow-back-rounded" class="w-5 h-5" aria-hidden="true" />
+      <Icon name="material-symbols:arrow-back-rounded" class="w-5 h-5 transition-transform duration-200 group-hover:-translate-x-0.5" aria-hidden="true" />
     </button>
     <button
       id="gallery-next"
-      class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-xl bg-accent-blue/20 border border-accent-blue/30 text-text-primary flex items-center justify-center hover:bg-accent-blue/40 hover:border-accent-blue/50 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+      class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-2xl bg-black/40 border border-white/15 text-text-primary flex items-center justify-center backdrop-blur-md hover:bg-accent-cyan/20 hover:border-accent-cyan/50 hover:text-accent-cyan transition-all duration-300 cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
       aria-label="Navegar a la diapositiva siguiente"
     >
-      <Icon name="material-symbols:arrow-forward-rounded" class="w-5 h-5" aria-hidden="true" />
+      <Icon name="material-symbols:arrow-forward-rounded" class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
     </button>
 
     <!-- Dots Indicators -->
-    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3.5 py-1.5 backdrop-blur-md">
       {gallerySlides.map((_, idx) => (
         <button
-          class={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-accent-cyan scale-125' : 'bg-white/40'}`}
+          class={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === 0 ? 'w-6 bg-accent-cyan shadow-[0_0_10px_rgba(34,211,238,0.6)]' : 'w-2 bg-white/40 hover:bg-white/70'}`}
           data-index={idx}
           aria-label={`Ver diapositiva ${idx + 1}`}
         />
       ))}
     </div>
   </div>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <dialog
+    id="gallery-lightbox"
+    class="fixed inset-0 z-[90000] m-0 h-full w-full items-center justify-center border-none bg-black/95 p-0 backdrop-blur-xl transition-all duration-300"
+    role="dialog"
+    aria-modal="true"
+    closedby="any"
+  >
+    <div class="relative flex h-full w-full flex-col items-center justify-between p-4 sm:p-6">
+      <!-- Lightbox Header / Controls -->
+      <div class="flex w-full items-center justify-between z-30">
+        <span id="lightbox-counter" class="rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-xs font-mono text-text-secondary backdrop-blur-md">
+          1 / {gallerySlides.length}
+        </span>
+
+        <div class="flex items-center gap-3">
+          <!-- Download Button -->
+          <a
+            id="lightbox-download"
+            href="#"
+            download="comsoc-galeria-imagen.jpg"
+            target="_blank"
+            class="flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-text-primary backdrop-blur-md transition-all duration-200 hover:border-accent-cyan/50 hover:bg-accent-cyan/20 hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan"
+            title="Descargar imagen"
+          >
+            <Icon name="material-symbols:download-rounded" class="h-4 w-4" aria-hidden="true" />
+            <span class="hidden sm:inline">Descargar</span>
+          </a>
+
+          <!-- Close Button -->
+          <button
+            id="lightbox-close"
+            type="button"
+            class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-text-primary backdrop-blur-md transition-all duration-200 hover:border-red-500/50 hover:bg-red-500/20 hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 cursor-pointer"
+            aria-label="Cerrar vista previa"
+          >
+            <Icon name="material-symbols:close-rounded" class="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Lightbox Image View -->
+      <div class="relative flex flex-grow items-center justify-center w-full my-4 overflow-hidden">
+        <img
+          id="lightbox-img"
+          src=""
+          alt="Vista ampliada de la galería"
+          class="max-h-[85vh] max-w-[95vw] rounded-2xl object-contain shadow-2xl transition-all duration-300 opacity-0 scale-95"
+        />
+
+        <!-- Lightbox Prev/Next Nav -->
+        <button
+          id="lightbox-prev"
+          class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-black/50 text-text-primary backdrop-blur-md transition-all duration-200 hover:border-accent-cyan/50 hover:bg-accent-cyan/20 hover:text-accent-cyan"
+          aria-label="Imagen anterior"
+        >
+          <Icon name="material-symbols:arrow-back-rounded" class="h-6 w-6" />
+        </button>
+
+        <button
+          id="lightbox-next"
+          class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-black/50 text-text-primary backdrop-blur-md transition-all duration-200 hover:border-accent-cyan/50 hover:bg-accent-cyan/20 hover:text-accent-cyan"
+          aria-label="Imagen siguiente"
+        >
+          <Icon name="material-symbols:arrow-forward-rounded" class="h-6 w-6" />
+        </button>
+      </div>
+    </div>
+  </dialog>
+
 </section>
+
+<style>
+  #gallery-lightbox {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+  }
+
+  .gallery-card {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery-card.is-visible {
+      animation: galleryCardIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes galleryCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-card {
+      opacity: 1;
+      transform: none;
+    }
+    .gallery-slide {
+      transition: opacity 0.3s ease !important;
+      transform: none !important;
+    }
+  }
+</style>
 
 <script>
   function setupGallery() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const card = document.querySelector('.gallery-card');
+
+    if (card) {
+      if (!motionOK) {
+        card.classList.add('is-visible');
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        observer.observe(card);
+      }
+    }
+
     const slides = document.querySelectorAll('.gallery-slide');
     const dots = document.querySelectorAll('button[data-index]');
     const prevBtn = document.getElementById('gallery-prev');
     const nextBtn = document.getElementById('gallery-next');
+    const container = document.getElementById('gallery-container');
+
+    // Lightbox Elements
+    const lightbox = document.getElementById('gallery-lightbox') as HTMLDialogElement | null;
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    const lightboxDownload = document.getElementById('lightbox-download') as HTMLAnchorElement | null;
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+    const customCursor = document.getElementById('custom-cursor');
+
     let currentSlide = 0;
     let autoPlayInterval: ReturnType<typeof setInterval> | undefined;
 
@@ -118,29 +283,34 @@ const gallerySlides = (images ?? []).map((img) => {
       currentSlide = (index + slides.length) % slides.length;
       slides.forEach((slide, idx) => {
         if (idx === currentSlide) {
-          slide.classList.remove('opacity-0', 'z-0');
-          slide.classList.add('opacity-100', 'z-10');
+          slide.classList.remove('opacity-0', 'scale-105', 'z-0');
+          slide.classList.add('opacity-100', 'scale-100', 'z-10');
         } else {
-          slide.classList.remove('opacity-100', 'z-10');
-          slide.classList.add('opacity-0', 'z-0');
+          slide.classList.remove('opacity-100', 'scale-100', 'z-10');
+          slide.classList.add('opacity-0', 'scale-105', 'z-0');
         }
       });
       dots.forEach((dot, idx) => {
         if (idx === currentSlide) {
-          dot.classList.remove('bg-white/40');
-          dot.classList.add('bg-accent-cyan', 'scale-125');
+          dot.classList.remove('w-2', 'bg-white/40', 'hover:bg-white/70');
+          dot.classList.add('w-6', 'bg-accent-cyan', 'shadow-[0_0_10px_rgba(34,211,238,0.6)]');
         } else {
-          dot.classList.remove('bg-accent-cyan', 'scale-125');
-          dot.classList.add('bg-white/40');
+          dot.classList.remove('w-6', 'bg-accent-cyan', 'shadow-[0_0_10px_rgba(34,211,238,0.6)]');
+          dot.classList.add('w-2', 'bg-white/40', 'hover:bg-white/70');
         }
       });
+
+      // Update lightbox if open
+      if (lightbox && lightbox.open) {
+        updateLightboxContent();
+      }
     }
 
     function startAutoPlay() {
       stopAutoPlay();
-      if (document.hidden) return;
+      if (document.hidden || (lightbox && lightbox.open)) return;
       autoPlayInterval = setInterval(() => {
-        if (!document.hidden) showSlide(currentSlide + 1);
+        if (!document.hidden && (!lightbox || !lightbox.open)) showSlide(currentSlide + 1);
       }, 6000);
     }
 
@@ -148,25 +318,147 @@ const gallerySlides = (images ?? []).map((img) => {
       if (autoPlayInterval) clearInterval(autoPlayInterval);
     }
 
+    // Lightbox Logic
+    function updateLightboxContent() {
+      const activeSlide = slides[currentSlide] as HTMLElement;
+      if (!activeSlide || !lightboxImg) return;
+
+      const fullSrc = activeSlide.getAttribute('data-full-src') || '';
+      
+      lightboxImg.classList.remove('opacity-100', 'scale-100');
+      lightboxImg.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        lightboxImg.src = fullSrc;
+        if (lightboxDownload) {
+          lightboxDownload.href = fullSrc;
+        }
+        if (lightboxCounter) {
+          lightboxCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+        lightboxImg.classList.remove('opacity-0', 'scale-95');
+        lightboxImg.classList.add('opacity-100', 'scale-100');
+      }, 150);
+    }
+
+    function openLightbox() {
+      if (!lightbox) return;
+      stopAutoPlay();
+      lightbox.classList.add('flex');
+      if (typeof lightbox.showModal === 'function') {
+        lightbox.showModal();
+      }
+      if (customCursor) lightbox.appendChild(customCursor);
+      updateLightboxContent();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove('flex');
+      if (typeof lightbox.close === 'function') {
+        lightbox.close();
+      }
+      if (customCursor) document.body.appendChild(customCursor);
+      document.body.style.overflow = '';
+      startAutoPlay();
+    }
+
+    if (container) {
+      container.addEventListener('click', (e) => {
+        // Prevent trigger when clicking arrows or dots
+        const target = e.target as HTMLElement;
+        if (target.closest('#gallery-prev') || target.closest('#gallery-next') || target.closest('button[data-index]')) {
+          return;
+        }
+        openLightbox();
+      });
+    }
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      lightbox.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        closeLightbox();
+      });
+    }
+
+    if (lightboxPrev) {
+      lightboxPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showSlide(currentSlide - 1);
+      });
+    }
+
+    if (lightboxNext) {
+      lightboxNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showSlide(currentSlide + 1);
+      });
+    }
+
+    // Keyboard Shortcuts for Lightbox
+    window.addEventListener('keydown', (e) => {
+      if (lightbox && lightbox.open) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+        if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+      }
+    });
+
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopAutoPlay();
       else startAutoPlay();
     });
 
     if (prevBtn && nextBtn && slides.length > 0) {
-      prevBtn.addEventListener('click', () => { showSlide(currentSlide - 1); startAutoPlay(); });
-      nextBtn.addEventListener('click', () => { showSlide(currentSlide + 1); startAutoPlay(); });
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showSlide(currentSlide - 1); startAutoPlay(); });
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showSlide(currentSlide + 1); startAutoPlay(); });
       dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
           const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
           showSlide(idx);
           startAutoPlay();
         });
       });
-      const container = document.getElementById('gallery-container');
+
       if (container) {
         container.addEventListener('mouseenter', stopAutoPlay);
         container.addEventListener('mouseleave', startAutoPlay);
+
+        // Touch Swipe Gesture Support
+        let startX = 0;
+        let startY = 0;
+
+        container.addEventListener('touchstart', (e: TouchEvent) => {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          stopAutoPlay();
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e: TouchEvent) => {
+          const endX = e.changedTouches[0].clientX;
+          const endY = e.changedTouches[0].clientY;
+          const diffX = startX - endX;
+          const diffY = startY - endY;
+
+          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+            if (diffX > 0) {
+              showSlide(currentSlide + 1);
+            } else {
+              showSlide(currentSlide - 1);
+            }
+          }
+          startAutoPlay();
+        }, { passive: true });
       }
       startAutoPlay();
     }
@@ -177,3 +469,5 @@ const gallerySlides = (images ?? []).map((img) => {
   setupGallery();
   document.addEventListener('astro:page-load', setupGallery);
 </script>
+
+

@@ -43,7 +43,7 @@ const currentTheme = colorClasses[badgeColor] ?? colorClasses.cyan;
 ---
 
 <section class:list={[
-  'relative overflow-hidden',
+  'relative overflow-hidden hero-header-section',
   hasBottomBorder && 'border-b border-white/10',
   paddingY
 ]}>
@@ -51,12 +51,12 @@ const currentTheme = colorClasses[badgeColor] ?? colorClasses.cyan;
   <div class:list={['pointer-events-none absolute inset-0', currentTheme.radialGlow]} aria-hidden="true"></div>
   
   <!-- Subtle top accent line -->
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent hero-header-line" aria-hidden="true"></div>
 
   <div class="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
     <!-- Badge -->
     <div class:list={[
-      'mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] font-mono',
+      'mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] font-mono hero-header-badge',
       currentTheme.badge
     ]}>
       {badgeDot && (
@@ -67,18 +67,68 @@ const currentTheme = colorClasses[badgeColor] ?? colorClasses.cyan;
 
     <!-- Title -->
     <h1 class:list={[
-      'mx-auto font-black tracking-[-0.05em] text-text-primary text-4xl sm:text-5xl lg:text-6xl',
+      'mx-auto font-black tracking-[-0.05em] text-text-primary text-4xl sm:text-5xl lg:text-6xl hero-header-title',
       titleMaxWidth
     ]}>
       {title}
     </h1>
 
     <!-- Description -->
-    <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg">
+    <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-text-secondary font-light sm:text-lg hero-header-desc">
       {description}
     </p>
 
     <!-- Optional Slot (Pills, stats, buttons, badges) -->
-    <slot />
+    <div class="hero-header-slot">
+      <slot />
+    </div>
   </div>
 </section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-header-line {
+      transform: scaleX(0);
+      animation: lineSweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.1s;
+    }
+    .hero-header-badge {
+      opacity: 0;
+      transform: translateY(-12px);
+      animation: headerItemIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s;
+    }
+    .hero-header-title {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: headerItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.25s;
+    }
+    .hero-header-desc {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: headerItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.35s;
+    }
+    .hero-header-slot {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: headerItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.45s;
+    }
+
+    @keyframes lineSweep {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes headerItemIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+  }
+</style>
+

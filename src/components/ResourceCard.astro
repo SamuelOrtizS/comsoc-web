@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { getImageModule } from '../utils/imageImports';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   recurso: CollectionEntry<'recursos'>;
@@ -66,7 +67,7 @@ if (imagen) {
     </p>
 
     <div class="space-y-2">
-      {links.map((link) => {
+      {links.map((link: { url: string; label: string; tipo?: string }) => {
         const isExternal = link.url.startsWith('http://') || link.url.startsWith('https://');
         const iconName = link.tipo === 'Canva' 
           ? 'material-symbols:palette' 

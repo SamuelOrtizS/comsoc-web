@@ -34,8 +34,8 @@ const tiendaItems = await getCollection('tienda');
   </div>
 
   <!-- Products Catalog -->
-  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+  <section class="tienda-section mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="tienda-header mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <div class="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono">
           Catálogo disponible
@@ -51,8 +51,10 @@ const tiendaItems = await getCollection('tienda');
 
     {tiendaItems.length > 0 ? (
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {tiendaItems.map((item) => (
-          <ProductCard item={item} />
+        {tiendaItems.map((item, index) => (
+          <div class="product-card-wrapper" style={`--prod-index: ${index};`}>
+            <ProductCard item={item} />
+          </div>
         ))}
       </div>
     ) : (
@@ -73,3 +75,66 @@ const tiendaItems = await getCollection('tienda');
   <!-- Product Detail Modal -->
   <ProductModal items={tiendaItems} />
 </BaseLayout>
+
+<style>
+  .tienda-header,
+  .product-card-wrapper {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tienda-header.is-visible {
+      animation: tiendaHeaderIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .product-card-wrapper.is-visible {
+      animation: tiendaCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--prod-index, 0) * 80ms + 100ms);
+    }
+
+    @keyframes tiendaHeaderIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes tiendaCardIn {
+      from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tienda-header,
+    .product-card-wrapper {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupTiendaObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.tienda-section .tienda-header, .tienda-section .product-card-wrapper');
+
+    if (!motionOK) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(el => observer.observe(el));
+  }
+
+  setupTiendaObserver();
+  document.addEventListener('astro:after-swap', setupTiendaObserver);
+</script>
+

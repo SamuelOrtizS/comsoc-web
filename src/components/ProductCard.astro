@@ -15,7 +15,7 @@ const resolvedProductImage = typeof prod.image === 'string' ? getImageModule(pro
 const serializedProduct = {
   ...prod,
   id: item.id,
-  image: prod.image ? (typeof prod.image === 'string' ? prod.image : prod.image.src) : '',
+  image: prod.image ? (typeof prod.image === 'string' ? prod.image : (prod.image as any)?.src || '') : '',
 };
 ---
 

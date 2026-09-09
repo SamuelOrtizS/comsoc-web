@@ -49,8 +49,8 @@ const defaultSteps: Step[] = [
 const { steps = defaultSteps } = Astro.props;
 ---
 
-<section id="membresia" class="mx-auto mt-24 max-w-6xl px-4 sm:px-6 lg:px-8">
-  <div class="mx-auto mb-12 max-w-3xl text-center">
+<section id="membresia" class="membership-steps-section mx-auto mt-24 max-w-6xl px-4 sm:px-6 lg:px-8">
+  <div class="steps-header mx-auto mb-12 max-w-3xl text-center">
     <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-cyan/20 bg-accent-cyan/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-cyan font-mono">
       Ruta de afiliación oficial
     </div>
@@ -63,8 +63,11 @@ const { steps = defaultSteps } = Astro.props;
   </div>
 
   <div class="grid gap-6 md:grid-cols-2">
-    {steps.map((item) => (
-      <article class="glass-card group relative flex flex-col justify-between rounded-2xl border border-white/10 p-6 transition-all duration-300">
+    {steps.map((item, index) => (
+      <article
+        class="step-card glass-card group relative flex flex-col justify-between rounded-2xl border border-white/10 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_20px_45px_-20px_rgba(34,211,238,0.3)]"
+        style={`--step-index: ${index};`}
+      >
         <div>
           <div class="mb-4 flex items-center justify-between">
             <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-accent-cyan">
@@ -96,3 +99,66 @@ const { steps = defaultSteps } = Astro.props;
     ))}
   </div>
 </section>
+
+<style>
+  .steps-header,
+  .step-card {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .steps-header.is-visible {
+      animation: stepHeaderIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .step-card.is-visible {
+      animation: stepCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--step-index, 0) * 100ms + 100ms);
+    }
+
+    @keyframes stepHeaderIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes stepCardIn {
+      from { opacity: 0; transform: translateY(26px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .steps-header,
+    .step-card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupStepsObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.membership-steps-section .steps-header, .membership-steps-section .step-card');
+
+    if (!motionOK) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(el => observer.observe(el));
+  }
+
+  setupStepsObserver();
+  document.addEventListener('astro:after-swap', setupStepsObserver);
+</script>
+

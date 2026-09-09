@@ -14,11 +14,11 @@ interface Props {
 const { stats = defaultEstadisticas as Stat[] } = Astro.props;
 ---
 
-<div class="mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+<div class="stats-grid mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
   {stats.map((stat, index) => (
     <div
-      class="rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center shadow-[0_20px_40px_-32px_rgba(21,93,252,0.8)] backdrop-blur-sm transition-all duration-300 hover:border-accent-cyan/40 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_24px_48px_-36px_rgba(34,211,238,0.6)] group"
-      style={`animation-delay: ${index * 50}ms`}
+      class="stat-card rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center shadow-[0_20px_40px_-32px_rgba(21,93,252,0.8)] backdrop-blur-sm transition-all duration-300 hover:border-accent-cyan/40 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_24px_48px_-36px_rgba(34,211,238,0.6)] group"
+      style={`--stat-index: ${index};`}
     >
       <div class={`text-2xl font-bold font-mono sm:text-3xl transition-colors duration-300 group-hover:${stat.color || 'text-accent-cyan'} ${stat.color || 'text-text-primary'}`}>
         {stat.valor}
@@ -29,3 +29,65 @@ const { stats = defaultEstadisticas as Stat[] } = Astro.props;
     </div>
   ))}
 </div>
+
+<style>
+  .stat-card {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .stat-card.is-visible {
+      animation: statCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--stat-index, 0) * 80ms);
+    }
+
+    @keyframes statCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stat-card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupStatsObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const cards = document.querySelectorAll('.stats-grid .stat-card');
+
+    if (!motionOK) {
+      cards.forEach(card => card.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  setupStatsObserver();
+  document.addEventListener('astro:after-swap', setupStatsObserver);
+</script>
+

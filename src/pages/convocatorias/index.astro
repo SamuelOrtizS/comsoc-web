@@ -18,8 +18,8 @@ const allConvocatorias = await getCollection('convocatorias');
     description="Forma parte de nuestros equipos de proyectos, organización de eventos, marketing e investigación. Potencia tu perfil profesional."
   />
 
-  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mb-8 flex items-center justify-between">
+  <section class="convocatorias-section mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="convocatorias-header mb-8 flex items-center justify-between">
       <h2 class="flex items-center gap-3 text-xl font-bold text-text-primary sm:text-2xl">
         <span>Puestos disponibles</span>
         <span class="inline-flex min-w-9 items-center justify-center rounded-full border border-accent-cyan/30 bg-accent-cyan/15 px-2.5 py-1 text-xs font-mono text-accent-cyan">
@@ -38,20 +38,86 @@ const allConvocatorias = await getCollection('convocatorias');
       </div>
     ) : (
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {allConvocatorias.map((item) => (
-          <ConvocatoriaCard
-            id={item.id}
-            titulo={item.data.titulo}
-            area={item.data.area}
-            fechaLimite={item.data.fechaLimite}
-            descripcion={item.data.descripcion}
-            requisitos={item.data.requisitos}
-            responsabilidades={item.data.responsabilidades}
-            estado={item.data.estado}
-            formUrl={item.data.formUrl}
-          />
+        {allConvocatorias.map((item, index) => (
+          <div class="convocatoria-item" style={`--conv-index: ${index};`}>
+            <ConvocatoriaCard
+              id={item.id}
+              titulo={item.data.titulo}
+              area={item.data.area}
+              fechaLimite={item.data.fechaLimite}
+              descripcion={item.data.descripcion}
+              requisitos={item.data.requisitos}
+              responsabilidades={item.data.responsabilidades}
+              estado={item.data.estado}
+              formUrl={item.data.formUrl}
+            />
+          </div>
         ))}
       </div>
     )}
   </section>
 </BaseLayout>
+
+<style>
+  .convocatorias-header,
+  .convocatoria-item {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .convocatorias-header.is-visible {
+      animation: convHeaderIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .convocatoria-item.is-visible {
+      animation: convItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--conv-index, 0) * 100ms + 100ms);
+    }
+
+    @keyframes convHeaderIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    @keyframes convItemIn {
+      from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .convocatorias-header,
+    .convocatoria-item {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupConvocatoriasObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.convocatorias-section .convocatorias-header, .convocatorias-section .convocatoria-item');
+
+    if (!motionOK) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(el => observer.observe(el));
+  }
+
+  setupConvocatoriasObserver();
+  document.addEventListener('astro:after-swap', setupConvocatoriasObserver);
+</script>
+

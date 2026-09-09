@@ -9,7 +9,7 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
 <div
   id="custom-cursor"
   aria-hidden="true"
-  class="pointer-events-none fixed top-0 left-0 z-[9999] opacity-0 transition-opacity duration-300 origin-top-left"
+  class="pointer-events-none fixed top-0 left-0 z-[99999] opacity-0 transition-opacity duration-300 origin-top-left"
   style="transform: translate3d(-100px, -100px, 0) rotate(-25deg) scale(1); backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: preserve-3d;"
 >
   <Image
@@ -24,6 +24,7 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
     class="w-8 h-8 block"
   />
 </div>
+
 
 <style is:global>
   /* Hide default cursor on desktop when custom cursor is visible */
@@ -43,9 +44,7 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
   }
 
   /* Never show desktop cursor on touch / mobile devices */
-  @media (pointer: coarse),
-         (hover: none),
-         (any-hover: none) {
+  @media (pointer: coarse) {
     #custom-cursor {
       display: none !important;
       opacity: 0 !important;
@@ -59,7 +58,7 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
   const cursor    = document.getElementById('custom-cursor');
   const cursorImg = document.getElementById('custom-cursor-img');
 
-  if (cursor && cursorImg && window.matchMedia('(any-pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (cursor && cursorImg && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let visible = false;
     let mouseX = -100;
     let mouseY = -100;
@@ -119,9 +118,6 @@ import cursorStep4 from '../assets/images/Cursor/Step4.png';
 
     document.addEventListener('pointermove', handlePointerMove, { capture: true, passive: true });
     document.addEventListener('pointerrawupdate', handlePointerMove, { capture: true, passive: true });
-    document.addEventListener('mousemove', handlePointerMove, { capture: true, passive: true });
-    window.addEventListener('pointermove', handlePointerMove, { capture: true, passive: true });
-    window.addEventListener('mousemove', handlePointerMove, { passive: true });
 
     document.addEventListener('mouseleave', () => {
       // Show the default native cursor when custom cursor is hidden

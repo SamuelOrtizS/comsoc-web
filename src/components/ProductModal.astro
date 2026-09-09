@@ -34,9 +34,9 @@ const modalProducts = items.map((item) => {
   };
 });
 
-function hexToRgba(hex, alpha) {
+function hexToRgba(hex: string, alpha: number) {
     const clean = hex.startsWith('#') ? hex.slice(1) : hex;
-    const normalized = clean.length === 3 ? clean.split('').map((char) => char + char).join('') : clean;
+    const normalized = clean.length === 3 ? clean.split('').map((char: string) => char + char).join('') : clean;
     const value = Number.parseInt(normalized, 16);
     const r = (value >> 16) & 255;
     const g = (value >> 8) & 255;

@@ -1,15 +1,15 @@
-import { getLCP, getINP, getCLS } from 'web-vitals';
+import { onLCP, onINP, onCLS } from 'web-vitals';
 
 /**
  * Envía Web Vitals a Google Analytics 4.
  * Se llama desde BaseLayout.astro como script is:inline.
  */
-function sendToGA4(name: string, value: number) {
+function sendToGA4(metric: { name: string; value: number }) {
   if (typeof window === 'undefined') return;
   if (!(window as any).gtag) return;
 
-  (window as any).gtag('event', name, {
-    value: Math.round(value),
+  (window as any).gtag('event', metric.name, {
+    value: Math.round(metric.value),
     event_category: 'Web Vitals',
     event_label: window.location.pathname,
     non_interaction: true,
@@ -21,7 +21,8 @@ function sendToGA4(name: string, value: number) {
  * Se ejecuta al cargar la página para medir experiencia real de usuarios.
  */
 export function initWebVitals() {
-  getLCP(sendToGA4);
-  getINP(sendToGA4);
-  getCLS(sendToGA4);
+  onLCP(sendToGA4);
+  onINP(sendToGA4);
+  onCLS(sendToGA4);
 }
+

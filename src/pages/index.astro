@@ -56,58 +56,102 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
   <!-- Background Ambient Effects -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden">
     <style>
-      @keyframes blob {
-        0% {
-          transform: translate(0, 0) scale(1);
+      /* ─── Orbital blobs ──────────────────────────────────────────────────── */
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes blob {
+          0%   { transform: translate(0, 0) scale(1); }
+          33%  { transform: translate(30px, -50px) scale(1.1); }
+          66%  { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0, 0) scale(1); }
         }
-        33% {
-          transform: translate(30px, -50px) scale(1.1);
+        .animate-blob { animation: blob 7s infinite; }
+      }
+      .animation-delay-2000 { animation-delay: 2s; }
+      .animation-delay-4000 { animation-delay: 4s; }
+
+      /* ─── Hero focal sequence ────────────────────────────────────────────── */
+      @media (prefers-reduced-motion: no-preference) {
+        /* Badge pill */
+        @keyframes hero-badge-in {
+          from { opacity: 0; transform: translateY(12px) scale(0.96); filter: blur(4px); }
+          to   { opacity: 1; transform: translateY(0)   scale(1);    filter: blur(0); }
         }
-        66% {
-          transform: translate(-20px, 20px) scale(0.9);
+        /* Logo con breve halo cian */
+        @keyframes hero-logo-in {
+          0%   { opacity: 0; transform: translateY(16px) scale(0.94); filter: blur(6px); }
+          70%  { opacity: 1; transform: translateY(-2px) scale(1.01); filter: blur(0); }
+          100% { opacity: 1; transform: translateY(0)   scale(1);    filter: blur(0); }
         }
-        100% {
-          transform: translate(0, 0) scale(1);
+        /* Párrafo */
+        @keyframes hero-copy-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
+        /* CTAs */
+        @keyframes hero-cta-in {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        /* Scan-line cian — una sola pasada */
+        @keyframes scanline {
+          from { transform: scaleX(0); transform-origin: left; opacity: 0.9; }
+          80%  { transform: scaleX(1); transform-origin: left; opacity: 0.9; }
+          to   { transform: scaleX(1); transform-origin: left; opacity: 0; }
+        }
+        .hero-badge  { animation: hero-badge-in 0.55s cubic-bezier(0.16,1,0.3,1) 0.05s both; }
+        .hero-logo   { animation: hero-logo-in  0.7s  cubic-bezier(0.16,1,0.3,1) 0.18s both; }
+        .hero-copy   { animation: hero-copy-in  0.55s cubic-bezier(0.16,1,0.3,1) 0.38s both; }
+        .hero-cta-1  { animation: hero-cta-in   0.45s cubic-bezier(0.16,1,0.3,1) 0.52s both; }
+        .hero-cta-2  { animation: hero-cta-in   0.45s cubic-bezier(0.16,1,0.3,1) 0.62s both; }
+        .hero-scan   { animation: scanline       1.1s  cubic-bezier(0.16,1,0.3,1) 0.1s  both; }
+      }
+      /* Sin motion: estado visible final desde el inicio */
+      @media (prefers-reduced-motion: reduce) {
+        .hero-badge, .hero-logo, .hero-copy, .hero-cta-1, .hero-cta-2 { opacity: 1; }
       }
 
-      .animate-blob {
-        animation: blob 7s infinite;
+      /* ─── Proyectos — scroll reveal ─────────────────────────────────────── */
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes proj-section-reveal {
+          from { clip-path: inset(0 0 100% 0); opacity: 0; }
+          to   { clip-path: inset(0 0   0% 0); opacity: 1; }
+        }
+        @keyframes proj-card-in {
+          from { opacity: 0; transform: translateY(28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .proj-section-header.is-visible {
+          animation: proj-section-reveal 0.6s cubic-bezier(0.16,1,0.3,1) both;
+        }
+        .proj-card.is-visible {
+          animation: proj-card-in 0.55s cubic-bezier(0.16,1,0.3,1) both;
+        }
+        .proj-card.is-visible[data-delay="1"] { animation-delay: 0.1s; }
+        .proj-card.is-visible[data-delay="2"] { animation-delay: 0.2s; }
       }
-
-      .animation-delay-2000 {
-        animation-delay: 2s;
+      /* Sin motion: siempre visible */
+      @media (prefers-reduced-motion: reduce) {
+        .proj-section-header, .proj-card { opacity: 1; }
       }
-
-      .animation-delay-4000 {
-        animation-delay: 4s;
-      }
-
-      .group-hover\:gradient\:text-accent-cyan {
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-        background-image: linear-gradient(to right, #a855f7 0%, #22d3ee 100%);
-      }
-
-      .group-hover\:gradient\:text-accent-cyan:hover {
-        background-image: linear-gradient(to right, #22d3ee 0%, #a855f7 100%);
-      }
+      /* Estado inicial oculto — sólo si JS puede controlar el reveal */
+      .proj-section-header, .proj-card { opacity: 0; }
+      .proj-section-header.no-js-visible, .proj-card.no-js-visible { opacity: 1; }
     </style>
     <div class="absolute -top-40 -left-40 h-80 w-80 rounded-full bg-accent-cyan/5 blur-[100px] animate-blob"></div>
     <div class="absolute top-1/2 -right-40 h-80 w-80 rounded-full bg-accent-blue/5 blur-[100px] animate-blob animation-delay-2000"></div>
     <div class="absolute -bottom-40 left-1/3 h-80 w-80 rounded-full bg-accent-purple/5 blur-[100px] animate-blob animation-delay-4000"></div>
   </div>
   <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_42%)]"></div>
-  <div class="absolute inset-0 bg-gradient-to-b from-bg-primary-lighter/10 via-bg-primary/24 to-bg-primary-darker/20 animate-in fade-in duration-700">
-    <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/30 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-bg-primary-lighter/10 via-bg-primary/24 to-bg-primary-darker/20">
+    <!-- Scan-line cian: una sola pasada al cargar -->
+    <div class="hero-scan pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/80 to-transparent" aria-hidden="true"></div>
   </div>
 
   <!-- Hero Main -->
   <div class="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl items-center justify-center px-4 pb-16 pt-12 sm:px-6 lg:px-8">
     <div class="w-full max-w-5xl text-center">
       <h1 class="sr-only">IEEE ComSoc Univalle — Comunidad de Ingenieros en Telecomunicaciones</h1>
-      <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-accent-cyan/30 bg-white/5 px-4 py-2 shadow-[0_0_30px_rgba(34,211,238,0.12)] backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-[0_0_40px_rgba(34,211,238,0.2)]">
+      <div class="hero-badge mb-8 inline-flex items-center gap-3 rounded-full border border-accent-cyan/30 bg-white/5 px-4 py-2 shadow-[0_0_30px_rgba(34,211,238,0.12)] backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-[0_0_40px_rgba(34,211,238,0.2)]">
         <span class="h-2.5 w-2.5 rounded-full bg-accent-cyan shadow-[0_0_16px_rgba(34,211,238,0.9)] animate-pulse"></span>
         <span class="text-[10px] font-medium uppercase tracking-[0.28em] text-accent-cyan font-mono transition-colors group-hover:text-white">
           IEEE ComSoc Univalle
@@ -115,10 +159,10 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
       </div>
 
       <div class="flex justify-center">
-        <Image src={logoWhite} alt="IEEE ComSoc Logo" class="h-24 w-auto sm:h-32 lg:h-40 drop-shadow-[0_0_35px_rgba(34,211,238,0.3)] animate-in fade-in zoom-in duration-500" loading="eager" decoding="async" fetchpriority="high" width={400} height={140} />
+        <Image src={logoWhite} alt="IEEE ComSoc Logo" class="hero-logo h-24 w-auto sm:h-32 lg:h-40 drop-shadow-[0_0_35px_rgba(34,211,238,0.3)]" loading="eager" decoding="async" fetchpriority="high" width={400} height={140} />
       </div>
 
-      <p class="mx-auto mt-5 max-w-3xl text-base font-light leading-relaxed text-text-secondary sm:text-xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+      <p class="hero-copy mx-auto mt-5 max-w-3xl text-base font-light leading-relaxed text-text-secondary sm:text-xl">
         Liderando la innovación en redes de próxima generación, internet de las cosas (IoT), sistemas inalámbricos 5G/6G y comunicaciones cuánticas.
       </p>
 
@@ -126,7 +170,7 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
         <a
           href="/convocatorias"
           aria-label="Unirse al equipo IEEE ComSoc Univalle"
-          class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_-20px_rgba(34,211,238,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:-translate-y-0.5 sm:w-auto group"
+          class="hero-cta-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-blue-darker px-7 py-3.5 font-semibold text-slate-950 shadow-[0_18px_40px_-18px_rgba(21,93,252,0.9)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_-20px_rgba(34,211,238,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:-translate-y-0.5 sm:w-auto group"
         >
           <span class="group-hover:text-slate-900 transition-colors">Unirse al Equipo</span>
           <Icon name="material-symbols:group-add-rounded" class="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5" aria-hidden="true" />
@@ -135,7 +179,7 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
         <a
           href="/eventos"
           aria-label="Explorar eventos y actividades"
-          class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl px-7 py-3.5 font-medium text-accent-cyan hover:text-white transition-all duration-300 hover:bg-white/5 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto group"
+          class="hero-cta-2 inline-flex w-full items-center justify-center gap-1.5 rounded-xl px-7 py-3.5 font-medium text-accent-cyan hover:text-white transition-all duration-300 hover:bg-white/5 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan sm:w-auto group"
         >
           <span>Explorar Eventos</span>
           <Icon name="material-symbols:arrow-forward-rounded" class="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-0.5" aria-hidden="true" />
@@ -156,13 +200,13 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
   <HeroPillars />
 
   <!-- Highlighted Projects Preview -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 content-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
-    <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 content-auto">
+    <div class="proj-section-header flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
       <div>
         <div class="text-xs uppercase font-mono tracking-widest text-accent-purple mb-2 font-semibold transition-colors duration-300 hover:text-accent-purple-lighter group-hover:text-accent-blue">
           Investigación &amp; Desarrollo
         </div>
-        <h2 class="text-3xl sm:text-4xl font-bold text-text-primary animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+        <h2 class="text-3xl sm:text-4xl font-bold text-text-primary">
           Proyectos Destacados del Capítulo
         </h2>
       </div>
@@ -179,15 +223,16 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {featuredProjects.map((proj, idx) => (
-        <div class="glass-card rounded-2xl overflow-hidden relative border border-white/10 project-card-${idx} flex flex-col transition-all duration-500 hover:border-accent-purple/50 hover:shadow-[0_24px_60px_-30px_rgba(168,85,247,0.25)] hover:-translate-y-1">
-          <div class="aspect-video relative overflow-hidden bg-bg-secondary project-image-${idx}">
+        // data-delay para el stagger CSS
+        <div class={`proj-card glass-card rounded-2xl overflow-hidden relative border border-white/10 flex flex-col transition-[transform,box-shadow,border-color] duration-500 hover:border-accent-purple/50 hover:shadow-[0_24px_60px_-30px_rgba(168,85,247,0.25)] hover:-translate-y-2`} data-delay={String(idx + 1)}>
+          <div class="aspect-video relative overflow-hidden bg-bg-secondary group/img">
             {proj.isRemoteProjectImage ? (
               <img
                 src={proj.remoteImage ?? ''}
                 alt={proj.title}
                 loading="lazy"
                 decoding="async"
-                class="w-full h-full object-cover transition-transform duration-700 project-image-${idx}:hover:scale-110 project-image-${idx}:hover:opacity-95"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
               />
             ) : proj.resolvedProjectImage ? (
               <Image
@@ -198,7 +243,7 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
                 sizes="(max-width: 768px) 100vw, 50vw"
                 loading="lazy"
                 decoding="async"
-                class="w-full h-full object-cover transition-transform duration-700 project-image-${idx}:hover:scale-110 project-image-${idx}:hover:opacity-95"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
               />
             ) : (
               <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent-purple/15 via-bg-secondary to-accent-blue/15 text-xs font-mono uppercase tracking-[0.2em] text-text-secondary">
@@ -206,13 +251,14 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
               </div>
             )}
           </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-0 transition-opacity duration-500 project-image-${idx}:hover:opacity-30"></div>
-          <div class="p-4 flex gap-2">
-            <span class="px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/30 transition-all duration-300 project-image-${idx}:hover:scale-105 project-image-${idx}:hover:border-accent-cyan/50">
+          <!-- Scrim para legibilidad al hover -->
+          <div class="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover/img:opacity-40 pointer-events-none"></div>
+          <div class="absolute top-0 left-0 p-4 flex gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/30 transition-all duration-300 hover:border-accent-cyan/60">
               {proj.category}
             </span>
-            <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md border transition-all duration-300 project-image-${idx}:hover:scale-105 project-image-${idx}:hover:border-white/20 ${proj.estado === 'Activo' ? 'text-accent-emerald border-accent-emerald/30' : proj.estado === 'Completado' ? 'text-accent-blue border-accent-blue/30' : 'text-accent-yellow border-accent-yellow/30'}`}>
-              <Icon name={proj.estado === 'Activo' ? 'material-symbols:check-circle-rounded' : proj.estado === 'Completado' ? 'material-symbols:verified-rounded' : 'material-symbols:pause-circle-rounded'} class="w-3.5 h-3.5 transition-transform duration-300 project-image-${idx}:hover:scale-110" aria-hidden="true" />
+            <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-black/70 backdrop-blur-md border transition-all duration-300 ${proj.estado === 'Activo' ? 'text-accent-emerald border-accent-emerald/30' : proj.estado === 'Completado' ? 'text-accent-blue border-accent-blue/30' : 'text-accent-yellow border-accent-yellow/30'}`}>
+              <Icon name={proj.estado === 'Activo' ? 'material-symbols:check-circle-rounded' : proj.estado === 'Completado' ? 'material-symbols:verified-rounded' : 'material-symbols:pause-circle-rounded'} class="w-3.5 h-3.5" aria-hidden="true" />
               {proj.estado}
             </span>
           </div>
@@ -254,6 +300,34 @@ const aliados = [...allAliados].sort((a, b) => (a.data.order ?? 99) - (b.data.or
       ))}
     </div>
   </section>
+
+  <script>
+    // ── Scroll-reveal con IntersectionObserver ──────────────────────────────
+    // Fallback inmediato si JS no carga o prefers-reduced-motion está activo
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+    const revealTargets = document.querySelectorAll<HTMLElement>('.proj-section-header, .proj-card');
+
+    if (!motionOK) {
+      revealTargets.forEach(el => {
+        el.style.opacity = '1';
+        el.classList.remove('proj-section-header', 'proj-card');
+      });
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              (entry.target as HTMLElement).classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+      revealTargets.forEach(el => observer.observe(el));
+    }
+  </script>
 
   <!-- Nuestros Aliados Section -->
   <AliadosSection aliados={aliados} />

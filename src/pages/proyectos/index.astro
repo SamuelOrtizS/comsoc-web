@@ -49,10 +49,10 @@ const enPausa    = sorted.filter((p) => p.data.estado === 'En Pausa');
     </div>
   </HeroHeader>
 
-  <div class="mx-auto max-w-7xl space-y-20 px-4 py-16 sm:px-6 lg:px-8">
+  <div class="proyectos-container mx-auto max-w-7xl space-y-20 px-4 py-16 sm:px-6 lg:px-8">
     {activos.length > 0 && (
-      <section>
-        <div class="mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
+      <section class="proyectos-section">
+        <div class="proyectos-sec-header mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
           <span class="relative flex h-3.5 w-3.5">
             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-emerald opacity-75"></span>
             <span class="relative inline-flex h-3.5 w-3.5 rounded-full bg-accent-emerald"></span>
@@ -64,16 +64,18 @@ const enPausa    = sorted.filter((p) => p.data.estado === 'En Pausa');
         </div>
 
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {activos.map((proyecto) => (
-            <ProjectCard proyecto={proyecto} currentRate={currentRate} />
+          {activos.map((proyecto, index) => (
+            <div class="proyecto-item" style={`--proj-index: ${index};`}>
+              <ProjectCard proyecto={proyecto} currentRate={currentRate} />
+            </div>
           ))}
         </div>
       </section>
     )}
 
     {completados.length > 0 && (
-      <section>
-        <div class="mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
+      <section class="proyectos-section">
+        <div class="proyectos-sec-header mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
           <Icon name="material-symbols:verified-rounded" class="w-6 h-6 text-accent-blue" aria-hidden="true" />
           <h2 class="text-2xl font-bold text-text-primary">Proyectos Completados</h2>
           <span class="rounded-full border border-blue-400/30 bg-blue-400/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] text-blue-300">
@@ -82,16 +84,18 @@ const enPausa    = sorted.filter((p) => p.data.estado === 'En Pausa');
         </div>
 
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {completados.map((proyecto) => (
-            <ProjectCard proyecto={proyecto} currentRate={currentRate} />
+          {completados.map((proyecto, index) => (
+            <div class="proyecto-item" style={`--proj-index: ${index};`}>
+              <ProjectCard proyecto={proyecto} currentRate={currentRate} />
+            </div>
           ))}
         </div>
       </section>
     )}
 
     {enPausa.length > 0 && (
-      <section>
-        <div class="mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
+      <section class="proyectos-section">
+        <div class="proyectos-sec-header mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
           <Icon name="material-symbols:pause-circle-rounded" class="w-6 h-6 text-accent-yellow" aria-hidden="true" />
           <h2 class="text-2xl font-bold text-text-primary">Proyectos en Pausa</h2>
           <span class="rounded-full border border-yellow-400/30 bg-yellow-400/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] text-yellow-300">
@@ -100,11 +104,76 @@ const enPausa    = sorted.filter((p) => p.data.estado === 'En Pausa');
         </div>
 
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {enPausa.map((proyecto) => (
-            <ProjectCard proyecto={proyecto} currentRate={currentRate} />
+          {enPausa.map((proyecto, index) => (
+            <div class="proyecto-item" style={`--proj-index: ${index};`}>
+              <ProjectCard proyecto={proyecto} currentRate={currentRate} />
+            </div>
           ))}
         </div>
       </section>
     )}
   </div>
 </BaseLayout>
+
+<style>
+  .proyectos-sec-header,
+  .proyecto-item {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .proyectos-sec-header.is-visible {
+      animation: projSecHeaderIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .proyecto-item.is-visible {
+      animation: projCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--proj-index, 0) * 90ms + 100ms);
+    }
+
+    @keyframes projSecHeaderIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes projCardIn {
+      from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proyectos-sec-header,
+    .proyecto-item {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupProyectosObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.proyectos-container .proyectos-sec-header, .proyectos-container .proyecto-item');
+
+    if (!motionOK) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(el => observer.observe(el));
+  }
+
+  setupProyectosObserver();
+  document.addEventListener('astro:after-swap', setupProyectosObserver);
+</script>
+

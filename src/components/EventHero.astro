@@ -36,14 +36,14 @@ if (resolvedPrincipal) {
   }
 }
 ---
-<div class="glass-card rounded-[28px] overflow-hidden border border-accent-cyan/30 mb-12 shadow-[0_24px_60px_rgba(21,93,252,0.15)]">
+<div class="event-hero-card glass-card rounded-[28px] overflow-hidden border border-accent-cyan/30 mb-12 shadow-[0_24px_60px_rgba(21,93,252,0.15)]">
   <div class="aspect-[16/9] sm:aspect-[21/9] w-full relative overflow-hidden bg-slate-950">
     {eventHeroImage ? (
       isRemoteImage ? (
         <img 
           src={eventHeroImage} 
           alt={data.titulo} 
-          class="absolute inset-0 w-full h-full object-cover" 
+          class="event-hero-img absolute inset-0 w-full h-full object-cover" 
         />
       ) : (
         <Image
@@ -55,13 +55,13 @@ if (resolvedPrincipal) {
           decoding="async"
           loading="eager"
           fetchpriority="high"
-          class="w-full h-full object-cover"
+          class="event-hero-img w-full h-full object-cover"
         />
       )
     ) : null}
     <div class="absolute inset-0 bg-gradient-to-t from-bg-primary-lighter to-bg-primary/35"></div>
 
-    <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-6">
+    <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-6 z-10">
       <div class="flex flex-wrap gap-2">
         <span class="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-black/70 backdrop-blur-md text-accent-cyan border border-accent-cyan/40 font-mono">
           {data.tipo}
@@ -83,17 +83,17 @@ if (resolvedPrincipal) {
 
   <div class="p-6 sm:p-8 lg:p-10 space-y-6">
     <div class="space-y-4">
-      <div class="text-xs uppercase tracking-[0.18em] text-accent-cyan font-mono">
+      <div class="text-xs uppercase tracking-[0.18em] text-accent-cyan font-mono event-hero-meta">
         Evento • {data.organizador}
       </div>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text-primary leading-tight tracking-[-0.04em]">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text-primary leading-tight tracking-[-0.04em] event-hero-title">
         {data.titulo}
       </h1>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10">
-      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 event-hero-pills">
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-white/[0.06]">
         <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Fecha</div>
         <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed capitalize">
           <Icon name="material-symbols:calendar-today-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
@@ -101,7 +101,7 @@ if (resolvedPrincipal) {
         </div>
       </div>
 
-      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-white/[0.06]">
         <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Horario</div>
         <div class="mt-2 flex items-center gap-2 text-sm font-semibold text-text-primary leading-relaxed">
           <Icon name="material-symbols:schedule-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
@@ -109,7 +109,7 @@ if (resolvedPrincipal) {
         </div>
       </div>
 
-      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-white/[0.06]">
         <div class="text-[10px] uppercase tracking-[0.16em] text-text-secondary font-mono">Lugar</div>
         <div class="mt-2 flex items-start gap-2 text-sm font-semibold text-text-primary leading-relaxed" title={data.lugarNombre}>
           <Icon name="material-symbols:location-on-rounded" class="w-4 h-4 text-accent-cyan shrink-0" aria-hidden="true" />
@@ -119,3 +119,46 @@ if (resolvedPrincipal) {
     </div>
   </div>
 </div>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .event-hero-card {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: heroCardIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.1s;
+    }
+    .event-hero-img {
+      transform: scale(1.06);
+      animation: heroImgZoom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s;
+    }
+    .event-hero-meta {
+      opacity: 0;
+      transform: translateY(-8px);
+      animation: heroItemIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.25s;
+    }
+    .event-hero-title {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: heroItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.35s;
+    }
+    .event-hero-pills {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: heroItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.45s;
+    }
+
+    @keyframes heroCardIn {
+      from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes heroImgZoom {
+      from { transform: scale(1.06); }
+      to { transform: scale(1); }
+    }
+    @keyframes heroItemIn {
+      from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+</style>
+

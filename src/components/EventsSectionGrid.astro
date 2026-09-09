@@ -13,8 +13,8 @@ interface Props {
 const { title, events, emptyMessage, isUpcoming = false } = Astro.props;
 ---
 
-<section class="space-y-6">
-  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+<section class="events-grid-section space-y-6">
+  <div class="events-grid-header flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
     <div class="inline-flex items-center gap-3">
       {isUpcoming ? (
         <span class="h-3 w-3 rounded-full bg-accent-cyan shadow-[0_0_20px_rgba(34,211,238,0.85)]"></span>
@@ -45,20 +45,86 @@ const { title, events, emptyMessage, isUpcoming = false } = Astro.props;
     )
   ) : (
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-      {events.map((ev) => (
-        <EventCard
-          id={ev.id}
-          titulo={ev.data.titulo}
-          tipo={ev.data.tipo}
-          organizador={ev.data.organizador}
-          fechaInicio={ev.data.fechaInicio}
-          horaInicio={ev.data.horaInicio}
-          lugarNombre={ev.data.lugarNombre}
-          descripcion={ev.data.descripcion}
-          imagenPrincipal={ev.data.imagenPrincipal}
-          estado={ev.data.estado}
-        />
+      {events.map((ev, index) => (
+        <div class="events-grid-card" style={`--ev-index: ${index};`}>
+          <EventCard
+            id={ev.id}
+            titulo={ev.data.titulo}
+            tipo={ev.data.tipo}
+            organizador={ev.data.organizador}
+            fechaInicio={ev.data.fechaInicio}
+            horaInicio={ev.data.horaInicio}
+            lugarNombre={ev.data.lugarNombre}
+            descripcion={ev.data.descripcion}
+            imagenPrincipal={ev.data.imagenPrincipal}
+            estado={ev.data.estado}
+          />
+        </div>
       ))}
     </div>
   )}
 </section>
+
+<style>
+  .events-grid-header,
+  .events-grid-card {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .events-grid-header.is-visible {
+      animation: evHeaderIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .events-grid-card.is-visible {
+      animation: evCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--ev-index, 0) * 80ms + 100ms);
+    }
+
+    @keyframes evHeaderIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    @keyframes evCardIn {
+      from { opacity: 0; transform: translateY(28px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .events-grid-header,
+    .events-grid-card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupEventsGridObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.events-grid-section .events-grid-header, .events-grid-section .events-grid-card');
+
+    if (!motionOK) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(el => observer.observe(el));
+  }
+
+  setupEventsGridObserver();
+  document.addEventListener('astro:after-swap', setupEventsGridObserver);
+</script>
+

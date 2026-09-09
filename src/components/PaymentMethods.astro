@@ -21,8 +21,8 @@ interface Props {
 const { methods = paymentMethodsData as PaymentMethod[] } = Astro.props;
 ---
 
-<section class="border-t border-white/10 pt-16">
-  <div class="mx-auto mb-10 max-w-3xl text-center">
+<section class="payment-methods-section border-t border-white/10 pt-16">
+  <div class="payment-methods-header mx-auto mb-10 max-w-3xl text-center">
     <h2 class="mb-3 text-3xl font-bold text-text-primary sm:text-4xl">Métodos de Donación</h2>
     <p class="text-base text-text-secondary font-light">
       Elige la opción que más te acomode para realizar tu contribución de forma transparente y segura.
@@ -30,13 +30,16 @@ const { methods = paymentMethodsData as PaymentMethod[] } = Astro.props;
   </div>
 
   <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-    {methods.map((method) => {
+    {methods.map((method, index) => {
       const isPayPal = method.name.toLowerCase().includes('paypal');
       const paypalLink = method.details.find((d) => d.value.startsWith('http'))?.value;
       const copyText = method.details.map((d) => `${d.label}: ${d.value}`).join('\n');
 
       return (
-        <div class="glass-card group flex flex-col justify-between rounded-[24px] border border-white/10 p-6 transition-all duration-300 hover:border-accent-cyan/35">
+        <div
+          class="payment-card glass-card group flex flex-col justify-between rounded-[24px] border border-white/10 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/35"
+          style={`--pay-index: ${index};`}
+        >
           <div>
             <div class="mb-4 flex items-center justify-between gap-3">
               <span class="text-xs font-mono uppercase tracking-[0.18em] text-accent-cyan">{method.type}</span>
@@ -99,8 +102,67 @@ const { methods = paymentMethodsData as PaymentMethod[] } = Astro.props;
   </div>
 </section>
 
+<style>
+  .payment-methods-header,
+  .payment-card {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .payment-methods-header.is-visible {
+      animation: payHeaderIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .payment-card.is-visible {
+      animation: payCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--pay-index, 0) * 100ms + 100ms);
+    }
+
+    @keyframes payHeaderIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes payCardIn {
+      from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .payment-methods-header,
+    .payment-card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+
 <script>
+  function setupPaymentObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.payment-methods-section .payment-methods-header, .payment-methods-section .payment-card');
+
+    if (!motionOK) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(el => observer.observe(el));
+  }
+
   function setupCopyButtons() {
+    setupPaymentObserver();
     document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
       // Avoid attaching duplicate listeners
       if (btn.dataset.copyInitialized) return;
@@ -128,4 +190,6 @@ const { methods = paymentMethodsData as PaymentMethod[] } = Astro.props;
 
   setupCopyButtons();
   document.addEventListener('astro:page-load', setupCopyButtons);
+  document.addEventListener('astro:after-swap', setupPaymentObserver);
 </script>
+

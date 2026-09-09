@@ -54,7 +54,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
 });
 ---
 
-<article class={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-bg-primary/60 backdrop-blur-xl transition-all duration-300 ${isPast ? 'border-white/10 opacity-90' : 'border-accent-cyan/20 hover:border-accent-cyan/40'}`}>
+<article class={`event-card-item group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-bg-primary/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-20px_rgba(34,211,238,0.25)] ${isPast ? 'border-white/10 opacity-90' : 'border-accent-cyan/20 hover:border-accent-cyan/50'}`}>
   <!-- Image banner thumbnail -->
   <div class="relative aspect-video w-full overflow-hidden bg-bg-secondary">
     {resolvedImage && (
@@ -64,16 +64,16 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
         width={800}
         height={450}
         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         loading="lazy"
         decoding="async"
       />
     )}
-    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary-lighter via-bg-primary/30 to-bg-primary-darker" />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary-lighter via-bg-primary/30 to-bg-primary-darker transition-opacity duration-300 group-hover:opacity-80" />
 
     <!-- Type & Status Badges -->
-    <div class="absolute inset-x-0 top-0 flex items-center justify-between gap-2 p-3">
-      <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-bg-primary/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan backdrop-blur-md">
+    <div class="absolute inset-x-0 top-0 flex items-center justify-between gap-2 p-3 z-10">
+      <span class="inline-flex items-center rounded-full border border-accent-cyan/30 bg-bg-primary/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent-cyan backdrop-blur-md transition-colors duration-300 group-hover:border-accent-cyan/60">
         {tipo}
       </span>
       {isPast && (
@@ -84,7 +84,7 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
     </div>
 
     <!-- Date pill -->
-    <div class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-bg-primary/75 px-2.5 py-1 text-[10px] font-medium text-text-primary backdrop-blur-md">
+    <div class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-bg-primary/75 px-2.5 py-1 text-[10px] font-medium text-text-primary backdrop-blur-md transition-colors duration-300 group-hover:border-accent-cyan/40 z-10">
       <Icon name="material-symbols:calendar-today-rounded" class="w-3.5 h-3.5 text-accent-cyan" aria-hidden="true" />
       <span class="font-mono tracking-[0.08em] uppercase">{formattedDate}</span>
     </div>
@@ -106,12 +106,12 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
       {titulo}
     </h3>
 
-    <p class="mb-4 line-clamp-3 text-sm leading-relaxed text-text-secondary text-justify">
+    <p class="mb-4 line-clamp-3 text-sm leading-relaxed text-text-secondary text-justify transition-colors duration-300 group-hover:text-text-primary/90">
       {descripcion}
     </p>
 
     {lugarNombre && (
-      <div class="mb-5 flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-2.5 py-2 text-xs text-text-secondary">
+      <div class="mb-5 flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-2.5 py-2 text-xs text-text-secondary transition-colors duration-300 group-hover:border-white/15">
         <Icon name="material-symbols:location-on-rounded" class="w-3.5 h-3.5 shrink-0 text-accent-cyan" aria-hidden="true" />
         <span class="truncate">{lugarNombre}</span>
       </div>
@@ -128,3 +128,4 @@ const formattedDate = dateObj.toLocaleDateString('es-ES', {
     </div>
   </div>
 </article>
+

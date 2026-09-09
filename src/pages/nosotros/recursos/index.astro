@@ -30,11 +30,13 @@ const categorias = Array.from(new Set(recursos.map((r) => r.data.categoria)));
     />
   </HeroHeader>
 
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+  <div class="recursos-grid-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     {recursos.length > 0 ? (
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-        {recursos.map((recurso) => (
-          <ResourceCard recurso={recurso} />
+        {recursos.map((recurso, index) => (
+          <div class="resource-card-wrapper" style={`--res-index: ${index};`}>
+            <ResourceCard recurso={recurso} />
+          </div>
         ))}
       </div>
     ) : (
@@ -46,3 +48,64 @@ const categorias = Array.from(new Set(recursos.map((r) => r.data.categoria)));
     )}
   </div>
 </BaseLayout>
+
+<style>
+  .resource-card-wrapper {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .resource-card-wrapper.is-visible {
+      animation: resCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--res-index, 0) * 80ms + 100ms);
+    }
+    @keyframes resCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .resource-card-wrapper {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupRecursosObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.recursos-grid-section .resource-card-wrapper');
+    if (!motionOK) {
+      items.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    items.forEach((el) => observer.observe(el));
+  }
+
+  setupRecursosObserver();
+  document.addEventListener('astro:after-swap', setupRecursosObserver);
+</script>
+

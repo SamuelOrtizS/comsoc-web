@@ -26,12 +26,12 @@ const {
 const isClosed = estado === 'Cerrada';
 ---
 
-<article class={`glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border transition-all duration-500 ease-out will-change-transform ${isClosed ? 'border-white/8 opacity-75 hover:opacity-90 hover:border-white/15' : 'from-accent-blue-lighter to-accent-blue-darker bg-linear-to-br border-accent-cyan/30 shadow-lg shadow-accent-blue/20 hover:shadow-xl hover:shadow-accent-cyan/30 hover:border-accent-cyan/45 hover:-translate-y-1'}`} aria-labelledby={` convocatorias-title-${id}`}>
+<article class={`convocatoria-card-item glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border transition-all duration-500 ease-out will-change-transform ${isClosed ? 'border-white/8 opacity-75 hover:opacity-90 hover:border-white/15' : 'from-accent-blue-lighter to-accent-blue-darker bg-linear-to-br border-accent-cyan/30 shadow-lg shadow-accent-blue/20 hover:shadow-xl hover:shadow-accent-cyan/30 hover:border-accent-cyan/45 hover:-translate-y-1.5'}`} aria-labelledby={` convocatorias-title-${id}`}>
   <div>
     <!-- Decorative Background Pattern -->
     <div class="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-      <div class="absolute -top-24 -right-24 w-48 h-48 bg-accent-purple/5 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/2 -left-16 w-32 h-32 bg-accent-blue/5 rounded-full blur-2xl"></div>
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-accent-purple/5 rounded-full blur-3xl transition-opacity duration-500 group-hover/card:opacity-100 opacity-60"></div>
+      <div class="absolute top-1/2 -left-16 w-32 h-32 bg-accent-blue/5 rounded-full blur-2xl transition-opacity duration-500 group-hover/card:opacity-100 opacity-60"></div>
     </div>
 
     <!-- Top Area Badge & Status -->
@@ -152,3 +152,4 @@ const isClosed = estado === 'Cerrada';
     </footer>
   </div>
 </article>
+

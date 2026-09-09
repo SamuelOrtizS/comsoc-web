@@ -41,10 +41,10 @@ const ogImageURL = new URL(normalizedImage, Astro.site || 'http://localhost:4321
     <meta name="theme-color" content="#050816" />
 
     <!-- Preload critical font (only hero font preloaded, others use font-display: swap) -->
-    <Font cssVariable="--font-formata" preload format="woff2" />
-    <Font cssVariable="--font-nunito-sans" format="woff2" />
-    <Font cssVariable="--font-share-tech-mono" format="woff2" />
-    <Font cssVariable="--font-space-grotesk" format="woff2" />
+    <Font cssVariable="--font-formata" preload />
+    <Font cssVariable="--font-nunito-sans" />
+    <Font cssVariable="--font-share-tech-mono" />
+    <Font cssVariable="--font-space-grotesk" />
 
     <!-- Resource Hints -->
     <link rel="preload" href="/images/logo-comsoc.svg" as="image" />
@@ -67,10 +67,10 @@ const ogImageURL = new URL(normalizedImage, Astro.site || 'http://localhost:4321
     <meta property="twitter:image" content={ogImageURL} />
     
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q9FC7KE7Y"></script>
-    <script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-7Q9FC7KE7Y"></script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){window.dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-7Q9FC7KE7Y');
     </script>

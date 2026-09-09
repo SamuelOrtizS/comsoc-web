@@ -10,14 +10,14 @@ const {
 } = Astro.props;
 ---
 
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-900">
-  <div class="relative overflow-hidden rounded-[30px] border border-accent-purple/20 bg-gradient-to-br from-bg-deep-slate to-bg-deep-slate-lighter p-8 sm:p-12 text-center shadow-[0_35px_90px_-48px_rgba(34,211,238,0.5)] group">
+<section class="community-cta-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="cta-box relative overflow-hidden rounded-[30px] border border-accent-purple/20 bg-gradient-to-br from-bg-deep-slate to-bg-deep-slate-lighter p-8 sm:p-12 text-center shadow-[0_35px_90px_-48px_rgba(34,211,238,0.5)] group">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_45%)] transition-opacity duration-500 group-hover:opacity-100"></div>
     <div class="relative z-10 mx-auto max-w-2xl space-y-6">
       <div class="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-cyan font-mono transition-colors duration-300 group-hover:text-accent-blue-lighter">
         Únete a la comunidad
       </div>
-      <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+      <h2 class="text-3xl font-black tracking-[-0.04em] text-text-primary sm:text-4xl">
         {title}
       </h2>
       <p class="text-sm leading-relaxed text-text-secondary sm:text-base font-light transition-colors duration-300 group-hover:text-text-primary">
@@ -42,3 +42,66 @@ const {
     </div>
   </div>
 </section>
+
+<style>
+  .cta-box {
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cta-box.is-visible {
+      animation: ctaBoxIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes ctaBoxIn {
+      from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.98);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-box {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  function setupCtaObserver() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const box = document.querySelector('.community-cta-section .cta-box');
+
+    if (!box) return;
+
+    if (!motionOK) {
+      box.classList.add('is-visible');
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(box);
+  }
+
+  setupCtaObserver();
+  document.addEventListener('astro:after-swap', setupCtaObserver);
+</script>
+

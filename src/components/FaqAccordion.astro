@@ -46,29 +46,147 @@ const defaultFaqs: Faq[] = [
 const { faqs = defaultFaqs, title = 'Preguntas frecuentes', badge = 'Dudas frecuentes' } = Astro.props;
 ---
 
-<section class="mx-auto mt-24 max-w-4xl px-4 sm:px-6 lg:px-8">
-  <div class="mx-auto mb-10 max-w-3xl text-center">
-    <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-purple/20 bg-accent-purple/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-purple font-mono">
+<section class="faq-section mx-auto mt-24 max-w-4xl px-4 sm:px-6 lg:px-8">
+  <div class="faq-header mx-auto mb-10 max-w-3xl text-center">
+    <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-purple/20 bg-accent-purple/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-purple font-mono shadow-[0_0_12px_rgba(168,85,247,0.15)]">
+      <span class="h-1.5 w-1.5 rounded-full bg-accent-purple animate-pulse"></span>
       {badge}
     </div>
     <h2 class="text-3xl font-bold tracking-[-0.03em] text-text-primary sm:text-4xl">{title}</h2>
   </div>
 
   <div class="space-y-4">
-    {faqs.map((faq) => (
-      <details class="glass-card group rounded-2xl border border-white/10 p-5 transition-colors">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-text-primary text-base sm:text-lg">
-          <span>{faq.q}</span>
-          <Icon
-            name="material-symbols:keyboard-arrow-down-rounded"
-            class="h-5 w-5 shrink-0 text-text-secondary transition-transform duration-200 group-open:rotate-180"
-            aria-hidden="true"
-          />
+    {faqs.map((faq, index) => (
+      <details
+        class="faq-item glass-card group rounded-2xl border border-white/10 p-5 transition-all duration-300 hover:border-accent-purple/40 hover:bg-white/[0.03] hover:shadow-[0_12px_32px_rgba(168,85,247,0.08)] [&[open]]:border-accent-purple/50 [&[open]]:bg-white/[0.04] [&[open]]:shadow-[0_16px_40px_rgba(168,85,247,0.12)] focus-within:ring-2 focus-within:ring-accent-purple/50"
+        style={`--faq-index: ${index};`}
+      >
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-text-primary text-base sm:text-lg select-none focus-visible:outline-none">
+          <span class="transition-colors duration-200 group-hover:text-white group-open:text-accent-purple font-medium">
+            {faq.q}
+          </span>
+          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all duration-300 group-hover:border-accent-purple/30 group-hover:bg-accent-purple/10 group-open:border-accent-purple/50 group-open:bg-accent-purple/20 group-open:rotate-180">
+            <Icon
+              name="material-symbols:keyboard-arrow-down-rounded"
+              class="h-5 w-5 text-text-secondary transition-colors duration-300 group-hover:text-accent-purple group-open:text-accent-purple"
+              aria-hidden="true"
+            />
+          </div>
         </summary>
-        <p class="mt-4 border-t border-white/10 pt-4 text-sm leading-relaxed text-text-secondary font-light sm:text-base text-justify">
-          {faq.a}
-        </p>
+        <div class="faq-content-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <div class="overflow-hidden">
+            <p class="mt-4 border-t border-white/10 pt-4 text-sm leading-relaxed text-text-secondary font-light sm:text-base text-justify">
+              {faq.a}
+            </p>
+          </div>
+        </div>
       </details>
     ))}
   </div>
 </section>
+
+<style>
+  .faq-header,
+  .faq-item {
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: opacity, transform;
+  }
+
+  /* When details has [open] attribute and .is-expanded class, expand content grid */
+  details.faq-item.is-expanded .faq-content-wrapper {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-header.is-visible {
+      animation: faqHeaderIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .faq-item.is-visible {
+      animation: faqItemIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--faq-index, 0) * 60ms + 100ms);
+    }
+
+    @keyframes faqHeaderIn {
+      from { opacity: 0; transform: translateY(18px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes faqItemIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-header,
+    .faq-item {
+      opacity: 1;
+      transform: none;
+    }
+    details.faq-item .faq-content-wrapper {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupFaqAccordion() {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    const items = document.querySelectorAll('.faq-section .faq-header, .faq-section .faq-item');
+
+    if (!motionOK) {
+      items.forEach(el => el.classList.add('is-visible'));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      items.forEach(el => observer.observe(el));
+    }
+
+    // Smooth open/close handler for details HTML elements
+    const detailsElements = document.querySelectorAll<HTMLDetailsElement>('.faq-section details.faq-item');
+
+    detailsElements.forEach((details) => {
+      const summary = details.querySelector('summary');
+      if (!summary) return;
+
+      // Ensure state synchronization if rendered pre-opened
+      if (details.open) {
+        details.classList.add('is-expanded');
+      }
+
+      summary.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent standard browser instant toggle
+
+        if (details.open) {
+          // Retract animation
+          details.classList.remove('is-expanded');
+          // Wait for smooth transition to complete before removing open attribute
+          setTimeout(() => {
+            details.open = false;
+          }, 300);
+        } else {
+          // Expand animation
+          details.open = true;
+          // Force layout reflow so browser registers open state before adding transition class
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              details.classList.add('is-expanded');
+            });
+          });
+        }
+      });
+    });
+  }
+
+  setupFaqAccordion();
+  document.addEventListener('astro:after-swap', setupFaqAccordion);
+</script>
+
