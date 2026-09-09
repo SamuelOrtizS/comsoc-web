@@ -485,6 +485,7 @@ const gallerySlides = (images ?? []).map((img) => {
     window.addEventListener('beforeunload', stopAutoPlay);
   }
 
+  setupGallery();
   document.addEventListener('astro:page-load', setupGallery);
 </script>
 
