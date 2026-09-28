@@ -13,7 +13,7 @@ Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Uni
 - Tienda catálogo (`/tienda` con modal `product-modal`)
 - Aliados y Red de Colaboración (home + modales)
 - Recursos descargables (`/nosotros/recursos`)
-- Donaciones y métodos de pago (`/donaciones`)
+- Gestión de financiación de proyectos
 
 ## Arquitectura Técnica
 
@@ -77,7 +77,6 @@ Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Uni
 | `/eventos` | `src/pages/eventos/index.astro:1` | Próximos/Pasados, `EventCard` con `calendar-today`/`location-on` |
 | `/eventos/[id]` | `src/pages/eventos/[id].astro:1` | Hero 1200×675, `CountdownTimer` con `role=timer` |
 | `/convocatorias` | `src/pages/convocatorias/index.astro:1` | `ConvocatoriaCard` con `check`/`calendar-clock`/`open-in-new` |
-| `/donaciones` | `src/pages/donaciones.astro:1` | Destinies con `science`/`school`/`groups`/`settings`, métodos de pago con copiado |
 | `/unirse` | `src/pages/unirse.astro:1` | CTA Unirse, info `verified`/`mdi:whatsapp` |
 | `/403`, `/404`, `/500`, `/error`, `/3301` | `src/components/ErrorPage.astro:1` | `code/tagline/title` con `Icon` custom (`shield`→403, `search-off`→404, `error`→500/generic, `bug-report`→3301) |
 
@@ -105,6 +104,6 @@ Sitio oficial del Capítulo Estudiantil IEEE Communications Society (ComSoc) Uni
 - **Moneda:** `currency.ts` con `AbortSignal.timeout(3000)` y caché 1h.
 - **Rutas:** `src/pages/` con `[id].astro` para colecciones.
 - **Estadísticas:** `src/content/estadisticas.json:1` (16 Miembros, 3 Eventos 2025, 2 Proyectos Activos, 4 Aliados).
-- **Donaciones:** `src/content/donaciones.json:1`.
+- **Datos de donaciones:** `src/content/donaciones.json:1` (funcionalidad pausada temporalmente).
 - **Iconos:** Astro Icon (`material-symbols:*` validado, `mdi:*` para marcas, `simple-icons:*`); `src/icons/.gitkeep` evita warning `ENOENT`.
 - **Accesibilidad:** `cursor:none` eliminado (solo decorativo con `prefers-reduced-motion`), H1 sr-only en home, `aria-expanded` en aliados, `role=timer` en countdown, `focus-visible:ring` en CTAs.

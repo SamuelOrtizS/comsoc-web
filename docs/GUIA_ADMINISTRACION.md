@@ -16,7 +16,7 @@ src/content/
 ├── recursos/         # Kits de marca, plantillas y materiales descargables
 ├── tienda/           # Artículos y merchandising
 ├── estadisticas.json # Cifras y métricas mostradas en la página de inicio
-└── donaciones.json   # Métodos de pago / donación mostrados en /donaciones
+└── donaciones.json   # Métodos de pago / donación reservados para una futura activación
 ```
 
 > **Nota sobre archivos de ejemplo:**  
@@ -218,9 +218,9 @@ Se renderizan en `src/pages/index.astro:110`.
 
 ---
 
-## 8. Métodos de Donación (`src/content/donaciones.json`)
+## 8. Métodos de Donación (funcionalidad pausada)
 
-Configura transferencias (Nu), billeteras (Nequi/Bre-B) y PayPal internacional. Cada método tiene `type`, `name`, `badge` y `details[]` (`label`+`value`). Se renderizan en `/donaciones` con copiado al portapapeles.
+Los datos de `src/content/donaciones.json` se conservan para una futura activación. Configuran transferencias (Nu), billeteras (Nequi/Bre-B) y PayPal internacional. Cada método tiene `type`, `name`, `badge` y `details[]` (`label`+`value`).
 
 ---
 

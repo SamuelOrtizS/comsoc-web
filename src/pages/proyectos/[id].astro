@@ -147,7 +147,6 @@ const estadoBadge = {
         <!-- Funding Goal Component -->
         {data.montoActual !== undefined && data.montoMeta !== undefined && (
           <ProjectFundingGoal
-            titulo={data.titulo}
             montoActual={montoActual}
             montoMeta={montoMeta}
             currentRate={currentRate}
@@ -243,28 +242,6 @@ const estadoBadge = {
             </div>
           </div>
         )}
-      </div>
-    </div>
-
-    <!-- Bottom Donations CTA Banner -->
-    <div class="mt-16 border-t border-white/10 pt-12">
-      <div class="glass-card rounded-3xl p-8 sm:p-12 border border-accent-purple/30 text-center relative overflow-hidden bg-linear-to-b from-bg-primary to-bg-deep-purple">
-        <div class="relative z-10 space-y-4">
-          <div class="flex justify-center text-accent-purple"><Icon name="material-symbols:volunteer-activism-rounded" class="w-10 h-10" aria-hidden="true" /></div>
-          <h2 class="text-xl sm:text-2xl font-bold text-text-primary">Apoya los proyectos de IEEE ComSoc</h2>
-          <p class="text-text-secondary max-w-2xl mx-auto text-xs sm:text-sm font-light leading-relaxed">
-            Como comunidad sin fines de lucro, tu generosidad impulsa la educación técnica y el desarrollo tecnológico local. Todo el capital se reinvierte íntegramente en las operaciones académicas y de investigación del capítulo.
-          </p>
-          <div class="pt-4">
-            <a
-              href="/donaciones"
-              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-xl bg-gradient-to-r from-accent-blue-lighter to-accent-cyan-lighter text-text-primary hover:opacity-95 shadow-md shadow-accent-blue/25 hover:scale-[1.02]"
-            >
-              Ir a la Página de Donaciones
-            </a>
-          </div>
-        </div>
-        <div class="absolute -z-10 w-64 h-64 bg-accent-purple/10 rounded-full blur-[120px] -bottom-32 -right-32"></div>
       </div>
     </div>
 

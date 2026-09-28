@@ -1,0 +1,22 @@
+{
+  "titulo": "Coordinador del Comité de Proyectos Técnicos",
+  "area": "Proyectos Técnicos",
+  "fechaLimite": "2026-10-31",
+  "descripcion": "Buscamos un estudiante motivado para liderar iniciativas de proyectos técnicos en ComSoc Univalle.",
+  "requisitos": [
+    "Ser estudiante activo de la Universidad del Valle cursando quinto semestre o superior en programas afines a telecomunicaciones, ingeniería electrónica, ingeniería eléctrica o ingeniería de sistemas.",
+    "Competencias comprobables en desarrollo de proyectos de software y hardware aplicados a telecomunicaciones.",
+    "Habilidades en gestión de proyectos, investigación aplicada y manejo de repositorios técnicos de código y arquitectura.",
+    "Capacidad de liderazgo de equipos de trabajo colaborativo."
+  ],
+  "responsabilidades": [
+    "Liderazgo operativo y gestión integral del Comité de Proyectos Técnicos en su calidad de comité operativo del capítulo.",
+    "Dirección del ciclo de vida de desarrollos tecnológicos, prototipos e iniciativas de I+D.",
+    "Organización de grupos de estudio, semilleros de investigación y capacitaciones técnicas internas.",
+    "Gestión, preservación y control de repositorios técnicos (código, diagramas y documentación de arquitectura).",
+    "Articulación funcional con la Junta Directiva (Chair, Vice-Chair) y los comités del Consejo de Capítulo (Comunicaciones y Marketing, Reclutamiento, Logística, Sostenimiento).",
+    "Garantizar un empalme ordenado mediante la transferencia formal de repositorios, accesos y documentación técnica durante la transición de mando."
+  ],
+  "estado": "Publicada",
+  "formUrl": "https://forms.google.com/ejemplo"
+}

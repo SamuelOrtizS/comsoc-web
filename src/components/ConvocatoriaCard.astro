@@ -42,9 +42,9 @@ const isClosed = estado === 'Cerrada';
           <Icon name="material-symbols:category-rounded" class="inline-block w-3.5 h-3.5 mr-1.5 -ml-0.5 opacity-70" aria-hidden="true" />
           {area}
         </span>
-        <span class={`group/status inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-300 shadow-sm ${isClosed ? 'from-accent-red-lighter to-accent-red-darker bg-linear-to-br text-accent-red border border-accent-red/30 hover:border-accent-red/45' : 'from-accent-emerald-lighter to-accent-emerald-darker bg-linear-to-br text-accent-emerald border border-accent-emerald/30 hover:border-accent-emerald/45'}`} aria-labelledby={` convocatorias-status-${id}`}>
+        <span class={`group/status inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-300 shadow-sm ${isClosed ? 'from-accent-red-lighter to-accent-red-darker bg-linear-to-br text-color-text-primary border border-accent-red/30 hover:border-accent-red/45' : 'from-accent-emerald-lighter to-accent-emerald-darker bg-linear-to-br text-color-text-primary border border-accent-emerald/30 hover:border-accent-emerald/45'}`} aria-labelledby={` convocatorias-status-${id}`}>
           <span class="w-1.5 h-1.5 rounded-full relative">
-            <span class={`absolute inset-0 rounded-full animate-ping-slow opacity-75 ${isClosed ? 'bg-accent-red/40' : 'bg-accent-emerald/40'}`} aria-hidden="true"></span>
+            <span class={`absolute inset-0 rounded-full animate-ping-slow opacity-100 ${isClosed ? 'bg-accent-red-darker/60' : 'bg-accent-emerald-darker/60'}`} aria-hidden="true"></span>
             <span class="relative w-1.5 h-1.5 rounded-full bg-current"></span>
           </span>
           <span id={` convocatorias-status-${id}`} aria-hidden="true">{isClosed ? 'Cerrada' : 'Abierta'}</span>
