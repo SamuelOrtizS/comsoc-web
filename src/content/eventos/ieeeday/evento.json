@@ -1,0 +1,23 @@
+{
+  "titulo": "IEEE Day 2026",
+  "tipo": "Encuentro Presencial",
+  "organizador": "IEEE Universidad ICESI Student Branch",
+  "fechaInicio": "2026-10-05",
+  "fechaFin": "2026-10-10",
+  "horaInicio": "08:00",
+  "horaFin": "13:00",
+  "lugarNombre": "Auditorio Banco de Occidente",
+  "lugarDireccion": "Edificio E, Universidad ICESI",
+  "descripcion": "Aprende los fundamentos prácticos de arquitectura 5G Standalone, virtualización de funciones de red (NFV) y Open Radio Access Network (O-RAN).",
+  "imagenPrincipal": "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png",
+  "estado": "Publicado",
+  "galeria": [
+    "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png"
+  ],
+  "detalles": [
+    {
+      "label": "Modalidad",
+      "value": "Presencial"
+    }
+  ]
+}
