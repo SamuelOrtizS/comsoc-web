@@ -8,16 +8,14 @@
   "horaFin": "13:00",
   "lugarNombre": "Auditorio Banco de Occidente",
   "lugarDireccion": "Edificio E, Universidad ICESI",
-  "descripcion": "Celebracion del IEEE Week 2026 en el Sur Occidente colombiano, con participacion de las ramas ieee de las universidades ICESI, Univalle y Santiago de Cali.",
+  "descripcion": "Actividad realizada en el marco de IEEE Day, orientada a promover el conocimiento y la participación de estudiantes en las actividades de IEEE y sus comunidades técnicas, fortaleciendo la conexión entre estudiantes, miembros y voluntarios y difundiendo oportunidades de desarrollo académico, profesional y de liderazgo.",
   "imagenPrincipal": "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png",
   "estado": "Publicado",
   "galeria": [
     "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png"
   ],
   "detalles": [
-    {
-      "label": "Modalidad",
-      "value": "Presencial"
-    }
+    { "label": "Modalidad", "value": "Presencial" },
+    { "label": "ID vTools", "value": "574654" }
   ]
 }

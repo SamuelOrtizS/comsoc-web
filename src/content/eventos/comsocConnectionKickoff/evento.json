@@ -1,0 +1,19 @@
+{
+  "titulo": "ComSoc Connection Kickoff Session (Univalle x UniNorte)",
+  "tipo": "Reunion",
+  "organizador": "Universidad del Valle, COM19",
+  "fechaInicio": "2026-10-01",
+  "fechaFin": "2026-10-01",
+  "horaInicio": "20:30",
+  "horaFin": "23:20",
+  "lugarNombre": "Reunión virtual",
+  "lugarDireccion": "Enlace disponible en vTools: https://events.vtools.ieee.org/m/581612",
+  "descripcion": "A collaborative session between IEEE Computer & Communications Society Universidad del Norte and IEEE ComSoc Universidad del Valle, focused on strengthening connections between student chapters and exploring opportunities for future collaboration within the IEEE Communications Society community. During the session, the participants discussed the format of an upcoming ComSoc event, chapter brand identity, communication strategies, coordination with the IEEE Section and opportunities to strengthen the connection between student chapters and the broader IEEE community.",
+  "imagenPrincipal": "src\\assets\\images\\logo-comsoc-white.svg",
+  "estado": "Pasado",
+  "detalles": [
+    { "label": "Modalidad", "value": "Virtual" },
+    { "label": "Acceso", "value": "Restringido al ComSoc ExCom" },
+    { "label": "ID vTools", "value": "581612" }
+  ]
+}

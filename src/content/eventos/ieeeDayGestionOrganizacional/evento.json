@@ -1,0 +1,19 @@
+{
+  "titulo": "IEEE DAY MEETING: INTERNAL ORGANIZATIONAL MANAGEMENT",
+  "tipo": "Reunion",
+  "organizador": "Universidad del Valle",
+  "fechaInicio": "2026-09-09",
+  "fechaFin": "2026-09-09",
+  "horaInicio": "20:00",
+  "horaFin": "21:00",
+  "lugarNombre": "Reunión virtual",
+  "lugarDireccion": "Enlace disponible en vTools: https://events.vtools.ieee.org/m/576848",
+  "descripcion": "During this meeting, the Executive Board of the IEEE Universidad del Valle Student Branch gathered to discuss, delegate responsibilities and strategically plan support for IEEE Day, including task delegation, logistics, funding and sponsorships, marketing and digital outreach, and administrative oversight.",
+  "imagenPrincipal": "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png",
+  "estado": "Pasado",
+  "detalles": [
+    { "label": "Modalidad", "value": "Virtual" },
+    { "label": "Acceso", "value": "Restringido al SB ExCom" },
+    { "label": "ID vTools", "value": "576848" }
+  ]
+}

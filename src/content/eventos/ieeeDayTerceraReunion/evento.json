@@ -1,0 +1,19 @@
+{
+  "titulo": "IEEE Day Third Meeting: Organizational Management between IEEE ICESI - IEEE Univalle - IEEE USC",
+  "tipo": "Reunion",
+  "organizador": "Universidad del Valle, COM19",
+  "fechaInicio": "2026-09-28",
+  "fechaFin": "2026-09-28",
+  "horaInicio": "17:00",
+  "horaFin": "18:00",
+  "lugarNombre": "Reunión virtual",
+  "lugarDireccion": "Enlace disponible en vTools: https://events.vtools.ieee.org/m/580555",
+  "descripcion": "Coordination meeting to align venue logistics, speaker schedules, partner contributions and promotional campaigns for the upcoming IEEE Day event. The meeting covered partnerships and sponsorships, venue and logistics management, agenda and speaker coordination, merchandise and event kits, and final team coordination.",
+  "imagenPrincipal": "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png",
+  "estado": "Pasado",
+  "detalles": [
+    { "label": "Modalidad", "value": "Virtual" },
+    { "label": "Acceso", "value": "Restringido al ComSoc SBC y SB ExCom" },
+    { "label": "ID vTools", "value": "580555" }
+  ]
+}

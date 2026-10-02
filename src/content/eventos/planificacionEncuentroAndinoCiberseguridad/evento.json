@@ -1,0 +1,19 @@
+{
+  "titulo": "First Planning Meeting: Encuentro Andino de Ciberseguridad",
+  "tipo": "Reunion",
+  "organizador": "Universidad del Valle, COM19",
+  "fechaInicio": "2026-09-30",
+  "fechaFin": "2026-09-30",
+  "horaInicio": "18:00",
+  "horaFin": "19:00",
+  "lugarNombre": "Reunión virtual",
+  "lugarDireccion": "Enlace disponible en vTools: https://events.vtools.ieee.org/m/581257",
+  "descripcion": "First organizational meeting to plan the Encuentro Andino de Ciberseguridad, a collaborative virtual initiative led by the IEEE ComSoc Univalle Student Chapter with participation from student chapters across the Andean Region (IEEE Region 9). The five-day summit will foster technical knowledge exchange between academia and industry around the CIA Triad: confidentiality, integrity and availability. Planned tracks include cloud, network, software, physical and personal security.",
+  "imagenPrincipal": "src\\assets\\images\\logo-comsoc-white.svg",
+  "estado": "Pasado",
+  "detalles": [
+    { "label": "Modalidad", "value": "Virtual" },
+    { "label": "Acceso", "value": "Restringido al ComSoc SBC y SB ExCom" },
+    { "label": "ID vTools", "value": "581257" }
+  ]
+}

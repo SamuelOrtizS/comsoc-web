@@ -1,0 +1,18 @@
+{
+  "titulo": "IEEE DAY - strategic meeeting",
+  "tipo": "Reunion",
+  "organizador": "Icesi University COM19",
+  "fechaInicio": "2026-09-08",
+  "fechaFin": "2026-09-08",
+  "horaInicio": "19:04",
+  "horaFin": "22:04",
+  "lugarNombre": "Calle 18 #122-135",
+  "lugarDireccion": "Cali",
+  "descripcion": "Se trataron temas de sponsors potenciales, networking y refinamiento de actividades.",
+  "imagenPrincipal": "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png",
+  "estado": "Pasado",
+  "detalles": [
+    { "label": "Modalidad", "value": "Presencial" },
+    { "label": "ID vTools", "value": "577326" }
+  ]
+}

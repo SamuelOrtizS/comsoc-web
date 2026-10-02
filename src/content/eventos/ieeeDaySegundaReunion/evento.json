@@ -1,0 +1,19 @@
+{
+  "titulo": "IEEE Day Second Meeting: Organizational Management between IEEE ICESI - IEEE Univalle - IEEE USC",
+  "tipo": "Reunion",
+  "organizador": "Universidad del Valle, COM19",
+  "fechaInicio": "2026-09-07",
+  "fechaFin": "2026-09-07",
+  "horaInicio": "17:00",
+  "horaFin": "18:00",
+  "lugarNombre": "Reunión virtual",
+  "lugarDireccion": "Enlace disponible en vTools: https://events.vtools.ieee.org/m/576394",
+  "descripcion": "Planning meeting for the IEEE Day activities organized by allied Student Branches and Technical Chapters in Cali, including technical workshops and exhibitions, a computational intelligence hackathon, conferences and panels, networking activities and the digital campaign.",
+  "imagenPrincipal": "https://ieeeday.org/wp-content/uploads/2022/08/IEEE-Day.png",
+  "estado": "Pasado",
+  "detalles": [
+    { "label": "Modalidad", "value": "Virtual" },
+    { "label": "Acceso", "value": "Restringido al ComSoc SBC y SB ExCom" },
+    { "label": "ID vTools", "value": "576394" }
+  ]
+}
