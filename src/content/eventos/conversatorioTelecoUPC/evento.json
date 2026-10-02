@@ -1,0 +1,25 @@
+{
+  "titulo": "Conversatorio Internacional de Telecomunicaciones",
+  "tipo": "Conversatorio",
+  "organizador": "IEEE ComSoc UPC",
+  "fechaInicio": "2026-09-23",
+  "fechaFin": "2026-09-25",
+  "horaInicio": "18:00",
+  "horaFin": "20:00",
+  "lugarNombre": "Google Meet",
+  "descripcion": "Durante tres días, siete capítulos estudiantiles de IEEE Communications Society de Perú, Panamá, Chile, Colombia y Ecuador compartirán un mismo espacio de intercambio técnico, con IEEE ComSoc UPC como capítulo anfitrión y MMJ Smart Electronics como aliado industrial,",
+  "imagenPrincipal": "https://i.imgur.com/peMRt5V.png",
+  "estado": "Publicado",
+  "galeria": [
+    "https://i.imgur.com/41JFPAj.png",
+    "https://i.imgur.com/M3mz7RM.png",
+    "https://i.imgur.com/4Efv02N.png",
+    "https://i.imgur.com/IHduukM.png"
+  ],
+  "detalles": [
+    {
+      "label": "Modalidad",
+      "value": "Virtual"
+    }
+  ]
+}
