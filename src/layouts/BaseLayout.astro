@@ -79,6 +79,16 @@ const ogImageURL = new URL(normalizedImage, Astro.site || 'http://localhost:4321
 
       initWebVitals();
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "IEEE ComSoc Univalle",
+        "url": "https://comsoc.ieeeunivalle.link/",
+        "logo": "https://i.imgur.com/vpkZBTj.png",
+        "description": "Capítulo estudiantil de la IEEE Communications Society en la Universidad del Valle."
+      }
+    </script>
   </head>
   <body class="min-h-screen flex flex-col bg-bg-primary text-text-primary selection:bg-accent-blue selection:text-text-primary relative overflow-x-hidden font-sans antialiased bg-dot-grid">
     <Header />
